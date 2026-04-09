@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@layer base {
+  body {
+    background-color: theme('colors.tbtx.bg');
+    color: theme('colors.tbtx.text');
+    font-family: var(--font-outfit);
+    /* Prevent bouncy scrolling on mobile for a more rigid, industrial feel */
+    overscroll-behavior-y: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .type-macro {
+    font-family: var(--font-archivo-black);
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.85;
+  }
+
+  .structural-border {
+    border: 1px solid theme('colors.tbtx.divider');
+  }
+}
