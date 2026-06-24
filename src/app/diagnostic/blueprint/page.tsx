@@ -40,76 +40,48 @@ function BlueprintContent() {
   const data = archetypeMap[targetArchetype];
 
   return (
-    <main className="min-h-[100dvh] bg-[#F5F5F0] text-tbtx-bg p-8 md:p-16 font-body selection:bg-tbtx-bg selection:text-[#F5F5F0]">
-      
-      <header className="flex justify-between items-center pb-8 border-b-2 border-tbtx-bg mb-16">
-        <div className="font-mono text-sm font-bold uppercase tracking-widest">
-          AI Blueprint // Final Generation
-        </div>
-        <Link href="/bbm" className="font-mono text-sm flex items-center gap-2 hover:opacity-50">
-          <ArrowLeft className="w-4 h-4" /> RECALIBRATE
+    <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] paper-bg p-5 md:p-10 font-body">
+      <header className="flex justify-between items-center pb-8 border-b border-[#D8D2C5] mb-12 md:mb-16">
+        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#B89A6E]">AI BLUEPRINT // CONTEXT ARCHITECTURE RESULT</div>
+        <Link href="/tbtx" className="engineered-control text-[10px]">
+          <ArrowLeft className="w-3.5 h-3.5" /> BACK TO THE MAP
         </Link>
       </header>
 
-      <div className="max-w-5xl mx-auto space-y-24">
-        
-        {/* HEADER BLOCK */}
-        <section className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 font-mono text-sm uppercase tracking-widest border-t-2 border-tbtx-bg pt-4">
-            01 / System Form
-          </div>
-          <div className="md:col-span-3">
-            <h1 className="type-macro text-5xl md:text-8xl mb-4">{data.name}</h1>
-            <p className="font-mono bg-tbtx-bg text-[#F5F5F0] p-4 inline-block uppercase font-bold tracking-widest">
-              DIAGNOSTIC STATUS: {data.status}
-            </p>
-          </div>
+      <div className="max-w-4xl mx-auto space-y-16 md:space-y-20">
+        <section>
+          <div className="blueprint-label mb-2">01 / SYSTEM FORM</div>
+          <h1 className="type-macro text-[clamp(2.4rem,8vw,3.85rem)] leading-[0.86] tracking-[-0.05em]">{data.name}</h1>
+          <div className="inline-block mt-4 px-4 py-1 border border-[#B89A6E] text-xs tracking-[0.12em] text-[#B89A6E]">STATUS: {data.status}</div>
         </section>
 
-        {/* FIX BLOCK */}
-        <section className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 font-mono text-sm uppercase tracking-widest border-t-2 border-tbtx-bg pt-4">
-            02 / The Initial Fix
-          </div>
-          <div className="md:col-span-3">
-            <h2 className="type-macro text-4xl md:text-6xl text-tbtx-accent">
-              {data.fix}
-            </h2>
-            <p className="mt-8 text-xl max-w-2xl font-mono leading-relaxed">
-              &gt;&gt; Treating symptoms (like buying another AI tool) only thickens the fog. We have to correct the underling system architecture first.
-            </p>
-          </div>
+        <section className="border-l-2 border-[#2C5F4A] pl-6">
+          <div className="blueprint-label mb-2">02 / THE INITIAL FIX</div>
+          <h2 className="type-macro text-[clamp(1.85rem,5.8vw,2.8rem)] leading-[0.9] text-[#2C5F4A]">{data.fix}</h2>
+          <p className="mt-5 max-w-[52ch] text-[15px] leading-[1.7]">Treating symptoms only thickens the fog. Correct the underlying operating architecture first.</p>
         </section>
 
-        {/* NEXT MOVES */}
-        <section className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 font-mono text-sm uppercase tracking-widest border-t-2 border-tbtx-bg pt-4">
-            03 / Implementation
-          </div>
-          <div className="md:col-span-3">
-            <h2 className="type-macro text-4xl md:text-6xl mb-8">
-              {data.next}
-            </h2>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mt-12">
-              <button onClick={() => window.print()} className="bg-tbtx-bg text-[#F5F5F0] font-display uppercase text-2xl px-8 py-5 flex items-center justify-center gap-3 hover:bg-tbtx-accent transition-colors">
-                <Download className="w-6 h-6" /> Export PDF Blueprint
-              </button>
-              <Link href="/bbai" className="border-2 border-tbtx-bg bg-transparent text-tbtx-bg font-display uppercase text-2xl px-8 py-5 flex items-center justify-center hover:bg-tbtx-bg hover:text-[#F5F5F0] transition-colors">
-                Explore Infrastructure
-              </Link>
-            </div>
+        <section>
+          <div className="blueprint-label mb-2">03 / IMPLEMENTATION</div>
+          <h2 className="type-macro text-[clamp(1.7rem,5.5vw,2.65rem)] leading-[0.9] mb-4">{data.next}</h2>
+
+          <div className="flex flex-col sm:flex-row gap-3 mt-8">
+            <button onClick={() => window.print()} className="engineered-control">
+              <Download className="w-4 h-4" /> EXPORT BLUEPRINT
+            </button>
+            <Link href="/bbai" className="engineered-control">BUILD THE BACKBONE</Link>
           </div>
         </section>
-
       </div>
+
+      <footer className="mt-20 text-[10px] font-mono text-[#B89A6E] tracking-[0.1em]">EVERY ASSET ROUTES TO A FUNNEL. CONTEXT ARCHITECTURE FIRST.</footer>
     </main>
   );
 }
 
 export default function BlueprintPage() {
   return (
-    <Suspense fallback={<div className="h-screen w-full bg-[#F5F5F0] flex items-center justify-center font-mono">Compiling...</div>}>
+    <Suspense fallback={<div className="h-screen w-full bg-[#F4EDE3] flex items-center justify-center font-mono text-xs tracking-[0.1em]">COMPILING BLUEPRINT...</div>}>
       <BlueprintContent />
     </Suspense>
   );
