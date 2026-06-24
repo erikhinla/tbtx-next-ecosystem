@@ -2,160 +2,100 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowDownRight } from "lucide-react";
 
-const RevealText = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => (
+const RevealText = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y: 18 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.22, ease: "easeOut", delay }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.28, ease: "easeOut", delay }}
   >
     {children}
   </motion.div>
 );
 
-const SystemLine = () => (
-  <motion.div
-    initial={{ scaleX: 0 }}
-    whileInView={{ scaleX: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, ease: "circOut" }}
-    className="h-[1px] w-full bg-bbai-divider origin-left my-12 md:my-24"
-  />
-);
+const BlueprintRule = () => <div className="h-px w-12 bg-[#B89A6E]/40 my-8" />;
+
 export default function BBAIPage() {
   return (
-    <main className="min-h-[100dvh] bg-bbai-bg text-bbai-text font-body p-4 md:p-12 selection:bg-bbai-accent selection:text-white">
-      
-      {/* HEADER */}
-      <header className="flex justify-between items-center font-mono text-xs uppercase tracking-widest text-bbai-secondary mb-24">
-        <span>BBAI_SYS // 001</span>
-        <span>Infrastructure Precedes Execution</span>
+    <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] paper-bg font-body">
+      <header className="flex justify-between items-center px-5 md:px-8 py-5 text-xs font-mono tracking-[0.12em] border-b border-[#D8D2C5]">
+        <Link href="/tbtx">TRANSFORMBY10X</Link>
+        <div className="text-[#B89A6E]">INFRASTRUCTURE PRECEDES EXECUTION</div>
+        <Link href="/diagnostic" className="engineered-control text-[10px]">GET YOUR CUSTOM ROADMAP</Link>
       </header>
 
-      <div className="max-w-6xl mx-auto">
-        
-        {/* SEC 1 - Updated headline per prompt */}
-        <section className="mb-32">
+      <div className="max-w-[1080px] mx-auto px-5 md:px-8">
+        {/* HERO — exact prompt headline, light blueprint */}
+        <section className="pt-16 md:pt-20 pb-14">
           <RevealText>
-            <h1 className="type-macro text-[clamp(3rem,8vw,8rem)] text-balance">
-              Build the backbone<br/>before you add more AI.
+            <div className="blueprint-label mb-3">LAYER 02 • SYSTEM ARCHITECTURE</div>
+            <h1 className="type-macro text-[clamp(2.85rem,9.4vw,5.1rem)] leading-[0.84] tracking-[-0.06em]">
+              BUILD THE BACKBONE<br />BEFORE YOU ADD MORE AI.
             </h1>
           </RevealText>
-          <RevealText delay={0.1}>
-            <p className="mt-8 max-w-2xl text-xl text-bbai-secondary">
+          <RevealText delay={0.08}>
+            <p className="mt-6 max-w-[58ch] text-[15.2px] leading-[1.68]">
               BizBuilders AI designs the infrastructure, workflows, routing systems, and operating architecture that make automation and AI agents useful inside real businesses.
             </p>
           </RevealText>
-          <RevealText delay={0.15}>
-            <p className="font-mono text-bbai-secondary mt-6 bg-[#111] inline-block p-4 border border-bbai-divider">
-              /// Context before automation. GOAL before FLOW.
-            </p>
-          </RevealText>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/diagnostic" className="engineered-control">START WITH CONTEXT ARCHITECTURE</Link>
+            <Link href="/bbm" className="engineered-control">ACTIVATE GROWTH SYSTEM</Link>
+          </div>
+          <p className="mt-3 text-xs text-[#B89A6E] font-mono tracking-[0.1em]">MANDATORY FIRST STEP. NO BUILD WITHOUT THE MAP.</p>
         </section>
 
-        <SystemLine />
+        <BlueprintRule />
 
-        {/* SEC 2 & 3 */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
-          <div>
-            <RevealText>
-              <h2 className="type-macro text-4xl md:text-6xl text-bbai-secondary">
-                This isn&apos;t a tool problem
-              </h2>
-            </RevealText>
-            <RevealText delay={0.1}>
-              <h2 className="type-macro text-4xl md:text-6xl mt-4">
-                It&apos;s a system gap
-              </h2>
-            </RevealText>
-          </div>
-          
-          <div className="border border-bbai-divider p-8 bg-[#0F0F0F] relative overflow-hidden group hover:border-bbai-accent transition-colors">
-            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-            <RevealText>
-              <h2 className="type-macro text-3xl md:text-5xl text-balance relative z-10">
-                The missing layer is structure
-              </h2>
-            </RevealText>
-            <RevealText delay={0.1}>
-              <p className="font-mono text-sm text-bbai-accent mt-8 relative z-10">
-                [ How work flows. Where it stops. What connects. WIN memory. GOAL governance. ]
-              </p>
-            </RevealText>
-          </div>
-        </section>
-
-        <SystemLine />
-
-        {/* SEC 4 & 5 */}
-        <section className="space-y-32">
-          <div className="text-center">
-            <RevealText>
-              <h2 className="type-macro text-5xl md:text-8xl">
-                The AI Blueprint
-              </h2>
-            </RevealText>
-            <RevealText delay={0.1}>
-              <h2 className="type-macro text-5xl md:text-7xl text-bbai-secondary mb-8">
-                makes the system gap visible
-              </h2>
-            </RevealText>
-            <RevealText delay={0.2}>
-              <span className="font-mono bg-white text-black px-6 py-3 font-bold uppercase tracking-widest">
-                Your gap, bottleneck, and next move.
-              </span>
-            </RevealText>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-8 border-l-4 border-bbai-accent bg-[#111]">
-              <RevealText>
-                <h3 className="type-macro text-3xl md:text-5xl">You don&apos;t need more information</h3>
-                <h3 className="type-macro text-3xl md:text-5xl text-bbai-accent mt-2">You need direction.</h3>
-              </RevealText>
-              <RevealText delay={0.1}>
-                <p className="font-mono mt-8 text-bbai-secondary">/// What to do first. What to ignore. What moves things forward. Context Architecture first.</p>
-              </RevealText>
-            </div>
-            
-            <div className="p-8 border border-bbai-divider bg-[#151515]">
-              <RevealText>
-                <h3 className="type-macro text-3xl md:text-5xl">Then we build it with you</h3>
-              </RevealText>
-              <RevealText delay={0.1}>
-                <p className="font-mono mt-8 text-bbai-secondary">/// Workflows. Systems. AI that fits how you operate. Governed by GOAL + FLOW.</p>
-              </RevealText>
-            </div>
-          </div>
-        </section>
-
-        <SystemLine />
-
-        {/* SEC 7 CTA - exact prompt CTA */}
-        <section className="text-center pb-32">
+        {/* PROBLEM AS VISUAL CONDITION */}
+        <section className="pb-16">
           <RevealText>
-             <h2 className="type-macro text-5xl md:text-7xl mb-8">
-               Get Your Custom Roadmap
-             </h2>
+            <h2 className="type-macro text-[clamp(1.95rem,6.2vw,2.85rem)] leading-[0.9]">Digital fog is not a headline.<br />It is a visual condition.</h2>
           </RevealText>
-          <RevealText delay={0.1}>
-            <Link 
-              href="/diagnostic"
-              className="inline-flex flex-col items-center group cursor-pointer"
-            >
-              <div className="bg-white text-black font-display uppercase text-2xl md:text-4xl px-12 py-6 flex items-center gap-4 group-hover:bg-bbai-accent group-hover:text-white transition-colors">
-                Get Your Custom Roadmap <ArrowDownRight className="w-8 h-8 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
-              </div>
-              <span className="font-mono text-xs mt-4 text-bbai-secondary tracking-widest uppercase">
-                [ Start with Context Architecture ]
-              </span>
-            </Link>
+          <RevealText delay={0.06}>
+            <p className="max-w-[48ch] mt-6 text-[15px] leading-relaxed text-[#1C1916]/80">Tools multiply faster than context. Execution outpaces memory. The organizations gaining ground are governing context, preserving memory, coordinating decisions — designing for intelligence instead of accumulating software.</p>
           </RevealText>
         </section>
 
+        {/* GOAL EMPHASIS — architectural drawings */}
+        <section className="bg-[#EDE4D8] p-8 md:p-12 border border-[#B89A6E]/30 blueprint-grid mb-16">
+          <div className="blueprint-label mb-2">THE ARCHITECTURE</div>
+          <div className="grid md:grid-cols-5 gap-8">
+            <div className="md:col-span-3">
+              <h3 className="type-macro text-3xl md:text-[2.65rem] leading-[0.86] tracking-[-0.04em]">GOAL is the blueprint.<br />Rules + governance + operating model + architecture.</h3>
+            </div>
+            <div className="md:col-span-2 text-sm leading-[1.7] text-[#1C1916]/80 pt-1">
+              Context Architecture is the mandatory gate. Every client must complete it before any infrastructure, automation, workflow, or agent project begins. No Context Architecture means no build.
+              <div className="mt-8 text-[#2C5F4A] text-xs tracking-[0.08em]">WHEN THE INFRASTRUCTURE IS RIGHT, THE BUILDER DOES NOT NEED TO BE AN ENGINEER.</div>
+            </div>
+          </div>
+        </section>
+
+        {/* WIN + FLOW + FAAS quick spatial */}
+        <section className="grid md:grid-cols-3 gap-4 pb-20">
+          {[
+            { title: "WIN", sub: "Decide what matters now. Persistent memory + recursive learning + risk routing." },
+            { title: "FLOW", sub: "Execution momentum without friction. Task envelopes. Risk-classified routes. Artifacts + audit + reflection." },
+            { title: "FAAS", sub: "The machinery beneath. Folders. Markdown. Scripts. Protocols. The control layer that makes AI-assisted work safe and provable." },
+          ].map((item, i) => (
+            <div key={i} className="border border-[#B89A6E]/30 p-7 text-sm leading-[1.65]">
+              <div className="text-[#B89A6E] text-xs tracking-[0.1em] mb-2">{item.title}</div>
+              {item.sub}
+            </div>
+          ))}
+        </section>
+
+        <div className="pb-16 text-center">
+          <Link href="/diagnostic" className="engineered-control">GET YOUR CUSTOM ROADMAP</Link>
+          <div className="text-[10px] mt-3 tracking-[0.1em] text-[#B89A6E]">INTAKE • BLUEPRINT • IMPLEMENTATION</div>
+        </div>
       </div>
+
+      <footer className="text-[10px] font-mono px-5 md:px-8 py-6 text-[#B89A6E] border-t border-[#D8D2C5] tracking-[0.1em]">
+        BIZBUILDERS AI — A TRANSFORMBY10X COMPANY • INFRASTRUCTURE BEFORE ACCELERATION
+      </footer>
     </main>
   );
 }
