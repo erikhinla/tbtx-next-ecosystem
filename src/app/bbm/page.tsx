@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { intakeConfig, Archetype } from "@/config/intakeQuestions";
-import { ArrowRight, TerminalSquare } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+
 export default function BBMPage() {
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [scores, setScores] = useState<Record<Archetype, number>>({
@@ -13,122 +14,67 @@ export default function BBMPage() {
     fragmentedWorkflow: 0,
     executionStall: 0,
   });
-  
+
   const isFinished = currentQIndex >= intakeConfig.length;
-  
-  // Calculate top archetype for display
   const topArchetype = Object.keys(scores).reduce((a, b) => scores[a as Archetype] > scores[b as Archetype] ? a : b) as Archetype;
-  
   const formatArchetype = (str: string) => str.replace(/([A-Z])/g, ' $1').toUpperCase();
 
   const handleSelect = (weights: Partial<Record<Archetype, number>>) => {
-    // Tally points
     setScores(prev => {
       const next = { ...prev };
-      Object.keys(weights).forEach(k => {
-        next[k as Archetype] += weights[k as Archetype] || 0;
-      });
+      Object.keys(weights).forEach(k => { next[k as Archetype] += weights[k as Archetype] || 0; });
       return next;
     });
-    
     setCurrentQIndex(prev => prev + 1);
   };
 
   const clarityScore = Math.min(100, Math.round(((currentQIndex) / intakeConfig.length) * 100));
-  
-  const systemStatusMap = {
-    0: "AWAITING INPUT",
-    1: "FRAGMENTED",
-    2: "FRAGMENTED",
-    3: "DISCONNECTED",
-    4: "DISCONNECTED",
-    5: "BOTTLENECK DETECTED",
-  };
   const getStatus = () => {
     if (isFinished) return formatArchetype(topArchetype);
-    if (currentQIndex < 5) return systemStatusMap[currentQIndex as keyof typeof systemStatusMap] || "MAPPING";
-    if (currentQIndex < 10) return "ANALYZING WORKFLOW";
-    return "COMPILING GAPS";
-  };
-
-  const avaMessage = () => {
-    if (isFinished) return "I HAVE ENOUGH TO MAP THIS.\nLET'S BUILD YOUR BLUEPRINT.";
-    if (currentQIndex === 1) return "THIS IS USUALLY WHERE SYSTEMS BREAK FIRST.";
-    if (currentQIndex === 7) return "YOU'RE NOT OVERLOADED.\nYOUR FLOW IS DISCONNECTED.";
-    return null;
+    return currentQIndex < 6 ? "MAPPING GAPS" : currentQIndex < 11 ? "TRACING ROUTES" : "COMPILING BLUEPRINT";
   };
 
   return (
-    <main className="h-[100dvh] bg-bbm-bg text-bbm-text flex flex-col md:flex-row overflow-hidden font-body">
-      
-      {/* LEFT PANEL - Persistent */}
-      <div className="flex-1 p-8 md:p-16 border-b md:border-b-0 md:border-r border-[#333] flex flex-col justify-center relative bg-bbm-bg">
-        <div className="absolute top-8 left-8 font-mono text-xs tracking-widest text-[#666]">
-          BBM_OS // LIVE DIAGNOSTIC
-        </div>
-        
-        <h1 className="type-macro text-5xl md:text-[clamp(3.5rem,6vw,7rem)] leading-[0.9]">
-          Stop losing leads<br/>before they become customers.
-        </h1>
-        <h1 className="type-macro text-5xl md:text-[clamp(3.5rem,6vw,7rem)] leading-[0.9] text-bbm-accent mt-4">
-          BizBot Mrktng installs<br/>AI voice, follow-up,<br/>and automation systems.
-        </h1>
-        
-        <div className="mt-12 font-mono border border-[#333] p-4 inline-block self-start text-[#AAA]">
-          &gt;&gt;&gt; CAPTURE. NURTURE. CONVERT. ONLY AFTER FOUNDATION.
-        </div>
-      </div>
+    <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] font-body paper-bg overflow-hidden flex flex-col">
+      {/* HEADER */}
+      <header className="px-5 md:px-8 py-4 flex justify-between items-center text-xs font-mono tracking-[0.12em] border-b border-[#D8D2C5] z-10 bg-[#F4EDE3]/95 backdrop-blur">
+        <Link href="/tbtx">TRANSFORMBY10X</Link>
+        <div>ACTIVATION LAYER • UNLOCKS AFTER GOAL</div>
+        <Link href="/diagnostic" className="engineered-control text-[10px]">ACTIVATE GROWTH SYSTEM</Link>
+      </header>
 
-      {/* RIGHT PANEL - Interactive Diagnostic Surface */}
-      <div className="flex-1 bg-[#111] p-8 md:p-16 flex flex-col relative overflow-y-auto">
-        
-        {/* Status Header */}
-        <div className="font-mono text-sm grid grid-cols-2 md:grid-cols-3 gap-4 border-b border-[#333] pb-6 mb-12 uppercase">
-          <div>
-            <span className="text-[#666] block">System Status:</span>
-            <motion.span key={currentQIndex} initial={{opacity:0}} animate={{opacity:1}} className={isFinished ? "text-red-500" : "text-white"}>
-              {getStatus()}
-            </motion.span>
-          </div>
-          <div>
-            <span className="text-[#666] block">Clarity:</span>
-            <span className="text-white">{clarityScore}%</span>
-          </div>
-          <div>
-            <span className="text-[#666] block">Blueprint:</span>
-            {isFinished ? (
-              <span className="bg-bbm-accent text-[#000] px-2 font-bold animate-pulse">READY</span>
-            ) : (
-              <span className="text-[#444]">--</span>
-            )}
-          </div>
+      <div className="flex-1 flex flex-col md:flex-row">
+        {/* LEFT — PRESS / HEADLINE IN LIGHT PAPER */}
+        <div className="md:w-5/12 px-6 md:px-10 pt-10 pb-8 md:pb-0 border-b md:border-b-0 md:border-r border-[#D8D2C5] flex flex-col justify-center bg-[#EDE4D8]">
+          <div className="blueprint-label mb-4">LAYER 03 • REVENUE ACTIVATION</div>
+          <h1 className="type-macro text-[clamp(2.35rem,8.2vw,3.85rem)] leading-[0.86] tracking-[-0.055em] max-w-[15ch]">
+            STOP LOSING LEADS BEFORE THEY BECOME CUSTOMERS.
+          </h1>
+          <p className="mt-6 max-w-[42ch] text-[15px] leading-[1.65]">BizBot Marketing installs AI voice, follow-up, and marketing automation systems that help local businesses capture, nurture, and convert more demand.</p>
+          <div className="mt-auto pt-12 text-xs text-[#B89A6E] font-mono tracking-[0.08em]">COMPLETE CONTEXT ARCHITECTURE FIRST. GROWTH ON BROKEN INFRASTRUCTURE CREATES FASTER CHAOS.</div>
         </div>
 
-        {/* Content Area */}
-        <div className="flex-1 flex flex-col">
+        {/* RIGHT — DIAGNOSTIC SURFACE AS BLUEPRINT ENGINE */}
+        <div className="md:w-7/12 flex flex-col bg-[#F4EDE3] p-6 md:p-10 relative">
+          <div className="font-mono text-xs text-[#B89A6E] flex gap-8 border-b border-[#D8D2C5] pb-3 mb-8">
+            <div>SYSTEM STATUS: <span className="text-[#1C1916]">{getStatus()}</span></div>
+            <div>CLARITY: {clarityScore}%</div>
+          </div>
+
           {!isFinished ? (
             <AnimatePresence mode="wait">
-              <motion.div 
-                key={currentQIndex}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, transition: {duration: 0} }}
-                transition={{ duration: 0.14 }} // 140ms precise entry
-                className="flex-1 flex flex-col"
-              >
-                <div className="font-mono text-bbm-accent mb-4 tracking-widest text-xs">
-                  [ Q{String(currentQIndex + 1).padStart(2, '0')} / 15 ]
-                </div>
-                <h3 className="type-macro text-3xl md:text-5xl mb-12">
+              <motion.div key={currentQIndex} initial={{opacity:0, y:12}} animate={{opacity:1,y:0}} className="flex-1 flex flex-col">
+                <div className="blueprint-label mb-2">Q{String(currentQIndex+1).padStart(2,'0')} / 15</div>
+                <h3 className="type-macro text-[clamp(1.65rem,5.2vw,2.35rem)] leading-[0.92] tracking-[-0.03em] max-w-[26ch]">
                   {intakeConfig[currentQIndex].question}
                 </h3>
-                
-                <div className="flex flex-col gap-4 mt-auto">
+
+                <div className="mt-auto grid gap-2.5 pt-8">
                   {intakeConfig[currentQIndex].options.map((opt, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSelect(opt.weights)}
-                      className="text-left font-display uppercase tracking-widest text-xl border border-[#333] p-4 md:p-6 hover:bg-white hover:text-black hover:border-white transition-colors duration-200"
+                      className="engineered-control justify-start text-left py-4 px-5 text-sm tracking-normal normal-case border-[#B89A6E] hover:border-[#2C5F4A]"
                     >
                       {opt.label}
                     </button>
@@ -137,43 +83,21 @@ export default function BBMPage() {
               </motion.div>
             </AnimatePresence>
           ) : (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              className="flex-1 flex flex-col items-center justify-center text-center gap-8"
-            >
-              <TerminalSquare className="w-16 h-16 text-bbm-accent" />
-              <div>
-                <h2 className="type-macro text-4xl md:text-6xl mb-4 text-[#FFF]">Compile Complete</h2>
-                <p className="font-mono text-[#AAA]">Diagnostic mapped: {formatArchetype(topArchetype)}</p>
-              </div>
-              
-              <Link 
-                href={`/diagnostic/blueprint?archetype=${topArchetype}`}
-                className="mt-8 bg-bbm-accent text-[#000] font-display uppercase tracking-tight text-3xl px-12 py-6 flex items-center gap-4 hover:bg-white transition-colors group"
-              >
-                Activate Growth System <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" />
+            <div className="flex-1 flex flex-col items-center justify-center text-center">
+              <div className="blueprint-label mb-3">BLUEPRINT COMPILED</div>
+              <h2 className="type-macro text-4xl md:text-5xl tracking-[-0.04em]">Ready for activation.</h2>
+              <p className="mt-3 text-sm max-w-[32ch]">Your system is mapped. The next move is governed by the architecture you now have.</p>
+
+              <Link href={`/diagnostic/blueprint?archetype=${topArchetype}`} className="engineered-control mt-9">
+                OPEN BLUEPRINT <ArrowRight className="w-4 h-4" />
               </Link>
-              <span className="font-mono text-xs text-[#666] uppercase tracking-widest">
-                Lead flow. Voice. Follow-up. Revenue systems.
-              </span>
-            </motion.div>
+            </div>
           )}
 
-          {/* AVA Context */}
-          {avaMessage() && !isFinished && (
-            <motion.div 
-              initial={{ opacity: 0, borderLeft: "0px solid #4DA3FF" }}
-              animate={{ opacity: 1, borderLeft: "4px solid #4DA3FF" }}
-              className="mt-12 bg-[#1A1A1A] p-6 font-mono text-sm leading-relaxed whitespace-pre-line"
-            >
-              <strong className="text-bbm-accent block mb-2">AVA_ENGINE:</strong>
-              {avaMessage()}
-            </motion.div>
-          )}
+          <div className="mt-8 pt-6 border-t border-[#D8D2C5] text-[10px] font-mono tracking-[0.1em] text-[#B89A6E]">
+            BIZBOT MRKTNG • VOICE • FOLLOW-UP • CONVERSION • ONLY AFTER THE BACKBONE
+          </div>
         </div>
-
       </div>
     </main>
   );
