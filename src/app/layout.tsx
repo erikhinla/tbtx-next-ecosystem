@@ -19,8 +19,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TransformBy10X | Ecosystem",
-  description: "Identify digital fog and fix your system architecture.",
+  title: "TransformBy10X | Less Digital Fog",
+  description: "WIN decides. GOAL governs. FLOW executes. Build the infrastructure before you add more AI. Context Architecture first.",
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${archivoBlack.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased min-h-[100dvh]`}>
+      <body className={`${archivoBlack.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916]`}>
         {children}
       </body>
     </html>
