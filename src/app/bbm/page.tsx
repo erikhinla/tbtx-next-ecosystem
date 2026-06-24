@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { intakeConfig, Archetype } from "@/config/intakeQuestions";
 import { ArrowRight, TerminalSquare } from "lucide-react";
 import Link from "next/link";
-
 export default function BBMPage() {
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [scores, setScores] = useState<Record<Archetype, number>>({
@@ -69,14 +68,14 @@ export default function BBMPage() {
         </div>
         
         <h1 className="type-macro text-5xl md:text-[clamp(3.5rem,6vw,7rem)] leading-[0.9]">
-          Your progress<br/>isn&apos;t slow
+          Stop losing leads<br/>before they become customers.
         </h1>
         <h1 className="type-macro text-5xl md:text-[clamp(3.5rem,6vw,7rem)] leading-[0.9] text-bbm-accent mt-4">
-          Your system<br/>is unclear
+          BizBot Mrktng installs<br/>AI voice, follow-up,<br/>and automation systems.
         </h1>
         
         <div className="mt-12 font-mono border border-[#333] p-4 inline-block self-start text-[#AAA]">
-          &gt;&gt;&gt; THAT&apos;S DIGITAL FOG.
+          &gt;&gt;&gt; CAPTURE. NURTURE. CONVERT. ONLY AFTER FOUNDATION.
         </div>
       </div>
 
@@ -154,10 +153,10 @@ export default function BBMPage() {
                 href={`/diagnostic/blueprint?archetype=${topArchetype}`}
                 className="mt-8 bg-bbm-accent text-[#000] font-display uppercase tracking-tight text-3xl px-12 py-6 flex items-center gap-4 hover:bg-white transition-colors group"
               >
-                Open Blueprint <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" />
+                Activate Growth System <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" />
               </Link>
               <span className="font-mono text-xs text-[#666] uppercase tracking-widest">
-                See what to fix first and how to implement it
+                Lead flow. Voice. Follow-up. Revenue systems.
               </span>
             </motion.div>
           )}
