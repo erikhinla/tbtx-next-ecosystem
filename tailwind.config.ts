@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Legacy dark for reference
         tbtx: {
           bg: "#0A0A0A",
           text: "#EAEAE6",
@@ -28,6 +29,19 @@ const config: Config = {
           secondary: "#8A8A8A",
           accent: "#4DA3FF",
           divider: "rgba(255,255,255,0.10)",
+        },
+
+        // NEW LIGHT MOBILE-FIRST PAPER BLUEPRINT SYSTEM
+        // "Daylight entering the machinery": architectural paper, limestone, solar brass, disciplined green signal line.
+        paper: {
+          bg: "#F4EDE3",           // warm architectural paper base
+          surface: "#EDE4D8",      // secondary paper/limestone plane
+          limestone: "#D8D2C5",    // soft warm limestone for dividers/accents
+          ink: "#1C1916",          // deep accountable text
+          brass: "#B89A6E",        // solar brass for hardware/lines
+          green: "#2C5F4A",        // disciplined signal green (exact, not neon)
+          greenLine: "#24513F",    // sharper for routes/beams
+          divider: "rgba(28,25,22,0.12)",
         },
       },
       fontFamily: {
