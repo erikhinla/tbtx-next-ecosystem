@@ -24,7 +24,6 @@ const SystemLine = () => (
     className="h-[1px] w-full bg-bbai-divider origin-left my-12 md:my-24"
   />
 );
-
 export default function BBAIPage() {
   return (
     <main className="min-h-[100dvh] bg-bbai-bg text-bbai-text font-body p-4 md:p-12 selection:bg-bbai-accent selection:text-white">
@@ -37,22 +36,21 @@ export default function BBAIPage() {
 
       <div className="max-w-6xl mx-auto">
         
-        {/* SEC 1 */}
+        {/* SEC 1 - Updated headline per prompt */}
         <section className="mb-32">
           <RevealText>
-            <h1 className="type-macro text-[clamps(3rem,8vw,8rem)] text-balance">
-              Digital fog<br/>is when it starts...<br/>
-              <span className="text-bbai-secondary">to spin.</span>
+            <h1 className="type-macro text-[clamp(3rem,8vw,8rem)] text-balance">
+              Build the backbone<br/>before you add more AI.
             </h1>
           </RevealText>
           <RevealText delay={0.1}>
-            <h1 className="type-macro text-[clamps(3rem,8vw,8rem)] text-bbai-accent mt-4">
-              and progress stops
-            </h1>
+            <p className="mt-8 max-w-2xl text-xl text-bbai-secondary">
+              BizBuilders AI designs the infrastructure, workflows, routing systems, and operating architecture that make automation and AI agents useful inside real businesses.
+            </p>
           </RevealText>
-          <RevealText delay={0.2}>
-            <p className="font-mono text-bbai-secondary mt-12 bg-[#111] inline-block p-4 border border-bbai-divider">
-              /// Too many options. No system connecting them.
+          <RevealText delay={0.15}>
+            <p className="font-mono text-bbai-secondary mt-6 bg-[#111] inline-block p-4 border border-bbai-divider">
+              /// Context before automation. GOAL before FLOW.
             </p>
           </RevealText>
         </section>
@@ -75,7 +73,6 @@ export default function BBAIPage() {
           </div>
           
           <div className="border border-bbai-divider p-8 bg-[#0F0F0F] relative overflow-hidden group hover:border-bbai-accent transition-colors">
-            {/* Grid background effect */}
             <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
             <RevealText>
               <h2 className="type-macro text-3xl md:text-5xl text-balance relative z-10">
@@ -84,7 +81,7 @@ export default function BBAIPage() {
             </RevealText>
             <RevealText delay={0.1}>
               <p className="font-mono text-sm text-bbai-accent mt-8 relative z-10">
-                [ How work flows. Where it stops. What connects. ]
+                [ How work flows. Where it stops. What connects. WIN memory. GOAL governance. ]
               </p>
             </RevealText>
           </div>
@@ -119,7 +116,7 @@ export default function BBAIPage() {
                 <h3 className="type-macro text-3xl md:text-5xl text-bbai-accent mt-2">You need direction.</h3>
               </RevealText>
               <RevealText delay={0.1}>
-                <p className="font-mono mt-8 text-bbai-secondary">/// What to do first. What to ignore. What moves things forward.</p>
+                <p className="font-mono mt-8 text-bbai-secondary">/// What to do first. What to ignore. What moves things forward. Context Architecture first.</p>
               </RevealText>
             </div>
             
@@ -128,7 +125,7 @@ export default function BBAIPage() {
                 <h3 className="type-macro text-3xl md:text-5xl">Then we build it with you</h3>
               </RevealText>
               <RevealText delay={0.1}>
-                <p className="font-mono mt-8 text-bbai-secondary">/// Workflows. Systems. AI that fits how you operate.</p>
+                <p className="font-mono mt-8 text-bbai-secondary">/// Workflows. Systems. AI that fits how you operate. Governed by GOAL + FLOW.</p>
               </RevealText>
             </div>
           </div>
@@ -136,23 +133,23 @@ export default function BBAIPage() {
 
         <SystemLine />
 
-        {/* SEC 7 CTA */}
+        {/* SEC 7 CTA - exact prompt CTA */}
         <section className="text-center pb-32">
           <RevealText>
              <h2 className="type-macro text-5xl md:text-7xl mb-8">
-               AI Blueprint: Start here
+               Get Your Custom Roadmap
              </h2>
           </RevealText>
           <RevealText delay={0.1}>
             <Link 
-              href="/bbm"
+              href="/diagnostic"
               className="inline-flex flex-col items-center group cursor-pointer"
             >
               <div className="bg-white text-black font-display uppercase text-2xl md:text-4xl px-12 py-6 flex items-center gap-4 group-hover:bg-bbai-accent group-hover:text-white transition-colors">
-                Find the gap <ArrowDownRight className="w-8 h-8 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
+                Get Your Custom Roadmap <ArrowDownRight className="w-8 h-8 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
               </div>
               <span className="font-mono text-xs mt-4 text-bbai-secondary tracking-widest uppercase">
-                [ Before you try to fix it ]
+                [ Start with Context Architecture ]
               </span>
             </Link>
           </RevealText>
