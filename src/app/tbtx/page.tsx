@@ -6,19 +6,19 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const frames = [
-  "Busyness is happening",
-  "Nothing progresses",
-  "That's digital fog.",
-  "It doesn't look like failure",
-  "It looks like movement",
-  "That never compounds.",
-  "You don't need more tools",
-  "You need a system for momentum.",
-  "Intelligence isn't in the tools",
-  "It's in the infrastructure.",
-  "The AI Blueprint",
-  "shows where gaps exist",
-  "and how to get unstuck."
+  "Your business does not need another AI tool.",
+  "It needs less digital fog.",
+  "Tools multiply faster than context.",
+  "Execution outpaces memory.",
+  "That's Digital Fog.",
+  "What follows is Digital Friction.",
+  "WIN decides what matters now.",
+  "GOAL governs the structure.",
+  "FLOW executes the motion.",
+  "Context before automation.",
+  "Infrastructure before scale.",
+  "Run the diagnostic.",
+  "Find the Gaps."
 ];
 
 export default function TBTXPage() {
@@ -50,8 +50,8 @@ export default function TBTXPage() {
               key={frameIndex}
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0 } }} // HARD CUT
-              transition={{ duration: 0.16, ease: "easeOut" }} // 160ms precise entry
+              exit={{ opacity: 0, transition: { duration: 0 } }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
               className="type-macro text-[length:clamp(4rem,10vw,12rem)] text-center text-balance w-full"
             >
               {frames[frameIndex]}
@@ -65,19 +65,19 @@ export default function TBTXPage() {
               className="flex flex-col items-center gap-12 w-full"
             >
               <h1 className="type-macro text-[length:clamp(4rem,10vw,8rem)] text-center w-full">
-                Run the<br/><span className="text-tbtx-accent">diagnostic</span>
+                Find the digital fog.<br/>Start with the map.
               </h1>
               
               <Link 
-                href="/bbm"
+                href="/diagnostic"
                 onClick={(e) => e.stopPropagation()} 
                 className="group flex flex-col items-center gap-4"
               >
                 <div className="bg-tbtx-text text-tbtx-bg font-display uppercase tracking-[-0.04em] text-2xl md:text-4xl px-12 py-6 flex items-center gap-4 hover:bg-tbtx-accent transition-colors">
-                  Initiate Scan <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" />
+                  Find the Gaps <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" />
                 </div>
                 <span className="font-mono text-sm text-tbtx-text opacity-70 uppercase tracking-widest">
-                  See what&apos;s blocking progress.
+                  Context Architecture Assessment. 10-15 min.
                 </span>
               </Link>
             </motion.div>
