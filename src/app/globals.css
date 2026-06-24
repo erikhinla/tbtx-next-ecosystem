@@ -2,12 +2,41 @@
 @config "../../tailwind.config.ts";
 
 @layer base {
+  :root {
+    /* Light Paper Blueprint System - daylight in the machinery */
+    --paper-bg: #F4EDE3;
+    --paper-surface: #EDE4D8;
+    --limestone: #D8D2C5;
+    --ink: #1C1916;
+    --solar-brass: #B89A6E;
+    --signal-green: #2C5F4A;
+    --signal-green-sharp: #24513F;
+    --brass-line: #A88B5F;
+  }
+
   body {
-    background-color: theme('colors.tbtx.bg');
-    color: theme('colors.tbtx.text');
+    background-color: var(--paper-bg);
+    color: var(--ink);
     font-family: var(--font-outfit);
-    /* Prevent bouncy scrolling on mobile for a more rigid, industrial feel */
-    overscroll-behavior-y: none;
+    overscroll-behavior-y: none; /* rigid, exact feel */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle architectural paper texture (daylight grain) */
+  .paper-bg {
+    background-image: 
+      linear-gradient(rgba(28,25,22,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28,25,22,0.015) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Blueprint grid overlay (light, exact) */
+  .blueprint-grid {
+    background-image: 
+      linear-gradient(var(--brass-line) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, var(--brass-line) 0.5px, transparent 0.5px);
+    background-size: 48px 48px;
+    opacity: 0.06;
   }
 }
 
@@ -15,15 +44,124 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
+  /* HUGE ASYMMETRICAL EDITORIAL DISPLAY - macro typography from refs */
   .type-macro {
     font-family: var(--font-archivo-black);
     text-transform: uppercase;
-    letter-spacing: -0.05em;
-    line-height: 0.85;
+    letter-spacing: -0.065em;
+    line-height: 0.82;
   }
 
-  .structural-border {
-    border: 1px solid theme('colors.tbtx.divider');
+  /* Disciplined signal route lines - WIN beam / FLOW circulation */
+  .signal-line {
+    border-color: var(--signal-green-sharp);
+    position: relative;
   }
+  .signal-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--signal-green), var(--solar-brass));
+  }
+
+  /* Moving / static route line treatment (SVG or border based) */
+  .route-line {
+    stroke: var(--signal-green-sharp);
+    stroke-width: 1;
+  }
+
+  /* Engineered control - not SaaS button. Brass/green frame, exact */
+  .engineered-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--solar-brass);
+    color: var(--ink);
+    background: transparent;
+    transition: all 120ms ease-out;
+    position: relative;
+  }
+  .engineered-control:hover {
+    border-color: var(--signal-green-sharp);
+    color: var(--signal-green-sharp);
+    background: rgba(184, 154, 110, 0.06);
+  }
+  .engineered-control:active {
+    transform: translateY(1px);
+  }
+  /* Small brass 'rivet' or annotation detail */
+  .engineered-control::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 3px;
+    height: 3px;
+    background: var(--solar-brass);
+    border-radius: 0;
+  }
+
+  /* Spatial descent section - blueprint sheet feel */
+  .descent-section {
+    position: relative;
+    border-top: 1px solid var(--limestone);
+  }
+  .descent-section:first-of-type {
+    border-top: 0;
+  }
+
+  /* Subtle fog-to-structure dissolve (for opening sequence) */
+  .fog-dissolve {
+    position: relative;
+  }
+  .fog-dissolve::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(244,237,227,0.75),
+      rgba(244,237,227,0.2) 40%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+
+  /* Mobile-first strong vertical rhythm */
+  .mobile-descent {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+  @media (min-width: 640px) {
+    .mobile-descent {
+      padding-top: 4rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  /* Blueprint annotation label */
+  .blueprint-label {
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--solar-brass);
+  }
+}
+
+/* Cinematic press release opening treatment - spatial, editorial */
+.press-sequence h1 {
+  font-size: clamp(2.75rem, 11vw, 4.25rem);
+  line-height: 0.88;
+  letter-spacing: -0.07em;
 }
