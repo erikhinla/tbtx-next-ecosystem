@@ -40,10 +40,10 @@ export default function TBTXPage() {
         <Link href="/diagnostic" className="engineered-control text-[10px]">FIND THE GAPS</Link>
       </header>
 
-      {/* OPENING SEQUENCE: PRESS RELEASE AS SPATIAL DESCENT (from reference frames) */}
+      {/* OPENING SEQUENCE: PRESS RELEASE AS SPATIAL DESCENT (from reference frames) + WIN doctrine intro */}
       <section className="pt-20 md:pt-24 pb-16 md:pb-24 px-5 md:px-8 max-w-[1080px] mx-auto fog-dissolve relative z-10">
         <div className="max-w-[18ch] mb-10">
-          <div className="blueprint-label mb-3">FOR IMMEDIATE RELEASE • 2026</div>
+          <div className="blueprint-label mb-3">FOR IMMEDIATE RELEASE • 2026 • W.I.N.™ DOCTRINE</div>
           <h1 className="type-macro text-[clamp(2.6rem,9.2vw,4.4rem)] leading-[0.86] tracking-[-0.065em]">
             THE AI ERA CREATED A JOB NOBODY ASKED FOR
           </h1>
@@ -64,6 +64,28 @@ export default function TBTXPage() {
           <div>GOAL GOVERNS</div>
           <div className="h-px w-8 bg-[#B89A6E]/50" />
           <div>FLOW EXECUTES</div>
+        </div>
+      </section>
+
+      {/* WIN DOCTRINE — Philosophy at the top of the stack */}
+      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto border-[#D8D2C5] relative z-10" style={{background: '#F4EDE3'}}>
+        <div className="blueprint-label">THE DOCTRINE • W.I.N.™ (WHAT’S IMPORTANT NOW)</div>
+        <h2 style={{maxWidth: '22ch'}}>W.I.N. is the philosophy.<br />FLOW™ Agent AS is the execution runtime.</h2>
+        <p style={{maxWidth: '58ch', marginTop: '0.8rem'}}>It’s your meta-layer. The belief system about how work should function in the AI era.</p>
+        <ul style={{margin: '1rem 0 1.5rem 1.25rem', maxWidth: '58ch', lineHeight: '1.5'}}>
+          <li>Workflows are leverage</li>
+          <li>Intelligence is embedded in structure</li>
+          <li>Orchestration beats hustle</li>
+          <li>Systems beat tools</li>
+          <li>Execution must be coordinated</li>
+        </ul>
+        <p style={{maxWidth: '58ch', fontSize: '0.95rem', color: '#3a3630'}}>
+          <strong>Positioning:</strong> “FLOW™ Agent AS is the execution runtime of the W.I.N.™ System.”<br />
+          Governance-first orchestration for multi-agent AI systems.
+        </p>
+        <div style={{marginTop: '1rem', fontSize: '0.8rem', color: '#6b665f'}}>
+          WIN = Workstream Intellect Nexus (Recursive Learning) + Workstream Impact Node (Persistent Memory)<br />
+          <strong>WIN decides → GOAL governs → FLOW executes.</strong>
         </div>
       </section>
 
@@ -155,8 +177,9 @@ export default function TBTXPage() {
       </section>
 
       <footer className="text-[10px] font-mono tracking-[0.1em] px-5 md:px-8 py-6 text-[#B89A6E] border-t border-[#D8D2C5] flex flex-wrap gap-x-6 gap-y-1">
-        <span>© TRANSFORMBY10X 2026</span>
-        <span>INTELLIGENCE IS NOT IN THE TOOLS. IT IS IN THE INFRASTRUCTURE.</span>
+        <span>© 2026 TRANSFORMBY10X™</span>
+        <span>FLOW™ Agent AS and W.I.N.™ are trademarks of TransformBy10X™. All rights reserved.</span>
+        <span>WIN decides → GOAL governs → FLOW executes. Doctrine-first.</span>
       </footer>
     </main>
   );
