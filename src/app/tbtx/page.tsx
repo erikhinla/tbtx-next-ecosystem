@@ -4,10 +4,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-// Simple inline route line component - disciplined green signal + solar brass
+// Simple inline route line component - disciplined green signal + solar brass, with motion class for anim
 const RouteLine = ({ className = "" }: { className?: string }) => (
   <svg className={className} width="100%" height="100%" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 70 Q60 10 110 40 Q160 65 190 15" stroke="#24513F" strokeWidth="1.25" strokeLinecap="square" />
+    <path className="route-line" d="M10 70 Q60 10 110 40 Q160 65 190 15" stroke="#24513F" strokeWidth="1.25" strokeLinecap="square" />
     <path d="M20 68 Q55 25 105 38" stroke="#B89A6E" strokeWidth="0.75" strokeLinecap="square" opacity="0.6" />
   </svg>
 );
@@ -22,7 +22,17 @@ const BlueprintPlate = ({ label, children }: { label: string; children: React.Re
 
 export default function TBTXPage() {
   return (
-    <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] font-body overflow-x-hidden paper-bg">
+    <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] font-body overflow-x-hidden paper-bg relative">
+      {/* Full-bleed cinematic video bg + paper overlay for the light refs direction: cinematic imagery under daylight paper, with motion on routes */}
+      <video 
+        className="cinematic-bg" 
+        src="/videos/digital-fog-hero.mp4" 
+        autoPlay 
+        muted 
+        loop 
+        playsInline 
+        aria-hidden="true" 
+      />
       {/* HEADER - minimal, exact */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-8 py-4 text-xs font-mono tracking-[0.12em] border-b border-[#D8D2C5] bg-[#F4EDE3]/95 backdrop-blur-sm">
         <div>TRANSFORMBY10X</div>
@@ -31,7 +41,7 @@ export default function TBTXPage() {
       </header>
 
       {/* OPENING SEQUENCE: PRESS RELEASE AS SPATIAL DESCENT (from reference frames) */}
-      <section className="pt-20 md:pt-24 pb-16 md:pb-24 px-5 md:px-8 max-w-[1080px] mx-auto fog-dissolve">
+      <section className="pt-20 md:pt-24 pb-16 md:pb-24 px-5 md:px-8 max-w-[1080px] mx-auto fog-dissolve relative z-10">
         <div className="max-w-[18ch] mb-10">
           <div className="blueprint-label mb-3">FOR IMMEDIATE RELEASE • 2026</div>
           <h1 className="type-macro text-[clamp(2.6rem,9.2vw,4.4rem)] leading-[0.86] tracking-[-0.065em]">
@@ -58,7 +68,7 @@ export default function TBTXPage() {
       </section>
 
       {/* WIN — BEAM OF SIGNAL CUTTING THROUGH NOISE (from ref frames) */}
-      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto border-[#D8D2C5]">
+      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto border-[#D8D2C5] relative z-10">
         <div className="grid md:grid-cols-12 gap-x-8 gap-y-8 items-start">
           <div className="md:col-span-5">
             <div className="blueprint-label mb-2">LAYER 01 • SIGNAL</div>
@@ -70,7 +80,7 @@ export default function TBTXPage() {
           </div>
         </div>
 
-        {/* Visual: Signal beam treatment */}
+        {/* Visual: Signal beam treatment with pulse anim */}
         <div className="mt-10 relative h-[120px] md:h-[160px] flex items-center overflow-hidden border-l-2 border-[#2C5F4A] pl-4">
           <div className="text-[11px] font-mono text-[#B89A6E] absolute top-3 left-6 tracking-[2px]">SIGNAL BEAM — CUTTING NOISE</div>
           <RouteLine className="w-full max-w-[420px] opacity-80" />
@@ -78,7 +88,7 @@ export default function TBTXPage() {
       </section>
 
       {/* GOAL — ARCHITECTURAL DRAWINGS + SPATIAL STRUCTURE */}
-      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto bg-[#EDE4D8] blueprint-grid">
+      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto bg-[#EDE4D8] blueprint-grid relative z-10">
         <div className="max-w-[1080px] mx-auto">
           <div className="mb-8">
             <div className="blueprint-label mb-1.5">LAYER 02 • BLUEPRINT</div>
@@ -101,8 +111,8 @@ export default function TBTXPage() {
         </div>
       </section>
 
-      {/* FLOW — CIRCULATION, ROUTES, MOVEMENT */}
-      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto">
+      {/* FLOW — CIRCULATION, ROUTES, MOVEMENT with anim */}
+      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto relative z-10">
         <div className="md:flex md:items-end md:justify-between mb-8 gap-8">
           <div>
             <div className="blueprint-label mb-1">LAYER 03 • MOTION</div>
@@ -111,7 +121,7 @@ export default function TBTXPage() {
           <p className="max-w-[38ch] mt-4 md:mt-0 text-sm text-[#1C1916]/75">The resulting state when WIN and GOAL are working. Execution momentum without unnecessary friction. The control layer around AI-assisted work.</p>
         </div>
 
-        {/* Circulation routes visual */}
+        {/* Circulation routes visual - animated */}
         <div className="relative border border-[#B89A6E]/30 p-8 md:p-12 bg-white/40">
           <div className="blueprint-label mb-4">CIRCULATION PATHS • ROUTES • ORCHESTRATION</div>
           <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
@@ -129,7 +139,7 @@ export default function TBTXPage() {
       </section>
 
       {/* FAAS — MACHINERY BENEATH THE CITY + CTA */}
-      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto border-b border-[#D8D2C5] pb-20">
+      <section className="descent-section mobile-descent px-5 md:px-8 max-w-[1080px] mx-auto border-b border-[#D8D2C5] pb-20 relative z-10">
         <div className="max-w-2xl">
           <div className="blueprint-label mb-2">INFRASTRUCTURE • THE CONTROL LAYER</div>
           <h2 className="type-macro text-[clamp(1.9rem,6.8vw,2.95rem)] leading-[0.9] tracking-[-0.05em] mb-6">
