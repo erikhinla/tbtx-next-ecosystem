@@ -1,23 +1,22 @@
 # Postiz API wiring — TransformBy10X
 
-## Answers (ops)
+## Ops answers
 
-1. **Who puts keys on the VPS?** You. Secrets stay on the host / in Postiz UI. We only commit templates and scripts without real keys.
-2. **Localhost keys?** Treat `localhost:8080` public/private keys as dead. Create a **new API key** on the **running** Postiz instance (VPS / production). Connecting X is separate: one Postiz API key + **integrations** for each X account (`@transformby10x`, personal handle). You do **not** mint a special “X-only” API key.
+1. **Who puts keys on the VPS?** You. Secrets stay on the host / in Postiz UI. Repo only gets templates — never real keys.
+2. **Localhost keys?** Treat anything from `localhost:8080` as dead. Create a **new API key** on the **running** Postiz instance (VPS container `flow-postiz`). X accounts are **integrations**, not separate API keys. One Postiz API key posts to every connected channel.
 
 ## One-time setup (you)
 
-1. Open production Postiz (VPS container `flow-postiz`, port **5000** on host, or your public URL).
-2. Settings → API Keys → create key → store as `POSTIZ_API_KEY` (never commit).
-3. Connect channels: X → `@transformby10x` and personal handle. Note each **integration id**.
-4. Confirm API base:
-   - Self-hosted: `http://127.0.0.1:5000/public/v1` from the host (or your public URL + `/public/v1`)
+1. Open production Postiz (host port **5000**, or your public URL).
+2. Settings → API Keys → create → save as `POSTIZ_API_KEY` (password manager / VPS env only).
+3. Connect X: `@transformby10x` and personal handle. Copy each **integration id**.
+4. API base from the host:
+   - Self-hosted: `http://127.0.0.1:5000/public/v1`
    - Cloud: `https://api.postiz.com/public/v1`
 
-## Env on VPS (example)
+## Env on VPS (do not commit values)
 
 ```bash
-# do not commit values
 POSTIZ_API_KEY=from_postiz_settings
 POSTIZ_API_BASE=http://127.0.0.1:5000/public/v1
 POSTIZ_INTEGRATION_TBTX=integration-id-for-transformby10x
@@ -31,16 +30,40 @@ curl -s -H "Authorization: $POSTIZ_API_KEY" \
   "$POSTIZ_API_BASE/integrations" | python3 -m json.tool
 ```
 
-## Schedule a brand post (template)
+## Schedule brand post (text)
 
 ```bash
 curl -s -X POST "$POSTIZ_API_BASE/posts" \
   -H "Authorization: $POSTIZ_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{
-    "type": "schedule",
-    "date": "2026-08-18T15:00:00.000Z",
-    "shortLink": false,
-    "tags": [],
-    "posts": [{
-      "integration": { "id": "'
+  -d "{
+    \"type\": \"schedule\",
+    \"date\": \"2026-08-18T15:00:00.000Z\",
+    \"shortLink\": false,
+    \"tags\": [],
+    \"posts\": [{
+      \"integration\": { \"id\": \"$POSTIZ_INTEGRATION_TBTX\" },
+      \"value\": [{
+        \"content\": \"AI created a job nobody applied for: managing Digital Fog.\n\nFind where your system is breaking → https://transformby10x.ai/tbtx/diagnostic\",
+        \"image\": []
+      }],
+      \"settings\": { \"__type\": \"x\", \"who_can_reply_post\": \"everyone\" }
+    }]
+  }"
+```
+
+Upload media via Postiz first, then attach the returned path in `image`.
+
+## Messaging (short)
+
+| Channel | Asset | Line |
+|---------|--------|------|
+| Site hub | desk-fog-loop under type | H1 + CTA |
+| X brand | desk / reaction GIF | H1 or H2 + diagnostic URL |
+| X personal | same, first person | H2 |
+| LinkedIn | reaction GIF | workplace fog |
+| IG | multi-life montage | S1 only |
+
+## Activepieces
+
+Optional: HTTP step → same Postiz `/posts` body. Postiz is the publisher of record.
