@@ -49,7 +49,7 @@ export default function TBTXHome() {
         </Link>
         <div className="mt-4">
           <a href="#spine" className="text-xs tracking-widest text-white/40 hover:text-white/70">
-            See how the system is supposed to work \u2192
+            See how the system is supposed to work →
           </a>
         </div>
       </section>
@@ -122,8 +122,8 @@ export default function TBTXHome() {
 
       <footer className="border-t border-zinc-800 py-8 text-[11px] text-white/35">
         <div className="max-w-3xl mx-auto px-6 flex flex-wrap justify-between gap-2">
-          <span>TransformBy10X \u2014 front door</span>
-          <span className="text-white/25">BizBuilders AI \u00b7 BizBot MRKTNG downstream</span>
+          <span>TransformBy10X — front door</span>
+          <span className="text-white/25">BizBuilders AI · BizBot MRKTNG downstream</span>
         </div>
       </footer>
     </div>
