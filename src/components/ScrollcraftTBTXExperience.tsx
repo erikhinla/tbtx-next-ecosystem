@@ -20,18 +20,30 @@ export default function ScrollcraftTBTXExperience() {
 
   useEffect(() => {
     let cancelled = false;
+    let mountedWithApi = false;
 
     async function loadAndMount() {
       try {
-        await import("../vendor/scrollcraft/scrollcraft.js");
+        const module = await import("../vendor/scrollcraft/scrollcraft.js");
         if (cancelled || mountedRef.current || !rootRef.current) return;
 
-        if (!window.ScrollCraft?.mount) {
+        // Scrollcraft currently attaches its API to window. The module fallback
+        // keeps this integration compatible if the vendor later exports it.
+        const scrollCraft = (module as { ScrollCraft?: Window["ScrollCraft"] }).ScrollCraft ?? window.ScrollCraft;
+
+        if (!scrollCraft) {
+          console.warn("Scrollcraft loaded without an API.");
+          return;
+        }
+
+        if (typeof scrollCraft.mount === "function") {
+          scrollCraft.mount(rootRef.current);
+          mountedWithApi = true;
+        } else {
           console.warn("Scrollcraft loaded without a mount function.");
           return;
         }
 
-        window.ScrollCraft.mount(rootRef.current);
         mountedRef.current = true;
       } catch (error) {
         console.error("Unable to load Scrollcraft.", error);
@@ -42,6 +54,24 @@ export default function ScrollcraftTBTXExperience() {
 
     return () => {
       cancelled = true;
+
+      // The current vendor engine does not expose teardown. Do not manipulate
+      // React-owned markup; use a future explicit API if the engine adds one.
+      if (!mountedWithApi || !window.ScrollCraft) return;
+      const scrollCraft = window.ScrollCraft as Window["ScrollCraft"] & {
+        unmount?: (root?: Document | HTMLElement) => void;
+        destroy?: (root?: Document | HTMLElement) => void;
+      };
+
+      try {
+        if (typeof scrollCraft.unmount === "function") {
+          scrollCraft.unmount(rootRef.current ?? document);
+        } else if (typeof scrollCraft.destroy === "function") {
+          scrollCraft.destroy(rootRef.current ?? document);
+        }
+      } catch (error) {
+        console.warn("Unable to clean up Scrollcraft.", error);
+      }
     };
   }, []);
 
