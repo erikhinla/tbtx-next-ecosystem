@@ -86,7 +86,7 @@ export default function ScrollcraftTBTXExperience() {
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
           <div className="tbtx-sc__grid" aria-hidden="true" />
           <p className="tbtx-sc__kicker" data-sc-cue="0.04 0.34">A system can be busy and still be lost.</p>
-          <h1 className="tbtx-sc__hero-title" data-sc-cue="0.12 0.75" data-sc-kinetic="lines">
+          <h1 className="tbtx-sc__hero-title" data-sc-cue="0.12 0.75">
             You do not need<br />more AI.<br /><span>Clear the fog.</span>
           </h1>
           <p className="tbtx-sc__hero-note" data-sc-cue="0.58 0.9">TransformBy10X names what is in the way, then creates the next clear move.</p>
