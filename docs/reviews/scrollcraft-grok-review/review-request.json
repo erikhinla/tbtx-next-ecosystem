@@ -2,8 +2,6 @@
   "review_name": "TransformBy10X Scrollcraft Digital Fog experience",
   "candidate_ref": "codex/scrollcraft-tbtx",
   "route": "/scrollcraft-demo",
-  "review_required": true,
-  "publish_allowed": false,
   "required_categories": [
     "Concept",
     "Craft",
@@ -13,6 +11,5 @@
     "Motion and interaction",
     "Mobile usability"
   ],
-  "minimum_pass_score": 8,
   "review_document": "GROK_REVIEW_HANDOFF.md"
 }

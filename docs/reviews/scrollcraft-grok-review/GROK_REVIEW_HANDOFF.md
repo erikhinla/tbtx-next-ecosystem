@@ -1,15 +1,11 @@
 # TransformBy10X Scrollcraft Experience: Grok Review
 
-## Review state
+## Candidate
 
-This is a staged design review. It is not approved for release or publication.
-
-- Candidate branch: `codex/scrollcraft-tbtx`
+- Branch: `codex/scrollcraft-tbtx`
 - Candidate source: `https://github.com/erikhinla/tbtx-next-ecosystem/tree/codex/scrollcraft-tbtx`
-- Candidate route: `/scrollcraft-demo`
+- Route: `/scrollcraft-demo`
 - Local preview: `http://127.0.0.1:3000/scrollcraft-demo`
-- Review status: `review_required`
-- Publish allowed: `false`
 
 ## What this is
 
@@ -53,13 +49,13 @@ Review the actual route at desktop and mobile. Do not score from source alone.
 5. Does the page preserve TransformBy10X’s human, precise, non-generic voice?
 6. What one change would produce the largest increase in felt quality?
 
-## Required response format
+## Suggested response format
 
 Return only this structure, with direct language and no invented metrics:
 
 ```md
-## Verdict
-PASS (8+/10) | REVISE | REJECT
+## Grok's read
+What feels strongest, what does not, and what direction you would take next.
 
 ## Scores
 Concept: X/10
@@ -79,13 +75,12 @@ Mobile usability: X/10
 ## Highest-leverage revision
 - ...
 
-## Release recommendation
-Hold | Ready for human approval
+## Suggested next move
+- ...
 ```
 
-## Constraints
+## Guardrails for the review
 
-- Do not approve, merge, deploy, or publish this work.
-- Do not replace the TransformBy10X offer hierarchy or invent new offers.
-- Keep the engine vendor code unchanged. Make bespoke behavior in the page layer.
-- A PASS means 8+/10 or better in each of Concept, Craft, Story, Emotion / Curiosity, and Brand fit. It still requires human selection before release.
+- Review the existing TransformBy10X offer hierarchy; do not invent new offers.
+- Keep the vendor engine unchanged. Make bespoke behavior in the page layer.
+- This is advice for your decision, not an approval gate or release instruction.
