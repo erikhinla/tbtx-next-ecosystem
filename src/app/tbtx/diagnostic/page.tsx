@@ -3,5 +3,5 @@
 import DiagnosticEngine from '@/components/DiagnosticEngine';
 
 export default function DigitalFogDiagnosticPage() {
-  return <DiagnosticEngine brand="tbtx" />;
+  return <DiagnosticEngine brand="tbtx" lane="business" />;
 }

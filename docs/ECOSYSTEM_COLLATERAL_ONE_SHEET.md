@@ -3,7 +3,7 @@
 
 **Core Truth**  
 Intelligence is not in the tools. It is in the infrastructure.  
-You cannot automate a mess.
+You can't automate what's not organized.
 
 ## The Hierarchy
 WIN (decide) → GOAL (structure) → FLOW (execute)

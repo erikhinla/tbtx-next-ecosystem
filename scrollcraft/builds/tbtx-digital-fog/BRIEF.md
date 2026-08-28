@@ -1,30 +1,31 @@
-# TransformBy10X Digital Fog
+# TransformBy10X Digital Fog 2.2
 
-Self-authored, not interviewed. This is a scoped implementation fallback based on the existing TransformBy10X canon and supplied visual assets.
+Self-authored, refined with direct author review and asset curation.
 
-## Interview answers
+## Product Architecture & Surface Separation
+- **BizBot is intentionally removed from the marketing front door.** BizBot is a gated, internal execution environment accessible only after a client completes the TBTX Digital Fog Diagnostic and (for B2B) a BizBuilders BizBlueprint with an established Quad Keystones Operational Architecture.
+- Removing BizBot opens the front-door orientation to two distinct, breathing routes:
+  1. **Personal Friction (Fog-Lift / B2C)** → `/tbtx/diagnostic`
+  2. **Enterprise & Business Architecture (BizBuilders AI / B2B)** → `/bbai`
 
-1. **Vibe:** cinematic, exact, human, liberating, unvarnished. References: a technical field guide, an editorial title sequence, a clear route through a dense map.
-2. **Journey:** recognition of the overload, naming Digital Fog, seeing the missing operating layer, finding the right door, taking the diagnostic.
-3. **Energy curve:** quiet recognition; pressure through the fog; a decisive peak when fragments form a route; then a calm, practical choice.
-4. **Feeling curve and peak:**
-   - Recognition: seen. The visitor recognises the widening mess.
-   - Tension: exposed. The false promise of more tools is named.
-   - Peak: relief. The Fog Lattice locks WIN, GOAL, FLOW, and ACTION into one route.
-   - Range: oriented. The three offers appear as appropriate doors, not a product grid.
-   - Close: capable. The diagnostic is an immediate first action.
-   - The memorable sentence: “It is the site where the fog turns into a route.”
-5. **Signature move:** loose system fragments visually settle into a route while the visitor scrolls.
-6. **Range:** premium-minimal with typographic-poster force. No generic SaaS treatment.
-7. **Structure:** distinct scenes, not one unbroken world.
-8. **Assets:** existing TransformBy10X copy and supplied visuals. This first implementation does not generate new media.
+## 5-Beat Journey & Feeling Curve
 
-## Score
-
-| Beat | Device | Why |
-| --- | --- | --- |
-| Recognition | pin + kinetic type | Makes the opening a held thought, not a hero block. |
-| Tension | flow + iris reveal | Lets the reader encounter the expanding noise in ordinary reading order. |
-| Turn | pin + bespoke Fog Lattice | Gives the single peak the most scroll room. |
-| Range | pan | Makes routes feel like different directions, not stacked features. |
-| Commitment | pin + held close | Resolves in one clear action. |
+1. **Recognition (scrub + kinetic type)**
+   - **Feeling:** *Seen* ("Someone described my day without me having to explain it.")
+   - **Asset:** `/media/hero-fog-people.mp4` with kinetic staggered headline: *"You don't need more AI. Clear the fog."*
+2. **Tension (flow + iris reveal + pinned condition)**
+   - **Feeling:** *Exposed* ("The problem isn't me — it's the missing operating layer.")
+   - **Assets:** `/media/desk-fog-loop.mp4` (desk fog exhibit) + `/media/fog-corridor.mp4` (*"The condition has a name: Digital Fog"*).
+3. **Peak (pin, span 3.2, dwell 0.35, spotlight)**
+   - **Feeling:** *Relief* ("There IS a route out.")
+   - **Signature Move:** Fog Lattice — Four scattered, drifting fog fragments (`WIN`, `GOAL`, `FLOW`, `ACTION`) lock onto a single drawn golden spine line.
+   - **Asset:** `/media/fog-to-route.mp4` (clean, text-free circuit-fog transition).
+4. **Orientation (pan rail, 2 breathing doors)**
+   - **Feeling:** *Oriented* ("I know which door is mine.")
+   - **Door 1 (Personal):** Fog-Lift (`/media/hallway-fog-lift.mp4`)
+   - **Door 2 (Business):** BizBuilders AI (`/media/gears-governed.mp4`)
+5. **Commitment & The Founder (pin, held close)**
+   - **Feeling:** *Capable & Grounded* ("I know who built this and what action to take.")
+   - **Asset:** `/media/hero-solo.jpg` (Founder of TransformBy10X)
+   - **Copy:** *"Built by founders who lived the fog — not tool vendors. See what's actually blocking your momentum in 4 minutes."*
+   - **CTA:** Magnetic brass button → `/tbtx/diagnostic`

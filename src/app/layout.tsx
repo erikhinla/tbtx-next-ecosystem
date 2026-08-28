@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Archivo_Black, Outfit, JetBrains_Mono } from "next/font/google";
+import { Archivo_Black, DM_Sans, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import ScrollcraftGuard from "@/components/ScrollcraftGuard";
 
 const archivoBlack = Archivo_Black({ 
   weight: "400", 
   subsets: ["latin"],
   variable: "--font-archivo-black" 
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
 });
 
 const outfit = Outfit({ 
@@ -19,8 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TransformBy10X | Less Digital Fog",
-  description: "WIN decides. GOAL governs. FLOW executes. Build the infrastructure before you add more AI. Context Architecture first.",
+  title: "Managing Digital Fog",
+  description:
+    "AI created a job. Nobody wanted. Start here. The Digital Fog Scan.",
 };
 
 export default function RootLayout({
@@ -30,7 +37,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${archivoBlack.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916]`}>
+      <body className={`${archivoBlack.variable} ${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased min-h-[100dvh] bg-[#0d1210] text-[#f2f1ea]`}>
+        <ScrollcraftGuard />
         {children}
       </body>
     </html>
