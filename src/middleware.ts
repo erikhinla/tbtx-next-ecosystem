@@ -5,6 +5,11 @@ export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const pathname = request.nextUrl.pathname;
 
+  // BizBot stays off the public site until the product is ready.
+  if (pathname === '/bbm' || pathname.startsWith('/bbm/')) {
+    return NextResponse.redirect(new URL('/tbtx', request.url));
+  }
+
   // Only redirect from root — don't touch sub-routes or assets
   if (pathname !== '/') return NextResponse.next();
 
@@ -13,7 +18,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (hostname.includes('bizbotmrktng') || hostname.includes('bizbot')) {
-    return NextResponse.redirect(new URL('/bbm', request.url));
+    return NextResponse.redirect(new URL('/tbtx', request.url));
   }
 
   if (hostname.includes('transformby10x')) {
@@ -25,5 +30,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/',
+  matcher: ['/', '/bbm', '/bbm/:path*'],
 };

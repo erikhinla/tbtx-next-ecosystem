@@ -1,27 +1,56 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { questions, calculateScore, getProfile } from '@/config/diagnostic-tbtx';
-import { getBandKey, brandProfiles } from '@/config/result-profiles';
-import Link from 'next/link';
-import EmailCapture from './EmailCapture';
-import ResultProfile from './ResultProfile';
-import CTABlock from './CTABlock';
+import { useMemo, useState, type ReactNode } from "react";
+import { questions as businessQuestions, calculateScore, getProfile } from "@/config/diagnostic-tbtx";
+import { personalQuestions, personalBands } from "@/config/scan-personal";
+import { getBandKey, brandProfiles } from "@/config/result-profiles";
+import { deriveFogReport } from "@/config/fog-report";
+import Link from "next/link";
+import FogReport from "./FogReport";
 
 interface DiagnosticEngineProps {
-  brand?: 'tbtx' | 'bbai' | 'bbm';
-  onComplete?: (score: number, profile: any) => void;
+  brand?: "tbtx" | "bbai" | "bbm";
+  lane?: "personal" | "business";
+  onComplete?: (score: number, profile: unknown) => void;
 }
 
-export default function DiagnosticEngine({ brand = 'tbtx', onComplete }: DiagnosticEngineProps) {
+function ScanShell({
+  isPersonal,
+  children,
+}: {
+  isPersonal: boolean;
+  children: ReactNode;
+}) {
+  const src = isPersonal ? "/media/door-b2c-827v2.mp4" : "/media/door-b2b-827v2.mp4";
+  const poster = isPersonal ? "/media/door-b2c-827v2.jpg" : "/media/door-b2b-827v2.jpg";
+
+  return (
+    <div className="tbtx-scan">
+      <div className="tbtx-scan__stage" aria-hidden="true">
+        <video autoPlay muted loop playsInline poster={poster}>
+          <source src={src} type="video/mp4" />
+        </video>
+      </div>
+      <div className="tbtx-scan__veil" aria-hidden="true" />
+      <div className="tbtx-scan__frame">{children}</div>
+    </div>
+  );
+}
+
+export default function DiagnosticEngine({
+  brand = "tbtx",
+  lane = "business",
+  onComplete,
+}: DiagnosticEngineProps) {
+  const isPersonal = lane === "personal";
+  const questions = isPersonal ? personalQuestions : businessQuestions;
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(-1));
   const [showResult, setShowResult] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const currentQuestion = questions[currentStep];
-  const progress = ((currentStep) / questions.length) * 100;
+  const report = useMemo(() => deriveFogReport(answers), [answers]);
+  const jobLine = isPersonal ? "The unpaid job" : "The job at work";
 
   const selectAnswer = (value: number) => {
     const newAnswers = [...answers];
@@ -29,134 +58,126 @@ export default function DiagnosticEngine({ brand = 'tbtx', onComplete }: Diagnos
     setAnswers(newAnswers);
 
     if (currentStep < questions.length - 1) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-        setIsTransitioning(false);
-      }, 180);
+      setCurrentStep(currentStep + 1);
     } else {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setShowResult(true);
-        setIsTransitioning(false);
-        const finalScore = calculateScore(newAnswers.filter(a => a >= 0));
-        const finalProfile = getProfile(finalScore);
-        if (onComplete) onComplete(finalScore, finalProfile);
-      }, 300);
+      setShowResult(true);
+      const finalScore = calculateScore(newAnswers.filter((a) => a >= 0));
+      const health = Math.round((finalScore / (questions.length * 2)) * 100);
+      const finalProfile = getProfile(health);
+      if (onComplete) onComplete(finalScore, finalProfile);
     }
   };
-
-  const score = calculateScore(answers.filter(a => a >= 0));
-  const profile = getProfile(score);
-  const bandKey = getBandKey(score);
-  const brandProfile = brandProfiles[brand][bandKey] || brandProfiles.tbtx[bandKey];
 
   const handleReset = () => {
     setCurrentStep(0);
     setAnswers(Array(questions.length).fill(-1));
     setShowResult(false);
-    setIsTransitioning(false);
   };
 
-  if (showResult) {
+  if (showResult && isPersonal) {
+    const score = calculateScore(answers.filter((a) => a >= 0));
+    const health = Math.round((score / (questions.length * 2)) * 100);
+    const band = personalBands.find((item) => health >= item.min && health <= item.max) || personalBands[0];
     return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white p-8">
-        <div className="max-w-2xl mx-auto pt-12">
-          <ResultProfile 
-            profile={profile} 
-            score={score} 
-            band={bandKey} 
-            brandProfile={brandProfile}
-            onReset={handleReset}
-          />
-          <div className="mt-8">
-            <EmailCapture 
-              score={score} 
-              profileName={profile.profile} 
-              onSuccess={() => {
-                console.log('Email captured - WIN node creation triggered');
-              }} 
-            />
-          </div>
-          <div className="mt-6">
-            <CTABlock ctaText={brandProfile.cta} ctaRoute={brandProfile.ctaRoute || profile.ctaRoute} />
-          </div>
-          <div className="mt-8 text-center">
-            <button onClick={handleReset} className="text-xs tracking-widest text-white/50 hover:text-white underline">
-              RETAKE DIAGNOSTIC
-            </button>
-            <Link href="/tbtx" className="ml-6 text-xs tracking-widest text-white/50 hover:text-white">BACK TO TBTX</Link>
-          </div>
+      <ScanShell isPersonal>
+        <p className="tbtx-scan__job">The unpaid job</p>
+        <h1 className="tbtx-scan__profile">{band.profile}</h1>
+        <p className="tbtx-scan__lead">{band.description}</p>
+        <div className="tbtx-scan__moves">
+          <Link href={band.ctaRoute} className="tbtx-scan__go">
+            {band.cta}
+          </Link>
+          <Link href="/tbtx/map">This is a business problem</Link>
         </div>
-      </div>
+        <div className="tbtx-scan__foot">
+          <button type="button" onClick={handleReset}>
+            Again
+          </button>
+          <Link href="/tbtx">Start Here</Link>
+        </div>
+      </ScanShell>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="max-w-3xl mx-auto px-8 pt-12 pb-24">
-        <div className="flex justify-between items-center mb-8 text-xs tracking-widest text-white/50">
-          <Link href="/tbtx" className="hover:text-white transition">← TBTX</Link>
-          <div className="text-amber-400/80">DIGITAL FOG — {currentStep + 1} / {questions.length}</div>
+  if (showResult && brand === "tbtx") {
+    return (
+      <ScanShell isPersonal={false}>
+        <FogReport report={report} onReset={handleReset} />
+      </ScanShell>
+    );
+  }
+
+  if (showResult) {
+    const score = calculateScore(answers.filter((a) => a >= 0));
+    const health = Math.round((score / (questions.length * 2)) * 100);
+    const profile = getProfile(health);
+    const bandKey = getBandKey(health);
+    const brandProfile = brandProfiles[brand][bandKey] || brandProfiles.tbtx[bandKey];
+
+    return (
+      <ScanShell isPersonal={false}>
+        <p className="tbtx-scan__job">The job at work</p>
+        <h1 className="tbtx-scan__profile">{profile.profile}</h1>
+        <p className="tbtx-scan__lead">{profile.description}</p>
+        <div className="tbtx-scan__moves">
+          <Link href={brandProfile.ctaRoute || profile.ctaRoute} className="tbtx-scan__go">
+            {brandProfile.cta}
+          </Link>
+          <Link href="/tbtx">Start Here</Link>
         </div>
-        {currentStep === 0 && answers[0] < 0 && (
-          <p className="text-sm text-white/55 mb-8 max-w-lg leading-relaxed">
-            15 questions. Maps where context breaks, ownership blurs, and work restarts.
-            Answer for how it actually runs — not how it should.
-          </p>
-        )}
-
-        <div className="h-px bg-white/10 mb-10 overflow-hidden">
-          <motion.div 
-            className="h-px bg-white" 
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className={isTransitioning ? 'pointer-events-none' : ''}
-          >
-            <div className="section-header mb-4">QUESTION {currentStep + 1}</div>
-            <h2 className="question-text mb-10 pr-8">{currentQuestion.text}</h2>
-
-            <div className="space-y-3">
-              {currentQuestion.options.map((option, idx) => {
-                const isSelected = answers[currentStep] === option.value;
-                return (
-                  <motion.div 
-                    key={idx}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    onClick={() => !isTransitioning && selectAnswer(option.value)}
-                    className={`option ${isSelected ? 'selected' : ''}`}
-                  >
-                    {option.text}
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        <div className="mt-12 text-xs text-white/40 flex items-center gap-4">
-          <button 
-            onClick={() => currentStep > 0 && setCurrentStep(currentStep - 1)} 
-            className="hover:text-white disabled:opacity-50"
-            disabled={currentStep === 0 || isTransitioning}
-          >
-            PREVIOUS
+        <div className="tbtx-scan__foot">
+          <button type="button" onClick={handleReset}>
+            Again
           </button>
-          <div>Answer honestly. Your infrastructure depends on it.</div>
+        </div>
+      </ScanShell>
+    );
+  }
+
+  const n = String(currentStep + 1).padStart(2, "0");
+  const total = String(questions.length).padStart(2, "0");
+
+  return (
+    <ScanShell isPersonal={isPersonal}>
+      <div className="tbtx-scan__top">
+        <Link href="/tbtx">Back</Link>
+        <p className="tbtx-scan__job">{jobLine}</p>
+        <div className="tbtx-scan__count" aria-current="step">
+          <span>{n}</span>
+          <small>of {total}</small>
         </div>
       </div>
-    </div>
+
+      <p className="tbtx-scan__mantle">Managing Digital Fog</p>
+      <h1 className="tbtx-scan__question">{currentQuestion.text}</h1>
+
+      <div className="tbtx-scan__choices">
+        {currentQuestion.options.map((option, idx) => {
+          const isSelected = answers[currentStep] === option.value;
+          return (
+            <button
+              key={`${currentQuestion.id}-${idx}`}
+              type="button"
+              className="tbtx-scan__choice"
+              aria-pressed={isSelected}
+              onClick={() => selectAnswer(option.value)}
+            >
+              <span className="tbtx-scan__choice-num">{String(idx + 1).padStart(2, "0")}</span>
+              <span className="tbtx-scan__choice-line">{option.text}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="tbtx-scan__nav">
+        <button
+          type="button"
+          onClick={() => currentStep > 0 && setCurrentStep(currentStep - 1)}
+          disabled={currentStep === 0}
+        >
+          Previous
+        </button>
+      </div>
+    </ScanShell>
   );
 }

@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@config "../../tailwind.config.ts";
 
 @layer base {
   :root {
@@ -157,6 +156,7 @@
     text-transform: uppercase;
     color: var(--solar-brass);
   }
+
 }
 
 /* Cinematic press release opening treatment - spatial, editorial */
@@ -182,7 +182,6 @@
 
 .paper-bg {
   z-index: 2;
-  opacity: 0.0; /* disabled full viewport grain so video shows */
 }
 
 /* Paper texture + daylight only on the UI sections (opening + descent) for the light paper feel on top of video */
@@ -227,4 +226,9 @@
 }
 .engineered-control:hover {
   box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Paper pages must stay visible even if Scrollcraft leftover sets opacity. */
+main.tbtx-blueprint {
+  opacity: 1 !important;
 }

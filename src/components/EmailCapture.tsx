@@ -37,34 +37,37 @@ export default function EmailCapture({ score, profileName, onSuccess }: EmailCap
   if (submitted) {
     return (
       <div className="surface p-8 text-center">
-        <div className="text-lg mb-2">Thank you. Your result is saved.</div>
-        <p className="text-sm text-white/70">Check your inbox for the full blueprint. This data point is now in operating memory.</p>
+        <div className="text-lg mb-2">Saved on this device.</div>
+        <p className="text-sm text-white/70">Email delivery is not wired yet. Keep the diagnostic on screen, or screenshot it.</p>
       </div>
     );
   }
 
   return (
     <div className="surface p-8">
-      <div className="mb-4 text-sm">Receive your full result profile + recommended next step via email.</div>
+      <div className="mb-4 text-sm">Optional. Leave an email to keep this result with the work later.</div>
       <form onSubmit={handleSubmit} className="flex gap-3 flex-wrap">
-        <input 
-          type="email" 
-          required 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="your@business.com" 
-          className="flex-1 min-w-[200px] bg-black border border-zinc-700 px-4 py-3 text-sm focus:outline-none focus:border-white"
-          disabled={loading}
-        />
+        <label className="flex-1 min-w-[200px] grid gap-2">
+          <span className="text-xs tracking-widest uppercase text-white/50">Email</span>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            className="w-full bg-black border border-zinc-700 px-4 py-3 text-sm focus:outline-none focus:border-white"
+            disabled={loading}
+          />
+        </label>
         <button 
           type="submit" 
           className="btn-industrial whitespace-nowrap disabled:opacity-60"
           disabled={loading}
         >
-          {loading ? 'SAVING...' : 'SEND RESULT'}
+          {loading ? 'SAVING...' : 'SAVE ON THIS DEVICE'}
         </button>
       </form>
-      <p className="text-[10px] text-white/40 mt-3">No spam. Unsubscribe anytime.</p>
+      <p className="text-[10px] text-white/40 mt-3">Nothing is emailed yet. This stays on this browser.</p>
     </div>
   );
 }
