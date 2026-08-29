@@ -19,24 +19,32 @@ export default function FogReport({ report, onReset }: FogReportProps) {
 
   return (
     <article className="tbtx-scan__report">
-      <p className="tbtx-scan__job">The job at work</p>
-      <p className="tbtx-scan__mantle">Managing Digital Fog</p>
+      <p className="tbtx-scan__job">Work Life</p>
+      <p className="tbtx-scan__mantle">Digital Friction</p>
       <h1 className="tbtx-scan__profile">{report.profile.profile}</h1>
-      <p className="tbtx-scan__lead">{report.profile.description}</p>
+      <section className="tbtx-peel">
+        <p className="tbtx-peel__title">Here&rsquo;s what it&rsquo;s costing you</p>
+        <div className="tbtx-peel__fog">
+          <p className="tbtx-scan__lead">{report.profile.description}</p>
+        </div>
+      </section>
 
-      <section className="tbtx-scan__load">
+      <section className="tbtx-scan__load tbtx-peel">
         <h2>{report.load.headline}</h2>
-        <p>{report.load.body}</p>
-        <p className="tbtx-scan__range">
-          About {report.load.hoursPerPersonWeek[0]} to {report.load.hoursPerPersonWeek[1]} hours a
-          week of second-job work for the person holding this together.
-        </p>
+        <div className="tbtx-peel__fog">
+          <p>{report.load.body}</p>
+          <p className="tbtx-scan__range">
+            About {report.load.hoursPerPersonWeek[0]} to {report.load.hoursPerPersonWeek[1]} hours a
+            week finishing what the agents started. Hours that should have been the work, not the
+            residue.
+          </p>
+        </div>
       </section>
 
       {report.pressures.length > 0 && (
-        <section className="tbtx-scan__pressures">
+        <section className="tbtx-scan__pressures tbtx-peel">
           <h2>What your answers named</h2>
-          <ul>
+          <ul className="tbtx-peel__fog">
             {report.pressures.map((item) => (
               <li key={item.id}>
                 <strong>{item.title}</strong>
@@ -82,19 +90,25 @@ export default function FogReport({ report, onReset }: FogReportProps) {
         <h2>The next clear move</h2>
         <p>{report.brand.nextStep}</p>
         <div className="tbtx-scan__moves">
-          <Link href={report.brand.ctaRoute} className="tbtx-scan__go">
+          <Link href={report.brand.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
             {report.brand.cta}
           </Link>
-          <Link href="/bbai">Build the Backbone</Link>
-          <Link href="/tbtx/scan">This is personal</Link>
+          <Link href="/bbai" className="tbtx-fog-link">
+            Build the Backbone
+          </Link>
+          <Link href="/tbtx/scan" className="tbtx-fog-link">
+            This is personal
+          </Link>
         </div>
       </section>
 
       <div className="tbtx-scan__foot">
-        <button type="button" onClick={onReset}>
+        <button type="button" onClick={onReset} className="tbtx-fog-link">
           Again
         </button>
-        <Link href="/tbtx">Start Here</Link>
+        <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
+          The why
+        </Link>
       </div>
     </article>
   );

@@ -15,21 +15,24 @@ export const brandProfiles: Record<string, Record<string, BrandProfile>> = {
     "0-24": {
       band: "0-24",
       profile: "Fragmented",
-      nextStep: "AI Biz Blueprint",
+      nextStep:
+        "You named the leftover work. The blueprint is the first map so people stop finishing what the agents start.",
       cta: "Get the AI Biz Blueprint",
       ctaRoute: "/tbtx/blueprint",
     },
     "25-49": {
       band: "25-49",
       profile: "Stalled",
-      nextStep: "AI Biz Blueprint",
+      nextStep:
+        "Pieces exist. Nothing holds them. The blueprint names the drag so the stand has a place to start.",
       cta: "Get the AI Biz Blueprint",
       ctaRoute: "/tbtx/blueprint",
     },
     "50-74": {
       band: "50-74",
       profile: "Scaling",
-      nextStep: "BizBuilders AI",
+      nextStep:
+        "Work gets done. Then you do it again. Backbone is the stand at work scale: coordination stops being the job.",
       cta: "Build the Backbone",
       ctaRoute: "/bbai",
     },
@@ -37,7 +40,8 @@ export const brandProfiles: Record<string, Record<string, BrandProfile>> = {
       band: "75-100",
       profile: "Compounding",
       cta: "Build the Backbone",
-      nextStep: "BizBuilders AI",
+      nextStep:
+        "The system compounds. Guard it. Adding tools faster than the route can hold them puts you back in leftover-finishing.",
       ctaRoute: "/bbai",
     },
   },

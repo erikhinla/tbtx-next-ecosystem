@@ -7,6 +7,7 @@ import { getBandKey, brandProfiles } from "@/config/result-profiles";
 import { deriveFogReport } from "@/config/fog-report";
 import Link from "next/link";
 import FogReport from "./FogReport";
+import ScanThreshold from "./ScanThreshold";
 
 interface DiagnosticEngineProps {
   brand?: "tbtx" | "bbai" | "bbm";
@@ -47,10 +48,12 @@ export default function DiagnosticEngine({
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(-1));
   const [showResult, setShowResult] = useState(false);
+  const [ready, setReady] = useState(false);
 
   const currentQuestion = questions[currentStep];
   const report = useMemo(() => deriveFogReport(answers), [answers]);
-  const jobLine = isPersonal ? "The unpaid job" : "The job at work";
+  const jobLine = isPersonal ? "Social Life" : "Work Life";
+  const mantle = isPersonal ? "Digital Fog" : "Digital Friction";
 
   const selectAnswer = (value: number) => {
     const newAnswers = [...answers];
@@ -72,7 +75,16 @@ export default function DiagnosticEngine({
     setCurrentStep(0);
     setAnswers(Array(questions.length).fill(-1));
     setShowResult(false);
+    setReady(true);
   };
+
+  if (!ready && !showResult) {
+    return (
+      <ScanShell isPersonal={isPersonal}>
+        <ScanThreshold isPersonal={isPersonal} onBegin={() => setReady(true)} />
+      </ScanShell>
+    );
+  }
 
   if (showResult && isPersonal) {
     const score = calculateScore(answers.filter((a) => a >= 0));
@@ -80,20 +92,30 @@ export default function DiagnosticEngine({
     const band = personalBands.find((item) => health >= item.min && health <= item.max) || personalBands[0];
     return (
       <ScanShell isPersonal>
-        <p className="tbtx-scan__job">The unpaid job</p>
+        <p className="tbtx-scan__job">Social Life</p>
+        <p className="tbtx-scan__mantle">Digital Fog</p>
         <h1 className="tbtx-scan__profile">{band.profile}</h1>
-        <p className="tbtx-scan__lead">{band.description}</p>
+        <section className="tbtx-peel">
+          <p className="tbtx-peel__title">You named it</p>
+          <div className="tbtx-peel__fog">
+            <p className="tbtx-scan__lead">{band.description}</p>
+          </div>
+        </section>
         <div className="tbtx-scan__moves">
-          <Link href={band.ctaRoute} className="tbtx-scan__go">
+          <Link href={band.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
             {band.cta}
           </Link>
-          <Link href="/tbtx/map">This is a business problem</Link>
+          <Link href="/tbtx/map" className="tbtx-fog-link">
+            This is Digital Friction
+          </Link>
         </div>
         <div className="tbtx-scan__foot">
-          <button type="button" onClick={handleReset}>
+          <button type="button" onClick={handleReset} className="tbtx-fog-link">
             Again
           </button>
-          <Link href="/tbtx">Start Here</Link>
+          <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
+            The why
+          </Link>
         </div>
       </ScanShell>
     );
@@ -116,14 +138,17 @@ export default function DiagnosticEngine({
 
     return (
       <ScanShell isPersonal={false}>
-        <p className="tbtx-scan__job">The job at work</p>
+        <p className="tbtx-scan__job">Work Life</p>
+        <p className="tbtx-scan__mantle">Digital Friction</p>
         <h1 className="tbtx-scan__profile">{profile.profile}</h1>
         <p className="tbtx-scan__lead">{profile.description}</p>
         <div className="tbtx-scan__moves">
-          <Link href={brandProfile.ctaRoute || profile.ctaRoute} className="tbtx-scan__go">
+          <Link href={brandProfile.ctaRoute || profile.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
             {brandProfile.cta}
           </Link>
-          <Link href="/tbtx">Start Here</Link>
+          <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
+            The why
+          </Link>
         </div>
         <div className="tbtx-scan__foot">
           <button type="button" onClick={handleReset}>
@@ -140,7 +165,9 @@ export default function DiagnosticEngine({
   return (
     <ScanShell isPersonal={isPersonal}>
       <div className="tbtx-scan__top">
-        <Link href="/tbtx">Back</Link>
+        <Link href="/tbtx" className="tbtx-fog-link">
+          Back
+        </Link>
         <p className="tbtx-scan__job">{jobLine}</p>
         <div className="tbtx-scan__count" aria-current="step">
           <span>{n}</span>
@@ -148,7 +175,12 @@ export default function DiagnosticEngine({
         </div>
       </div>
 
-      <p className="tbtx-scan__mantle">Managing Digital Fog</p>
+      <p className="tbtx-scan__mantle">{mantle}</p>
+      {currentStep === 0 ? (
+        <p className="tbtx-scan__frame-line">
+          We&rsquo;re not scoring how you work. We&rsquo;re finding the leftover job.
+        </p>
+      ) : null}
       <h1 className="tbtx-scan__question">{currentQuestion.text}</h1>
 
       <div className="tbtx-scan__choices">
@@ -172,10 +204,15 @@ export default function DiagnosticEngine({
       <div className="tbtx-scan__nav">
         <button
           type="button"
-          onClick={() => currentStep > 0 && setCurrentStep(currentStep - 1)}
-          disabled={currentStep === 0}
+          onClick={() => {
+            if (currentStep > 0) {
+              setCurrentStep(currentStep - 1);
+              return;
+            }
+            setReady(false);
+          }}
         >
-          Previous
+          {currentStep === 0 ? "The stand" : "Previous"}
         </button>
       </div>
     </ScanShell>

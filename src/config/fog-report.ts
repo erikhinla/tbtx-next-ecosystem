@@ -149,28 +149,28 @@ const PRESSURE_WHEN_ONE: Record<number, FogPressure> = {
 function loadForHealth(health: number): FogLoad {
   if (health <= 24) {
     return {
-      headline: "The second job is the job.",
-      body: "Your answers describe a week spent re-explaining, chasing, and restarting. The operating layer is still a person.",
+      headline: "Agents started more than anyone can finish.",
+      body: "A week of re-explaining, chasing, restarting. After agents. A person is still holding it.",
       hoursPerPersonWeek: [6, 12],
     };
   }
   if (health <= 49) {
     return {
-      headline: "The second job interrupts every cycle.",
-      body: "Pieces of a system exist. They don't hold. Someone still stitches the gaps by hand.",
+      headline: "People are still finishing what the agents leave.",
+      body: "Some of a system exists. It doesn't hold. Someone still does it by hand.",
       hoursPerPersonWeek: [4, 8],
     };
   }
   if (health <= 74) {
     return {
-      headline: "The system works until it has to remember.",
-      body: "Execution is real. The learning loop is not. Fog shows up as repeated work and ungoverned tools.",
+      headline: "Work gets done. Then you do it again.",
+      body: "The tools don't remember. Agents don't govern themselves. That's the fog showing up at work.",
       hoursPerPersonWeek: [2, 5],
     };
   }
   return {
-    headline: "The system compounds. Guard it.",
-    body: "The operating layer is working. The risk now is adding tools faster than the route can hold them.",
+    headline: "It's working. Don't flood it.",
+    body: "Don't add another agent until this can hold the ones you have.",
     hoursPerPersonWeek: [1, 3],
   };
 }

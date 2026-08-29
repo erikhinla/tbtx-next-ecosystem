@@ -53,42 +53,62 @@ function BlueprintContent() {
 
       <div className="tbtx-scan__frame">
         <div className="tbtx-scan__top">
-          <Link href="/tbtx/map">Back to the Map</Link>
-          <p className="tbtx-scan__job">The job at work</p>
-          <Link href="/tbtx">Start Here</Link>
+          <Link href="/tbtx/map" className="tbtx-fog-link">
+            Back to the Map
+          </Link>
+          <p className="tbtx-scan__job">Work Life</p>
+          <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
+            The why
+          </Link>
         </div>
 
-        <p className="tbtx-scan__mantle">Managing Digital Fog</p>
+        <p className="tbtx-scan__mantle">Digital Friction</p>
         <p className="tbtx-scan__kicker">AI Biz Blueprint</p>
         <h1 className="tbtx-scan__profile">{data.name}</h1>
         <p className="tbtx-scan__status">{data.status}</p>
-        <p className="tbtx-scan__lead">
-          A first prescription from the Momentum Map. Not a finished operating system. It names
-          the shape of the drag so the foundation work has somewhere to start.
-        </p>
-
-        <section className="tbtx-scan__load">
-          <h2>The first fix</h2>
-          <p className="tbtx-blue__fix">{data.fix}</p>
-          <p>Treating symptoms only thickens the fog. Correct the operating architecture first.</p>
+        <section className="tbtx-peel">
+          <p className="tbtx-peel__title">What this prescription is for</p>
+          <div className="tbtx-peel__fog">
+            <p className="tbtx-scan__lead">
+              You named the friction. This is the first prescription, not a finished operating
+              system. It names the shape of the drag so the stand has somewhere to start — and so
+              the team stops being the operating system.
+            </p>
+          </div>
         </section>
 
-        <section className="tbtx-scan__load">
+        <section className="tbtx-scan__load tbtx-peel">
+          <h2>The first fix</h2>
+          <div className="tbtx-peel__fog">
+            <p className="tbtx-blue__fix">{data.fix}</p>
+            <p>Treating symptoms only thickens the fog. Correct the operating architecture first.</p>
+          </div>
+        </section>
+
+        <section className="tbtx-scan__load tbtx-peel">
           <h2>What happens next</h2>
-          <p className="tbtx-blue__fix">{data.next}</p>
-          <p>
-            BizBuilders AI is the foundation engagement. Context, then the operating layer, then
-            governed execution. Growth waits until that layer can carry it.
-          </p>
+          <div className="tbtx-peel__fog">
+            <p className="tbtx-blue__fix">{data.next}</p>
+            <p>
+              BizBuilders AI is the foundation engagement. Context, then the operating layer, then
+              governed execution. Growth waits until that layer can carry it.
+            </p>
+          </div>
         </section>
 
         <div className="tbtx-scan__moves">
-          <Link href="/bbai" className="tbtx-scan__go">
+          <Link href="/bbai" className="tbtx-scan__go tbtx-fog-go">
             Build the Backbone
           </Link>
-          <Link href="/tbtx/map">The business. Start Here</Link>
-          <Link href="/tbtx/scan">This is personal</Link>
-          <Link href="/tbtx">Start Here</Link>
+          <Link href="/tbtx/map" className="tbtx-fog-link">
+            Name the friction again
+          </Link>
+          <Link href="/tbtx/scan" className="tbtx-fog-link">
+            This is personal
+          </Link>
+          <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
+            The why
+          </Link>
         </div>
 
         <div className="tbtx-scan__foot">

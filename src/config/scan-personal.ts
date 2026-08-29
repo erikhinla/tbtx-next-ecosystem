@@ -1,6 +1,6 @@
 import type { Question, ProfileBand } from "./diagnostic-tbtx";
 
-/** B2C / Fog-Lift path. Lived-day questions. Not a business ops quiz. */
+/** B2C / Fog-Free Daily path. Lived-day questions. Not a business ops quiz. */
 export const personalQuestions: Question[] = [
   {
     id: 1,
@@ -19,7 +19,7 @@ export const personalQuestions: Question[] = [
       { text: "Almost never. I can put my hand on it", value: 2 },
       { text: "A few times a week", value: 1 },
       { text: "Most days", value: 0 },
-      { text: "It feels like a second job", value: 0 },
+      { text: "That's most of what I do now", value: 0 },
     ],
   },
   {
@@ -90,8 +90,8 @@ export const personalBands: ProfileBand[] = [
     max: 49,
     profile: "CARRYING IT",
     description:
-      "Your day is holding more open loops than it can. The Fog-Lift Kit is the personal next step: a light system for the weight you're carrying in tabs, threads, and memory.",
-    cta: "Get the Fog-Lift Kit",
+      "You named it. You are still finishing what the agents start. Twenty minutes to close one loop and get one piece of the day back.",
+    cta: "Get Fog-Free Daily",
     ctaRoute: "/tbtx/kit",
   },
   {
@@ -99,8 +99,8 @@ export const personalBands: ProfileBand[] = [
     max: 100,
     profile: "CLEAR ENOUGH TO BUILD",
     description:
-      "Your personal layer isn't the main leak. If work still stalls, that's operating friction. Map it on the business side.",
-    cta: "Map the business fog",
+      "Your day isn't the problem. Work is. Agents started it. People are stuck in the middle. The stand continues there.",
+    cta: "Map the Digital Friction",
     ctaRoute: "/tbtx/map",
   },
 ];
