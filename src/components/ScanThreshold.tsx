@@ -8,12 +8,18 @@ type ScanThresholdProps = {
 export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProps) {
   const jobLine = isPersonal ? "Social Life" : "Work Life";
   const mantle = isPersonal ? "Digital Fog" : "Digital Friction";
-  const beginLabel = isPersonal ? "Name the fog" : "Name the friction";
+  const beginLabel = "Let's look";
   const otherHref = isPersonal ? "/tbtx/map" : "/tbtx/scan";
   const otherLabel = isPersonal ? "This is work life" : "This is personal";
+  const headline = isPersonal
+    ? "You asked it to give you the night back."
+    : "You've been the one who finishes it.";
+  const payoff = isPersonal
+    ? "Then you spent the night inside the draft."
+    : "You don't have to keep doing that.";
   const lead = isPersonal
-    ? "Sit out and you hand over the plot. Sit back and you become the leftover-finisher. Name the fog and that job stops using your night."
-    : "You hired agents to go faster. Humans still finish what they start. Name the friction and those hours stop being the product.";
+    ? "You wanted one text to your sister so you could sleep. ChatGPT wrote three. None of them were you. At 11 you were still in the box, putting your voice back in."
+    : "They start. You still close. Let's name where.";
 
   return (
     <>
@@ -22,11 +28,9 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
         <p className="tbtx-scan__job">{jobLine}</p>
       </div>
       <p className="tbtx-scan__mantle">{mantle}</p>
-      <h1 className="tbtx-scan__question">This scan is a stand</h1>
+      <h1 className="tbtx-scan__question">{headline}</h1>
       <div className="tbtx-nest tbtx-nest--scan">
-        <p className="tbtx-nest__payoff">
-          We&rsquo;re not scoring how you work. We&rsquo;re finding the leftover job.
-        </p>
+        <p className="tbtx-nest__payoff">{payoff}</p>
         <div className="tbtx-nest__support">
           <p className="tbtx-scan__lead tbtx-scan__covenant">{lead}</p>
           <p className="tbtx-scan__refrain">You don&rsquo;t need more AI. Clear the fog.</p>

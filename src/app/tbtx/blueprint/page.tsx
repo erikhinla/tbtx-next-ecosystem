@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
 import type { Archetype } from "@/config/intakeQuestions";
+import { film } from "@/lib/media";
 
 const archetypeMap: Record<
   Archetype,
@@ -46,7 +47,7 @@ function BlueprintContent() {
     <div className="tbtx-scan tbtx-blue">
       <div className="tbtx-scan__stage" aria-hidden="true">
         <video autoPlay muted loop playsInline poster="/media/door-b2b-827v2.jpg">
-          <source src="/media/door-b2b-827v2.mp4" type="video/mp4" />
+          <source src={film("/media/door-b2b-827v2.mp4")} type="video/mp4" />
         </video>
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
@@ -101,7 +102,7 @@ function BlueprintContent() {
             Build the Backbone
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            Name the friction again
+            Let's look again
           </Link>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
             This is personal

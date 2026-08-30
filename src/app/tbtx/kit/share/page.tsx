@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { film } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Fog-Free moment",
@@ -12,7 +13,7 @@ export default function FogFreeSharePage() {
     <main className="tbtx-scan tbtx-kit tbtx-kit--share">
       <div className="tbtx-scan__stage" aria-hidden="true">
         <video autoPlay muted loop playsInline poster="/media/door-b2c-827v2.jpg">
-          <source src="/media/door-b2c-827v2.mp4" type="video/mp4" />
+          <source src={film("/media/door-b2c-827v2.mp4")} type="video/mp4" />
         </video>
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
@@ -35,7 +36,7 @@ export default function FogFreeSharePage() {
             poster="/media/fog-free-share.jpg"
             preload="metadata"
           >
-            <source src="/media/fog-free-share.mp4" type="video/mp4" />
+            <source src={film("/media/fog-free-share.mp4")} type="video/mp4" />
           </video>
           <figcaption>
             I ran Fog-Free Daily. Cleared a surface. One move. Calm is the win.
@@ -49,7 +50,7 @@ export default function FogFreeSharePage() {
             Download the reset
           </a>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Name the fog
+            Let's look again
           </Link>
         </div>
       </div>

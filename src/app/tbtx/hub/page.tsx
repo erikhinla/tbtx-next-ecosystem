@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { film } from "@/lib/media";
 
 export default function TBTXHubClassic() {
   return (
@@ -12,7 +13,7 @@ export default function TBTXHubClassic() {
           playsInline
           preload="metadata"
         >
-          <source src="/media/desk-fog-loop.mp4" type="video/mp4" />
+          <source src={film("/media/desk-fog-loop.mp4")} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-[#0a0a0a]/85 to-[#0a0a0a]" />
       </div>

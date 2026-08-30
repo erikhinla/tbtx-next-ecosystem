@@ -6,6 +6,7 @@ import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
 import { StakesCopy, StandCopy } from "./WhyJourney";
+import { film } from "@/lib/media";
 
 declare global {
   interface Window {
@@ -131,7 +132,7 @@ export default function ScrollcraftTBTXExperience() {
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
           >
-            <source src="/media/hero-site-827a.mp4" type="video/mp4" />
+            <source src={film("/media/hero-site-827a.mp4")} type="video/mp4" />
           </video>
           <a href="#tbtx-stakes" className="tbtx-sc__hero-cta">
             Start Here
@@ -191,9 +192,6 @@ export default function ScrollcraftTBTXExperience() {
             className="tbtx-sc__doorway"
             aria-label="Enter to Scan for Digital Fog in Life"
           >
-            <div className="tbtx-sc__doorway-copy">
-              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
-            </div>
             <div className="tbtx-sc__doorway-stage">
               <video
                 className="tbtx-sc__doorway-video"
@@ -204,8 +202,9 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2c-827v2.jpg"
               >
-                <source src="/media/door-b2c-827v2.mp4" type="video/mp4" />
+                <source src={film("/media/door-b2c-827v2.mp4")} type="video/mp4" />
               </video>
+              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
             </div>
           </Link>
           <Link
@@ -213,9 +212,6 @@ export default function ScrollcraftTBTXExperience() {
             className="tbtx-sc__doorway"
             aria-label="Enter to Scan Digital Fog in Business"
           >
-            <div className="tbtx-sc__doorway-copy">
-              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
-            </div>
             <div className="tbtx-sc__doorway-stage">
               <video
                 className="tbtx-sc__doorway-video"
@@ -226,8 +222,9 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2b-827v2.jpg"
               >
-                <source src="/media/door-b2b-827v2.mp4" type="video/mp4" />
+                <source src={film("/media/door-b2b-827v2.mp4")} type="video/mp4" />
               </video>
+              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
             </div>
           </Link>
         </div>
@@ -262,7 +259,7 @@ export default function ScrollcraftTBTXExperience() {
             aria-label="Founder of TransformBy10X"
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           >
-            <source src="/media/founder-erik.mp4" type="video/mp4" />
+            <source src={film("/media/founder-erik.mp4")} type="video/mp4" />
           </video>
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
@@ -273,13 +270,24 @@ export default function ScrollcraftTBTXExperience() {
             <button type="button" onClick={() => setShowReel(true)} className="tbtx-fog-link">
               See how the day plays out
             </button>
+            <div className="tbtx-sc__founder">
+              <p>The gap isn&rsquo;t AI adoption. It&rsquo;s infrastructure.</p>
+              <p>
+                I know what fog feels like. I started in project management at global agencies
+                decades ago, back when large retainers were the norm and Digital Fog was a
+                bill-to code.
+              </p>
+              <p>
+                Now I dedicate the next decades to lifting society&rsquo;s fog.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {showReel && (
         <VideoLightbox
-          src="/media/long-form-combined-lowres.mp4"
+          src={film("/media/long-form-combined-lowres.mp4")}
           onClose={() => setShowReel(false)}
         />
       )}

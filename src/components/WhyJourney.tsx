@@ -1,7 +1,5 @@
 "use client";
 
-import FogVeil from "./FogVeil";
-
 const POSITIONS = [
   {
     id: "out",
@@ -55,21 +53,21 @@ export function StandCopy() {
   return (
     <div className="tbtx-why tbtx-why--stand">
       <header className="tbtx-why__lock">
-        <p className="tbtx-why__kicker">The stand</p>
-        <h2>This isn&rsquo;t a quiz about how you work.</h2>
+        <h2>You&rsquo;ve been finishing what they start.</h2>
       </header>
 
-      <FogVeil className="tbtx-why__field" film="/media/hallway-fog-lift.mp4" poster="/media/hallway-fog-lift.jpg">
-        <p className="tbtx-why__payoff">
-          It&rsquo;s a decision. Keep finishing what AI starts, or take your attention back.
-        </p>
-        <p>
-          Two minutes names where the leftover job is thickest. Then you pick a door.
-        </p>
-        <a href="#tbtx-doors" className="tbtx-fog-link">
-          Where it shows up
-        </a>
-      </FogVeil>
+      <div className="tbtx-nest tbtx-nest--stand">
+        <p className="tbtx-nest__payoff">I know. Someone had to.</p>
+        <div className="tbtx-nest__support">
+          <p>
+            You don&rsquo;t get that time twice. If that attention went to what&rsquo;s yours, the
+            making starts tonight. Not the cleanup.
+          </p>
+          <a href="#tbtx-doors" className="tbtx-fog-link">
+            Get the making back
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

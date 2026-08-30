@@ -54,7 +54,7 @@ export const personalQuestions: Question[] = [
   },
   {
     id: 6,
-    text: "If you stopped for a week, could you pick the work back up?",
+    text: "If you put the phone down for a week, could you pick your life back up?",
     options: [
       { text: "Yes. It's where I left it", value: 2 },
       { text: "Mostly, with a little hunting", value: 1 },
@@ -66,7 +66,7 @@ export const personalQuestions: Question[] = [
     id: 7,
     text: "What usually costs you the morning?",
     options: [
-      { text: "The actual work I meant to do", value: 2 },
+      { text: "The actual thing I meant to do", value: 2 },
       { text: "Messages that shouldn't have been urgent", value: 1 },
       { text: "Finding the right version of something", value: 0 },
       { text: "Re-explaining context to myself or a tool", value: 0 },

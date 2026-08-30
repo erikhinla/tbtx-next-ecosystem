@@ -8,6 +8,7 @@ import { deriveFogReport } from "@/config/fog-report";
 import Link from "next/link";
 import FogReport from "./FogReport";
 import ScanThreshold from "./ScanThreshold";
+import { film } from "@/lib/media";
 
 interface DiagnosticEngineProps {
   brand?: "tbtx" | "bbai" | "bbm";
@@ -22,7 +23,7 @@ function ScanShell({
   isPersonal: boolean;
   children: ReactNode;
 }) {
-  const src = isPersonal ? "/media/door-b2c-827v2.mp4" : "/media/door-b2b-827v2.mp4";
+  const src = film(isPersonal ? "/media/door-b2c-827v2.mp4" : "/media/door-b2b-827v2.mp4");
   const poster = isPersonal ? "/media/door-b2c-827v2.jpg" : "/media/door-b2b-827v2.jpg";
 
   return (
@@ -178,7 +179,7 @@ export default function DiagnosticEngine({
       <p className="tbtx-scan__mantle">{mantle}</p>
       {currentStep === 0 ? (
         <p className="tbtx-scan__frame-line">
-          We&rsquo;re not scoring how you work. We&rsquo;re finding the leftover job.
+          {isPersonal ? "Let's name where the day got away." : "Let's find the leftover job."}
         </p>
       ) : null}
       <h1 className="tbtx-scan__question">{currentQuestion.text}</h1>

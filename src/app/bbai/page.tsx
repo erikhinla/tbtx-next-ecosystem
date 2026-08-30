@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { film } from "@/lib/media";
 
 const RevealText = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <motion.div
@@ -73,7 +74,7 @@ export default function BBAIPage() {
               playsInline
               preload="metadata"
             >
-              <source src="/media/b2b-sold-ai.mp4" type="video/mp4" />
+              <source src={film("/media/b2b-sold-ai.mp4")} type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-[#1C1916]/75" />
           </div>
@@ -214,7 +215,7 @@ export default function BBAIPage() {
               playsInline
               preload="metadata"
             >
-              <source src="/media/infra-endcard.mp4" type="video/mp4" />
+              <source src={film("/media/infra-endcard.mp4")} type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-[#1C1916]/70" />
           </div>

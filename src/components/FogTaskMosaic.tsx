@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { fogHaptic, trackFogPointer } from "./FogVeil";
+import { film } from "@/lib/media";
 
 const FACTS = [
   {
@@ -117,7 +118,7 @@ export default function FogTaskMosaic() {
               preload="metadata"
               poster={item.poster}
             >
-              <source src={item.src} type="video/mp4" />
+              <source src={film(item.src)} type="video/mp4" />
             </video>
             <span className="tbtx-mosaic__fact">
               <strong>{item.hook}</strong>
@@ -188,7 +189,7 @@ export default function FogTaskMosaic() {
             playsInline
             poster={active.poster}
           >
-            <source src={active.src} type="video/mp4" />
+            <source src={film(active.src)} type="video/mp4" />
           </video>
           <div className="tbtx-mosaic__caption">
             <h3>{active.hook}</h3>
