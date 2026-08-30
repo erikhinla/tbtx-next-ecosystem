@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
 import type { Archetype } from "@/config/intakeQuestions";
-import { film } from "@/lib/media";
+import Film from "@/components/Film";
 
 const archetypeMap: Record<
   Archetype,
@@ -46,9 +46,14 @@ function BlueprintContent() {
   return (
     <div className="tbtx-scan tbtx-blue">
       <div className="tbtx-scan__stage" aria-hidden="true">
-        <video autoPlay muted loop playsInline poster="/media/door-b2b-827v2.jpg">
-          <source src={film("/media/door-b2b-827v2.mp4")} type="video/mp4" />
-        </video>
+        <Film
+          autoPlay
+          muted
+          loop
+          playsInline
+          src="/media/door-b2b-827v2.mp4"
+          poster="/media/door-b2b-827v2.jpg"
+        />
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { film } from "@/lib/media";
+import Film from "@/components/Film";
 
 export const metadata: Metadata = {
   title: "Fog-Free Daily",
@@ -43,9 +43,14 @@ export default function FogFreeDailyPage() {
   return (
     <main className="tbtx-scan tbtx-kit">
       <div className="tbtx-scan__stage" aria-hidden="true">
-        <video autoPlay muted loop playsInline poster="/media/door-b2c-827v2.jpg">
-          <source src={film("/media/door-b2c-827v2.mp4")} type="video/mp4" />
-        </video>
+        <Film
+          autoPlay
+          muted
+          loop
+          playsInline
+          src="/media/door-b2c-827v2.mp4"
+          poster="/media/door-b2c-827v2.jpg"
+        />
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">

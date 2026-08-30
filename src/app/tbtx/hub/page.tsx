@@ -1,20 +1,19 @@
 import Link from "next/link";
-import { film } from "@/lib/media";
+import Film from "@/components/Film";
 
 export default function TBTXHubClassic() {
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-        <video
+        <Film
           className="h-full w-full object-cover opacity-[0.28]"
+          src="/media/desk-fog-loop.mp4"
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-        >
-          <source src={film("/media/desk-fog-loop.mp4")} type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-[#0a0a0a]/85 to-[#0a0a0a]" />
       </div>
 

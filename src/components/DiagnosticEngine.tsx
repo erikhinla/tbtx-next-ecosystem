@@ -8,7 +8,7 @@ import { deriveFogReport } from "@/config/fog-report";
 import Link from "next/link";
 import FogReport from "./FogReport";
 import ScanThreshold from "./ScanThreshold";
-import { film } from "@/lib/media";
+import Film from "./Film";
 
 interface DiagnosticEngineProps {
   brand?: "tbtx" | "bbai" | "bbm";
@@ -23,15 +23,13 @@ function ScanShell({
   isPersonal: boolean;
   children: ReactNode;
 }) {
-  const src = film(isPersonal ? "/media/door-b2c-827v2.mp4" : "/media/door-b2b-827v2.mp4");
+  const src = isPersonal ? "/media/door-b2c-827v2.mp4" : "/media/door-b2b-827v2.mp4";
   const poster = isPersonal ? "/media/door-b2c-827v2.jpg" : "/media/door-b2b-827v2.jpg";
 
   return (
     <div className="tbtx-scan">
       <div className="tbtx-scan__stage" aria-hidden="true">
-        <video autoPlay muted loop playsInline poster={poster}>
-          <source src={src} type="video/mp4" />
-        </video>
+        <Film autoPlay muted loop playsInline src={src} poster={poster} />
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">{children}</div>

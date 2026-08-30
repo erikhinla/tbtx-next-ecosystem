@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
+import Film from "./Film";
 import { StakesCopy, StandCopy } from "./WhyJourney";
 import { film } from "@/lib/media";
 
@@ -121,9 +122,10 @@ export default function ScrollcraftTBTXExperience() {
           <h1 className="tbtx-sc__sr">
             AI Created a Job. Nobody wanted. Managing Digital Fog.
           </h1>
-          <video
+          <Film
             ref={heroVideoRef}
             className="tbtx-sc__hero-film"
+            src="/media/hero-site-827a.mp4"
             autoPlay
             muted
             loop
@@ -131,9 +133,7 @@ export default function ScrollcraftTBTXExperience() {
             preload="metadata"
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
-          >
-            <source src={film("/media/hero-site-827a.mp4")} type="video/mp4" />
-          </video>
+          />
           <a href="#tbtx-stakes" className="tbtx-sc__hero-cta">
             Start Here
           </a>
@@ -193,17 +193,16 @@ export default function ScrollcraftTBTXExperience() {
             aria-label="Enter to Scan for Digital Fog in Life"
           >
             <div className="tbtx-sc__doorway-stage">
-              <video
+              <Film
                 className="tbtx-sc__doorway-video"
+                src="/media/door-b2c-827v2.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
                 poster="/media/door-b2c-827v2.jpg"
-              >
-                <source src={film("/media/door-b2c-827v2.mp4")} type="video/mp4" />
-              </video>
+              />
               <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
             </div>
           </Link>
@@ -213,17 +212,16 @@ export default function ScrollcraftTBTXExperience() {
             aria-label="Enter to Scan Digital Fog in Business"
           >
             <div className="tbtx-sc__doorway-stage">
-              <video
+              <Film
                 className="tbtx-sc__doorway-video"
+                src="/media/door-b2b-827v2.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
                 poster="/media/door-b2b-827v2.jpg"
-              >
-                <source src={film("/media/door-b2b-827v2.mp4")} type="video/mp4" />
-              </video>
+              />
               <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
             </div>
           </Link>
@@ -248,8 +246,9 @@ export default function ScrollcraftTBTXExperience() {
         data-sc-drift="#0d1210"
       >
         <div className="sc-stage tbtx-sc__stage tbtx-sc__close-stage" data-sc-stage>
-          <video
+          <Film
             className="tbtx-sc__close-still"
+            src="/media/founder-erik.mp4"
             autoPlay
             muted
             loop
@@ -257,10 +256,8 @@ export default function ScrollcraftTBTXExperience() {
             preload="metadata"
             poster="/media/hero-solo.jpg"
             aria-label="Founder of TransformBy10X"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          >
-            <source src={film("/media/founder-erik.mp4")} type="video/mp4" />
-          </video>
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
             <p className="tbtx-sc__refrain">You don&rsquo;t need more AI. Clear the fog.</p>

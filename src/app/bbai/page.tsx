@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { film } from "@/lib/media";
+import Film from "@/components/Film";
 
 const RevealText = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <motion.div
@@ -66,16 +66,15 @@ export default function BBAIPage() {
       <div className="max-w-[1080px] mx-auto px-5 md:px-8">
         <section className="relative pt-16 md:pt-20 pb-14 overflow-hidden" style={{ minHeight: "70vh" }}>
           <div className="absolute inset-0 z-0">
-            <video
+            <Film
               className="w-full h-full object-cover"
+              src="/media/b2b-sold-ai.mp4"
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
-            >
-              <source src={film("/media/b2b-sold-ai.mp4")} type="video/mp4" />
-            </video>
+            />
             <div className="absolute inset-0 bg-[#1C1916]/75" />
           </div>
           <div className="relative z-10">
@@ -207,16 +206,15 @@ export default function BBAIPage() {
           style={{ minHeight: "40vh", display: "flex", alignItems: "center", justifyContent: "center" }}
         >
           <div className="absolute inset-0 z-0">
-            <video
+            <Film
               className="w-full h-full object-cover"
+              src="/media/infra-endcard.mp4"
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
-            >
-              <source src={film("/media/infra-endcard.mp4")} type="video/mp4" />
-            </video>
+            />
             <div className="absolute inset-0 bg-[#1C1916]/70" />
           </div>
           <div className="relative z-10">

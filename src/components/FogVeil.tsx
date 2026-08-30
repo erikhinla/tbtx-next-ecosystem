@@ -7,7 +7,7 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from "react";
-import { film as filmUrl } from "@/lib/media";
+import Film from "./Film";
 
 export function fogHaptic(ms = 12) {
   if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
@@ -78,9 +78,15 @@ export default function FogVeil({
       <div className="tbtx-fog__body">{children}</div>
       <div className="tbtx-fog__veil" aria-hidden="true">
         {film ? (
-          <video autoPlay muted loop playsInline preload="metadata" poster={poster}>
-            <source src={filmUrl(film)} type="video/mp4" />
-          </video>
+          <Film
+            src={film}
+            poster={poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
         ) : null}
       </div>
     </div>
