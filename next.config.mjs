@@ -5,6 +5,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: "/scan", destination: "/tbtx/scan", permanent: false },
+      { source: "/map", destination: "/tbtx/map", permanent: false },
       { source: "/diagnostic", destination: "/tbtx/map", permanent: false },
       { source: "/tbtx/diagnostic", destination: "/tbtx/map", permanent: false },
       { source: "/tbtx/hub", destination: "/tbtx", permanent: false },
