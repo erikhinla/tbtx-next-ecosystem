@@ -1,244 +1,72 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import Film from "@/components/Film";
 
-const RevealText = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <motion.div
-    initial={{ y: 12 }}
-    whileInView={{ y: 0 }}
-    viewport={{ once: true, margin: "-80px" }}
-    transition={{ duration: 0.28, ease: "easeOut", delay }}
-  >
-    {children}
-  </motion.div>
-);
+const BUILD = [
+  { n: "01", title: "Find the drag", body: "Map where momentum stops, where context disappears, and which handoffs return as rework.", link: "/tbtx/map", cta: "Run the Momentum Map" },
+  { n: "02", title: "Establish operating truth", body: "Give people and AI one current source for decisions, ownership, constraints, and the next move.", link: "/downloads/Architecting-AI-Flow.pdf", cta: "Open the architecture deck" },
+  { n: "03", title: "Govern the path to done", body: "Route generated work through review, approval, execution, evidence, and completion. Output stops becoming human cleanup.", link: "/downloads/The-Architecture-of-AI-Native-Operations.pdf", cta: "Open the operations deck" },
+  { n: "04", title: "Activate growth after", body: "Demand enters after the operating layer can carry it. Acceleration stops amplifying disorder.", link: "#build", cta: "See the engagement" },
+] as const;
 
-const BlueprintRule = () => <div className="h-px w-12 bg-[#B89A6E]/40 my-8" />;
+const PROOF = [
+  ["Context", "People and AI work from the same current truth."],
+  ["Memory", "Decisions survive the session that created them."],
+  ["Routing", "Every job has an owner, a gate, and a next state."],
+  ["Governance", "Risky work waits for approval and leaves evidence."],
+  ["Completion", "The system knows what done means before work begins."],
+] as const;
 
-const FAQS = [
-  {
-    q: "Why is work getting harder as AI gets better?",
-    a: "Tools multiplied faster than context. People spend more time finding the live version, re-explaining the job, and stitching handoffs than doing the work. That's Digital Friction.",
-  },
-  {
-    q: "What should we assess first?",
-    a: "Where momentum actually stops. The Momentum Map is the entry. It is not an AI-readiness score.",
-  },
-  {
-    q: "What is the Blueprint?",
-    a: "A first prescription: where momentum stops, what is creating resistance, what is ready to move, and the first operating shift. A document is not the destination. Changed work is.",
-  },
-  {
-    q: "What is context, here?",
-    a: "The missing operating truth. What is current, who owns the next move, and where the work lives so people and AI are looking at the same thing.",
-  },
-  {
-    q: "What is the foundation made of?",
-    a: "Folders, plain text, scripts, and protocols. Durable primitives. Not another dashboard.",
-  },
-  {
-    q: "What keeps focus?",
-    a: "What's important now. A real priority that routes work, instead of the loudest thread winning.",
-  },
-  {
-    q: "What governs execution?",
-    a: "Generated work needs a path to done. FLOW is that path under BizBuilders. It is proof of the foundation, not the public hook.",
-  },
-  {
-    q: "What happens next?",
-    a: "Map the drag. Then the Blueprint. Then the foundation. Growth activation waits until the operating layer can carry it.",
-  },
-];
+function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const reduced = useReducedMotion();
+  return <motion.div className={className} initial={reduced ? false : { opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-12%" }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>{children}</motion.div>;
+}
 
 export default function BBAIPage() {
-  return (
-    <main className="tbtx-blueprint min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] paper-bg font-body">
-      <header className="flex justify-between items-center px-5 md:px-8 py-5 text-xs font-mono tracking-[0.12em] border-b border-[#D8D2C5]">
-        <Link href="/tbtx">TransformBy10X</Link>
-        <div className="text-[#B89A6E] hidden sm:block">BizBuilders AI</div>
-        <Link href="/tbtx/map" className="engineered-control text-[10px]">
-          Start with the business
-        </Link>
-      </header>
+  return <main className="bbai2">
+    <a className="bbai2__skip" href="#problem">Skip to the problem</a>
+    <nav className="bbai2__nav"><Link href="/tbtx">TransformBy10X</Link><span>BizBuilders AI / Operating infrastructure</span><Link href="/tbtx/map">Map the drag</Link></nav>
 
-      <div className="max-w-[1080px] mx-auto px-5 md:px-8">
-        <section className="relative pt-16 md:pt-20 pb-14 overflow-hidden" style={{ minHeight: "70vh" }}>
-          <div className="absolute inset-0 z-0">
-            <Film
-              className="w-full h-full object-cover"
-              src="/media/b2b-sold-ai.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
-            <div className="absolute inset-0 bg-[#1C1916]/75" />
-          </div>
-          <div className="relative z-10">
-            <RevealText>
-              <div className="blueprint-label mb-3" style={{ color: "#B89A6E" }}>
-                Operating foundation
-              </div>
-              <h1 className="type-macro text-[clamp(2.85rem,9.4vw,5.1rem)] leading-[0.84] tracking-[-0.06em] text-[#F4EDE3]">
-                Why are projects taking longer
-                <br />
-                even though you have more tools?
-              </h1>
-            </RevealText>
-            <RevealText delay={0.08}>
-              <p className="mt-6 max-w-[58ch] text-[15.2px] leading-[1.68] text-[#F4EDE3]/90">
-                Digital Fog turns into Digital Friction when people can&apos;t find what&apos;s current,
-                hand work off, or trust the version in front of them. The operating layer under
-                AI is what makes work move again.
-              </p>
-            </RevealText>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link
-                href="/tbtx/map"
-                className="engineered-control"
-                style={{ borderColor: "#B89A6E", color: "#F4EDE3" }}
-              >
-                Start with the business
-              </Link>
-            </div>
-            <p className="mt-3 text-xs text-[#B89A6E] font-mono tracking-[0.1em]">
-              See where momentum stops. Then build.
-            </p>
-          </div>
-        </section>
-
-        <BlueprintRule />
-
-        <section className="pb-16">
-          <RevealText>
-            <h2 className="type-macro text-[clamp(1.95rem,6.2vw,2.85rem)] leading-[0.9]">
-              Digital Friction is what the business feels.
-            </h2>
-          </RevealText>
-          <RevealText delay={0.06}>
-            <p className="max-w-[52ch] mt-6 text-[15px] leading-relaxed text-[#1C1916]/80">
-              Stalled work. Dropped handoffs. Rework. Hidden coordination labor. The gap isn&apos;t AI
-              adoption. The gap is operational architecture. You can&apos;t automate what&apos;s not
-              organized.
-            </p>
-          </RevealText>
-        </section>
-
-        <section className="grid md:grid-cols-2 gap-4 pb-16">
-          {[
-            {
-              title: "Momentum Map",
-              body: "See where momentum stops, what is creating resistance, and what is ready to move.",
-              href: "/tbtx/map",
-              cta: "Start with the business",
-            },
-            {
-              title: "AI Biz Blueprint",
-              body: "A clear operating map and sequence. Prescription before implementation.",
-              href: "/tbtx/blueprint",
-              cta: "See the Blueprint",
-            },
-          ].map((item) => (
-            <div key={item.title} className="border border-[#B89A6E]/30 p-7">
-              <div className="blueprint-label mb-2">{item.title}</div>
-              <p className="text-sm leading-[1.7] text-[#1C1916]/80">{item.body}</p>
-              <Link href={item.href} className="engineered-control mt-6 text-[10px]">
-                {item.cta}
-              </Link>
-            </div>
-          ))}
-        </section>
-
-        <section className="bg-[#EDE4D8] p-8 md:p-12 border border-[#B89A6E]/30 mb-16">
-          <div className="blueprint-label mb-2">Context Architecture</div>
-          <h3 className="type-macro text-3xl md:text-[2.65rem] leading-[0.86] tracking-[-0.04em]">
-            One current truth for people and AI.
-          </h3>
-          <p className="mt-6 max-w-[58ch] text-sm leading-[1.7] text-[#1C1916]/80">
-            Context Architecture is the gate. Every client completes it before infrastructure,
-            automation, workflow, or agent work begins. No context means no build.
-          </p>
-        </section>
-
-        <section className="grid md:grid-cols-2 gap-4 pb-16">
-          {[
-            {
-              title: "The foundation",
-              sub: "Folders, Markdown, scripts, protocols. The primitives that hold memory so work doesn't live in someone's head.",
-            },
-            {
-              title: "What's important now",
-              sub: "A real priority that routes the next move. Persistent memory. The work gets sharper instead of starting over.",
-            },
-            {
-              title: "Governed execution",
-              sub: "Most systems can generate. Very few can govern what happens next. FLOW is the BBAI proof: a path from the idea to done.",
-            },
-            {
-              title: "Growth, after",
-              sub: "BizBot Mrktng activates demand only when this layer can carry it. That door stays closed on this site until the product is real.",
-            },
-          ].map((item) => (
-            <div key={item.title} className="border border-[#B89A6E]/30 p-7 text-sm leading-[1.65]">
-              <div className="text-[#B89A6E] text-xs tracking-[0.1em] mb-2">{item.title}</div>
-              {item.sub}
-            </div>
-          ))}
-        </section>
-
-        <section className="pb-20">
-          <div className="blueprint-label mb-6">Questions</div>
-          <div className="grid gap-6">
-            {FAQS.map((item) => (
-              <div key={item.q} className="border-t border-[#D8D2C5] pt-5">
-                <h3 className="text-lg tracking-tight">{item.q}</h3>
-                <p className="mt-2 max-w-[62ch] text-sm leading-[1.7] text-[#1C1916]/80">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section
-          className="relative overflow-hidden py-20 text-center"
-          style={{ minHeight: "40vh", display: "flex", alignItems: "center", justifyContent: "center" }}
-        >
-          <div className="absolute inset-0 z-0">
-            <Film
-              className="w-full h-full object-cover"
-              src="/media/infra-endcard.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
-            <div className="absolute inset-0 bg-[#1C1916]/70" />
-          </div>
-          <div className="relative z-10">
-            <p className="text-[#F4EDE3]/90 max-w-[42ch] mx-auto mb-6 text-sm leading-relaxed">
-              Work keeps moving. People spend less time chasing answers and more time doing useful
-              work.
-            </p>
-            <Link
-              href="/tbtx/map"
-              className="engineered-control"
-              style={{ borderColor: "#B89A6E", color: "#F4EDE3" }}
-            >
-              Start with the business
-            </Link>
-            <div className="text-[10px] mt-3 tracking-[0.1em] text-[#B89A6E]">
-              See where it stops. Then build.
-            </div>
-          </div>
-        </section>
+    <header className="bbai2__hero">
+      <img className="bbai2__hero-film" src="/media/fog-to-route.jpg" alt="Scattered systems resolving into connected operating infrastructure" />
+      <div className="bbai2__hero-veil" />
+      <div className="bbai2__hero-copy">
+        <p>Digital Fog becomes business drag.</p>
+        <h1>AI didn&rsquo;t remove the work.<br /><em>It moved it into the gaps.</em></h1>
+        <div className="bbai2__hero-foot"><span>Context disappears. Handoffs stall. People become the operating system.</span><Link href="#problem">See what is happening</Link></div>
       </div>
+    </header>
 
-      <footer className="text-[10px] font-mono px-5 md:px-8 py-6 text-[#B89A6E] border-t border-[#D8D2C5] tracking-[0.1em]">
-        BizBuilders AI, a TransformBy10X company. Infrastructure before acceleration.
-      </footer>
-    </main>
-  );
+    <section id="problem" className="bbai2__chapter bbai2__problem">
+      <Reveal className="bbai2__chapter-copy"><p className="bbai2__eyebrow">01 / The consequence</p><h2>More output.<br />Less momentum.</h2><p>Digital Friction is what the business feels when output outpaces infrastructure. Teams reconcile versions, restore missing context, chase approvals, and finish what the tools started.</p><p className="bbai2__pull">The tools got faster. The work got foggier.</p><Link className="bbai2__text-link" href="/tbtx/map">Find where momentum stops</Link></Reveal>
+      <div className="bbai2__story-stack">
+        <figure><img src="/media/bbai-blue-final-folders.jpg" alt="Team reconciling three conflicting final folders" /><figcaption>Three teams. Three finals. One human reconciliation layer.</figcaption></figure>
+        <figure><img src="/media/bbai-digital-fog-infographic.png" alt="Digital Fog and Digital Friction operating diagram" /><figcaption>The hidden job becomes measurable business drag.</figcaption></figure>
+      </div>
+    </section>
+
+    <section className="bbai2__interruption"><img src="/media/bbai-blue-billboard.jpg" alt="Managing Digital Fog campaign displayed over a business operations room" /><div><p>Digital Fog is the condition.</p><h2>Digital Friction is the cost.</h2></div></section>
+
+    <section className="bbai2__chapter bbai2__build">
+      <Reveal className="bbai2__chapter-copy"><p className="bbai2__eyebrow">02 / The build</p><h2>Infrastructure<br />before acceleration.</h2><p>BizBuilders AI builds the operating layer between ambition and execution. Each layer closes a gap the tools cannot close by themselves.</p></Reveal>
+      <div className="bbai2__build-list">{BUILD.map((item) => <article key={item.n}><small>{item.n}</small><div><h3>{item.title}</h3><p>{item.body}</p></div><Link href={item.link} target={item.link.endsWith(".pdf") ? "_blank" : undefined}>{item.cta}</Link></article>)}</div>
+    </section>
+
+    <section className="bbai2__decks">
+      <a href="/downloads/The-Architecture-of-AI-Native-Operations.pdf" target="_blank" className="bbai2__deck"><img src="/media/bbai-deck-architecture.jpg" alt="The Architecture of AI-Native Operations presentation cover" /><div><small>13 pages / operating model</small><h3>The architecture of AI-native operations</h3><span>Open presentation</span></div></a>
+      <a href="/downloads/Architecting-AI-Flow.pdf" target="_blank" className="bbai2__deck"><img src="/media/bbai-deck-flow.jpg" alt="FLOW Agent AS presentation cover" /><div><small>15 pages / execution architecture</small><h3>Architecting AI flow</h3><span>Open presentation</span></div></a>
+    </section>
+
+    <section className="bbai2__chapter bbai2__proof">
+      <Reveal className="bbai2__chapter-copy"><p className="bbai2__eyebrow">03 / What changes</p><h2>Work stops<br />starting over.</h2><p>The value is not another interface. It is an operating memory that keeps people, agents, decisions, and delivery moving in the same direction.</p></Reveal>
+      <div className="bbai2__proof-list">{PROOF.map(([title, body], index) => <article key={title}><small>0{index + 1}</small><h3>{title}</h3><p>{body}</p></article>)}</div>
+    </section>
+
+    <section id="build" className="bbai2__close">
+      <img src="/media/bbai-blue-phone.jpg" alt="Digital Fog business campaign shown on a phone beside working documents" />
+      <div><p>Momentum Map → Blueprint → operating foundation</p><h2>Stop managing the gaps.</h2><span>Start with the drag already costing the business time, trust, and momentum.</span><Link href="/tbtx/map">Map the business</Link></div>
+    </section>
+    <footer className="bbai2__footer"><Link href="/tbtx">TransformBy10X</Link><p>BizBuilders AI builds the foundation. Growth comes after it can carry the weight.</p><Link href="/tbtx/hub">Launch surface</Link></footer>
+  </main>;
 }
