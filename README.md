@@ -2,6 +2,15 @@
 
 This is the production-ready, full-stack web ecosystem for TransformBy10X (TBTX), BizBuilders AI (BBAI), and BizBot Marketing (BBM).
 
+## Production ownership
+
+- **Repository:** `erikhinla/tbtx-next-ecosystem`
+- **Production branch:** `main`
+- **Vercel project:** `tbtx-next-ecosystem`
+- **Public domain:** `transformby10x.ai`
+
+No other repository or Vercel project is authorized to own or alias the public domain. See [docs/PRODUCTION.md](docs/PRODUCTION.md) before changing deployment, domain, or secret configuration.
+
 Aligned to the full TransformBy10X Ecosystem Onboarding Brief and positioning (WIN / GOAL / FLOW hierarchy, exact sample messaging from section 29, execution standards, and master sequence).
 
 ## Core Messaging (exact from brief)
