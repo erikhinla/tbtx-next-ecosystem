@@ -24,7 +24,7 @@ export function StakesCopy() {
     <div className="tbtx-why">
       <header className="tbtx-why__lock">
         <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
-        <h2>Three ways this goes.</h2>
+        <h2 data-fog-text="Three ways this goes.">Three ways this goes.</h2>
       </header>
 
       <div className="tbtx-why__field">
@@ -53,7 +53,7 @@ export function StandCopy() {
   return (
     <div className="tbtx-why tbtx-why--stand">
       <header className="tbtx-why__lock">
-        <h2>You&rsquo;ve been finishing what they start.</h2>
+        <h2 data-fog-text="You’ve been finishing what they start.">You&rsquo;ve been finishing what they start.</h2>
       </header>
 
       <div className="tbtx-nest tbtx-nest--stand">

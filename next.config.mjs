@@ -9,7 +9,6 @@ const nextConfig = {
       { source: "/map", destination: "/tbtx/map", permanent: false },
       { source: "/diagnostic", destination: "/tbtx/map", permanent: false },
       { source: "/tbtx/diagnostic", destination: "/tbtx/map", permanent: false },
-      { source: "/tbtx/hub", destination: "/tbtx", permanent: false },
       { source: "/diagnostic/blueprint", destination: "/tbtx/blueprint", permanent: false },
       { source: "/bbai/roadmap", destination: "/tbtx/map", permanent: false },
       { source: "/bbai/flow-agent-as", destination: "/bbai", permanent: false },

@@ -233,6 +233,11 @@ export default function ScrollcraftTBTXExperience() {
         <FogTaskMosaic />
       </section>
 
+      <aside className="tbtx-sc__surface-note" aria-label="Digital Fog method">
+        <p>Identify <span /> Visualize <span /> Lift</p>
+        <strong>Digital Fog is the leftover job. Name it. See it. Get the making back.</strong>
+      </aside>
+
       {/* ═══════════════════════════════════════════════════════════════════════
          COMMITMENT & THE FOUNDER
          After the why. CTA returns to the doors, not a skip past stakes.
