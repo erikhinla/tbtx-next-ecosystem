@@ -1,4 +1,12 @@
-# Handoff — 2026-08-29
+# Handoff - 2026-08-31
+
+## Current visual authority
+
+- `docs/internal/VISUAL_SYSTEM_2026-08-31.md`
+- `docs/internal/ASSET_ROUTE_MAP_2026-08-31.md`
+- `output/pdf/TBTX_BBAI_VISUAL_SYSTEM_2026-08-31.pdf`
+
+These documents replace the anti-slop deck and older visual-direction material for launch work. Production pages and assets reviewed within the current seven-day window control design decisions.
 
 Restart the Mac. Work is in git. Do not resume GitHub Releases.
 
@@ -10,7 +18,7 @@ Restart the Mac. Work is in git. Do not resume GitHub Releases.
 | Vercel | project `tbtx-next-ecosystem`, team transformby10x, CLI user `bizbuilders-ai` |
 | Films in git | **no** (gitignored). Stills stay. |
 | Production films | Vercel Blob `tbtx-media` |
-| Live on Blob (exact name) | `founder-erik.mp4` only |
+| Live media origin | Vercel Blob `tbtx-media` |
 | GitHub Release `media-v1` | **dead end**. Draft. Caused 404s. Ignore it. |
 | Site 404 on founder video | `film()` used to point at that Release. Code now points at Blob. |
 
@@ -59,7 +67,7 @@ Pack: `~/transformby10x-campaign/social-export/week-1/profile/`
 | Higgsfield | motion / short social films from locked stills |
 | Canva | platform crops (X 1:1, LinkedIn 1.91:1, stories 9:16) from the orange masters in `profile/visuals/_orange_masters/` |
 
-Do not generate a new visual language. Orange masters are the lock.
+Do not generate a disconnected visual language. Follow the current internal visual system and route map. Blue-tagged business assets feed BBAI; campaign assets feed the Digital Fog world.
 
 ## Do not
 
