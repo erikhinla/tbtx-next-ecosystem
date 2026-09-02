@@ -3,67 +3,605 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Film from "@/components/Film";
+import {
+  CANON_LOCKUPS,
+  ROUTES,
+  CONVERT_SPINE,
+  ASSETS,
+  APPROVED_LINES,
+  DIAGNOSTIC_SYSTEM,
+  BUYER_ORDER_STEPS,
+  SOCIAL_CROP_RULES,
+  THREE_SECOND_END_CARD,
+  DEPARTMENT_MATRIX,
+  COMMAND_CENTER_FILES,
+} from "@/config/hub-handbook";
 
 type Decision = "ship" | "hold" | "skip";
-const ASSETS = [
-  { id: "hook", lane: "brand", title: "AI created a job.", use: "Category hook", src: "/media/hero-ai-created-job.jpg", format: "STILL / 16:9" },
-  { id: "nobody", lane: "brand", title: "Nobody wanted.", use: "Campaign lockup", src: "/media/digital-fog-lockup-827.jpg", format: "STILL / 16:9" },
-  { id: "logos", lane: "life", title: "83 logos", use: "Leftover-job scene", src: "/media/task-logos.jpg", format: "STILL + MOTION" },
-  { id: "clockout", lane: "life", title: "The agents didn't clock out", use: "Recognition post", src: "/media/task-clockout.jpg", format: "STILL + MOTION" },
-  { id: "personal", lane: "life", title: "Digital Fog in life", use: "Personal scan door", src: "/media/door-b2c-827v2.jpg", format: "DOOR / 9:16" },
-  { id: "business", lane: "business", title: "Digital Fog in business", use: "Business scan door", src: "/media/door-b2b-827v2.jpg", format: "DOOR / 9:16" },
-  { id: "warroom", lane: "business", title: "The human became the system", use: "Digital friction post", src: "/media/grok-b2b-warroom.jpg", format: "STILL / 16:9" },
-  { id: "lift", lane: "approved", title: "Get the making back", use: "Lift / conversion", src: "/media/hallway-fog-lift.jpg", format: "STILL / 16:9" },
-] as const;
-const ROUTES = [
-  { label: "Personal recognition", path: "/scan", note: "Fog Check", tone: "life" },
-  { label: "Business friction", path: "/map", note: "Momentum Map", tone: "business" },
-  { label: "Twenty-minute lift", path: "/tbtx/kit", note: "Fog-Free Daily", tone: "approved" },
-  { label: "Public story", path: "/tbtx", note: "Cold path", tone: "brand" },
-] as const;
-const LINES = [
-  "AI created a leftover job nobody posted. Digital Fog is that job.",
-  "You don't need more AI. Clear the fog.",
-  "They start. They don't close. You do.",
-  "Get your attention back to the work you were made to do.",
-  "Same fog. Different lives.",
-];
-const FLOW = [
-  { stage: "Attention", signal: "AI created a job.", surface: "Hero film + social hook", next: "/tbtx#tbtx-stakes" },
-  { stage: "Recognition", signal: "That leftover job has a name.", surface: "Stakes + lived scenes", next: "/tbtx#tbtx-doors" },
-  { stage: "Personal diagnosis", signal: "Find the fog in life.", surface: "Fog Check", next: "/scan" },
-  { stage: "Personal revenue", signal: "Clear one surface today.", surface: "Fog-Free Daily / $7.77", next: "/tbtx/kit" },
-  { stage: "Business diagnosis", signal: "Find where momentum leaks.", surface: "Momentum Map", next: "/map" },
-  { stage: "Business revenue", signal: "Build the operating backbone.", surface: "BizBuilders AI", next: "/bbai" },
-] as const;
 
-export default function LaunchSurface() {
+export default function LaunchHandbook() {
   const [decisions, setDecisions] = useState<Record<string, Decision>>({});
   const [copied, setCopied] = useState("");
-  useEffect(() => { const saved = window.localStorage.getItem("tbtx-launch-decisions"); if (saved) setDecisions(JSON.parse(saved)); }, []);
-  const counts = useMemo(() => ({ ship: Object.values(decisions).filter((v) => v === "ship").length, hold: Object.values(decisions).filter((v) => v === "hold").length, skip: Object.values(decisions).filter((v) => v === "skip").length }), [decisions]);
-  const decide = (id: string, value: Decision) => { const next = { ...decisions, [id]: value }; setDecisions(next); window.localStorage.setItem("tbtx-launch-decisions", JSON.stringify(next)); };
-  const copy = async (value: string) => { await navigator.clipboard.writeText(value); setCopied(value); window.setTimeout(() => setCopied(""), 1200); };
+  const [activeLineCategory, setActiveLineCategory] = useState<string>("All");
 
-  return <main className="launch-surface">
-    <header className="launch-surface__hero">
-      <Film className="launch-surface__film" src="/media/desk-fog-loop.mp4" autoPlay muted loop playsInline poster="/media/fog-context.jpg" />
-      <div className="launch-surface__fog" /><nav><Link href="/tbtx">Public story</Link><span>Digital Fog / launch surface</span></nav>
-      <div className="launch-surface__lockup"><p>Identify / Visualize / Lift</p><h1>Put the campaign<br />to work.</h1><div className="launch-surface__counts"><span><b>{counts.ship}</b> Ship</span><span><b>{counts.hold}</b> Hold</span><span><b>{counts.skip}</b> Skip</span></div></div>
-    </header>
-    <section className="launch-surface__section launch-surface__routes">
-      <div className="launch-surface__intro"><p>01 / Route</p><h2>One stand.<br />Two lived realities.</h2><span>Use the bridge when a post crosses lanes: same fog, different lives.</span></div>
-      <div className="launch-surface__route-list">{ROUTES.map((route) => <article key={route.path} data-tone={route.tone}><div><small>{route.note}</small><h3>{route.label}</h3></div><button onClick={() => copy(`https://transformby10x.ai${route.path}`)}>{copied.endsWith(route.path) ? "Copied" : "Copy link"}</button><Link href={route.path}>Open</Link></article>)}</div>
-    </section>
-    <section className="launch-surface__section launch-surface__flow">
-      <div className="launch-surface__intro"><p>02 / Convert</p><h2>Attention becomes<br />a clear next move.</h2><span>The story earns recognition before a route asks for action. Personal fog lifts today. Business friction becomes operating infrastructure.</span></div>
-      <div className="launch-flow">{FLOW.map((item, index) => <article key={item.stage}><small>0{index + 1}</small><div><p>{item.stage}</p><h3>{item.signal}</h3><span>{item.surface}</span></div><Link href={item.next}>Open surface</Link></article>)}</div>
-    </section>
-    <section className="launch-surface__section launch-surface__selects">
-      <div className="launch-surface__intro"><p>03 / Select</p><h2>Every image<br />has a job.</h2><span>Green is approved. Purple is life. Blue is business. Gray carries the category.</span></div>
-      <div className="launch-surface__grid">{ASSETS.map((asset) => <article key={asset.id} className="launch-asset" data-lane={asset.lane} data-decision={decisions[asset.id] || ""}><img src={asset.src} alt="" /><div className="launch-asset__meta"><small>{asset.format}</small><h3>{asset.title}</h3><p>{asset.use}</p></div><div className="launch-asset__actions">{(["ship", "hold", "skip"] as Decision[]).map((value) => <button key={value} aria-pressed={decisions[asset.id] === value} onClick={() => decide(asset.id, value)}>{value}</button>)}<a href={asset.src} download>Download</a></div></article>)}</div>
-    </section>
-    <section className="launch-surface__section launch-surface__lines"><div className="launch-surface__intro"><p>04 / Say</p><h2>Lines that<br />carry weight.</h2></div><div>{LINES.map((line, index) => <button key={line} onClick={() => copy(line)}><small>0{index + 1}</small><span>{line}</span><em>{copied === line ? "Copied" : "Copy"}</em></button>)}</div></section>
-    <footer className="launch-surface__footer"><p>You don&rsquo;t need more AI. Clear the fog.</p><Link href="/tbtx">Return to the public story</Link></footer>
-  </main>;
+  useEffect(() => {
+    const saved = window.localStorage.getItem("tbtx-launch-decisions");
+    if (saved) {
+      try {
+        setDecisions(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
+
+  const counts = useMemo(
+    () => ({
+      ship: Object.values(decisions).filter((v) => v === "ship").length,
+      hold: Object.values(decisions).filter((v) => v === "hold").length,
+      skip: Object.values(decisions).filter((v) => v === "skip").length,
+    }),
+    [decisions]
+  );
+
+  const decide = (id: string, value: Decision) => {
+    const next = { ...decisions, [id]: value };
+    setDecisions(next);
+    window.localStorage.setItem("tbtx-launch-decisions", JSON.stringify(next));
+  };
+
+  const copy = async (value: string) => {
+    await navigator.clipboard.writeText(value);
+    setCopied(value);
+    window.setTimeout(() => setCopied(""), 1400);
+  };
+
+  const filteredLines = useMemo(() => {
+    if (activeLineCategory === "All") return APPROVED_LINES;
+    return APPROVED_LINES.filter((l) => l.category === activeLineCategory);
+  }, [activeLineCategory]);
+
+  const routeGroups = useMemo(() => {
+    const groups: Record<string, typeof ROUTES> = {
+      "Front Door": [],
+      "Diagnose": [],
+      "Offer": [],
+      "Foundation": [],
+      "Held": [],
+    };
+    ROUTES.forEach((r) => {
+      if (groups[r.group]) {
+        groups[r.group].push(r);
+      }
+    });
+    return groups;
+  }, []);
+
+  return (
+    <main className="launch-surface">
+      {/* HERO HEADER */}
+      <header className="launch-surface__hero">
+        <Film
+          className="launch-surface__film"
+          src="/media/desk-fog-loop.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/media/fog-context.jpg"
+        />
+        <div className="launch-surface__fog" />
+        <nav>
+          <Link href="/tbtx">Public story</Link>
+          <span>TBTX Command Center / Internal Handbook</span>
+        </nav>
+        <div className="launch-surface__lockup">
+          <p>MASTER 2026.09.02 / Internal Handbook</p>
+          <h1>
+            Put the campaign
+            <br />
+            to work.
+          </h1>
+          <div className="launch-surface__counts">
+            <span>
+              <b>{counts.ship}</b> Ship
+            </span>
+            <span>
+              <b>{counts.hold}</b> Hold
+            </span>
+            <span>
+              <b>{counts.skip}</b> Skip
+            </span>
+          </div>
+        </div>
+      </header>
+
+      {/* 00 / CANON */}
+      <section className="launch-surface__section launch-surface__canon" id="canon">
+        <div className="launch-surface__intro">
+          <p>00 / Canon</p>
+          <h2>
+            Foundations &amp;
+            <br />
+            Locked Rules.
+          </h2>
+          <span>
+            The authoritative rules from TBTX_MASTER.md. Two public lockups, the locked CTA,
+            Noah&rsquo;s identity, and strict operating holds.
+          </span>
+        </div>
+
+        <div className="launch-handbook__canon-grid">
+          {/* Lockups Card */}
+          <div className="launch-card">
+            <div className="launch-card__eyebrow">Public Lockups (Two Units Only)</div>
+            <div className="launch-card__lockup-preview">
+              <div className="launch-card__lockup-unit">
+                <span className="launch-card__tag">Lockup 1 (Headline + Mutter)</span>
+                <h3>{CANON_LOCKUPS.hook}</h3>
+                <h4 className="text-amber-300">{CANON_LOCKUPS.mutter}</h4>
+              </div>
+              <div className="launch-card__lockup-unit">
+                <span className="launch-card__tag">Lockup 2 (Mantle &amp; Door)</span>
+                <p className="launch-card__mantle">{CANON_LOCKUPS.mantle}</p>
+                <div className="launch-card__badge-cta">{CANON_LOCKUPS.cta}</div>
+              </div>
+            </div>
+            <p className="launch-card__note">
+              Hook is largest. Mutter sits tight under it. Do not put &ldquo;Managing Digital Fog&rdquo;
+              between them. Public CTA is strictly <strong>Start Here</strong>.
+            </p>
+            <div className="mt-3 pt-2 border-t border-white/10 text-xs">
+              <span className="text-white/50 block mb-0.5">TYPE PULL:</span>
+              <strong className="text-amber-300 font-mono tracking-wider">{CANON_LOCKUPS.typePull}</strong>
+              <p className="text-white/60 text-[11px] mt-1 mb-0">After-state: <em>{CANON_LOCKUPS.afterState}</em></p>
+            </div>
+          </div>
+
+          {/* Front Door Gate 01 */}
+          <div className="launch-card">
+            <div className="launch-card__eyebrow">Gate 01 — Front Door Choice</div>
+            <h3 className="launch-card__title">{CANON_LOCKUPS.gateTitle}</h3>
+            <ul className="launch-card__list">
+              {CANON_LOCKUPS.gateChoices.map((c) => (
+                <li key={c.label}>
+                  <strong className={c.label === "Stand up" ? "text-emerald-400" : "text-white/60"}>
+                    {c.label}:
+                  </strong>{" "}
+                  <span>{c.result}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="launch-card__note">
+              The visitor must choose. Sit out and Sit back show consequence. Only Stand up opens the
+              site.
+            </p>
+          </div>
+
+          {/* Persona */}
+          <div className="launch-card">
+            <div className="launch-card__eyebrow">Campaign Persona</div>
+            <h3 className="launch-card__title">{CANON_LOCKUPS.persona.name}</h3>
+            <p className="launch-card__subtitle">
+              aka <strong>{CANON_LOCKUPS.persona.alias}</strong> • {CANON_LOCKUPS.persona.title}
+            </p>
+            <p className="launch-card__body">{CANON_LOCKUPS.persona.note}</p>
+          </div>
+
+          {/* Operating Holds */}
+          <div className="launch-card launch-card--span2">
+            <div className="launch-card__eyebrow">Operating Holds (True in the Work)</div>
+            <div className="launch-card__holds-list">
+              {CANON_LOCKUPS.holds.map((h) => (
+                <div key={h.title} className="launch-card__hold-item">
+                  <div className="launch-card__hold-header">
+                    <strong>{h.title}</strong>
+                    <span className="launch-card__hold-badge">{h.status}</span>
+                  </div>
+                  <p>{h.note}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 01 / ROUTES */}
+      <section className="launch-surface__section launch-surface__routes" id="routes">
+        <div className="launch-surface__intro">
+          <p>01 / Routes</p>
+          <h2>
+            Grouped Surfaces &amp;
+            <br />
+            Authoritative Paths.
+          </h2>
+          <span>
+            Categorized by Front Door, Diagnose, Offer, Foundation, and Held. Digital De-Fog Daily is the
+            canonical personal offer label.
+          </span>
+        </div>
+
+        <div className="launch-routes__grouped-container">
+          {Object.entries(routeGroups).map(([groupName, routes]) => {
+            if (routes.length === 0) return null;
+            return (
+              <div key={groupName} className="launch-routes__group-block">
+                <div className="launch-routes__group-header">
+                  <span className="launch-routes__group-tag">{groupName}</span>
+                  <div className="launch-routes__group-divider" />
+                </div>
+                <div className="launch-surface__route-list">
+                  {routes.map((route) => (
+                    <article
+                      key={route.path}
+                      data-tone={route.tone}
+                      className={route.held ? "launch-route--held" : ""}
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <small>{route.group}</small>
+                          {route.held && <span className="launch-route__held-tag">HELD</span>}
+                        </div>
+                        <h3>{route.label}</h3>
+                        <p className="text-xs text-white/60 m-0">{route.note}</p>
+                      </div>
+                      <button
+                        onClick={() => copy(`https://transformby10x.ai${route.path}`)}
+                        aria-label={`Copy link for ${route.label}`}
+                      >
+                        {copied.endsWith(route.path) ? "Copied" : "Copy link"}
+                      </button>
+                      <Link href={route.path}>{route.held ? "Preview" : "Open"}</Link>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 02 / CONVERT */}
+      <section className="launch-surface__section launch-surface__flow" id="convert">
+        <div className="launch-surface__intro">
+          <p>02 / Convert</p>
+          <h2>
+            The Conversion
+            <br />
+            Spine.
+          </h2>
+          <span>
+            Recognition &rarr; Scan/Map &rarr; Digital De-Fog Daily or Blueprint &rarr; Aligned
+            Infrastructure &rarr; Governed Execution. BizBot does not lead.
+          </span>
+        </div>
+
+        <div className="launch-flow">
+          {CONVERT_SPINE.map((item) => (
+            <article key={item.step} className={item.held ? "launch-flow__item--held" : ""}>
+              <small>{item.step}</small>
+              <div>
+                <p>{item.phase}</p>
+                <h3>{item.summary}</h3>
+                <span>{item.details}</span>
+              </div>
+              <div className="launch-flow__doors">
+                {item.doors.map((door) => (
+                  <Link key={door.path} href={door.path} className="launch-flow__door-btn">
+                    {door.label}
+                  </Link>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* 03 / SELECTS */}
+      <section className="launch-surface__section launch-surface__selects" id="selects">
+        <div className="launch-surface__intro">
+          <p>03 / Selects</p>
+          <h2>
+            Every image
+            <br />
+            has a job.
+          </h2>
+          <span>
+            Green is approved. Purple is life. Blue is business. Gray carries category. State persists in
+            localStorage.
+          </span>
+        </div>
+
+        <div className="launch-surface__grid">
+          {ASSETS.map((asset) => (
+            <article
+              key={asset.id}
+              className="launch-asset"
+              data-lane={asset.lane}
+              data-decision={decisions[asset.id] || ""}
+            >
+              <img src={asset.src} alt="" />
+              <div className="launch-asset__meta">
+                <small>{asset.format}</small>
+                <h3>{asset.title}</h3>
+                <p>{asset.use}</p>
+              </div>
+              <div className="launch-asset__actions">
+                {(["ship", "hold", "skip"] as Decision[]).map((value) => (
+                  <button
+                    key={value}
+                    aria-pressed={decisions[asset.id] === value}
+                    onClick={() => decide(asset.id, value)}
+                  >
+                    {value}
+                  </button>
+                ))}
+                <a href={asset.src} download>
+                  Download
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* 04 / SAY */}
+      <section className="launch-surface__section launch-surface__lines" id="say">
+        <div className="launch-surface__intro">
+          <p>04 / Say</p>
+          <h2>
+            Lines that
+            <br />
+            carry weight.
+          </h2>
+          <span>
+            2026.09.02 campaign lines &amp; MASTER Section 5.6. Contractions by default, no em dashes,
+            human voice. Click any line to copy.
+          </span>
+          <div className="launch-say__filters">
+            {["All", "Campaign", "Ecosystem", "TBTX", "BBAI", "BBM"].map((cat) => (
+              <button
+                key={cat}
+                className={activeLineCategory === cat ? "active" : ""}
+                onClick={() => setActiveLineCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="launch-say__list">
+          {filteredLines.map((item, index) => (
+            <button key={item.line} onClick={() => copy(item.line)}>
+              <small>
+                0{index + 1} / {item.category}
+              </small>
+              <span>{item.line}</span>
+              <em>{copied === item.line ? "Copied" : "Copy"}</em>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* 05 / DIAGNOSE */}
+      <section className="launch-surface__section launch-surface__diagnose" id="diagnose">
+        <div className="launch-surface__intro">
+          <p>05 / Diagnose</p>
+          <h2>
+            Scoring Models &amp;
+            <br />
+            Prescriptions.
+          </h2>
+          <span>
+            Public calculation standards without invented algorithm pillars. B2C uses 8 lived-day
+            questions (MUST order). B2B uses 15 friction vectors.
+          </span>
+        </div>
+
+        <div className="launch-handbook__diagnose-grid">
+          {/* B2C Diagnostic Card */}
+          <div className="launch-card">
+            <div className="launch-card__eyebrow">B2C Personal Path</div>
+            <h3 className="launch-card__title">{DIAGNOSTIC_SYSTEM.b2c.name}</h3>
+            <p className="launch-card__subtitle">
+              {DIAGNOSTIC_SYSTEM.b2c.questionCount} Questions • {DIAGNOSTIC_SYSTEM.b2c.scoringType}
+            </p>
+            <div className="launch-card__bands">
+              {DIAGNOSTIC_SYSTEM.b2c.bands.map((b) => (
+                <div key={b.name} className="launch-card__band-item">
+                  <div className="flex justify-between items-center mb-1">
+                    <strong className="text-purple-300">{b.name}</strong>
+                    <small className="text-white/50">{b.range}</small>
+                  </div>
+                  <p className="text-sm text-white/70 mb-1">{b.desc}</p>
+                  <span className="text-xs text-amber-300 font-mono">{b.action}</span>
+                </div>
+              ))}
+            </div>
+            <p className="launch-card__note mt-3">{DIAGNOSTIC_SYSTEM.b2c.standard}</p>
+          </div>
+
+          {/* B2B Diagnostic Card */}
+          <div className="launch-card">
+            <div className="launch-card__eyebrow">B2B Business Path</div>
+            <h3 className="launch-card__title">{DIAGNOSTIC_SYSTEM.b2b.name}</h3>
+            <p className="launch-card__subtitle">
+              {DIAGNOSTIC_SYSTEM.b2b.questionCount} Questions • {DIAGNOSTIC_SYSTEM.b2b.scoringType}
+            </p>
+            <div className="launch-card__bands">
+              {DIAGNOSTIC_SYSTEM.b2b.bands.map((b) => (
+                <div key={b.name} className="launch-card__band-item">
+                  <div className="flex justify-between items-center mb-1">
+                    <strong className="text-blue-300">{b.name}</strong>
+                    <small className="text-white/50">{b.range}</small>
+                  </div>
+                  <p className="text-sm text-white/70 mb-1">{b.desc}</p>
+                  <span className="text-xs text-amber-300 font-mono">{b.action}</span>
+                </div>
+              ))}
+            </div>
+            <p className="launch-card__note mt-3">{DIAGNOSTIC_SYSTEM.b2b.standard}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 06 / SOCIAL */}
+      <section className="launch-surface__section launch-surface__social" id="social">
+        <div className="launch-surface__intro">
+          <p>06 / Social</p>
+          <h2>
+            Buyer Order, Crop Rules
+            <br />
+            &amp; 10-Dept Matrix.
+          </h2>
+          <span>
+            B2C buyer progression (6 steps), spatial crop invariants, and the 10-department diagnostic
+            matrix. (SOCIAL_MATRIX.md is the publishing calendar).
+          </span>
+        </div>
+
+        <div className="launch-social__container">
+          {/* Buyer Order (6 steps) */}
+          <div className="launch-card mb-8">
+            <div className="launch-card__eyebrow">
+              Buyer order (6 steps) — B2C Recognition &amp; Progression
+            </div>
+            <p className="text-xs text-white/50 mb-3">
+              MUST is the 4-stage writing law (Mirror &rarr; Understand &rarr; Solve &rarr; Transform)
+              documented in Section 05. The buyer progresses through these 6 lived stages:
+            </p>
+            <div className="launch-psychology__grid">
+              {BUYER_ORDER_STEPS.map((step) => (
+                <div key={step.step} className="launch-psychology__item">
+                  <span className="launch-psychology__num">0{step.step}</span>
+                  <p>{step.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Spatial Grid & 3-Second End Card Cheat */}
+          <div className="launch-card mb-8">
+            <div className="launch-card__eyebrow">Spatial Grid &amp; End Card Cheat</div>
+            <div className="launch-social__cheat-grid">
+              <div>
+                <h4 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2">
+                  Responsive Crop Rules
+                </h4>
+                <ul className="space-y-2 text-xs text-white/80">
+                  {SOCIAL_CROP_RULES.map((c) => (
+                    <li key={c.ratio} className="border-l-2 border-white/20 pl-3 py-1">
+                      <strong className="text-white font-mono">{c.ratio}:</strong> {c.rule}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2">
+                  Three-Second Campaign End Card
+                </h4>
+                <div className="space-y-1 text-xs font-mono">
+                  {THREE_SECOND_END_CARD.beats.map((b) => (
+                    <div key={b.time} className="flex gap-2">
+                      <span className="text-amber-400 shrink-0">{b.time}</span>
+                      <span className="text-white/85">{b.text}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-white/50 mt-3 pt-2 border-t border-white/10">
+                  Live destination route:{" "}
+                  <strong className="text-emerald-400 font-mono">
+                    {THREE_SECOND_END_CARD.liveRoute}
+                  </strong>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 10-Dept Matrix */}
+          <div className="launch-card">
+            <div className="launch-card__eyebrow">
+              B2B 10-Department Diagnostic Matrix{" "}
+              <span className="text-white/40 font-normal normal-case">
+                (accent names are canon; colors are working preview)
+              </span>
+            </div>
+            <div className="launch-dept__grid">
+              {DEPARTMENT_MATRIX.map((d) => (
+                <article
+                  key={d.code}
+                  className="launch-dept__card"
+                  style={{ borderLeftColor: d.colorHex }}
+                >
+                  <div className="launch-dept__header">
+                    <span
+                      className="launch-dept__code"
+                      style={{ backgroundColor: `${d.colorHex}22`, color: d.colorHex }}
+                    >
+                      {d.code}
+                    </span>
+                    <span className="launch-dept__accent">
+                      {d.accent} <small className="text-white/40">(preview)</small>
+                    </span>
+                  </div>
+                  <h4>{d.moniker}</h4>
+                  <p className="launch-dept__dept-name">{d.dept}</p>
+                  <div className="launch-dept__signal">
+                    <small>Signal:</small> {d.signal}
+                  </div>
+                  <p className="launch-dept__motion">{d.motion}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 07 / FILES */}
+      <section className="launch-surface__section launch-surface__files" id="files">
+        <div className="launch-surface__intro">
+          <p>07 / Files</p>
+          <h2>
+            Command Center
+            <br />
+            Path Directory.
+          </h2>
+          <span>
+            Structured cards for authoritative Command Center workspaces and repos. No raw file dumps.
+          </span>
+        </div>
+
+        <div className="launch-files__grid">
+          {COMMAND_CENTER_FILES.map((f) => (
+            <article key={f.name} className="launch-file__card">
+              <div className="launch-file__meta">
+                <span className="launch-file__tag">{f.category}</span>
+                <h3>{f.name}</h3>
+                <code className="launch-file__path">{f.path}</code>
+              </div>
+              <p>{f.role}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="launch-surface__footer">
+        <p>You don&rsquo;t need more AI. Clear the fog.</p>
+        <div className="flex gap-6 items-center flex-wrap">
+          <Link href="/tbtx">Return to the public story</Link>
+          <Link href="/scan" className="text-purple-300">
+            Personal Scan
+          </Link>
+          <Link href="/map" className="text-blue-300">
+            Business Map
+          </Link>
+          <Link href="/tbtx/kit" className="text-emerald-300">
+            Digital De-Fog Daily
+          </Link>
+        </div>
+      </footer>
+    </main>
+  );
 }
