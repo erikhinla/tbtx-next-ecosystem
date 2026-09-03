@@ -695,7 +695,6 @@ export default function LaunchHandbook() {
         )}
 
         <footer className="launch-surface__footer">
-          <p>You don&rsquo;t need more AI. Clear the fog.</p>
           <div className="flex gap-6 items-center flex-wrap">
             <Link href="/tbtx">Return to the public story</Link>
             <Link href="/scan" className="text-purple-300">
