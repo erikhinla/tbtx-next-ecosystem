@@ -5,7 +5,7 @@
    (scrollcraft.css / scrollcraft.js) is untouched.
 
    Public journey (docs/PUBLIC_JOURNEY.md):
-     Arrival → Scan door → stakes journey → stand → Life/Map doors
+     Arrival → Scan door → three-ways tiles → personal Scan.
      Hero "Start Here" lands on /scan.
    ========================================================================== */
 
@@ -1661,7 +1661,7 @@ button.tbtx-scan__go {
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .tbtx-why {
@@ -1672,6 +1672,11 @@ button.tbtx-scan__go {
   grid-template-rows: auto 1fr;
   padding: clamp(1.3rem, 4vh, 2.4rem) clamp(1.15rem, 4vw, 2.6rem) 1.6rem;
   text-align: left;
+}
+
+.tbtx-why--tiles {
+  padding: 0;
+  grid-template-rows: 1fr;
 }
 
 .tbtx-why--stand {
@@ -1770,114 +1775,194 @@ button.tbtx-scan__go {
   color: #fff;
 }
 
-/* Three paths as words. 1 and 2 recede. 3 is the stand. Not a slider. Not tiles. */
-.tbtx-why--journey {
-  transition: background-color 0.7s ease;
+/* One viewport. Three door tiles. Cost is on the door. Stand up enters. */
+.tbtx-why--tiles .tbtx-why__lock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  padding: 0.85rem 1.15rem 0;
+  pointer-events: none;
 }
 
-.tbtx-why--journey.is-held {
-  background: rgb(5 7 7 / 0.8);
+.tbtx-why--tiles .tbtx-why__kicker {
+  margin-bottom: 0.35rem;
 }
 
-.tbtx-why--journey.is-held .tbtx-why__kicker {
-  color: color-mix(in srgb, #d6b46e 22%, #6a716a);
+.tbtx-sc .tbtx-why--tiles h2 {
+  max-width: 16ch;
+  font-size: clamp(1.55rem, 3.4vw, 2.35rem);
 }
 
-.tbtx-ways {
+.tbtx-why--tiles .tbtx-why__payoff {
+  margin: 0.45rem 0 0;
+  max-width: 36ch;
+  font-size: clamp(0.92rem, 1.4vw, 1.08rem);
+  line-height: 1.25;
+  color: color-mix(in srgb, #fff 70%, transparent);
+  font-family: var(--sc-font-text);
+  font-weight: 400;
+}
+
+.tbtx-why--tiles.is-held .tbtx-why__kicker {
+  color: color-mix(in srgb, #d6b46e 24%, #6a716a);
+}
+
+.tbtx-why--tiles::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: rgb(4 6 6 / 0.42);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.tbtx-why--tiles.is-held::after {
+  opacity: 1;
+}
+
+.tbtx-why--tiles.is-entering::after {
+  opacity: 0;
+}
+
+.tbtx-tiles {
   display: grid;
-  grid-template-columns: minmax(15rem, 0.68fr) minmax(18rem, 1.2fr);
-  align-items: end;
-  gap: clamp(2rem, 6vw, 5.5rem);
-  padding-top: 0.85rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.16fr);
+  gap: 0.4rem;
+  height: 100%;
+  min-height: 100dvh;
+  padding: 7.2rem 0.4rem 0.4rem;
 }
 
-.tbtx-ways__closed {
-  display: flex;
-  flex-direction: column;
-  gap: 1.55rem;
-}
-
-.tbtx-ways__path {
+.tbtx-tile {
   appearance: none;
+  position: relative;
   display: block;
-  width: max-content;
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   margin: 0;
   padding: 0;
   border: 0;
   background: none;
   color: inherit;
   text-align: left;
-  cursor: pointer;
-  opacity: 0.46;
-  transition: opacity 0.55s ease, filter 0.55s ease;
-}
-
-.tbtx-ways__stand {
-  display: block;
-  padding: 0 0 0.15rem 1.4rem;
-  border: 0;
-  border-left: 1px solid color-mix(in srgb, #d6b46e 68%, transparent);
-  background: none;
-  color: inherit;
   text-decoration: none;
+  cursor: pointer;
+  perspective: 1400px;
 }
 
-.tbtx-ways__name {
+.tbtx-tile__inner {
   display: block;
-  color: color-mix(in srgb, #fff 74%, transparent);
-  font: 400 clamp(1.2rem, 2.3vw, 1.6rem) / 1 var(--sc-font-display);
-  letter-spacing: -0.03em;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.55, 0.06, 0.2, 1);
 }
 
-.tbtx-ways__stand .tbtx-ways__name {
+.tbtx-tile.is-flipped .tbtx-tile__inner {
+  transform: rotateY(180deg);
+}
+
+.tbtx-tile__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  padding: clamp(1.1rem, 2.4vw, 1.9rem);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.tbtx-tile--closed .tbtx-tile__face--front {
+  background: linear-gradient(180deg, #171d1a 0%, #0b0e0d 100%);
+}
+
+.tbtx-tile__face--back {
+  transform: rotateY(180deg);
+  background: #070908;
+}
+
+.tbtx-tile--up {
+  z-index: 2;
+}
+
+.tbtx-tile--up .tbtx-tile__face {
+  background: linear-gradient(180deg, #1c1912 0%, #0c0b09 100%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #d6b46e 42%, transparent);
+}
+
+.tbtx-tile__name {
+  display: block;
+  color: color-mix(in srgb, #fff 82%, transparent);
+  font: 400 clamp(1.7rem, 3.6vw, 2.7rem) / 0.95 var(--sc-font-display);
+  letter-spacing: -0.035em;
+}
+
+.tbtx-tile--up .tbtx-tile__name {
   color: #d6b46e;
-  font-size: clamp(2.5rem, 6.2vw, 4.4rem);
-  letter-spacing: -0.045em;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
 }
 
-.tbtx-ways__cost {
+.tbtx-tile__cost {
   display: block;
-  margin-top: 0.4rem;
-  max-width: 24ch;
-  color: color-mix(in srgb, #fff 62%, transparent);
-  font: 400 clamp(0.95rem, 1.4vw, 1.1rem) / 1.35 var(--sc-font-text);
-}
-
-.tbtx-ways__stand .tbtx-ways__cost {
   max-width: 18ch;
-  color: color-mix(in srgb, #fff 78%, transparent);
+  color: color-mix(in srgb, #fff 72%, transparent);
+  font: 400 clamp(0.95rem, 1.5vw, 1.15rem) / 1.3 var(--sc-font-text);
 }
 
-.tbtx-ways__refrain {
+.tbtx-tile--closed .tbtx-tile__face--back .tbtx-tile__cost {
+  max-width: 16ch;
+  color: color-mix(in srgb, #fff 86%, transparent);
+  font: 400 clamp(1.2rem, 2.2vw, 1.7rem) / 1.15 var(--sc-font-display);
+}
+
+.tbtx-tile__refrain {
   display: block;
-  margin-top: 0.85rem;
   max-width: 14ch;
   color: #fff;
-  font: 400 clamp(1.15rem, 2vw, 1.45rem) / 1.2 var(--sc-font-display);
+  font: 400 clamp(1.1rem, 1.9vw, 1.4rem) / 1.2 var(--sc-font-display);
 }
 
-.tbtx-ways.is-held .tbtx-ways__path:not(.is-chosen) {
-  opacity: 0.16;
-  filter: saturate(0.2);
+.tbtx-tile__mist {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 80%, rgb(214 180 110 / 0.12), transparent 58%),
+    linear-gradient(180deg, rgb(13 16 14 / 0.15) 0%, rgb(8 10 9 / 0.45) 100%);
+  opacity: 0.85;
+  transition: opacity 0.9s ease, filter 0.9s ease;
 }
 
-.tbtx-ways.is-held .tbtx-ways__path.is-chosen {
-  opacity: 1;
+.tbtx-tile--up.is-opening .tbtx-tile__mist {
+  opacity: 0;
+  filter: blur(18px);
 }
 
-.tbtx-ways.is-held .tbtx-ways__path.is-chosen .tbtx-ways__name {
-  color: color-mix(in srgb, #fff 80%, transparent);
+.tbtx-tile--up.is-opening .tbtx-tile__face {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #d6b46e 78%, transparent);
 }
 
-.tbtx-ways.is-held .tbtx-ways__path.is-chosen .tbtx-ways__cost {
-  color: color-mix(in srgb, #fff 78%, transparent);
+.tbtx-why--tiles.is-held .tbtx-tile--closed:not(.is-flipped) {
+  filter: saturate(0.35) brightness(0.72);
 }
 
-.tbtx-ways__path:focus-visible,
-.tbtx-ways__stand:focus-visible {
+.tbtx-why--tiles.is-held .tbtx-tile.is-flipped,
+.tbtx-why--tiles.is-held .tbtx-tile--up {
+  z-index: 4;
+}
+
+.tbtx-tile:focus-visible {
   outline: 1px solid color-mix(in srgb, #d6b46e 70%, #fff);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 .tbtx-why__positions,
@@ -2099,7 +2184,8 @@ button.tbtx-scan__go {
   .tbtx-nest__caret { animation: none; opacity: 0; }
   .tbtx-nest__beat { animation: none; }
   .tbtx-why--journey,
-  .tbtx-ways__path {
+  .tbtx-tile__inner,
+  .tbtx-tile__mist {
     transition: none;
   }
 }
@@ -2457,18 +2543,15 @@ button.tbtx-scan__go {
 }
 
 @media (max-width: 700px) {
-  .tbtx-ways {
+  .tbtx-tiles {
     grid-template-columns: 1fr;
-    gap: 1.8rem;
+    grid-template-rows: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
+    padding: 6.6rem 0.35rem 0.35rem;
   }
 
-  .tbtx-ways__stand {
-    padding-left: 1.05rem;
-  }
-
-  .tbtx-ways__cost,
-  .tbtx-ways__stand .tbtx-ways__cost {
-    max-width: 34ch;
+  .tbtx-tile__cost,
+  .tbtx-tile--closed .tbtx-tile__face--back .tbtx-tile__cost {
+    max-width: 28ch;
   }
 
   .tbtx-nest__support { padding-left: 0.7rem; }

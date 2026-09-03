@@ -24,7 +24,7 @@ export default function FogFreeSharePage() {
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">
         <Link href="/tbtx/kit" className="tbtx-kit__back tbtx-fog-link">
-          Back to Fog-Free Daily
+          Back to Digital De-Fog Daily
         </Link>
         <p className="tbtx-scan__job">Social Life</p>
         <p className="tbtx-scan__mantle">Digital Fog</p>
@@ -43,7 +43,7 @@ export default function FogFreeSharePage() {
             preload="metadata"
           />
           <figcaption>
-            I ran Fog-Free Daily. Cleared a surface. One move. Calm is the win.
+            I ran Digital De-Fog Daily. Cleared a surface. One move. Calm is the win.
           </figcaption>
         </figure>
 

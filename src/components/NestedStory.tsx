@@ -8,6 +8,8 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
 
 const POSITIONS = [
@@ -180,12 +182,14 @@ export function NestField({
 
 export function StakesCopy() {
   const reduced = useReducedMotion();
-  const [held, setHeld] = useState<(typeof POSITIONS)[number]["id"] | null>(null);
+  const router = useRouter();
   const enteredRef = useRef(false);
   const [entered, setEntered] = useState(false);
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const closed = POSITIONS.filter((item) => !("brass" in item));
   const stand = POSITIONS.find((item) => "brass" in item);
-  const heldPath = closed.find((item) => item.id === held) ?? null;
+  const held = closed.filter((item) => flipped[item.id]);
+  const heldAny = held.length > 0;
 
   useEffect(() => {
     if (entered) return;
@@ -232,75 +236,92 @@ export function StakesCopy() {
     };
   }, [entered]);
 
+  const lockClosed = (id: string) => {
+    setFlipped((current) => (current[id] ? current : { ...current, [id]: true }));
+  };
+
   const enter = () => {
+    if (enteredRef.current) return;
     enteredRef.current = true;
     setEntered(true);
-    const next = document.getElementById("tbtx-stand");
-    window.requestAnimationFrame(() => {
-      next?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-    });
+    const go = () => router.push("/tbtx/scan");
+    if (reduced) {
+      go();
+      return;
+    }
+    window.setTimeout(go, 920);
   };
 
   if (!stand) return null;
 
   return (
-    <div className={`tbtx-why tbtx-why--journey${held ? " is-held" : ""}`}>
+    <div
+      className={`tbtx-why tbtx-why--journey tbtx-why--tiles${heldAny ? " is-held" : ""}${entered ? " is-entering" : ""}`}
+    >
       <header className="tbtx-why__lock">
         <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
-        <h2 id="tbtx-why-title" data-fog-text="Three ways this goes.">
-          Three ways this goes.
-        </h2>
-      </header>
-
-      <div className="tbtx-why__field" role="group" aria-labelledby="tbtx-why-title">
+        <h2 id="tbtx-why-title">Three ways this goes.</h2>
         <p className="tbtx-why__payoff">
           You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
         </p>
+      </header>
 
-        <div className={`tbtx-ways${held ? " is-held" : ""}`}>
-          <div className="tbtx-ways__closed">
-            {closed.map((item) => {
-              const chosen = held === item.id;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={[
-                    "tbtx-ways__path",
-                    `tbtx-ways__path--${item.id}`,
-                    chosen ? "is-chosen" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  aria-pressed={chosen}
-                  onClick={() => setHeld(item.id)}
-                >
-                  <span className="tbtx-ways__name">{item.title}</span>
-                  <span className="tbtx-ways__cost">{item.story}</span>
-                </button>
-              );
-            })}
-          </div>
+      <div className="tbtx-tiles" role="group" aria-labelledby="tbtx-why-title">
+        {closed.map((item) => {
+          const locked = Boolean(flipped[item.id]);
+          return (
+            <button
+              key={item.id}
+              type="button"
+              className={[
+                "tbtx-tile",
+                "tbtx-tile--closed",
+                `tbtx-tile--${item.id}`,
+                locked ? "is-flipped" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              aria-pressed={locked}
+              aria-label={`${item.title}. ${item.story}`}
+              onClick={() => lockClosed(item.id)}
+            >
+              <span className="tbtx-tile__inner">
+                <span className="tbtx-tile__face tbtx-tile__face--front">
+                  <span className="tbtx-tile__name">{item.title}</span>
+                  <span className="tbtx-tile__cost">{item.story}</span>
+                </span>
+                <span className="tbtx-tile__face tbtx-tile__face--back">
+                  <span className="tbtx-tile__name">{item.title}</span>
+                  <span className="tbtx-tile__cost">{item.story}</span>
+                </span>
+              </span>
+            </button>
+          );
+        })}
 
-          <a
-            href="#tbtx-stand"
-            className="tbtx-ways__stand"
-            aria-label={`${stand.title}. ${stand.story} ${stand.refrain}`}
-            onClick={(event) => {
-              event.preventDefault();
-              enter();
-            }}
-          >
-            <span className="tbtx-ways__name">{stand.title}</span>
-            <span className="tbtx-ways__cost">{stand.story}</span>
-            <span className="tbtx-ways__refrain">{stand.refrain}</span>
-          </a>
-        </div>
-
-        <p className="tbtx-sr" aria-live="polite">
-          {heldPath ? `${heldPath.title}. ${heldPath.story}` : ""}
-        </p>
+        <Link
+          href="/tbtx/scan"
+          className={`tbtx-tile tbtx-tile--up${entered ? " is-opening" : ""}`}
+          aria-label={`${stand.title}. ${stand.story} ${stand.refrain}`}
+          onClick={(event) => {
+            event.preventDefault();
+            enter();
+          }}
+        >
+          <span className="tbtx-tile__face tbtx-tile__face--front">
+            <span className="tbtx-tile__name">{stand.title}</span>
+            <span className="tbtx-tile__cost">{stand.story}</span>
+            <span className="tbtx-tile__refrain">{stand.refrain}</span>
+          </span>
+          <span className="tbtx-tile__mist" aria-hidden="true" />
+        </Link>
       </div>
+
+      <p className="tbtx-sr" aria-live="polite">
+        {held.length
+          ? held.map((item) => `${item.title}. ${item.story}`).join(" ")
+          : ""}
+      </p>
     </div>
   );
 }
