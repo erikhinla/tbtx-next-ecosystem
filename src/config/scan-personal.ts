@@ -91,7 +91,7 @@ export const personalBands: ProfileBand[] = [
     profile: "CARRYING IT",
     description:
       "You named it. You are still finishing what the agents start. Twenty minutes to close one loop and get one piece of the day back.",
-    cta: "Get Fog-Free Daily",
+    cta: "Get Digital De-Fog Daily",
     ctaRoute: "/tbtx/kit",
   },
   {

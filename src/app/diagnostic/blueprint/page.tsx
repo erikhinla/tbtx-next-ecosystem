@@ -69,7 +69,7 @@ function BlueprintContent() {
             <button onClick={() => window.print()} className="engineered-control">
               <Download className="w-4 h-4" /> EXPORT BLUEPRINT
             </button>
-            <Link href="/bbai" className="engineered-control">BUILD THE BACKBONE</Link>
+            <Link href="/bbai" className="engineered-control">Start with the business</Link>
           </div>
         </section>
       </div>

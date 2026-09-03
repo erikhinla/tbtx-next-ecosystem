@@ -196,8 +196,8 @@ export const scoringBands: ProfileBand[] = [
     min: 50,
     max: 74,
     profile: "SCALING",
-    description: "Work gets done. Then you do it again. The 10x is still trapped in coordination. Backbone is how the stand holds at work scale.",
-    cta: "Build the Backbone",
+    description: "Work gets done. Then you do it again. The 10x is still trapped in coordination.",
+    cta: "Start with the business",
     ctaRoute: "/bbai",
   },
   {
@@ -205,7 +205,7 @@ export const scoringBands: ProfileBand[] = [
     max: 100,
     profile: "COMPOUNDING",
     description: "The system compounds. Guard it. Adding tools faster than the route can hold them puts you back in leftover-finishing.",
-    cta: "Build the Backbone",
+    cta: "Start with the business",
     ctaRoute: "/bbai",
   },
 ];

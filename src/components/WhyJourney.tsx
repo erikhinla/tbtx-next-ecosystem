@@ -1,53 +1,6 @@
 "use client";
 
-const POSITIONS = [
-  {
-    id: "out",
-    title: "Sit out",
-    story: "Refuse the tools. Get outrun by people who didn't.",
-  },
-  {
-    id: "back",
-    title: "Sit back",
-    story: "Let AI start everything. You spend the day finishing it. That's the job nobody posted.",
-  },
-  {
-    id: "up",
-    title: "Stand up",
-    story: "Get your attention back to work only you can do.",
-    refrain: "You don't need more AI. Clear the fog.",
-  },
-] as const;
-
-export function StakesCopy() {
-  return (
-    <div className="tbtx-why">
-      <header className="tbtx-why__lock">
-        <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
-        <h2 data-fog-text="Three ways this goes.">Three ways this goes.</h2>
-      </header>
-
-      <div className="tbtx-why__field">
-        <p className="tbtx-why__payoff">
-          You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
-        </p>
-
-        <div className="tbtx-why__positions">
-          {POSITIONS.map((item) => (
-            <article
-              key={item.id}
-              className={`tbtx-why__position tbtx-why__position--${item.id}`}
-            >
-              <h3>{item.title}</h3>
-              <p>{item.story}</p>
-              {"refrain" in item ? <p className="tbtx-why__refrain">{item.refrain}</p> : null}
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+export { StakesCopy } from "./NestedStory";
 
 export function StandCopy() {
   return (

@@ -94,20 +94,20 @@ export default function FogReport({ report, onReset }: FogReportProps) {
             {report.brand.cta}
           </Link>
           <Link href="/bbai" className="tbtx-fog-link">
-            Build the Backbone
+            Start with the business
           </Link>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            This is personal
+            Look at life instead
           </Link>
         </div>
       </section>
 
       <div className="tbtx-scan__foot">
         <button type="button" onClick={onReset} className="tbtx-fog-link">
-          Again
+          Start over
         </button>
         <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-          The why
+          Back to the start
         </Link>
       </div>
     </article>

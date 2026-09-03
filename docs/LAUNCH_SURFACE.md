@@ -26,6 +26,6 @@ The bridge between personal and business is: `Same fog. Different lives.`
 ## Public story changes
 
 - The cold path remains hero, stakes, stand, doors, mosaic, close.
-- Start Here still moves to stakes.
+- Start Here lands on the Digital Fog Scan (`/scan`).
 - Type now blooms into fog at the stakes and stand transitions.
 - A short Identify, Visualize, Lift surface now joins the mosaic to the founder close.

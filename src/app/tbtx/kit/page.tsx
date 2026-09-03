@@ -3,13 +3,13 @@ import type { Metadata } from "next";
 import Film from "@/components/Film";
 
 export const metadata: Metadata = {
-  title: "Fog-Free Daily",
+  title: "Digital De-Fog Daily",
   description:
     "Busy. Buried. Behind? A 20-minute personal reset. One surface, one thread, one finishable move. $7.77 honor system.",
 };
 
 const VENMO =
-  "https://venmo.com/erikhbush?txn=pay&amount=7.77&note=Fog-Free%20Daily";
+  "https://venmo.com/erikhbush?txn=pay&amount=7.77&note=Digital%20De-Fog%20Daily";
 const CASHAPP = "https://cash.app/$erikhbush/7.77";
 
 const BEATS = [
@@ -59,7 +59,7 @@ export default function FogFreeDailyPage() {
         </Link>
         <p className="tbtx-scan__job">Social Life</p>
         <p className="tbtx-scan__mantle">Digital Fog</p>
-        <h1>Fog&#8209;Free Daily</h1>
+        <h1>Digital De-Fog Daily</h1>
         <p className="tbtx-kit__hook">Busy. Buried. Behind?</p>
         <section className="tbtx-peel is-open">
           <p className="tbtx-peel__title">What 20 minutes gives back</p>
@@ -110,7 +110,7 @@ export default function FogFreeDailyPage() {
           <a className="tbtx-kit__method" href={VENMO} target="_blank" rel="noreferrer">
             <img
               src="/pay/venmo.png"
-              alt="Venmo QR for $7.77 Fog-Free Daily"
+              alt="Venmo QR for $7.77 Digital De-Fog Daily"
               width={168}
               height={168}
             />
@@ -120,7 +120,7 @@ export default function FogFreeDailyPage() {
           <a className="tbtx-kit__method" href={CASHAPP} target="_blank" rel="noreferrer">
             <img
               src="/pay/cashapp.png"
-              alt="Cash App QR for $7.77 Fog-Free Daily"
+              alt="Cash App QR for $7.77 Digital De-Fog Daily"
               width={168}
               height={168}
             />
@@ -131,13 +131,13 @@ export default function FogFreeDailyPage() {
 
         <div className="tbtx-scan__moves tbtx-kit__actions">
           <a className="tbtx-scan__go tbtx-fog-go" href="/downloads/Fog-Free-Daily.pdf" download>
-            Download Fog-Free Daily
+            Download Digital De-Fog Daily
           </a>
           <Link href="/tbtx/kit/share" className="tbtx-fog-link">
             Share a Fog-Free moment
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            This is Digital Friction
+            Look at work instead
           </Link>
         </div>
       </div>
