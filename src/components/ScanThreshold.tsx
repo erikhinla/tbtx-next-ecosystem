@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { NestField, NestLine, useNestBeats } from "./NestedStory";
 
 type ScanThresholdProps = {
   isPersonal: boolean;
@@ -20,6 +23,7 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
   const lead = isPersonal
     ? "You wanted one text to your sister so you could sleep. ChatGPT wrote three. None of them were you. At 11 you were still in the box, putting your voice back in."
     : "They start. You still close. Let's name where.";
+  const { beat, advance, back } = useNestBeats(4, 650);
 
   return (
     <>
@@ -28,20 +32,37 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
         <p className="tbtx-scan__job">{jobLine}</p>
       </div>
       <p className="tbtx-scan__mantle">{mantle}</p>
-      <h1 className="tbtx-scan__question">{headline}</h1>
-      <div className="tbtx-nest tbtx-nest--scan">
-        <p className="tbtx-nest__payoff">{payoff}</p>
-        <div className="tbtx-nest__support">
-          <p className="tbtx-scan__lead tbtx-scan__covenant">{lead}</p>
-          <p className="tbtx-scan__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
+      <h1 id="tbtx-scan-lead" className="tbtx-scan__question">
+        {headline}
+      </h1>
+      <NestField
+        className="tbtx-nest tbtx-nest--scan"
+        labelledBy="tbtx-scan-lead"
+        beat={beat}
+        lastBeat={3}
+        advance={advance}
+        back={back}
+      >
+        {beat >= 1 ? <NestLine className="tbtx-nest__payoff" text={payoff} play /> : null}
+        {beat >= 2 ? (
+          <div className="tbtx-nest__support">
+            <p className="tbtx-scan__lead tbtx-scan__covenant">{lead}</p>
+            {beat >= 3 ? (
+              <p className="tbtx-scan__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
+            ) : null}
+          </div>
+        ) : null}
+      </NestField>
+      {beat >= 3 ? (
+        <div className="tbtx-scan__moves">
+          <button type="button" className="tbtx-scan__go" onClick={onBegin}>
+            {beginLabel}
+          </button>
+          <Link href={otherHref}>{otherLabel}</Link>
         </div>
-      </div>
-      <div className="tbtx-scan__moves">
-        <button type="button" className="tbtx-scan__go" onClick={onBegin}>
-          {beginLabel}
-        </button>
-        <Link href={otherHref}>{otherLabel}</Link>
-      </div>
+      ) : (
+        <span className="tbtx-sr tbtx-scan__continue">Press Enter to keep reading.</span>
+      )}
     </>
   );
 }

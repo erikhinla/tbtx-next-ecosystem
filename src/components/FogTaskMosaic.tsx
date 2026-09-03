@@ -35,7 +35,7 @@ const FACTS = [
     src: "/media/computer-explodes.mp4",
     poster: "/media/fog-context.jpg",
     hook: "Three agents. Three answers. You're the fourth.",
-    story: "More output, more arbitration. You became the operating system the tools refuse to be.",
+    story: "More output, more arbitration. The leftover job still sits with you after the agents clock out.",
   },
   {
     id: "28",

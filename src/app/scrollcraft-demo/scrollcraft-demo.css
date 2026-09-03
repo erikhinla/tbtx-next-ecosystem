@@ -5,8 +5,8 @@
    (scrollcraft.css / scrollcraft.js) is untouched.
 
    Public journey (docs/PUBLIC_JOURNEY.md):
-     Arrival → stakes → stand → doors → threshold → scan
-     Hero "Start Here" goes to #tbtx-stakes, never to a door.
+     Arrival → Scan door → stakes journey → stand → Life/Map doors
+     Hero "Start Here" lands on /scan.
    ========================================================================== */
 
 /* ---------------------------------------------------------------- tokens -- */
@@ -70,6 +70,16 @@
   background: #070b10;
 }
 
+.tbtx-sc__hero-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(7 11 16 / 0.18) 0%, rgb(7 11 16 / 0.42) 38%, rgb(7 11 16 / 0.88) 100%),
+    linear-gradient(90deg, rgb(7 11 16 / 0.35) 0%, transparent 28%, transparent 72%, rgb(7 11 16 / 0.35) 100%);
+}
+
 .tbtx-sc__sr {
   position: absolute;
   width: 1px;
@@ -82,7 +92,7 @@
   position: absolute;
   inset: auto 0 0;
   height: min(42vh, 22rem);
-  z-index: calc(var(--sc-z-copy) - 1);
+  z-index: 2;
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -97,6 +107,7 @@
   right: 0;
   bottom: 0;
   inset-inline: 0;
+  z-index: 3;
   max-width: none;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
@@ -195,13 +206,11 @@
 }
 
 .tbtx-sc__hero-cta {
-  position: absolute;
-  top: clamp(1rem, 3vh, 1.6rem);
-  right: clamp(1rem, 4vw, 2rem);
+  position: static;
   z-index: 5;
   display: inline-flex;
   align-items: center;
-  margin: 0;
+  margin: 0.15rem 0 0;
   padding: 0.2rem 0 0.28rem;
   color: #fff;
   font: 400 clamp(0.95rem, 1.6vw, 1.15rem) / 1 var(--sc-font-display);
@@ -1596,6 +1605,7 @@ button.tbtx-scan__go {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: auto;
 }
 
 .tbtx-why {
@@ -1704,11 +1714,114 @@ button.tbtx-scan__go {
   color: #fff;
 }
 
-.tbtx-why__positions {
+.tbtx-why__positions,
+.tbtx-nest__beats {
   display: flex;
   flex-direction: column;
   max-width: 42rem;
   margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tbtx-nest--why {
+  max-width: none;
+  cursor: pointer;
+}
+
+.tbtx-nest__beats {
+  gap: 0;
+  margin-top: 1.15rem;
+}
+
+.tbtx-nest__beat {
+  max-width: 38rem;
+  padding: 0;
+  border: 0;
+  animation: tbtx-nest-in 0.72s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.tbtx-nest__beat + .tbtx-nest__beat {
+  margin-top: 0.35rem;
+}
+
+.tbtx-nest__peel {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.75rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.85rem 0 0.7rem;
+  border: 0;
+  border-top: 1px solid transparent;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tbtx-nest__beat.is-unlocked .tbtx-nest__peel,
+.tbtx-nest__beat.is-next .tbtx-nest__peel {
+  border-top-color: color-mix(in srgb, #fff 12%, transparent);
+}
+
+.tbtx-nest__peel small {
+  color: #d6b46e;
+  font: 500 0.72rem / 1 var(--sc-font-mono);
+  letter-spacing: 0.14em;
+}
+
+.tbtx-nest__peel span {
+  color: #fff;
+  font: 400 clamp(1.45rem, 3vw, 2.05rem) / 1.02 var(--sc-font-display);
+  letter-spacing: -0.03em;
+}
+
+.tbtx-nest__beat--brass .tbtx-nest__peel span {
+  color: #d6b46e;
+}
+
+.tbtx-nest__beat.is-next .tbtx-nest__peel span {
+  color: color-mix(in srgb, #fff 62%, transparent);
+}
+
+.tbtx-nest__beat.is-next.tbtx-nest__beat--brass .tbtx-nest__peel span {
+  color: color-mix(in srgb, #d6b46e 72%, transparent);
+}
+
+.tbtx-nest__beat .tbtx-nest__support {
+  margin-top: 0;
+  padding-bottom: 0.85rem;
+}
+
+.tbtx-nest__caret {
+  display: inline-block;
+  width: 0.45ch;
+  height: 1em;
+  margin-left: 0.12em;
+  background: #d6b46e;
+  transform: translateY(0.12em);
+  animation: tbtx-nest-caret 0.9s steps(1) infinite;
+}
+
+@keyframes tbtx-nest-caret {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes tbtx-nest-in {
+  from { opacity: 0; transform: translateY(1.15rem); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+.tbtx-nest--scan {
+  cursor: pointer;
+  min-height: 4.5rem;
+}
+
+.tbtx-scan__continue {
+  margin-top: 1.2rem;
 }
 
 .tbtx-why__position {
@@ -1776,6 +1889,8 @@ button.tbtx-scan__go {
 
 @media (prefers-reduced-motion: reduce) {
   .tbtx-why__lock h2[data-fog-text]::after { animation: none; }
+  .tbtx-nest__caret { animation: none; opacity: 0; }
+  .tbtx-nest__beat { animation: none; }
 }
 
 .tbtx-sc__refrain {

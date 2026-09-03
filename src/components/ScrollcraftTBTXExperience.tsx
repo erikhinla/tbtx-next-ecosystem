@@ -19,8 +19,8 @@ declare global {
  * TransformBy10X front door — the scroll experience.
  *
  * Public contract: docs/PUBLIC_JOURNEY.md
- *   Arrival → stakes → stand → doors → threshold → scan
- * Hero "Start Here" goes to stakes, never to a door.
+ *   Arrival → Scan door → stakes journey → stand → Life/Map doors
+ * Hero "Start Here" lands on the Digital Fog Scan.
  * No internal product language (WIN, GOAL, FLOW, Quad Keystones) on the cold path.
  * Vendor engine stays untouched. All composition is page-layer.
  */
@@ -111,7 +111,7 @@ export default function ScrollcraftTBTXExperience() {
       {/* ---- film grain (atmosphere) ---- */}
       <div className="sc-grain" aria-hidden="true" />
 
-      {/* Baked lockup film. HTML is the CTA only. */}
+      {/* Film stays. Two HTML lockups sit in the reading band. Start Here is the Scan door. */}
       <section
         className="tbtx-sc__hero"
         data-sc-act="pin"
@@ -119,9 +119,6 @@ export default function ScrollcraftTBTXExperience() {
         data-sc-drift="#070b10"
       >
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
-          <h1 className="tbtx-sc__sr">
-            AI Created a Job. Nobody wanted. Managing Digital Fog.
-          </h1>
           <Film
             ref={heroVideoRef}
             className="tbtx-sc__hero-film"
@@ -134,9 +131,20 @@ export default function ScrollcraftTBTXExperience() {
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
           />
-          <a href="#tbtx-stakes" className="tbtx-sc__hero-cta">
-            Start Here
-          </a>
+          <div className="tbtx-sc__hero-veil" aria-hidden="true" />
+          <div className="tbtx-sc__hero-band" aria-hidden="true" />
+          <div className="tbtx-sc__hero-copy sc-copy">
+            <div className="tbtx-sc__lockup tbtx-sc__lockup--hook">
+              <h1 className="tbtx-sc__hero-title">AI Created a Job.</h1>
+              <p className="tbtx-sc__hero-punchline">(Nobody wanted.)</p>
+            </div>
+            <div className="tbtx-sc__lockup tbtx-sc__lockup--door">
+              <p className="tbtx-sc__hero-mantle">Managing Digital Fog</p>
+              <Link href="/scan" className="tbtx-sc__hero-cta">
+                Start Here
+              </Link>
+            </div>
+          </div>
           <button
             type="button"
             className="tbtx-sc__hero-sound"
@@ -152,10 +160,12 @@ export default function ScrollcraftTBTXExperience() {
       <section
         id="tbtx-stakes"
         className="tbtx-sc__why-wrap"
-        data-sc-act="flow"
+        data-sc-act="pin"
+        data-sc-span="2.2"
+        data-sc-dwell="0.18"
         data-sc-drift="#0d1210"
       >
-        <div className="tbtx-sc__why-frame">
+        <div className="sc-stage tbtx-sc__stage tbtx-sc__why-frame" data-sc-stage>
           <StakesCopy />
         </div>
       </section>
@@ -209,7 +219,7 @@ export default function ScrollcraftTBTXExperience() {
           <Link
             href="/tbtx/map"
             className="tbtx-sc__doorway"
-            aria-label="Enter to Scan Digital Fog in Business"
+            aria-label="Enter to Map Digital Friction in Business"
           >
             <div className="tbtx-sc__doorway-stage">
               <Film
@@ -222,7 +232,7 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2b-827v2.jpg"
               />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
+              <span className="tbtx-sc__doorway-enter">Enter to Map Digital Friction in Business</span>
             </div>
           </Link>
         </div>
@@ -273,7 +283,7 @@ export default function ScrollcraftTBTXExperience() {
               See how the day plays out
             </button>
             <div className="tbtx-sc__founder">
-              <p>The gap isn&rsquo;t AI adoption. It&rsquo;s infrastructure.</p>
+              <p>The gap isn&rsquo;t AI adoption. The gap is operational architecture.</p>
               <p>
                 I know what fog feels like. I started in project management at global agencies
                 decades ago, back when large retainers were the norm and Digital Fog was a
