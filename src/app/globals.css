@@ -334,11 +334,296 @@ main.tbtx-blueprint {
 /* Left-Rail Department Appendix (Global Viewport-Left Rail) */
 :root {
   --launch-rail-width: 64px;
+  --launch-preview-width: 18.75rem;
+}
+
+.launch-hub-root {
+  position: relative;
+  --ls-green: #a8d58a;
+  --ls-purple: #b196e7;
+  --ls-blue: #77aee8;
+  --ls-brass: #d6b46e;
+}
+
+/* Compact selected-department preview — visible in the current viewport */
+.launch-dept-preview {
+  position: relative;
+  z-index: 30;
+  background: #0c1510;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-left-width: 3px;
+  color: #f4f1e9;
+  font-family: var(--font-outfit);
+}
+
+.launch-dept-preview__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.85rem 0.95rem 0.9rem;
+  animation: launch-preview-swap 0.32s ease-out;
+}
+
+@keyframes launch-preview-swap {
+  from { opacity: 0.45; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.launch-dept-preview__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  position: relative;
+}
+
+.launch-dept-preview__code {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.28rem 0.42rem;
+  flex-shrink: 0;
+}
+
+.launch-dept-preview__identity {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.launch-dept-preview__moniker {
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.launch-dept-preview__accent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: rgb(255 255 255 / 0.72);
+}
+
+.launch-dept-preview__swatch {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.2);
+}
+
+.launch-dept-preview__accent small {
+  color: rgb(255 255 255 / 0.42);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.launch-dept-preview__signal {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--ls-brass, #d6b46e);
+}
+
+.launch-dept-preview__signal small {
+  display: block;
+  color: rgb(255 255 255 / 0.42);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.launch-dept-preview__copy {
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  padding-top: 0.65rem;
+}
+
+.launch-dept-preview__lockup {
+  margin: 0 0 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+
+.launch-dept-preview__irony {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: rgb(255 255 255 / 0.88);
+  font-style: italic;
+}
+
+.launch-dept-preview__map {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  padding-top: 0.6rem;
+  color: #a8d58a;
+  text-decoration: none;
+}
+
+.launch-dept-preview__map span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.launch-dept-preview__map code {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  color: rgb(255 255 255 / 0.7);
+  word-break: break-all;
+}
+
+/* Legal: uncover buried truth — archaeological scrape, unresolved source chain.
+   Must not share PR's pressurized-valve pulse. */
+.launch-dept-preview--lgl {
+  background:
+    linear-gradient(165deg, #241010 0 46%, #0c0808 46% 100%);
+  border-color: #991b1b;
+  box-shadow: inset 3px 0 0 0 rgba(255, 255, 255, 0.82), 0 10px 28px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.launch-dept-preview--lgl::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  background:
+    repeating-linear-gradient(
+      -18deg,
+      transparent 0 10px,
+      rgba(80, 18, 18, 0.28) 10px 11px
+    ),
+    linear-gradient(to top, rgba(8, 4, 4, 0.72), transparent);
+  pointer-events: none;
+}
+
+.launch-dept-preview--lgl .launch-dept-preview__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.launch-dept-preview__provenance {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-top: 0.15rem;
+}
+
+.launch-dept-preview__provenance span {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #f4f1e9;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.launch-dept-preview__provenance span:not(:last-child) {
+  margin-right: 0.72rem;
+}
+
+.launch-dept-preview__provenance span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 0.72rem;
+  height: 1px;
+  background: #f4f1e9;
+}
+
+.launch-dept-preview__provenance span.is-unresolved {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #f4f1e9;
+}
+
+.launch-dept-preview__provenance span.is-unresolved::after {
+  background: repeating-linear-gradient(
+    90deg,
+    #f4f1e9 0 2px,
+    transparent 2px 4px
+  );
+}
+
+/* PR: contains pressure — pressurized valve pulse. Must not share Legal's scrape. */
+.launch-dept-preview--pr {
+  border-color: #06b6d4;
+  background: #081216;
+  box-shadow: inset 0 0 16px rgba(6, 182, 212, 0.28);
+  animation: pr-preview-pressure 1.8s ease-in-out infinite;
+}
+
+.launch-dept-preview__valve {
+  margin-left: auto;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  border: 2px solid #06b6d4;
+  box-shadow: inset 0 0 0 3px rgba(6, 182, 212, 0.25), 0 0 8px rgba(6, 182, 212, 0.55);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.launch-dept-preview__valve span {
+  position: absolute;
+  inset: 3px;
+  border-radius: 999px;
+  background: #06b6d4;
+  animation: pr-valve-core 1.8s ease-in-out infinite;
+}
+
+@keyframes pr-preview-pressure {
+  0%, 100% {
+    box-shadow: inset 0 0 12px rgba(6, 182, 212, 0.22), 0 0 0 1px rgba(6, 182, 212, 0.35);
+  }
+  50% {
+    box-shadow: inset 0 0 22px rgba(6, 182, 212, 0.48), 0 0 14px 2px rgba(6, 182, 212, 0.5);
+  }
+}
+
+@keyframes pr-valve-core {
+  0%, 100% { transform: scale(0.72); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
 }
 
 @media (min-width: 761px) {
   .launch-surface {
     padding-left: var(--launch-rail-width);
+  }
+  .launch-surface__hero {
+    padding-right: calc(var(--launch-preview-width) + 1.75rem);
+  }
+  .launch-surface__hero nav {
+    right: calc(var(--launch-preview-width) + 1rem);
+  }
+  .launch-surface__section,
+  .launch-surface__footer {
+    padding-right: calc(var(--launch-preview-width) + 1.75rem);
+  }
+  .launch-dept-preview {
+    position: fixed;
+    top: 4.75rem;
+    right: 1rem;
+    left: auto;
+    width: var(--launch-preview-width);
+    max-height: calc(100svh - 5.75rem);
+    overflow: auto;
+    z-index: 30;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   }
   .launch-appendix__rail {
     position: fixed;
@@ -531,8 +816,29 @@ main.tbtx-blueprint {
   .launch-appendix__tab-moniker{
     display:none!important;
   }
+  .launch-dept-preview{
+    position:relative;
+    top:auto;
+    right:auto;
+    left:auto;
+    width:100%;
+    max-height:none;
+    overflow:visible;
+    border-radius:0;
+    box-shadow:none;
+  }
+  .launch-surface__hero{
+    min-height:70svh;
+  }
 }
-@media(prefers-reduced-motion:reduce){.launch-asset img{transition:none}}
+@media(prefers-reduced-motion:reduce){
+  .launch-asset img{transition:none}
+  .launch-dept-preview__inner{animation:none}
+  .launch-dept-preview--pr{animation:none}
+  .launch-dept-preview__valve span{animation:none}
+  .launch-appendix__tab--pr.active .launch-appendix__tab-bar,
+  .launch-appendix__tab--pr:hover .launch-appendix__tab-bar{animation:none}
+}
 
 /* BizBuilders AI: cinematic operating architecture */
 .bbai2{--bb-bg:#07101a;--bb-ink:#f1f4f7;--bb-soft:#a9b7c5;--bb-blue:#71a9df;--bb-brass:#d6b46e;background:var(--bb-bg);color:var(--bb-ink);font-family:var(--font-outfit);overflow:clip}.bbai2 a{color:inherit;text-decoration:none}.bbai2__skip{position:fixed;z-index:80;top:.75rem;left:.75rem;transform:translateY(-180%);background:#fff;color:#07101a!important;padding:.6rem 1rem}.bbai2__skip:focus{transform:none}.bbai2__nav{position:absolute;z-index:20;top:0;left:0;right:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:1.1rem clamp(1rem,3vw,2.5rem);border-bottom:1px solid rgb(255 255 255/.16);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase}.bbai2__nav span{color:rgb(255 255 255/.52)}.bbai2__nav a:last-child{text-align:right;color:var(--bb-blue)}

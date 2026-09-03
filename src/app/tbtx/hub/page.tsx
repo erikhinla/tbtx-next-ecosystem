@@ -15,9 +15,25 @@ import {
   THREE_SECOND_END_CARD,
   DEPARTMENT_MATRIX,
   COMMAND_CENTER_FILES,
+  type DepartmentMatrixItem,
 } from "@/config/hub-handbook";
 
 type Decision = "ship" | "hold" | "skip";
+
+const MAP_YOURS_URL = "https://transformby10x.ai/tbtx/map";
+
+function deptPreviewCopy(dept: DepartmentMatrixItem) {
+  if (dept.code === "FIN") {
+    return {
+      lockup: "AUTOMATION SAVED EVERYONE TIME.",
+      irony: "(Billing is still trying to find it.)",
+    };
+  }
+  return {
+    lockup: "AI Created a Job. (Nobody wanted.)",
+    irony: dept.motion,
+  };
+}
 
 export default function LaunchHandbook() {
   const [decisions, setDecisions] = useState<Record<string, Decision>>({});
@@ -42,6 +58,8 @@ export default function LaunchHandbook() {
       DEPARTMENT_MATRIX[9]
     );
   }, [selectedDeptCode]);
+
+  const previewCopy = deptPreviewCopy(selectedDept);
 
   const counts = useMemo(
     () => ({
@@ -99,6 +117,7 @@ export default function LaunchHandbook() {
               aria-selected={isSelected}
               tabIndex={0}
               className={`launch-appendix__tab launch-appendix__tab--${d.code.toLowerCase()} ${isSelected ? "active" : ""}`}
+              aria-controls="dept-preview social"
               onClick={() => setSelectedDeptCode(d.code)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -123,6 +142,74 @@ export default function LaunchHandbook() {
           );
         })}
       </nav>
+
+      {/* Viewport-visible selected-department preview (hero / current viewport).
+          selectedDeptCode still drives the section 06 appendix panel. */}
+      <aside
+        id="dept-preview"
+        className={`launch-dept-preview launch-dept-preview--${selectedDept.code.toLowerCase()}`}
+        data-dept={selectedDept.code}
+        style={{ borderLeftColor: selectedDept.colorHex }}
+        aria-live="polite"
+        aria-atomic="true"
+        aria-label={`Selected department ${selectedDept.code}`}
+      >
+        <div key={selectedDept.code} className="launch-dept-preview__inner">
+          <div className="launch-dept-preview__head">
+            <span
+              className="launch-dept-preview__code"
+              style={{
+                backgroundColor: `${selectedDept.colorHex}22`,
+                color: selectedDept.colorHex,
+              }}
+            >
+              {selectedDept.code}
+            </span>
+            <div className="launch-dept-preview__identity">
+              <strong className="launch-dept-preview__moniker">{selectedDept.moniker}</strong>
+              <span className="launch-dept-preview__accent">
+                <i
+                  className="launch-dept-preview__swatch"
+                  style={{ backgroundColor: selectedDept.colorHex }}
+                  aria-hidden
+                />
+                <span>{selectedDept.accent}</span>
+                <small>
+                  {selectedDept.colorHex} · working preview
+                </small>
+              </span>
+            </div>
+            {selectedDept.code === "LGL" ? (
+              <div className="launch-dept-preview__provenance" aria-hidden>
+                <span />
+                <span />
+                <span className="is-unresolved" />
+                <span />
+              </div>
+            ) : null}
+            {selectedDept.code === "PR" ? (
+              <div className="launch-dept-preview__valve" aria-hidden>
+                <span />
+              </div>
+            ) : null}
+          </div>
+
+          <p className="launch-dept-preview__signal">
+            <small>Diagnostic signal</small>
+            {selectedDept.signal}
+          </p>
+
+          <div className="launch-dept-preview__copy">
+            <p className="launch-dept-preview__lockup">{previewCopy.lockup}</p>
+            <p className="launch-dept-preview__irony">{previewCopy.irony}</p>
+          </div>
+
+          <Link className="launch-dept-preview__map" href="/tbtx/map">
+            <span>MAP YOURS.</span>
+            <code>{MAP_YOURS_URL}</code>
+          </Link>
+        </div>
+      </aside>
 
       {/* SCROLLING HANDBOOK */}
       <main className="launch-surface">
