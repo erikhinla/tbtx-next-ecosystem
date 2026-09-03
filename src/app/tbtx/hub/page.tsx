@@ -23,6 +23,7 @@ export default function LaunchHandbook() {
   const [decisions, setDecisions] = useState<Record<string, Decision>>({});
   const [copied, setCopied] = useState("");
   const [activeLineCategory, setActiveLineCategory] = useState<string>("All");
+  const [selectedDeptCode, setSelectedDeptCode] = useState<string>("OPS");
 
   useEffect(() => {
     const saved = window.localStorage.getItem("tbtx-launch-decisions");
@@ -34,6 +35,13 @@ export default function LaunchHandbook() {
       }
     }
   }, []);
+
+  const selectedDept = useMemo(() => {
+    return (
+      DEPARTMENT_MATRIX.find((d) => d.code === selectedDeptCode) ||
+      DEPARTMENT_MATRIX[9]
+    );
+  }, [selectedDeptCode]);
 
   const counts = useMemo(
     () => ({
@@ -446,18 +454,18 @@ export default function LaunchHandbook() {
         </div>
       </section>
 
-      {/* 06 / SOCIAL */}
+      {/* 06 / SOCIAL & DEPARTMENT APPENDIX */}
       <section className="launch-surface__section launch-surface__social" id="social">
         <div className="launch-surface__intro">
-          <p>06 / Social</p>
+          <p>06 / Social &amp; Appendix</p>
           <h2>
-            Buyer Order, Crop Rules
+            Buyer Order &amp;
             <br />
-            &amp; 10-Dept Matrix.
+            Department Appendix.
           </h2>
           <span>
-            B2C buyer progression (6 steps), spatial crop invariants, and the 10-department diagnostic
-            matrix. (SOCIAL_MATRIX.md is the publishing calendar).
+            B2C buyer progression (6 steps), spatial crop invariants, and the interactive 10-department
+            matrix appendix.
           </span>
         </div>
 
@@ -481,78 +489,153 @@ export default function LaunchHandbook() {
             </div>
           </div>
 
-          {/* Spatial Grid & 3-Second End Card Cheat */}
-          <div className="launch-card mb-8">
-            <div className="launch-card__eyebrow">Spatial Grid &amp; End Card Cheat</div>
-            <div className="launch-social__cheat-grid">
-              <div>
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2">
-                  Responsive Crop Rules
-                </h4>
-                <ul className="space-y-2 text-xs text-white/80">
-                  {SOCIAL_CROP_RULES.map((c) => (
-                    <li key={c.ratio} className="border-l-2 border-white/20 pl-3 py-1">
-                      <strong className="text-white font-mono">{c.ratio}:</strong> {c.rule}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2">
-                  Three-Second Campaign End Card
-                </h4>
-                <div className="space-y-1 text-xs font-mono">
-                  {THREE_SECOND_END_CARD.beats.map((b) => (
-                    <div key={b.time} className="flex gap-2">
-                      <span className="text-amber-400 shrink-0">{b.time}</span>
-                      <span className="text-white/85">{b.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-xs text-white/50 mt-3 pt-2 border-t border-white/10">
-                  Live destination route:{" "}
-                  <strong className="text-emerald-400 font-mono">
-                    {THREE_SECOND_END_CARD.liveRoute}
-                  </strong>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* 10-Dept Matrix */}
-          <div className="launch-card">
-            <div className="launch-card__eyebrow">
-              B2B 10-Department Diagnostic Matrix{" "}
-              <span className="text-white/40 font-normal normal-case">
-                (accent names are canon; colors are working preview)
+          {/* Department Appendix: Left Rail + Detail Panel */}
+          <div className="launch-card launch-appendix__card">
+            <div className="launch-card__eyebrow flex justify-between items-center flex-wrap gap-2">
+              <span>B2B Department Matrix Appendix</span>
+              <span className="text-white/40 font-normal normal-case text-xs">
+                Accent names are canon • Colors are working preview • Default chassis: OPS
               </span>
             </div>
-            <div className="launch-dept__grid">
-              {DEPARTMENT_MATRIX.map((d) => (
-                <article
-                  key={d.code}
-                  className="launch-dept__card"
-                  style={{ borderLeftColor: d.colorHex }}
-                >
-                  <div className="launch-dept__header">
-                    <span
-                      className="launch-dept__code"
-                      style={{ backgroundColor: `${d.colorHex}22`, color: d.colorHex }}
+
+            <div className="launch-appendix__layout">
+              {/* Left Rail (10 Tabs in Canonical Order) */}
+              <nav className="launch-appendix__rail" aria-label="Department matrix tabs" role="tablist">
+                {DEPARTMENT_MATRIX.map((d) => {
+                  const isSelected = d.code === selectedDeptCode;
+                  return (
+                    <button
+                      key={d.code}
+                      role="tab"
+                      aria-selected={isSelected}
+                      tabIndex={0}
+                      className={`launch-appendix__tab ${isSelected ? "active" : ""}`}
+                      onClick={() => setSelectedDeptCode(d.code)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelectedDeptCode(d.code);
+                        }
+                      }}
                     >
-                      {d.code}
-                    </span>
-                    <span className="launch-dept__accent">
-                      {d.accent} <small className="text-white/40">(preview)</small>
-                    </span>
+                      <span
+                        className="launch-appendix__tab-bar"
+                        style={{ backgroundColor: d.colorHex }}
+                      />
+                      <span className="launch-appendix__tab-code">{d.code}</span>
+                      <span className="launch-appendix__tab-moniker">{d.moniker}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+
+              {/* Right Panel (Selected Department Details) */}
+              <div
+                className="launch-appendix__panel"
+                role="tabpanel"
+                style={{ borderLeftColor: selectedDept.colorHex }}
+              >
+                {/* Header */}
+                <div className="launch-appendix__panel-header">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className="launch-dept__code"
+                        style={{
+                          backgroundColor: `${selectedDept.colorHex}22`,
+                          color: selectedDept.colorHex,
+                        }}
+                      >
+                        {selectedDept.code}
+                      </span>
+                      <span className="text-xs text-white/50 uppercase tracking-wider">
+                        {selectedDept.dept}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-semibold m-0 text-white">{selectedDept.moniker}</h3>
                   </div>
-                  <h4>{d.moniker}</h4>
-                  <p className="launch-dept__dept-name">{d.dept}</p>
-                  <div className="launch-dept__signal">
-                    <small>Signal:</small> {d.signal}
+
+                  <div className="flex items-center gap-2 bg-[#09100d] px-3 py-1.5 border border-white/10">
+                    <span
+                      className="w-3 h-3 inline-block rounded-full"
+                      style={{ backgroundColor: selectedDept.colorHex }}
+                    />
+                    <span className="text-xs text-white/80 font-medium">{selectedDept.accent}</span>
+                    <small className="text-white/40 text-[10px]">(working preview)</small>
                   </div>
-                  <p className="launch-dept__motion">{d.motion}</p>
-                </article>
-              ))}
+                </div>
+
+                {/* Grid for Signal, Motion, and Behavior */}
+                <div className="launch-appendix__panel-grid">
+                  <div className="launch-appendix__info-box">
+                    <small className="launch-appendix__info-label">Diagnostic Signal</small>
+                    <p className="text-amber-300 font-medium text-sm m-0">{selectedDept.signal}</p>
+                  </div>
+
+                  <div className="launch-appendix__info-box">
+                    <small className="launch-appendix__info-label">Motion / Tension</small>
+                    <p className="text-white/80 text-sm m-0">{selectedDept.motion}</p>
+                  </div>
+
+                  {selectedDept.visualBehavior && (
+                    <div className="launch-appendix__info-box launch-appendix__info-box--span2">
+                      <small className="launch-appendix__info-label">Visual Behavior Rule</small>
+                      <p className="text-emerald-300 text-sm m-0">{selectedDept.visualBehavior}</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Copy Line Slot: Lockup + Irony */}
+                <div className="launch-appendix__copy-slot">
+                  <small className="launch-appendix__info-label">Copy Line Slot (Lockup + Department Irony)</small>
+                  <div className="launch-appendix__copy-box">
+                    <div className="text-xs text-amber-400 font-semibold mb-1">
+                      AI Created a Job. (Nobody wanted.)
+                    </div>
+                    <p className="text-base text-white font-serif italic m-0">
+                      &ldquo;{selectedDept.irony}&rdquo;
+                    </p>
+                  </div>
+                </div>
+
+                {/* Chassis Crop Cheat & End Card */}
+                <div className="launch-appendix__cheat-box">
+                  <div className="launch-appendix__cheat-header">
+                    <span className="text-xs text-amber-300 font-semibold uppercase tracking-wider">
+                      Chassis Crop Cheat &amp; End Card
+                    </span>
+                    <span className="text-xs text-white/50">12-column grid • 6-unit safe frame</span>
+                  </div>
+
+                  <div className="launch-appendix__crop-grid">
+                    {SOCIAL_CROP_RULES.map((c) => (
+                      <div key={c.ratio} className="launch-appendix__crop-item">
+                        <strong className="text-white font-mono text-xs">{c.ratio}:</strong>
+                        <span className="text-white/70 text-xs">{c.rule}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="launch-appendix__endcard">
+                    <div className="flex justify-between items-center flex-wrap gap-2 mb-2">
+                      <span className="text-xs text-white/50 uppercase tracking-wider">
+                        3-Second End Card Timeline
+                      </span>
+                      <span className="text-xs font-mono text-emerald-400 font-semibold">
+                        MAP YOURS. &rarr; https://transformby10x.ai/tbtx/map
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] font-mono">
+                      {THREE_SECOND_END_CARD.beats.map((b) => (
+                        <div key={b.time} className="bg-[#09100d] p-2 border border-white/5">
+                          <span className="text-amber-400 block mb-0.5">{b.time}</span>
+                          <span className="text-white/75 block leading-tight">{b.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
