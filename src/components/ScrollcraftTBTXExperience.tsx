@@ -198,9 +198,16 @@ export default function ScrollcraftTBTXExperience() {
     if (!act) return;
     let frame = 0;
     const tick = () => {
-      const raw = parseFloat(getComputedStyle(act).getPropertyValue("--sc-p") || "0");
-      const next = (Number.isFinite(raw) ? raw : 0) >= 0.065;
-      setReading((current) => (current === next ? current : next));
+      const y = window.scrollY || 0;
+      if (y < 12) {
+        setReading((current) => (current ? false : current));
+      } else {
+        const raw = parseFloat(getComputedStyle(act).getPropertyValue("--sc-p") || "0");
+        const pin = (Number.isFinite(raw) ? raw : 0) >= 0.065;
+        const page = y >= window.innerHeight * 0.04;
+        const next = pin || page;
+        setReading((current) => (current === next ? current : next));
+      }
       frame = window.requestAnimationFrame(tick);
     };
     frame = window.requestAnimationFrame(tick);

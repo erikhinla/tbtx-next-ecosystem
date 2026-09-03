@@ -125,8 +125,9 @@
   padding: 0 clamp(1.5rem, 5vw, 4.5rem) clamp(2.4rem, 7vh, 4.5rem);
   pointer-events: none;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(0.55rem);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.7s ease, transform 0.7s ease, visibility 0s linear 0.7s;
 }
 
 .tbtx-sc__hero.is-reading .tbtx-sc__hero-veil,
@@ -136,7 +137,14 @@
 
 .tbtx-sc__hero.is-reading .tbtx-sc__hero-copy {
   opacity: 1;
+  visibility: visible;
   transform: none;
+  transition: opacity 0.7s ease, transform 0.7s ease, visibility 0s linear 0s;
+}
+
+.tbtx-sc__hero:not(.is-reading) .tbtx-sc__hero-copy.sc-copy {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .tbtx-sc__hero-copy a {
@@ -844,8 +852,10 @@
 @media (prefers-reduced-motion: reduce) {
   .tbtx-sc__hero-veil,
   .tbtx-sc__hero-band,
-  .tbtx-sc__hero-copy.sc-copy {
+  .tbtx-sc__hero-copy.sc-copy,
+  .tbtx-sc__hero:not(.is-reading) .tbtx-sc__hero-copy.sc-copy {
     opacity: 1;
+    visibility: visible;
     transform: none;
     transition: none;
   }
