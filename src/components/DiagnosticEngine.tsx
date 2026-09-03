@@ -70,6 +70,10 @@ export default function DiagnosticEngine({
     }
   };
 
+  const startEngine = () => {
+    setReady(true);
+  };
+
   const handleReset = () => {
     setCurrentStep(0);
     setAnswers(Array(questions.length).fill(-1));
@@ -80,7 +84,7 @@ export default function DiagnosticEngine({
   if (!ready && !showResult) {
     return (
       <ScanShell isPersonal={isPersonal}>
-        <ScanThreshold isPersonal={isPersonal} onBegin={() => setReady(true)} />
+        <ScanThreshold isPersonal={isPersonal} onBegin={startEngine} />
       </ScanShell>
     );
   }
