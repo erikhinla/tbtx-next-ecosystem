@@ -68,6 +68,7 @@
   height: 100%;
   object-fit: contain;
   background: #070b10;
+  filter: saturate(0.72) brightness(0.52) contrast(1.08);
 }
 
 .tbtx-sc__hero-veil {
@@ -76,8 +77,8 @@
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgb(7 11 16 / 0.18) 0%, rgb(7 11 16 / 0.42) 38%, rgb(7 11 16 / 0.88) 100%),
-    linear-gradient(90deg, rgb(7 11 16 / 0.35) 0%, transparent 28%, transparent 72%, rgb(7 11 16 / 0.35) 100%);
+    linear-gradient(180deg, rgb(7 11 16 / 0.88) 0%, rgb(7 11 16 / 0.42) 26%, rgb(7 11 16 / 0.28) 48%, rgb(7 11 16 / 0.92) 100%),
+    linear-gradient(90deg, rgb(7 11 16 / 0.45) 0%, transparent 24%, transparent 76%, rgb(7 11 16 / 0.45) 100%);
 }
 
 .tbtx-sc__sr {
@@ -869,7 +870,7 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgb(8 10 9 / 0.42) 0%, rgb(8 10 9 / 0.62) 48%, rgb(8 10 9 / 0.88) 100%);
+    linear-gradient(180deg, rgb(8 10 9 / 0.72) 0%, rgb(8 10 9 / 0.78) 42%, rgb(8 10 9 / 0.94) 100%);
   pointer-events: none;
 }
 
@@ -1729,6 +1730,47 @@ button.tbtx-scan__go {
   cursor: pointer;
 }
 
+.tbtx-nest__rail {
+  display: flex;
+  gap: 1.1rem;
+  margin: 1.35rem 0 0.35rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tbtx-nest__mark {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: color-mix(in srgb, #fff 28%, transparent);
+  cursor: pointer;
+  font: 500 0.72rem / 1 var(--sc-font-mono);
+  letter-spacing: 0.16em;
+}
+
+.tbtx-nest__mark:disabled {
+  cursor: default;
+}
+
+.tbtx-nest__mark.is-past {
+  color: color-mix(in srgb, #fff 62%, transparent);
+}
+
+.tbtx-nest__mark.is-now,
+.tbtx-nest__mark.is-brass.is-now {
+  color: #d6b46e;
+}
+
+.tbtx-nest__next {
+  margin-top: 0.35rem;
+  opacity: 0.58;
+}
+
+.tbtx-nest__next:hover,
+.tbtx-nest__next:focus-visible {
+  opacity: 1;
+}
+
 .tbtx-nest__beats {
   gap: 0;
   margin-top: 1.15rem;
@@ -1817,7 +1859,7 @@ button.tbtx-scan__go {
 
 .tbtx-nest--scan {
   cursor: pointer;
-  min-height: 4.5rem;
+  min-height: 42vh;
 }
 
 .tbtx-scan__continue {

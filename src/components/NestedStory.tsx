@@ -209,21 +209,13 @@ export function StakesCopy() {
     if (progress < 0.68) return 2;
     return 3;
   });
-  const [openId, setOpenId] = useState<string | null>(null);
 
   useEffect(() => {
     if (fromScroll > beatRef.current) go(fromScroll);
   }, [fromScroll, go, beatRef]);
 
-  useEffect(() => {
-    const current = POSITIONS[beat - 1];
-    setOpenId(current ? current.id : null);
-  }, [beat]);
-
-  const openPosition = (index: number) => {
-    if (index + 1 > beat) go(index + 1);
-    setOpenId(POSITIONS[index].id);
-  };
+  const current = beat > 0 ? POSITIONS[beat - 1] : null;
+  const upcoming = beat < 3 ? POSITIONS[beat] : null;
 
   return (
     <div className="tbtx-why tbtx-why--journey">
@@ -248,56 +240,72 @@ export function StakesCopy() {
           play
         />
 
-        <ol className="tbtx-nest__beats">
-          {POSITIONS.map((item, index) => {
-            const visible = index <= beat;
-            if (!visible) return null;
-            const unlocked = beat >= index + 1;
-            const isOpen = unlocked && openId === item.id;
-            return (
-              <li
-                key={item.id}
+        <ol className="tbtx-nest__rail" aria-label="Three ways">
+          {POSITIONS.map((item, index) => (
+            <li key={item.id}>
+              <button
+                type="button"
                 className={[
-                  "tbtx-nest__beat",
-                  `tbtx-nest__beat--${item.id}`,
-                  "brass" in item ? "tbtx-nest__beat--brass" : "",
-                  unlocked ? "is-unlocked" : "is-next",
-                  isOpen ? "is-open" : "",
+                  "tbtx-nest__mark",
+                  beat === index + 1 ? "is-now" : "",
+                  beat > index + 1 ? "is-past" : "",
+                  "brass" in item ? "is-brass" : "",
                 ]
                   .filter(Boolean)
                   .join(" ")}
+                aria-current={beat === index + 1 ? "step" : undefined}
+                disabled={index > beat}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  go(index + 1);
+                }}
               >
-                <button
-                  type="button"
-                  className="tbtx-nest__peel"
-                  aria-expanded={isOpen}
-                  aria-controls={`tbtx-why-${item.id}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    openPosition(index);
-                  }}
-                >
-                  <small>{item.n}</small>
-                  <span>{item.title}</span>
-                </button>
-                <div
-                  id={`tbtx-why-${item.id}`}
-                  className="tbtx-nest__support"
-                  hidden={!isOpen}
-                >
-                  {isOpen ? (
-                    <>
-                      <NestLine className="tbtx-why__story" text={item.story} play={isOpen} />
-                      {"refrain" in item ? (
-                        <NestLine className="tbtx-why__refrain" text={item.refrain} play={isOpen} />
-                      ) : null}
-                    </>
-                  ) : null}
-                </div>
-              </li>
-            );
-          })}
+                {item.n}
+              </button>
+            </li>
+          ))}
         </ol>
+
+        {current ? (
+          <article
+            key={current.id}
+            className={[
+              "tbtx-nest__beat",
+              `tbtx-nest__beat--${current.id}`,
+              "brass" in current ? "tbtx-nest__beat--brass is-open" : "is-open",
+            ].join(" ")}
+          >
+            <h3 className="tbtx-nest__peel">
+              <small>{current.n}</small>
+              <span>{current.title}</span>
+            </h3>
+            <div id={`tbtx-why-${current.id}`} className="tbtx-nest__support">
+              <NestLine className="tbtx-why__story" text={current.story} play />
+              {"refrain" in current ? (
+                <NestLine className="tbtx-why__refrain" text={current.refrain} play />
+              ) : null}
+            </div>
+          </article>
+        ) : null}
+
+        {upcoming ? (
+          <button
+            type="button"
+            className={[
+              "tbtx-nest__peel tbtx-nest__next",
+              "brass" in upcoming ? "tbtx-nest__beat--brass" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            onClick={(event) => {
+              event.stopPropagation();
+              go(beat + 1);
+            }}
+          >
+            <small>{upcoming.n}</small>
+            <span>{upcoming.title}</span>
+          </button>
+        ) : null}
       </NestField>
     </div>
   );
