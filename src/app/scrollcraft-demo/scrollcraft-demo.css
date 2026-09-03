@@ -4,9 +4,9 @@
    Everything below lives in the PAGE LAYER. The vendor engine
    (scrollcraft.css / scrollcraft.js) is untouched.
 
-   Public journey (docs/PUBLIC_JOURNEY.md):
-     Arrival → stakes → stand → doors → threshold → scan
-     Hero "Start Here" goes to #tbtx-stakes, never to a door.
+   Public journey:
+     Arrival (HUD film) → nested doors → /tbtx/scan
+     Hero "Start Here" goes to #tbtx-stakes (the door tiles).
    ========================================================================== */
 
 /* ---------------------------------------------------------------- tokens -- */
@@ -1593,9 +1593,234 @@ button.tbtx-scan__go {
 
 .tbtx-sc__why-frame {
   min-height: 100dvh;
+  height: 100dvh;
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+/* Nested doors — designed tiles, large type only: name + joke */
+.tbtx-nest-doors {
+  pointer-events: auto;
+  position: relative;
+  height: 100%;
+  min-height: 100dvh;
+  color: #f2f1ea;
+  background:
+    radial-gradient(ellipse at 78% 18%, rgb(214 180 110 / 0.08), transparent 42%),
+    #0d1210;
+}
+
+.tbtx-nest-doors__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: clamp(0.55rem, 1.3vw, 1.15rem);
+  align-items: stretch;
+  height: 100%;
+  min-height: 100dvh;
+  padding: clamp(0.85rem, 2.4vh, 1.5rem) clamp(0.85rem, 2.6vw, 1.8rem);
+  perspective: 1800px;
+}
+
+.tbtx-door {
+  appearance: none;
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.tbtx-door__jamb {
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, #fff 16%, transparent);
+  background:
+    linear-gradient(180deg, #121a17 0%, #070b0a 100%);
+  box-shadow:
+    inset 0 0 0 9px #0a0f0d,
+    inset 0 0 48px rgb(0 0 0 / 0.55);
+  pointer-events: none;
+}
+
+.tbtx-door--up .tbtx-door__jamb {
+  border-color: color-mix(in srgb, #d6b46e 62%, transparent);
+  box-shadow:
+    inset 0 0 0 9px #12160f,
+    inset 0 0 56px rgb(214 180 110 / 0.08),
+    0 0 42px rgb(214 180 110 / 0.1);
+}
+
+.tbtx-door__leaf {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(1.1rem, 2.8vh, 2rem);
+  box-sizing: border-box;
+  height: 100%;
+  padding: clamp(1.5rem, 4.2vh, 2.8rem) clamp(1.15rem, 2.5vw, 2.1rem) clamp(1.6rem, 4vh, 2.6rem);
+  transform-origin: left center;
+  transform: rotateY(-20deg);
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.14) 0 2px, transparent 10px),
+    linear-gradient(180deg, #222c28 0%, #121916 46%, #0a0e0c 100%);
+  box-shadow:
+    14px 0 36px rgb(0 0 0 / 0.5),
+    inset -22px 0 34px rgb(0 0 0 / 0.32),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+  transition:
+    transform 0.72s cubic-bezier(.19, 1, .22, 1),
+    filter 0.72s ease,
+    box-shadow 0.72s ease,
+    background-color 0.72s ease;
+}
+
+.tbtx-door--up .tbtx-door__leaf {
+  transform: rotateY(-28deg);
+  background:
+    linear-gradient(90deg, rgb(214 180 110 / 0.7) 0 3px, transparent 12px),
+    linear-gradient(180deg, #2d2c1d 0%, #17180f 50%, #0c0e0a 100%);
+}
+
+.tbtx-door--up .tbtx-door__leaf::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: clamp(0.85rem, 1.6vw, 1.35rem);
+  width: 0.42rem;
+  height: 3.6rem;
+  margin-top: -1.8rem;
+  border-radius: 99px;
+  background: #d6b46e;
+  box-shadow: 0 0 16px rgb(214 180 110 / 0.55);
+}
+
+.tbtx-door--out .tbtx-door__leaf::after,
+.tbtx-door--back .tbtx-door__leaf::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: clamp(0.85rem, 1.6vw, 1.35rem);
+  width: 0.32rem;
+  height: 3.1rem;
+  margin-top: -1.55rem;
+  border-radius: 99px;
+  background: color-mix(in srgb, #fff 28%, transparent);
+}
+
+.tbtx-door.is-shut .tbtx-door__leaf {
+  transform: rotateY(0deg);
+  filter: saturate(0.28) brightness(0.48);
+  box-shadow: inset 0 0 90px rgb(0 0 0 / 0.62);
+  cursor: default;
+}
+
+.tbtx-door.is-shut {
+  cursor: default;
+}
+
+.tbtx-door.is-shut .tbtx-door__leaf::after {
+  opacity: 0.18;
+}
+
+.tbtx-door--up:hover .tbtx-door__leaf,
+.tbtx-door--up:focus-visible .tbtx-door__leaf {
+  transform: rotateY(-34deg);
+}
+
+.tbtx-door--out:hover:not(.is-shut) .tbtx-door__leaf,
+.tbtx-door--back:hover:not(.is-shut) .tbtx-door__leaf,
+.tbtx-door--out:focus-visible:not(.is-shut) .tbtx-door__leaf,
+.tbtx-door--back:focus-visible:not(.is-shut) .tbtx-door__leaf {
+  transform: rotateY(-12deg);
+}
+
+.tbtx-door__name {
+  display: block;
+  max-width: 8ch;
+  color: #fff;
+  font: 400 clamp(3.35rem, 7.4vw, 6.4rem) / 0.84 var(--sc-font-display);
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.tbtx-door--up .tbtx-door__name {
+  color: #d6b46e;
+}
+
+.tbtx-door__joke {
+  display: block;
+  max-width: 11ch;
+  color: #f4f2ea;
+  font: 400 clamp(1.7rem, 3.4vw, 2.75rem) / 1.02 var(--sc-font-display);
+  letter-spacing: -0.038em;
+}
+
+.tbtx-door.is-shut .tbtx-door__name,
+.tbtx-door.is-shut .tbtx-door__joke {
+  color: color-mix(in srgb, #fff 68%, #7a8178);
+}
+
+.tbtx-door:focus-visible {
+  outline: 2px solid color-mix(in srgb, #d6b46e 80%, #fff);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tbtx-door__leaf {
+    transition: none;
+    transform: none;
+  }
+  .tbtx-door--up .tbtx-door__leaf,
+  .tbtx-door--up:hover .tbtx-door__leaf,
+  .tbtx-door--up:focus-visible .tbtx-door__leaf,
+  .tbtx-door.is-shut .tbtx-door__leaf {
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .tbtx-sc__why-frame {
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .tbtx-nest-doors__stage {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+    gap: 0.7rem;
+    padding: 0.75rem 0.75rem 1.1rem;
+  }
+
+  .tbtx-door {
+    min-height: 78dvh;
+  }
+
+  .tbtx-door__leaf,
+  .tbtx-door--up .tbtx-door__leaf,
+  .tbtx-door.is-shut .tbtx-door__leaf {
+    transform: none;
+  }
+
+  .tbtx-door__name {
+    font-size: clamp(3.1rem, 14vw, 5.2rem);
+  }
+
+  .tbtx-door__joke {
+    max-width: 12ch;
+    font-size: clamp(1.55rem, 6.4vw, 2.2rem);
+  }
 }
 
 .tbtx-why {
