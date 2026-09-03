@@ -7,7 +7,7 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
 ## Sequence
 
 1. **Social post** — AI is changing every aspect of life and work. The trap is not only replacement. The trap is becoming the coordinator of leftovers.
-2. **Arrival** — The film is the greeting. Two lockups, not a four-line stack: `AI Created a Job.` / `(Nobody wanted.)` as one unit. `Managing Digital Fog` / `Start Here` as a separate block. Do not put the mantle between hook and mutter. Hero `Start Here` lands on the Digital Fog Scan (`/scan` → `/tbtx/scan`).
+2. **Arrival** — The film is the greeting. First viewport is full-bleed film only. After a small scroll, two lockups fade in over the still-playing film: `AI Created a Job.` / `(Nobody wanted.)` as one unit. `Managing Digital Fog` / `Start Here` as a separate block. Do not put the mantle between hook and mutter. Hero `Start Here` lands on the Digital Fog Scan (`/scan` → `/tbtx/scan`). `Skip the film` still jumps to `#tbtx-stakes`. `prefers-reduced-motion` shows the lockups immediately.
 3. **Stakes** (`#tbtx-stakes`) — Three named positions, one beat at a time. Nested reveal on click, type, or scroll. Do not render all three stories at once.
    - Sit out: refuse the tools. Get outrun by people who didn't.
    - Sit back: let AI start everything. You spend the day finishing it.

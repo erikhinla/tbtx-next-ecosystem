@@ -50,8 +50,8 @@
 
 /* ========================================================================
    BEAT 1 — RECOGNITION (scrub)
-   Two lockups, not a four-line stack. Type lives in a bottom band
-   so it does not sit on faces or fight baked-in DIGITAL FOG type.
+   First viewport is film only. Lockups fade in after a small pin scroll.
+   Type lives in a bottom band so it does not sit on faces.
    ======================================================================== */
 .tbtx-sc__hero-stage {
   display: grid;
@@ -66,19 +66,8 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   background: #070b10;
-  filter: saturate(0.72) brightness(0.52) contrast(1.08);
-}
-
-.tbtx-sc__hero-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgb(7 11 16 / 0.88) 0%, rgb(7 11 16 / 0.42) 26%, rgb(7 11 16 / 0.28) 48%, rgb(7 11 16 / 0.92) 100%),
-    linear-gradient(90deg, rgb(7 11 16 / 0.45) 0%, transparent 24%, transparent 76%, rgb(7 11 16 / 0.45) 100%);
 }
 
 .tbtx-sc__sr {
@@ -89,18 +78,36 @@
   clip: rect(0 0 0 0);
 }
 
-.tbtx-sc__hero-band {
+.tbtx-sc__hero-veil {
   position: absolute;
-  inset: auto 0 0;
-  height: min(42vh, 22rem);
-  z-index: 2;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgb(8 10 9 / 0.55) 38%,
-    rgb(8 10 9 / 0.92) 100%
+    transparent 52%,
+    rgb(7 11 16 / 0.28) 74%,
+    rgb(7 11 16 / 0.7) 100%
+  );
+  transition: opacity 0.7s ease;
+}
+
+.tbtx-sc__hero-band {
+  position: absolute;
+  inset: auto 0 0;
+  height: min(38vh, 20rem);
+  z-index: 2;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(8 10 9 / 0.4) 42%,
+    rgb(8 10 9 / 0.82) 100%
   );
   pointer-events: none;
+  transition: opacity 0.7s ease;
 }
 
 .tbtx-sc__hero-copy.sc-copy {
@@ -117,10 +124,26 @@
   width: 100%;
   padding: 0 clamp(1.5rem, 5vw, 4.5rem) clamp(2.4rem, 7vh, 4.5rem);
   pointer-events: none;
+  opacity: 0;
+  transform: translateY(0.55rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.tbtx-sc__hero.is-reading .tbtx-sc__hero-veil,
+.tbtx-sc__hero.is-reading .tbtx-sc__hero-band {
   opacity: 1;
 }
 
+.tbtx-sc__hero.is-reading .tbtx-sc__hero-copy {
+  opacity: 1;
+  transform: none;
+}
+
 .tbtx-sc__hero-copy a {
+  pointer-events: none;
+}
+
+.tbtx-sc__hero.is-reading .tbtx-sc__hero-copy a {
   pointer-events: auto;
 }
 
@@ -226,23 +249,33 @@
 
 .tbtx-sc__hero-sound {
   position: absolute;
+  top: clamp(1rem, 3.2vh, 1.8rem);
   right: clamp(1rem, 3.5vw, 1.8rem);
-  bottom: clamp(1rem, 3vh, 1.7rem);
+  bottom: auto;
   z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
   background: none;
   border: 0;
-  padding: 0.35rem;
-  color: #fff;
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  line-height: 1;
+  color: color-mix(in srgb, #fff 62%, var(--sc-accent));
   cursor: pointer;
-  opacity: 0.55;
+  opacity: 0.42;
   pointer-events: auto;
-  filter: drop-shadow(0 1px 6px rgb(0 0 0 / 0.7));
+  filter: drop-shadow(0 1px 8px rgb(0 0 0 / 0.55));
 }
 
-.tbtx-sc__hero-sound:hover {
-  opacity: 0.95;
+.tbtx-sc__hero-sound svg {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.tbtx-sc__hero-sound:hover,
+.tbtx-sc__hero-sound:focus-visible {
+  opacity: 0.82;
 }
 
 .tbtx-sc__hero-cta:hover {
@@ -809,6 +842,18 @@
    REDUCED MOTION
    ======================================================================== */
 @media (prefers-reduced-motion: reduce) {
+  .tbtx-sc__hero-veil,
+  .tbtx-sc__hero-band,
+  .tbtx-sc__hero-copy.sc-copy {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .tbtx-sc__hero-copy a {
+    pointer-events: auto;
+  }
+
   .tbtx-sc__fog-word {
     transform: translate(-50%, -50%) !important;
     opacity: 1 !important;

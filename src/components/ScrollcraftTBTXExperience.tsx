@@ -2,12 +2,61 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
 import Film from "./Film";
 import { StakesCopy, StandCopy } from "./WhyJourney";
 import { film } from "@/lib/media";
+
+const HERO_SOUND_KEY = "tbtx-hero-sound";
+
+/** Browser probes only. Blob `hero-site-827a.mp4` is h264 video-only (no audio stream). */
+
+function filmHasAudio(video: HTMLVideoElement) {
+  const probe = video as HTMLVideoElement & {
+    mozHasAudio?: boolean;
+    webkitAudioDecodedByteCount?: number;
+    audioTracks?: { length: number };
+  };
+  if (probe.audioTracks && probe.audioTracks.length > 0) return true;
+  if (probe.mozHasAudio === true) return true;
+  if ((probe.webkitAudioDecodedByteCount ?? 0) > 0) return true;
+  return false;
+}
+
+function HeroSoundGlyph({ on }: { on: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        d="M4.75 9.25h3.1L12 5.4v13.2l-4.15-3.85H4.75z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      {on ? (
+        <>
+          <path
+            d="M15.35 9.1c1.45 1.45 1.45 4.35 0 5.8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M17.85 6.85c2.7 2.55 2.7 7.75 0 10.3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+        </>
+      ) : null}
+    </svg>
+  );
+}
 
 declare global {
   interface Window {
@@ -26,18 +75,52 @@ declare global {
  */
 export default function ScrollcraftTBTXExperience() {
   const rootRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const mountedRef = useRef(false);
+  const reducedMotion = useReducedMotion();
   const [showReel, setShowReel] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
+  const [hasAudio, setHasAudio] = useState(false);
+  const [reading, setReading] = useState(false);
+
+  const hasAudioRef = useRef(false);
+  const soundOnRef = useRef(false);
+
+  const applySound = (on: boolean) => {
+    const video = heroVideoRef.current;
+    if (!video || !hasAudioRef.current) return;
+    video.muted = !on;
+    video.volume = on ? 1 : 0;
+    if (on) void video.play();
+    soundOnRef.current = on;
+    setSoundOn(on);
+    try {
+      sessionStorage.setItem(HERO_SOUND_KEY, on ? "on" : "off");
+    } catch {
+      // session memory is optional
+    }
+  };
 
   const toggleHeroSound = () => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-    const next = !soundOn;
-    video.muted = !next;
-    if (next) void video.play();
-    setSoundOn(next);
+    if (!hasAudioRef.current) return;
+    applySound(!soundOnRef.current);
+  };
+
+  const inspectHeroAudio = (node?: HTMLVideoElement | null) => {
+    const video = node ?? heroVideoRef.current;
+    if (!video || hasAudioRef.current) return;
+    if (!filmHasAudio(video)) return;
+    hasAudioRef.current = true;
+    setHasAudio(true);
+    try {
+      const remember = sessionStorage.getItem(HERO_SOUND_KEY) === "on";
+      const gestured =
+        typeof navigator !== "undefined" && Boolean(navigator.userActivation?.hasBeenActive);
+      if (remember && gestured) applySound(true);
+    } catch {
+      // session memory is optional
+    }
   };
 
   useEffect(() => {
@@ -73,9 +156,14 @@ export default function ScrollcraftTBTXExperience() {
       hero &&
       new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting || !heroVideoRef.current) return;
-          heroVideoRef.current.muted = true;
-          setSoundOn(false);
+          const video = heroVideoRef.current;
+          if (!video || !hasAudioRef.current) return;
+          if (entry.isIntersecting) {
+            if (soundOnRef.current) applySound(true);
+            return;
+          }
+          video.muted = true;
+          video.volume = 0;
         },
         { threshold: 0.2 }
       );
@@ -101,6 +189,24 @@ export default function ScrollcraftTBTXExperience() {
     };
   }, []);
 
+  useEffect(() => {
+    if (reducedMotion) {
+      setReading(true);
+      return;
+    }
+    const act = heroRef.current;
+    if (!act) return;
+    let frame = 0;
+    const tick = () => {
+      const raw = parseFloat(getComputedStyle(act).getPropertyValue("--sc-p") || "0");
+      const next = (Number.isFinite(raw) ? raw : 0) >= 0.065;
+      setReading((current) => (current === next ? current : next));
+      frame = window.requestAnimationFrame(tick);
+    };
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [reducedMotion]);
+
   return (
     <main ref={rootRef} className="tbtx-sc" data-sc-root data-sc-lerp="0.14">
       {/* ---- a11y skip ---- */}
@@ -111,12 +217,15 @@ export default function ScrollcraftTBTXExperience() {
       {/* ---- film grain (atmosphere) ---- */}
       <div className="sc-grain" aria-hidden="true" />
 
-      {/* Film stays. Two HTML lockups sit in the reading band. Start Here is the Scan door. */}
+      {/* Film first. Lockups wait for a small scroll. Mute control mounts only if the file has audio. */}
       <section
-        className="tbtx-sc__hero"
+        ref={heroRef}
+        id="tbtx-hero"
+        className={`tbtx-sc__hero${reading ? " is-reading" : ""}`}
         data-sc-act="pin"
         data-sc-span="1.6"
         data-sc-drift="#070b10"
+        aria-label="Opening film"
       >
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
           <Film
@@ -124,12 +233,14 @@ export default function ScrollcraftTBTXExperience() {
             className="tbtx-sc__hero-film"
             src="/media/hero-site-827a.mp4"
             autoPlay
-            muted
+            muted={!soundOn}
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
+            onLoadedMetadata={(event) => inspectHeroAudio(event.currentTarget)}
+            onPlaying={(event) => inspectHeroAudio(event.currentTarget)}
           />
           <div className="tbtx-sc__hero-veil" aria-hidden="true" />
           <div className="tbtx-sc__hero-band" aria-hidden="true" />
@@ -140,20 +251,26 @@ export default function ScrollcraftTBTXExperience() {
             </div>
             <div className="tbtx-sc__lockup tbtx-sc__lockup--door">
               <p className="tbtx-sc__hero-mantle">Managing Digital Fog</p>
-              <Link href="/scan" className="tbtx-sc__hero-cta">
+              <Link
+                href="/scan"
+                className="tbtx-sc__hero-cta"
+                tabIndex={reading ? undefined : -1}
+              >
                 Start Here
               </Link>
             </div>
           </div>
-          <button
-            type="button"
-            className="tbtx-sc__hero-sound"
-            onClick={toggleHeroSound}
-            aria-pressed={soundOn}
-            aria-label={soundOn ? "Mute" : "Unmute"}
-          >
-            {soundOn ? "🔊" : "🔇"}
-          </button>
+          {hasAudio ? (
+            <button
+              type="button"
+              className="tbtx-sc__hero-sound"
+              onClick={toggleHeroSound}
+              aria-pressed={soundOn}
+              aria-label={soundOn ? "Mute" : "Unmute"}
+            >
+              <HeroSoundGlyph on={soundOn} />
+            </button>
+          ) : null}
         </div>
       </section>
 
