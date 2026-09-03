@@ -43,59 +43,28 @@
 }
 .tbtx-sc__skip:focus { transform: none; }
 
-/* No top chrome. The film and the two lockups carry identity. */
+/* No top chrome. Type lockups carry identity. */
 
 /* --------------------------------------------------------- shared stage -- */
 .tbtx-sc__stage { min-height: 100dvh; }
 
 /* ========================================================================
-   BEAT 1 — RECOGNITION (scrub)
-   Two lockups, not a four-line stack. Type lives in a bottom band
-   so it does not sit on faces or fight baked-in DIGITAL FOG type.
+   BEAT 1 — RECOGNITION
+   Two type lockups on the dark field. No baked HUD film.
    ======================================================================== */
 .tbtx-sc__hero-stage {
   display: grid;
-  align-items: end;
-  justify-items: center;
+  align-items: center;
+  justify-items: stretch;
   padding: 0;
   background: #070b10;
 }
 
-.tbtx-sc__hero-film {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #070b10;
-}
-
-.tbtx-sc__sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-}
-
-.tbtx-sc__hero-band {
-  position: absolute;
-  inset: auto 0 0;
-  height: min(42vh, 22rem);
-  z-index: calc(var(--sc-z-copy) - 1);
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgb(8 10 9 / 0.55) 38%,
-    rgb(8 10 9 / 0.92) 100%
-  );
-  pointer-events: none;
-}
-
 .tbtx-sc__hero-copy.sc-copy {
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
   inset-inline: 0;
   max-width: none;
   display: grid;
@@ -103,9 +72,10 @@
   align-items: end;
   gap: clamp(1.5rem, 6vw, 6rem);
   width: 100%;
-  padding: 0 clamp(1.5rem, 5vw, 4.5rem) clamp(2.4rem, 7vh, 4.5rem);
+  padding: clamp(2.4rem, 8vh, 5rem) clamp(1.5rem, 5vw, 4.5rem);
   pointer-events: none;
   opacity: 1;
+  translate: none;
 }
 
 .tbtx-sc__hero-copy a {
@@ -195,13 +165,13 @@
 }
 
 .tbtx-sc__hero-cta {
-  position: absolute;
-  top: clamp(1rem, 3vh, 1.6rem);
-  right: clamp(1rem, 4vw, 2rem);
+  position: relative;
+  top: auto;
+  right: auto;
   z-index: 5;
   display: inline-flex;
   align-items: center;
-  margin: 0;
+  margin: 0.35rem 0 0;
   padding: 0.2rem 0 0.28rem;
   color: #fff;
   font: 400 clamp(0.95rem, 1.6vw, 1.15rem) / 1 var(--sc-font-display);
@@ -214,29 +184,9 @@
   pointer-events: auto;
 }
 
-.tbtx-sc__hero-sound {
-  position: absolute;
-  right: clamp(1rem, 3.5vw, 1.8rem);
-  bottom: clamp(1rem, 3vh, 1.7rem);
-  z-index: 5;
-  background: none;
-  border: 0;
-  padding: 0.35rem;
-  color: #fff;
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  line-height: 1;
-  cursor: pointer;
-  opacity: 0.55;
-  pointer-events: auto;
-  filter: drop-shadow(0 1px 6px rgb(0 0 0 / 0.7));
-}
-
-.tbtx-sc__hero-sound:hover {
-  opacity: 0.95;
-}
-
 .tbtx-sc__hero-cta:hover {
   color: #d6b46e;
+  border-bottom-color: #d6b46e;
 }
 
 /* ========================================================================

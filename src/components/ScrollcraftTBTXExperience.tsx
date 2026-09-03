@@ -26,19 +26,8 @@ declare global {
  */
 export default function ScrollcraftTBTXExperience() {
   const rootRef = useRef<HTMLElement | null>(null);
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const mountedRef = useRef(false);
   const [showReel, setShowReel] = useState(false);
-  const [soundOn, setSoundOn] = useState(false);
-
-  const toggleHeroSound = () => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-    const next = !soundOn;
-    video.muted = !next;
-    if (next) void video.play();
-    setSoundOn(next);
-  };
 
   useEffect(() => {
     let cancelled = false;
@@ -68,21 +57,7 @@ export default function ScrollcraftTBTXExperience() {
 
     void loadAndMount();
 
-    const hero = heroVideoRef.current;
-    const observer =
-      hero &&
-      new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting || !heroVideoRef.current) return;
-          heroVideoRef.current.muted = true;
-          setSoundOn(false);
-        },
-        { threshold: 0.2 }
-      );
-    if (hero && observer) observer.observe(hero);
-
     return () => {
-      observer?.disconnect();
       cancelled = true;
       if (!mountedWithApi || !window.ScrollCraft) return;
       const scrollCraft = window.ScrollCraft as Window["ScrollCraft"] & {
@@ -111,7 +86,7 @@ export default function ScrollcraftTBTXExperience() {
       {/* ---- film grain (atmosphere) ---- */}
       <div className="sc-grain" aria-hidden="true" />
 
-      {/* Baked lockup film. HTML is the CTA only. */}
+      {/* Type on the dark field. No baked HUD/people/fog film. */}
       <section
         className="tbtx-sc__hero"
         data-sc-act="pin"
@@ -119,33 +94,18 @@ export default function ScrollcraftTBTXExperience() {
         data-sc-drift="#070b10"
       >
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
-          <h1 className="tbtx-sc__sr">
-            AI Created a Job. Nobody wanted. Managing Digital Fog.
-          </h1>
-          <Film
-            ref={heroVideoRef}
-            className="tbtx-sc__hero-film"
-            src="/media/hero-site-827a.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/media/hero-site-827.jpg"
-            aria-hidden="true"
-          />
-          <a href="#tbtx-stakes" className="tbtx-sc__hero-cta">
-            Start Here
-          </a>
-          <button
-            type="button"
-            className="tbtx-sc__hero-sound"
-            onClick={toggleHeroSound}
-            aria-pressed={soundOn}
-            aria-label={soundOn ? "Mute" : "Unmute"}
-          >
-            {soundOn ? "🔊" : "🔇"}
-          </button>
+          <div className="tbtx-sc__hero-copy sc-copy">
+            <div className="tbtx-sc__lockup tbtx-sc__lockup--hook">
+              <h1 className="tbtx-sc__hero-title">AI Created a Job.</h1>
+              <p className="tbtx-sc__hero-punchline">(Nobody wanted.)</p>
+            </div>
+            <div className="tbtx-sc__lockup tbtx-sc__lockup--door">
+              <p className="tbtx-sc__hero-mantle">Managing Digital Fog</p>
+              <a href="#tbtx-stakes" className="tbtx-sc__hero-cta">
+                Start Here
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
