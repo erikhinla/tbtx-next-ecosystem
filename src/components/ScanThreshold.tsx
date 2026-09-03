@@ -48,6 +48,7 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
         {payoff ? <p className="tbtx-nest__payoff">{payoff}</p> : null}
         <div className="tbtx-nest__support">
           <p className="tbtx-scan__lead tbtx-scan__covenant">{lead}</p>
+          {isPersonal ? <p>So that's where the night went.</p> : null}
         </div>
       </div>
       <div className="tbtx-scan__moves">
