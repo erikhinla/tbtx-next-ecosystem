@@ -178,47 +178,16 @@ export function NestField({
   );
 }
 
-function usePinnedProgress(actId: string, map: (progress: number) => number) {
-  const mapRef = useRef(map);
-  mapRef.current = map;
-  const [fromScroll, setFromScroll] = useState(0);
-
-  useEffect(() => {
-    const act = document.getElementById(actId);
-    if (!act) return;
-
-    let frame = 0;
-    const tick = () => {
-      const raw = parseFloat(getComputedStyle(act).getPropertyValue("--sc-p") || "0");
-      const next = mapRef.current(Number.isFinite(raw) ? raw : 0);
-      setFromScroll((current) => (current === next ? current : next));
-      frame = window.requestAnimationFrame(tick);
-    };
-    frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
-  }, [actId]);
-
-  return fromScroll;
-}
-
 export function StakesCopy() {
-  const { beat, beatRef, go, advance, back } = useNestBeats(4);
-  const fromScroll = usePinnedProgress("tbtx-stakes", (progress) => {
-    if (progress < 0.16) return 0;
-    if (progress < 0.4) return 1;
-    if (progress < 0.68) return 2;
-    return 3;
-  });
+  const [held, setHeld] = useState<(typeof POSITIONS)[number]["id"] | null>(null);
+  const closed = POSITIONS.filter((item) => !("brass" in item));
+  const stand = POSITIONS.find((item) => "brass" in item);
+  const heldDoor = closed.find((item) => item.id === held) ?? null;
 
-  useEffect(() => {
-    if (fromScroll > beatRef.current) go(fromScroll);
-  }, [fromScroll, go, beatRef]);
-
-  const current = beat > 0 ? POSITIONS[beat - 1] : null;
-  const upcoming = beat < 3 ? POSITIONS[beat] : null;
+  if (!stand) return null;
 
   return (
-    <div className="tbtx-why tbtx-why--journey">
+    <div className={`tbtx-why tbtx-why--journey${held ? " is-held" : ""}`}>
       <header className="tbtx-why__lock">
         <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
         <h2 id="tbtx-why-title" data-fog-text="Three ways this goes.">
@@ -226,87 +195,50 @@ export function StakesCopy() {
         </h2>
       </header>
 
-      <NestField
-        className="tbtx-why__field tbtx-nest tbtx-nest--why"
-        labelledBy="tbtx-why-title"
-        beat={beat}
-        lastBeat={3}
-        advance={advance}
-        back={back}
-      >
-        <NestLine
-          className="tbtx-why__payoff tbtx-nest__payoff"
-          text="You brought in agents to get ahead. They start. They don't close. You do."
-          play
-        />
+      <div className="tbtx-why__field" role="group" aria-labelledby="tbtx-why-title">
+        <p className="tbtx-why__payoff">
+          You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
+        </p>
 
-        <ol className="tbtx-nest__rail" aria-label="Three ways">
-          {POSITIONS.map((item, index) => (
-            <li key={item.id}>
+        <div className={`tbtx-ways${held ? " is-held" : ""}`}>
+          {closed.map((item) => {
+            const chosen = held === item.id;
+            return (
               <button
+                key={item.id}
                 type="button"
                 className={[
-                  "tbtx-nest__mark",
-                  beat === index + 1 ? "is-now" : "",
-                  beat > index + 1 ? "is-past" : "",
-                  "brass" in item ? "is-brass" : "",
+                  "tbtx-ways__door",
+                  "tbtx-ways__door--closed",
+                  `tbtx-ways__door--${item.id}`,
+                  chosen ? "is-chosen" : "",
                 ]
                   .filter(Boolean)
                   .join(" ")}
-                aria-current={beat === index + 1 ? "step" : undefined}
-                disabled={index > beat}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  go(index + 1);
-                }}
+                aria-pressed={chosen}
+                onClick={() => setHeld(item.id)}
               >
-                {item.n}
+                <span className="tbtx-ways__name">{item.title}</span>
+                <span className="tbtx-ways__cost">{item.story}</span>
               </button>
-            </li>
-          ))}
-        </ol>
+            );
+          })}
 
-        {current ? (
-          <article
-            key={current.id}
-            className={[
-              "tbtx-nest__beat",
-              `tbtx-nest__beat--${current.id}`,
-              "brass" in current ? "tbtx-nest__beat--brass is-open" : "is-open",
-            ].join(" ")}
+          <a
+            href="#tbtx-stand"
+            className="tbtx-ways__door tbtx-ways__door--up"
+            aria-label={`${stand.title}. ${stand.story} ${stand.refrain}`}
           >
-            <h3 className="tbtx-nest__peel">
-              <small>{current.n}</small>
-              <span>{current.title}</span>
-            </h3>
-            <div id={`tbtx-why-${current.id}`} className="tbtx-nest__support">
-              <NestLine className="tbtx-why__story" text={current.story} play />
-              {"refrain" in current ? (
-                <NestLine className="tbtx-why__refrain" text={current.refrain} play />
-              ) : null}
-            </div>
-          </article>
-        ) : null}
+            <span className="tbtx-ways__name">{stand.title}</span>
+            <span className="tbtx-ways__cost">{stand.story}</span>
+            <span className="tbtx-ways__refrain">{stand.refrain}</span>
+          </a>
+        </div>
 
-        {upcoming ? (
-          <button
-            type="button"
-            className={[
-              "tbtx-nest__peel tbtx-nest__next",
-              "brass" in upcoming ? "tbtx-nest__beat--brass" : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            onClick={(event) => {
-              event.stopPropagation();
-              go(beat + 1);
-            }}
-          >
-            <small>{upcoming.n}</small>
-            <span>{upcoming.title}</span>
-          </button>
-        ) : null}
-      </NestField>
+        <p className="tbtx-sr" aria-live="polite">
+          {heldDoor ? `${heldDoor.title}. ${heldDoor.story}` : ""}
+        </p>
+      </div>
     </div>
   );
 }

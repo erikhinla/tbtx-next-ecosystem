@@ -1770,6 +1770,111 @@ button.tbtx-scan__go {
   color: #fff;
 }
 
+/* Game-show three doors. Cost is on the door. 1 and 2 recede. 3 is the stand. */
+.tbtx-why--journey {
+  transition: background-color 0.7s ease, filter 0.7s ease;
+}
+
+.tbtx-why--journey.is-held {
+  background: rgb(6 8 8 / 0.72);
+}
+
+.tbtx-why--journey.is-held .tbtx-why__kicker {
+  color: color-mix(in srgb, #d6b46e 28%, #6d746c);
+}
+
+.tbtx-ways {
+  display: grid;
+  grid-template-columns: minmax(9.5rem, 0.82fr) minmax(9.5rem, 0.88fr) minmax(12rem, 1.28fr);
+  align-items: stretch;
+  gap: clamp(0.65rem, 1.8vw, 1.2rem);
+  min-height: min(48vh, 26rem);
+  padding-top: 0.35rem;
+}
+
+.tbtx-ways__door {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: clamp(1.05rem, 2.2vw, 1.65rem);
+  border: 1px solid color-mix(in srgb, #fff 12%, transparent);
+  background: linear-gradient(180deg, rgb(15 20 18 / 0.2) 0%, rgb(7 10 9 / 0.78) 100%);
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  transition: opacity 0.55s ease, filter 0.55s ease, border-color 0.55s ease, background-color 0.55s ease;
+}
+
+.tbtx-ways__door--closed {
+  opacity: 0.78;
+}
+
+.tbtx-ways__door--up {
+  border-color: color-mix(in srgb, #d6b46e 58%, transparent);
+  background: linear-gradient(180deg, rgb(214 180 110 / 0.12) 0%, rgb(12 16 14 / 0.7) 100%);
+  transform: translateY(-0.45rem);
+  min-height: calc(100% + 0.9rem);
+}
+
+.tbtx-ways__name {
+  display: block;
+  color: #fff;
+  font: 400 clamp(1.45rem, 3vw, 2.15rem) / 1 var(--sc-font-display);
+  letter-spacing: -0.03em;
+}
+
+.tbtx-ways__door--up .tbtx-ways__name {
+  color: #d6b46e;
+}
+
+.tbtx-ways__cost {
+  display: block;
+  max-width: 22ch;
+  color: color-mix(in srgb, #fff 74%, transparent);
+  font: 400 clamp(0.95rem, 1.45vw, 1.12rem) / 1.35 var(--sc-font-text);
+}
+
+.tbtx-ways__refrain {
+  display: block;
+  max-width: 16ch;
+  color: #fff;
+  font: 400 clamp(1.05rem, 1.7vw, 1.28rem) / 1.2 var(--sc-font-display);
+}
+
+.tbtx-ways.is-held .tbtx-ways__door--closed:not(.is-chosen) {
+  opacity: 0.28;
+  filter: saturate(0.25);
+}
+
+.tbtx-ways.is-held .tbtx-ways__door--closed.is-chosen {
+  opacity: 1;
+  border-color: color-mix(in srgb, #fff 8%, transparent);
+  background: linear-gradient(180deg, rgb(10 12 12 / 0.35) 0%, rgb(5 7 7 / 0.88) 100%);
+}
+
+.tbtx-ways.is-held .tbtx-ways__door--closed.is-chosen .tbtx-ways__name {
+  color: color-mix(in srgb, #fff 78%, transparent);
+}
+
+.tbtx-ways.is-held .tbtx-ways__door--up {
+  opacity: 1;
+  filter: none;
+  border-color: color-mix(in srgb, #d6b46e 72%, transparent);
+}
+
+.tbtx-ways__door:focus-visible {
+  outline: 1px solid color-mix(in srgb, #d6b46e 70%, #fff);
+  outline-offset: 3px;
+}
+
 .tbtx-why__positions,
 .tbtx-nest__beats {
   display: flex;
@@ -1988,6 +2093,10 @@ button.tbtx-scan__go {
   .tbtx-why__lock h2[data-fog-text]::after { animation: none; }
   .tbtx-nest__caret { animation: none; opacity: 0; }
   .tbtx-nest__beat { animation: none; }
+  .tbtx-why--journey,
+  .tbtx-ways__door {
+    transition: none;
+  }
 }
 
 .tbtx-sc__refrain {
@@ -2343,6 +2452,26 @@ button.tbtx-scan__go {
 }
 
 @media (max-width: 700px) {
+  .tbtx-ways {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 0.7rem;
+  }
+
+  .tbtx-ways__door--closed {
+    min-height: 0;
+    padding: 0.95rem 1.05rem;
+  }
+
+  .tbtx-ways__door--up {
+    transform: none;
+    min-height: 13.5rem;
+  }
+
+  .tbtx-ways__cost {
+    max-width: 34ch;
+  }
+
   .tbtx-nest__support { padding-left: 0.7rem; }
   .tbtx-sc__split { grid-template-columns: 1fr; }
   .tbtx-sc__doorway { min-height: 50dvh; }

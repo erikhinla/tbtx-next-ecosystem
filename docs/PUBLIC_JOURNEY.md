@@ -8,10 +8,10 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
 
 1. **Social post** — AI is changing every aspect of life and work. The trap is not only replacement. The trap is becoming the coordinator of leftovers.
 2. **Arrival** — The film is the greeting. First viewport is full-bleed film only. After a small scroll, two lockups fade in over the still-playing film: `AI Created a Job.` / `(Nobody wanted.)` as one unit. `Managing Digital Fog` / `Start Here` as a separate block. Do not put the mantle between hook and mutter. Hero `Start Here` lands on the Digital Fog Scan (`/scan` → `/tbtx/scan`). `Skip the film` still jumps to `#tbtx-stakes`. `prefers-reduced-motion` shows the lockups immediately.
-3. **Stakes** (`#tbtx-stakes`) — Three named positions, one beat at a time. Nested reveal on click, type, or scroll. Do not render all three stories at once.
-   - Sit out: refuse the tools. Get outrun by people who didn't.
-   - Sit back: let AI start everything. You spend the day finishing it.
-   - Stand up: the brass path. Get your attention back to work only you can do. Closes with the refrain.
+3. **Stakes** (`#tbtx-stakes`) — Game-show three-door beat. All three consequences are on the doors before anyone picks. Not a slider, not equal tiles, not a mystery prize.
+   - Sit out: `Refuse the tools. Get outrun by people who didn't.` Closed path. They see the cost. They stay. The site does not open.
+   - Sit back: `Let AI start everything. You spend the day finishing it. That's the job nobody posted.` Closed path. Same hold.
+   - Stand up: `Get your attention back to work only you can do.` Then the refrain. This door opens the site and proceeds to the stand beat.
 4. **Stand** (`#tbtx-stand`) — Speak to one person. Mirror the leftover job. No quiz talk, no runtime, no "pick a door." Then the fork.
 5. **Doors** (`#tbtx-doors`) — Only now. One directive line each, same weight, no underline, no headline. Life is Scan. Business is Map. Do not label the business door as a Scan.
    - `Enter to Scan for Digital Fog in Life` → `/tbtx/scan`

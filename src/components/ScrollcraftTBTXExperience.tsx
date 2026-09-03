@@ -285,8 +285,7 @@ export default function ScrollcraftTBTXExperience() {
         id="tbtx-stakes"
         className="tbtx-sc__why-wrap"
         data-sc-act="pin"
-        data-sc-span="2.2"
-        data-sc-dwell="0.18"
+        data-sc-span="1.4"
         data-sc-drift="#0d1210"
       >
         <div className="sc-stage tbtx-sc__stage tbtx-sc__why-frame" data-sc-stage>
