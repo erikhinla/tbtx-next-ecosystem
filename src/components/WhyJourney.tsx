@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const POSITIONS = [
   {
     id: "out",
@@ -15,7 +17,7 @@ const POSITIONS = [
     id: "up",
     title: "Stand up",
     story: "Get your attention back to work only you can do.",
-    refrain: "You don't need more AI. Clear the fog.",
+    href: "/tbtx/scan",
   },
 ] as const;
 
@@ -33,16 +35,27 @@ export function StakesCopy() {
         </p>
 
         <div className="tbtx-why__positions">
-          {POSITIONS.map((item) => (
-            <article
-              key={item.id}
-              className={`tbtx-why__position tbtx-why__position--${item.id}`}
-            >
-              <h3>{item.title}</h3>
-              <p>{item.story}</p>
-              {"refrain" in item ? <p className="tbtx-why__refrain">{item.refrain}</p> : null}
-            </article>
-          ))}
+          {POSITIONS.map((item) => {
+            const className = `tbtx-why__position tbtx-why__position--${item.id}`;
+            const body = (
+              <>
+                <h3>{item.title}</h3>
+                <p>{item.story}</p>
+              </>
+            );
+            if ("href" in item && item.href) {
+              return (
+                <Link key={item.id} href={item.href} className={className}>
+                  {body}
+                </Link>
+              );
+            }
+            return (
+              <article key={item.id} className={className}>
+                {body}
+              </article>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -63,9 +76,9 @@ export function StandCopy() {
             You don&rsquo;t get that time twice. If that attention went to what&rsquo;s yours, the
             making starts tonight. Not the cleanup.
           </p>
-          <a href="#tbtx-doors" className="tbtx-fog-link">
+          <Link href="/tbtx/scan" className="tbtx-fog-link">
             Get the making back
-          </a>
+          </Link>
         </div>
       </div>
     </div>

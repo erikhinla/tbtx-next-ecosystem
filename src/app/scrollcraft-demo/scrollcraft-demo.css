@@ -878,7 +878,7 @@
 .tbtx-scan__top {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 1rem;
   margin-bottom: clamp(1.8rem, 6vh, 3.2rem);
   font: 500 0.78rem / 1 var(--font-dm-sans), sans-serif;
@@ -893,6 +893,19 @@
 }
 
 .tbtx-scan__top a:hover { color: #d6b46e; }
+
+.tbtx-scan__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.tbtx-scan__home svg {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+}
 
 .tbtx-scan__job,
 .tbtx-scan__kicker {
@@ -1104,6 +1117,8 @@
   align-items: flex-start;
   gap: 0.85rem;
   margin-top: 1.6rem;
+  position: relative;
+  z-index: 3;
 }
 
 .tbtx-scan__go {
@@ -1120,6 +1135,7 @@ button.tbtx-scan__go {
   border: 0;
   cursor: pointer;
   font-family: inherit;
+  pointer-events: auto;
 }
 
 .tbtx-scan__covenant {
@@ -1714,6 +1730,13 @@ button.tbtx-scan__go {
 .tbtx-why__position {
   padding: 1.05rem 0 1.15rem;
   border-top: 1px solid color-mix(in srgb, #fff 14%, transparent);
+}
+
+a.tbtx-why__position {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .tbtx-why__position:last-child {
