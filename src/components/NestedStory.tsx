@@ -8,7 +8,6 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react";
-import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 
 const POSITIONS = [
@@ -181,9 +180,8 @@ export function NestField({
 
 export function StakesCopy() {
   const reduced = useReducedMotion();
-  const enteredRef = useRef(false);
+  const openedRef = useRef(false);
   const [opening, setOpening] = useState(false);
-  const [entered, setEntered] = useState(false);
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const closed = POSITIONS.filter((item) => !("brass" in item));
   const stand = POSITIONS.find((item) => "brass" in item);
@@ -191,14 +189,14 @@ export function StakesCopy() {
   const heldAny = held.length > 0;
 
   useEffect(() => {
-    if (entered) return;
+    if (opening) return;
     const stakes = document.getElementById("tbtx-stakes");
     if (!stakes) return;
 
     const limit = () => stakes.offsetTop + 10;
 
     const onWheel = (event: WheelEvent) => {
-      if (enteredRef.current) return;
+      if (openedRef.current) return;
       if (window.scrollY >= limit() - 6 && event.deltaY > 0) {
         event.preventDefault();
         window.scrollTo(0, limit());
@@ -210,7 +208,7 @@ export function StakesCopy() {
       touchY = event.touches[0]?.clientY ?? 0;
     };
     const onTouchMove = (event: TouchEvent) => {
-      if (enteredRef.current) return;
+      if (openedRef.current) return;
       const y = event.touches[0]?.clientY ?? touchY;
       if (window.scrollY >= limit() - 6 && y < touchY) {
         event.preventDefault();
@@ -219,7 +217,7 @@ export function StakesCopy() {
     };
 
     const onScroll = () => {
-      if (enteredRef.current) return;
+      if (openedRef.current) return;
       if (window.scrollY > limit()) window.scrollTo(0, limit());
     };
 
@@ -233,31 +231,24 @@ export function StakesCopy() {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("scroll", onScroll);
     };
-  }, [entered]);
+  }, [opening]);
 
   const lockClosed = (id: string) => {
     setFlipped((current) => (current[id] ? current : { ...current, [id]: true }));
   };
 
-  const enter = () => {
-    if (enteredRef.current) return;
-    enteredRef.current = true;
+  const openStand = () => {
+    if (openedRef.current) return;
+    openedRef.current = true;
     setOpening(true);
-    const reveal = () => setEntered(true);
-    if (reduced) {
-      reveal();
-      return;
-    }
-    window.setTimeout(reveal, 780);
   };
 
   if (!stand) return null;
 
   return (
     <div
-      className={`tbtx-why tbtx-why--journey tbtx-why--tiles${heldAny ? " is-held" : ""}${opening || entered ? " is-entering" : ""}`}
+      className={`tbtx-why tbtx-why--journey tbtx-why--tiles${heldAny ? " is-held" : ""}${opening ? " is-entering" : ""}`}
     >
-      {entered ? null : (
       <header className="tbtx-why__lock">
         <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
         <h2 id="tbtx-why-title">Three ways this goes.</h2>
@@ -265,24 +256,7 @@ export function StakesCopy() {
           You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
         </p>
       </header>
-      )}
 
-      {entered ? (
-        <div className="tbtx-tiles tbtx-tiles--enter" role="group" aria-label="Enter">
-          <Link href="/tbtx/kit" className="tbtx-tile tbtx-tile--life">
-            <span className="tbtx-tile__face tbtx-tile__face--front">
-              <span className="tbtx-tile__name">Digital De-Fog Daily</span>
-              <span className="tbtx-tile__cost">Life</span>
-            </span>
-          </Link>
-          <Link href="/bbai" className="tbtx-tile tbtx-tile--work">
-            <span className="tbtx-tile__face tbtx-tile__face--front">
-              <span className="tbtx-tile__name">BizBuilders AI</span>
-              <span className="tbtx-tile__cost">Work</span>
-            </span>
-          </Link>
-        </div>
-      ) : (
       <div className="tbtx-tiles" role="group" aria-labelledby="tbtx-why-title">
         {closed.map((item) => {
           const locked = Boolean(flipped[item.id]);
@@ -316,14 +290,12 @@ export function StakesCopy() {
           );
         })}
 
-        <Link
-          href="/tbtx/kit"
+        <button
+          type="button"
           className={`tbtx-tile tbtx-tile--up${opening ? " is-opening" : ""}`}
+          aria-pressed={opening}
           aria-label={`${stand.title}. ${stand.story} ${stand.refrain}`}
-          onClick={(event) => {
-            event.preventDefault();
-            enter();
-          }}
+          onClick={openStand}
         >
           <span className="tbtx-tile__face tbtx-tile__face--front">
             <span className="tbtx-tile__name">{stand.title}</span>
@@ -331,9 +303,8 @@ export function StakesCopy() {
             <span className="tbtx-tile__refrain">{stand.refrain}</span>
           </span>
           <span className="tbtx-tile__mist" aria-hidden="true" />
-        </Link>
+        </button>
       </div>
-      )}
 
       <p className="tbtx-sr" aria-live="polite">
         {held.length

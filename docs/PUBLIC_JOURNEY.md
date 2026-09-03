@@ -11,9 +11,9 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
 3. **Stakes** (`#tbtx-stakes`) — One viewport. Three door tiles. Costs are on the doors. Not a slider, not a copy stack.
    - Sit out: `Refuse the tools. Get outrun by people who didn't.` Closed. Flip holds the cost. The site does not open.
    - Sit back: `Let AI start everything. You spend the day finishing it. That's the job nobody posted.` Closed. Same hold.
-   - Stand up: `Get your attention back to work only you can do.` Then the refrain. Fog lifts. This door enters. Next beat is Digital De-Fog Daily (life) or BizBuilders AI (work). Not Scan/Map tiles. Not a copy dump.
-4. **Enter** — After Stand up: `Digital De-Fog Daily` → `/tbtx/kit`. `BizBuilders AI` → `/bbai`.
-5. **Doors** — Scan and Map stay as routes. They are not the next hub beat after the gate.
+   - Stand up: `Get your attention back to work only you can do.` Then the refrain. Fog lifts. This PR does not route Stand up to kit, BBAI, or Scan. Nested doors with Stand up → `/tbtx/scan` belong on a later homepage pass from main.
+4. **Enter** — Not in this PR.
+5. **Doors** — Scan and Map stay as routes. They are not the next hub beat in this leftover PR.
 6. **Mosaic** — Lived leftover jobs. Last tile is `What's yours?` The visitor continues the story. Submissions are scenes: name, what they were trying to finish, what they actually did. Best lines become films.
 7. **Threshold** — `/tbtx/scan` and `/tbtx/map` lead nested, then `Start` begins the diagnostic. Deep links from social get this even if they skipped the front door.
 8. **Name it** — Above Q1: let's find the leftover job.
