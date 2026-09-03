@@ -265,7 +265,6 @@ export default function ScrollcraftTBTXExperience() {
           />
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
-            <p className="tbtx-sc__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
             <a href="#tbtx-doors" className="tbtx-fog-go" data-sc-magnet="0.35">
               Choose a door
             </a>

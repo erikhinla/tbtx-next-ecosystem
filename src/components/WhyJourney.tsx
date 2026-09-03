@@ -15,7 +15,6 @@ const POSITIONS = [
     id: "up",
     title: "Stand up",
     story: "Get your attention back to work only you can do.",
-    refrain: "You don't need more AI. Clear the fog.",
   },
 ] as const;
 
@@ -40,7 +39,6 @@ export function StakesCopy() {
             >
               <h3>{item.title}</h3>
               <p>{item.story}</p>
-              {"refrain" in item ? <p className="tbtx-why__refrain">{item.refrain}</p> : null}
             </article>
           ))}
         </div>
