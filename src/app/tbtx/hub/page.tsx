@@ -86,9 +86,48 @@ export default function LaunchHandbook() {
   }, []);
 
   return (
-    <main className="launch-surface">
-      {/* HERO HEADER */}
-      <header className="launch-surface__hero">
+    <div className="launch-hub-root">
+      {/* GLOBAL VIEWPORT-LEFT RAIL */}
+      <nav className="launch-appendix__rail" aria-label="B2B Department Matrix Rail" role="tablist">
+        {DEPARTMENT_MATRIX.map((d) => {
+          const isSelected = d.code === selectedDeptCode;
+          return (
+            <button
+              key={d.code}
+              type="button"
+              role="tab"
+              aria-selected={isSelected}
+              tabIndex={0}
+              className={`launch-appendix__tab launch-appendix__tab--${d.code.toLowerCase()} ${isSelected ? "active" : ""}`}
+              onClick={() => setSelectedDeptCode(d.code)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedDeptCode(d.code);
+                }
+              }}
+            >
+              <span
+                className="launch-appendix__tab-bar"
+                style={{ backgroundColor: d.colorHex }}
+              />
+              <span className="launch-appendix__tab-code">{d.code}</span>
+              <span
+                className="launch-appendix__tab-moniker"
+                style={{ borderLeftColor: d.colorHex }}
+              >
+                <span className="launch-appendix__tab-name">{d.moniker}</span>
+                <span className="launch-appendix__tab-accent">· {d.accent}</span>
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* SCROLLING HANDBOOK */}
+      <main className="launch-surface">
+        {/* HERO HEADER */}
+        <header className="launch-surface__hero">
         <Film
           className="launch-surface__film"
           src="/media/desk-fog-loop.mp4"
@@ -252,6 +291,9 @@ export default function LaunchHandbook() {
                         </div>
                         <h3>{route.label}</h3>
                         <p className="text-xs text-white/60 m-0">{route.note}</p>
+                        <code className="text-[11px] font-mono text-emerald-400 block mt-1 break-all">
+                          https://transformby10x.ai{route.path}
+                        </code>
                       </div>
                       <button
                         onClick={() => copy(`https://transformby10x.ai${route.path}`)}
@@ -498,37 +540,7 @@ export default function LaunchHandbook() {
               </span>
             </div>
 
-            <div className="launch-appendix__layout">
-              {/* Left Rail (10 Tabs in Canonical Order) */}
-              <nav className="launch-appendix__rail" aria-label="Department matrix tabs" role="tablist">
-                {DEPARTMENT_MATRIX.map((d) => {
-                  const isSelected = d.code === selectedDeptCode;
-                  return (
-                    <button
-                      key={d.code}
-                      role="tab"
-                      aria-selected={isSelected}
-                      tabIndex={0}
-                      className={`launch-appendix__tab ${isSelected ? "active" : ""}`}
-                      onClick={() => setSelectedDeptCode(d.code)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setSelectedDeptCode(d.code);
-                        }
-                      }}
-                    >
-                      <span
-                        className="launch-appendix__tab-bar"
-                        style={{ backgroundColor: d.colorHex }}
-                      />
-                      <span className="launch-appendix__tab-code">{d.code}</span>
-                      <span className="launch-appendix__tab-moniker">{d.moniker}</span>
-                    </button>
-                  );
-                })}
-              </nav>
-
+            <div className="launch-appendix__panel-wrapper">
               {/* Right Panel (Selected Department Details) */}
               <div
                 className="launch-appendix__panel"
@@ -588,14 +600,25 @@ export default function LaunchHandbook() {
                 {/* Copy Line Slot: Lockup + Irony */}
                 <div className="launch-appendix__copy-slot">
                   <small className="launch-appendix__info-label">Copy Line Slot (Lockup + Department Irony)</small>
-                  <div className="launch-appendix__copy-box">
-                    <div className="text-xs text-amber-400 font-semibold mb-1">
-                      AI Created a Job. (Nobody wanted.)
+                  {selectedDept.code === "FIN" ? (
+                    <div className="launch-appendix__copy-box">
+                      <div className="text-xs text-amber-400 font-semibold mb-1 tracking-wider uppercase">
+                        AUTOMATION SAVED EVERYONE TIME.
+                      </div>
+                      <p className="text-base text-white font-serif italic m-0">
+                        (Billing is still trying to find it.)
+                      </p>
                     </div>
-                    <p className="text-base text-white font-serif italic m-0">
-                      &ldquo;{selectedDept.irony}&rdquo;
-                    </p>
-                  </div>
+                  ) : (
+                    <div className="launch-appendix__copy-box">
+                      <div className="text-xs text-amber-400 font-semibold mb-1">
+                        AI Created a Job. (Nobody wanted.)
+                      </div>
+                      <p className="text-base text-white font-serif italic m-0">
+                        &ldquo;{selectedDept.irony}&rdquo;
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Chassis Crop Cheat & End Card */}
@@ -686,5 +709,6 @@ export default function LaunchHandbook() {
         </div>
       </footer>
     </main>
+  </div>
   );
 }

@@ -331,19 +331,135 @@ main.tbtx-blueprint {
 /* Social Cheat Grid */
 .launch-social__cheat-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; margin-top:.75rem; }
 
-/* Left-Rail Department Appendix */
-.launch-appendix__card { padding:clamp(1.2rem, 3vw, 2.5rem); }
-.launch-appendix__layout { display:grid; grid-template-columns:260px 1fr; gap:1.8rem; margin-top:1rem; align-items:start; }
-.launch-appendix__rail { position:sticky; top:2rem; display:grid; gap:.45rem; }
-.launch-appendix__tab { display:flex; align-items:center; gap:.75rem; width:100%; text-align:left; padding:.65rem .85rem; background:#0a120e; border:1px solid rgb(255 255 255/.08); transition:all .2s; cursor:pointer; }
-.launch-appendix__tab:focus-visible { outline:2px solid var(--ls-brass); outline-offset:2px; }
-.launch-appendix__tab:hover { background:#142019; border-color:rgb(255 255 255/.16); }
-.launch-appendix__tab.active { background:#182820; border-color:rgb(255 255 255/.28); box-shadow:inset 0 0 12px rgb(0 0 0/.4); }
-.launch-appendix__tab-bar { width:4px; height:1.4rem; border-radius:2px; flex-shrink:0; }
-.launch-appendix__tab-code { font-family:monospace; font-size:.78rem; font-weight:700; color:#fff; }
-.launch-appendix__tab-moniker { font-size:.75rem; color:rgb(255 255 255/.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:color .2s; }
-.launch-appendix__tab.active .launch-appendix__tab-moniker, .launch-appendix__tab:hover .launch-appendix__tab-moniker { color:#fff; font-weight:500; }
+/* Left-Rail Department Appendix (Global Viewport-Left Rail) */
+:root {
+  --launch-rail-width: 64px;
+}
 
+@media (min-width: 761px) {
+  .launch-surface {
+    padding-left: var(--launch-rail-width);
+  }
+  .launch-appendix__rail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--launch-rail-width);
+    z-index: 40;
+    background: #070e0a;
+    border-right: 1px solid rgb(255 255 255 / 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.75rem 0;
+    gap: 0.35rem;
+  }
+  .launch-appendix__tab {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.65rem;
+    background: transparent;
+    border: none;
+    border-left: 2px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .launch-appendix__tab:focus-visible {
+    outline: 2px solid var(--ls-brass);
+    outline-offset: -2px;
+  }
+  .launch-appendix__tab:hover {
+    background: #0e1913;
+    z-index: 52;
+  }
+  .launch-appendix__tab.active {
+    background: #14241a;
+    box-shadow: inset 0 0 12px rgb(0 0 0 / 0.4);
+    z-index: 51;
+  }
+  .launch-appendix__tab-bar {
+    width: 4px;
+    height: 1.5rem;
+    border-radius: 2px;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .launch-appendix__tab.active .launch-appendix__tab-bar {
+    transform: scaleY(1.15);
+  }
+  .launch-appendix__tab-code {
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgb(255 255 255 / 0.75);
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .launch-appendix__tab.active .launch-appendix__tab-code,
+  .launch-appendix__tab:hover .launch-appendix__tab-code {
+    color: #fff;
+    font-weight: 800;
+  }
+  .launch-appendix__tab-moniker {
+    display: none;
+    position: absolute;
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0a1410;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-left-width: 3px;
+    padding: 0.4rem 0.75rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+    align-items: center;
+    gap: 0.4rem;
+    pointer-events: none;
+  }
+  .launch-appendix__tab-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .launch-appendix__tab-accent {
+    font-size: 0.7rem;
+    color: rgb(255 255 255 / 0.5);
+    text-transform: capitalize;
+  }
+  .launch-appendix__tab:hover .launch-appendix__tab-moniker,
+  .launch-appendix__tab.active .launch-appendix__tab-moniker {
+    display: inline-flex;
+  }
+}
+
+/* Legal vs PR distinct visual behaviors */
+@keyframes pr-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 10px 2px rgba(6, 182, 212, 0.75);
+  }
+}
+.launch-appendix__tab--pr.active .launch-appendix__tab-bar,
+.launch-appendix__tab--pr:hover .launch-appendix__tab-bar {
+  animation: pr-pulse 1.8s ease-in-out infinite;
+}
+
+.launch-appendix__tab--lgl.active .launch-appendix__tab-bar,
+.launch-appendix__tab--lgl:hover .launch-appendix__tab-bar {
+  box-shadow: -2px 0 0 1px rgba(255, 255, 255, 0.85);
+}
+
+/* Appendix Card & Panel in Section 06 */
+.launch-appendix__card { padding:clamp(1.2rem, 3vw, 2.5rem); }
+.launch-appendix__panel-wrapper { margin-top:1rem; }
 .launch-appendix__panel { background:#0d1611; border:1px solid rgb(255 255 255/.1); border-left-width:4px; padding:clamp(1.4rem, 3vw, 2.2rem); display:flex; flex-direction:column; gap:1.6rem; }
 .launch-appendix__panel-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; border-bottom:1px solid rgb(255 255 255/.1); padding-bottom:1.2rem; }
 .launch-appendix__panel-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; }
@@ -358,7 +474,64 @@ main.tbtx-blueprint {
 .launch-appendix__crop-item { background:#060b08; border:1px solid rgb(255 255 255/.06); padding:.75rem .9rem; display:flex; flex-direction:column; gap:.25rem; }
 .launch-appendix__endcard { background:#060b08; border:1px solid rgb(255 255 255/.06); padding:1rem; }
 
-@media(max-width:760px){.launch-surface__intro{grid-template-columns:1fr}.launch-surface__route-list,.launch-flow,.launch-routes__grouped-container{margin-left:0}.launch-surface__route-list article{grid-template-columns:1fr auto}.launch-surface__route-list article button{display:none}.launch-flow article{grid-template-columns:2rem 1fr}.launch-flow article>a,.launch-flow__doors{grid-column:2}.launch-asset,.launch-asset:nth-child(1),.launch-asset:nth-child(8){grid-column:span 12;min-height:27rem}.launch-surface__lines{grid-template-columns:1fr}.launch-surface__hero nav span{display:none}.launch-appendix__layout{grid-template-columns:1fr}.launch-appendix__rail{position:static;display:flex;flex-direction:row;overflow-x:auto;padding-bottom:.5rem;gap:.4rem;-webkit-overflow-scrolling:touch}.launch-appendix__tab{width:auto;flex-shrink:0;padding:.5rem .75rem}.launch-appendix__tab-moniker{display:none}}
+@media(max-width:760px){
+  .launch-surface__intro{grid-template-columns:1fr}
+  .launch-surface__route-list,.launch-flow,.launch-routes__grouped-container{margin-left:0}
+  .launch-surface__route-list article{grid-template-columns:1fr auto}
+  .launch-surface__route-list article button{display:none}
+  .launch-flow article{grid-template-columns:2rem 1fr}
+  .launch-flow article>a,.launch-flow__doors{grid-column:2}
+  .launch-asset,.launch-asset:nth-child(1),.launch-asset:nth-child(8){grid-column:span 12;min-height:27rem}
+  .launch-surface__lines{grid-template-columns:1fr}
+  .launch-surface__hero nav span{display:none}
+  .launch-surface{padding-left:0}
+  .launch-appendix__rail{
+    position:sticky;
+    top:0;
+    left:0;
+    right:0;
+    bottom:auto;
+    width:100%;
+    height:auto;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    overflow-x:auto;
+    overflow-y:hidden;
+    background:#070e0a;
+    border-right:none;
+    border-bottom:1px solid rgb(255 255 255/.14);
+    padding:.4rem .5rem;
+    gap:.35rem;
+    z-index:40;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .launch-appendix__rail::-webkit-scrollbar{display:none}
+  .launch-appendix__tab{
+    width:auto;
+    flex-shrink:0;
+    padding:.35rem .6rem;
+    gap:.4rem;
+    border-radius:3px;
+    background:#0c1510;
+    border:1px solid rgb(255 255 255/.08);
+  }
+  .launch-appendix__tab.active{
+    background:#15261d;
+    border-color:rgb(255 255 255/.25);
+  }
+  .launch-appendix__tab-bar{
+    width:3px;
+    height:1rem;
+  }
+  .launch-appendix__tab-code{
+    font-size:.72rem;
+  }
+  .launch-appendix__tab-moniker{
+    display:none!important;
+  }
+}
 @media(prefers-reduced-motion:reduce){.launch-asset img{transition:none}}
 
 /* BizBuilders AI: cinematic operating architecture */
