@@ -79,11 +79,9 @@ export default function FogFreeDailyPage() {
 
         <div className="tbtx-kit__need">
           <article>
-            <h2>What you need</h2>
             <p>A timer, your laptop, and 20 honest minutes.</p>
           </article>
           <article>
-            <h2>What you don&rsquo;t need</h2>
             <p>A second brain, a new system, or more tabs.</p>
           </article>
         </div>

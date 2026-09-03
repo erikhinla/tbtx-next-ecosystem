@@ -7,7 +7,7 @@ import { getBandKey, brandProfiles } from "@/config/result-profiles";
 import { deriveFogReport } from "@/config/fog-report";
 import Link from "next/link";
 import FogReport from "./FogReport";
-import ScanThreshold from "./ScanThreshold";
+import ScanThreshold, { NestHomeLink } from "./ScanThreshold";
 import Film from "./Film";
 
 interface DiagnosticEngineProps {
@@ -164,9 +164,7 @@ export default function DiagnosticEngine({
   return (
     <ScanShell isPersonal={isPersonal}>
       <div className="tbtx-scan__top">
-        <Link href="/tbtx" className="tbtx-fog-link">
-          Back
-        </Link>
+        <NestHomeLink />
         <p className="tbtx-scan__job">{jobLine}</p>
         <div className="tbtx-scan__count" aria-current="step">
           <span>{n}</span>

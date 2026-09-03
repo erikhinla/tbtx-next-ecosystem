@@ -878,7 +878,7 @@
 .tbtx-scan__top {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 1rem;
   margin-bottom: clamp(1.8rem, 6vh, 3.2rem);
   font: 500 0.78rem / 1 var(--font-dm-sans), sans-serif;
@@ -893,6 +893,19 @@
 }
 
 .tbtx-scan__top a:hover { color: #d6b46e; }
+
+.tbtx-scan__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.tbtx-scan__home svg {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+}
 
 .tbtx-scan__job,
 .tbtx-scan__kicker {
