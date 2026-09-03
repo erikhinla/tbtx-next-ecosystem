@@ -64,7 +64,7 @@ function BlueprintContent() {
           </Link>
           <p className="tbtx-scan__job">Work Life</p>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            The why
+            Back to the start
           </Link>
         </div>
 
@@ -77,7 +77,7 @@ function BlueprintContent() {
           <div className="tbtx-peel__fog">
             <p className="tbtx-scan__lead">
               You named the friction. This is the first prescription, not a finished operating
-              system. It names the shape of the drag so the stand has somewhere to start — and so
+              system. It names the shape of the drag so the stand has somewhere to start. Then
               the team stops being the operating system.
             </p>
           </div>
@@ -104,16 +104,16 @@ function BlueprintContent() {
 
         <div className="tbtx-scan__moves">
           <Link href="/bbai" className="tbtx-scan__go tbtx-fog-go">
-            Build the Backbone
+            Start with the business
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            Let's look again
+            Start over
           </Link>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            This is personal
+            Look at life instead
           </Link>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            The why
+            Back to the start
           </Link>
         </div>
 

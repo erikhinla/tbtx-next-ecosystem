@@ -105,7 +105,7 @@ export default function ScrollcraftTBTXExperience() {
     <main ref={rootRef} className="tbtx-sc" data-sc-root data-sc-lerp="0.14">
       {/* ---- a11y skip ---- */}
       <a className="tbtx-sc__skip" href="#tbtx-stakes">
-        Skip to the why
+        Skip the film
       </a>
 
       {/* ---- film grain (atmosphere) ---- */}

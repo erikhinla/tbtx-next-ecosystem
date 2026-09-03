@@ -105,15 +105,15 @@ export default function DiagnosticEngine({
             {band.cta}
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            This is Digital Friction
+            Look at work instead
           </Link>
         </div>
         <div className="tbtx-scan__foot">
           <button type="button" onClick={handleReset} className="tbtx-fog-link">
-            Again
+            Start over
           </button>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            The why
+            Back to the start
           </Link>
         </div>
       </ScanShell>
@@ -146,12 +146,12 @@ export default function DiagnosticEngine({
             {brandProfile.cta}
           </Link>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            The why
+            Back to the start
           </Link>
         </div>
         <div className="tbtx-scan__foot">
           <button type="button" onClick={handleReset}>
-            Again
+            Start over
           </button>
         </div>
       </ScanShell>

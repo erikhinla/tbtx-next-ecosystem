@@ -137,7 +137,7 @@ export default function FogFreeDailyPage() {
             Share a Fog-Free moment
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            This is Digital Friction
+            Look at work instead
           </Link>
         </div>
       </div>

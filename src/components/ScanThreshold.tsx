@@ -11,9 +11,9 @@ type ScanThresholdProps = {
 export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProps) {
   const jobLine = isPersonal ? "Social Life" : "Work Life";
   const mantle = isPersonal ? "Digital Fog" : "Digital Friction";
-  const beginLabel = "Let's look";
+  const beginLabel = "Start";
   const otherHref = isPersonal ? "/tbtx/map" : "/tbtx/scan";
-  const otherLabel = isPersonal ? "This is work life" : "This is personal";
+  const otherLabel = isPersonal ? "Look at work instead" : "Look at life instead";
   const headline = isPersonal
     ? "You asked it to give you the night back."
     : "You've been the one who finishes it.";

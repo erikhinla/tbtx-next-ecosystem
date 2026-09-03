@@ -17,9 +17,9 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
    - `Enter to Scan for Digital Fog in Life` → `/tbtx/scan`
    - `Enter to Map Digital Friction in Business` → `/tbtx/map`
 6. **Mosaic** — Lived leftover jobs. Last tile is `What's yours?` The visitor continues the story. Submissions are scenes: name, what they were trying to finish, what they actually did. Best lines become films.
-7. **Threshold** — `/tbtx/scan` and `/tbtx/map` lead nested, then `Let's look` starts the diagnostic. Deep links from social get this even if they skipped the front door.
+7. **Threshold** — `/tbtx/scan` and `/tbtx/map` lead nested, then `Start` begins the diagnostic. Deep links from social get this even if they skipped the front door.
 8. **Name it** — Above Q1: let's find the leftover job.
-9. **Follow-through** — Result is a receipt, not a new pitch. Kit, map, and backbone are instruments.
+9. **Follow-through** — Result is a receipt, not a new pitch. Kit and map are instruments.
 10. **Close** — The refrain, then `Choose a door` back to the fork.
 
 ## Refrain
