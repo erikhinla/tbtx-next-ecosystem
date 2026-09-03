@@ -9,7 +9,6 @@ import {
   type ReactNode,
 } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
 
 const POSITIONS = [
@@ -182,8 +181,8 @@ export function NestField({
 
 export function StakesCopy() {
   const reduced = useReducedMotion();
-  const router = useRouter();
   const enteredRef = useRef(false);
+  const [opening, setOpening] = useState(false);
   const [entered, setEntered] = useState(false);
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const closed = POSITIONS.filter((item) => !("brass" in item));
@@ -243,21 +242,22 @@ export function StakesCopy() {
   const enter = () => {
     if (enteredRef.current) return;
     enteredRef.current = true;
-    setEntered(true);
-    const go = () => router.push("/tbtx/scan");
+    setOpening(true);
+    const reveal = () => setEntered(true);
     if (reduced) {
-      go();
+      reveal();
       return;
     }
-    window.setTimeout(go, 920);
+    window.setTimeout(reveal, 780);
   };
 
   if (!stand) return null;
 
   return (
     <div
-      className={`tbtx-why tbtx-why--journey tbtx-why--tiles${heldAny ? " is-held" : ""}${entered ? " is-entering" : ""}`}
+      className={`tbtx-why tbtx-why--journey tbtx-why--tiles${heldAny ? " is-held" : ""}${opening || entered ? " is-entering" : ""}`}
     >
+      {entered ? null : (
       <header className="tbtx-why__lock">
         <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
         <h2 id="tbtx-why-title">Three ways this goes.</h2>
@@ -265,7 +265,24 @@ export function StakesCopy() {
           You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
         </p>
       </header>
+      )}
 
+      {entered ? (
+        <div className="tbtx-tiles tbtx-tiles--enter" role="group" aria-label="Enter">
+          <Link href="/tbtx/kit" className="tbtx-tile tbtx-tile--life">
+            <span className="tbtx-tile__face tbtx-tile__face--front">
+              <span className="tbtx-tile__name">Digital De-Fog Daily</span>
+              <span className="tbtx-tile__cost">Life</span>
+            </span>
+          </Link>
+          <Link href="/bbai" className="tbtx-tile tbtx-tile--work">
+            <span className="tbtx-tile__face tbtx-tile__face--front">
+              <span className="tbtx-tile__name">BizBuilders AI</span>
+              <span className="tbtx-tile__cost">Work</span>
+            </span>
+          </Link>
+        </div>
+      ) : (
       <div className="tbtx-tiles" role="group" aria-labelledby="tbtx-why-title">
         {closed.map((item) => {
           const locked = Boolean(flipped[item.id]);
@@ -300,8 +317,8 @@ export function StakesCopy() {
         })}
 
         <Link
-          href="/tbtx/scan"
-          className={`tbtx-tile tbtx-tile--up${entered ? " is-opening" : ""}`}
+          href="/tbtx/kit"
+          className={`tbtx-tile tbtx-tile--up${opening ? " is-opening" : ""}`}
           aria-label={`${stand.title}. ${stand.story} ${stand.refrain}`}
           onClick={(event) => {
             event.preventDefault();
@@ -316,6 +333,7 @@ export function StakesCopy() {
           <span className="tbtx-tile__mist" aria-hidden="true" />
         </Link>
       </div>
+      )}
 
       <p className="tbtx-sr" aria-live="polite">
         {held.length

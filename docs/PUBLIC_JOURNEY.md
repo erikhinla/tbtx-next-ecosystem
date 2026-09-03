@@ -11,11 +11,9 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
 3. **Stakes** (`#tbtx-stakes`) — One viewport. Three door tiles. Costs are on the doors. Not a slider, not a copy stack.
    - Sit out: `Refuse the tools. Get outrun by people who didn't.` Closed. Flip holds the cost. The site does not open.
    - Sit back: `Let AI start everything. You spend the day finishing it. That's the job nobody posted.` Closed. Same hold.
-   - Stand up: `Get your attention back to work only you can do.` Then the refrain. Fog lifts. This door enters the personal Scan (`/tbtx/scan`). Life is Scan. Work is Map. Do not dump both as the next hub beat.
-4. **Stand** (`#tbtx-stand`) — Still on the hub for deep links. The cold path after Stand up is the personal Scan, not a dual Scan/Map fork.
-5. **Doors** (`#tbtx-doors`) — Life is Scan. Business is Map. Not the next beat after the gate.
-   - `Enter to Scan for Digital Fog in Life` → `/tbtx/scan`
-   - `Enter to Map Digital Friction in Business` → `/tbtx/map`
+   - Stand up: `Get your attention back to work only you can do.` Then the refrain. Fog lifts. This door enters. Next beat is Digital De-Fog Daily (life) or BizBuilders AI (work). Not Scan/Map tiles. Not a copy dump.
+4. **Enter** — After Stand up: `Digital De-Fog Daily` → `/tbtx/kit`. `BizBuilders AI` → `/bbai`.
+5. **Doors** — Scan and Map stay as routes. They are not the next hub beat after the gate.
 6. **Mosaic** — Lived leftover jobs. Last tile is `What's yours?` The visitor continues the story. Submissions are scenes: name, what they were trying to finish, what they actually did. Best lines become films.
 7. **Threshold** — `/tbtx/scan` and `/tbtx/map` lead nested, then `Start` begins the diagnostic. Deep links from social get this even if they skipped the front door.
 8. **Name it** — Above Q1: let's find the leftover job.

@@ -1837,6 +1837,32 @@ button.tbtx-scan__go {
   padding: 7.2rem 0.4rem 0.4rem;
 }
 
+.tbtx-tiles--enter {
+  grid-template-columns: 1fr 1fr;
+  padding-top: 0.4rem;
+}
+
+.tbtx-tile--life .tbtx-tile__face,
+.tbtx-tile--work .tbtx-tile__face {
+  background: linear-gradient(180deg, #1c1912 0%, #0c0b09 100%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #d6b46e 36%, transparent);
+}
+
+.tbtx-tile--work .tbtx-tile__face {
+  background: linear-gradient(180deg, #161c19 0%, #0b0e0d 100%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 12%, transparent);
+}
+
+.tbtx-tile--life .tbtx-tile__name,
+.tbtx-tile--work .tbtx-tile__name {
+  color: #d6b46e;
+  font-size: clamp(2rem, 4.8vw, 3.5rem);
+}
+
+.tbtx-tile--work .tbtx-tile__name {
+  color: #fff;
+}
+
 .tbtx-tile {
   appearance: none;
   position: relative;
@@ -2547,6 +2573,12 @@ button.tbtx-scan__go {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
     padding: 6.6rem 0.35rem 0.35rem;
+  }
+
+  .tbtx-tiles--enter {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding-top: 0.35rem;
   }
 
   .tbtx-tile__cost,

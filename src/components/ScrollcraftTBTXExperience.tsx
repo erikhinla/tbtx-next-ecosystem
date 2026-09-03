@@ -7,7 +7,7 @@ import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
 import Film from "./Film";
-import { StakesCopy, StandCopy } from "./WhyJourney";
+import { StakesCopy } from "./WhyJourney";
 import { film } from "@/lib/media";
 
 const HERO_SOUND_KEY = "tbtx-hero-sound";
@@ -293,82 +293,14 @@ export default function ScrollcraftTBTXExperience() {
         </div>
       </section>
 
-      <section
-        id="tbtx-stand"
-        className="tbtx-sc__storm tbtx-sc__explain"
-        data-sc-act="flow"
-        data-sc-drift="#0f1714"
-      >
-        <div className="sc-stage tbtx-sc__stage tbtx-sc__storm-stage" data-sc-stage>
-          <img
-            className="tbtx-sc__storm-video"
-            src="/media/digital-fog-lockup-827.jpg"
-            alt=""
-          />
-          <div className="sc-scrim sc-scrim--band" />
-          <div className="tbtx-sc__storm-copy sc-copy sc-copy--lead">
-            <StandCopy />
-          </div>
-        </div>
-      </section>
-
-      {/* Doors come after the stand. Deep links still hit the scan threshold. */}
-      <section
-        id="tbtx-doors"
-        className="tbtx-sc__split-wrap"
-        data-sc-act="flow"
-        data-sc-drift="#0d1210"
-      >
-        <div className="tbtx-sc__split">
-          <Link
-            href="/tbtx/scan"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Scan for Digital Fog in Life"
-          >
-            <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2c-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2c-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
-            </div>
-          </Link>
-          <Link
-            href="/tbtx/map"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Map Digital Friction in Business"
-          >
-            <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2b-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2b-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">Enter to Map Digital Friction in Business</span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* Invisible job as a moving mosaic — click a tile */}
+      {/* Invisible job as a moving mosaic. Click a tile. */}
       <section className="tbtx-sc__mosaic-wrap" data-sc-act="flow" data-sc-drift="#0d1210">
         <FogTaskMosaic />
       </section>
 
       <aside className="tbtx-sc__surface-note" aria-label="Digital Fog method">
         <p>Identify <span /> Visualize <span /> Lift</p>
-        <strong>Digital Fog is the leftover job. Name it. See it. Get the making back.</strong>
+        <strong>Digital Fog is the leftover job. Name it. See it.</strong>
       </aside>
 
       {/* ═══════════════════════════════════════════════════════════════════════
@@ -399,7 +331,7 @@ export default function ScrollcraftTBTXExperience() {
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
             <p className="tbtx-sc__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
-            <a href="#tbtx-doors" className="tbtx-fog-go" data-sc-magnet="0.35">
+            <a href="#tbtx-stakes" className="tbtx-fog-go" data-sc-magnet="0.35">
               Choose a door
             </a>
             <button type="button" onClick={() => setShowReel(true)} className="tbtx-fog-link">
