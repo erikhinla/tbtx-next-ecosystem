@@ -8,7 +8,7 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
 
 1. **Social post** — AI is changing every aspect of life and work. The trap is not only replacement. The trap is becoming the coordinator of leftovers.
 2. **Arrival** — The film is the greeting. First viewport is full-bleed film only. After a small scroll, two lockups fade in over the still-playing film: `AI Created a Job.` / `(Nobody wanted.)` as one unit. `Managing Digital Fog` / `Start Here` as a separate block. Do not put the mantle between hook and mutter. Hero `Start Here` lands on the Digital Fog Scan (`/scan` → `/tbtx/scan`). `Skip the film` still jumps to `#tbtx-stakes`. `prefers-reduced-motion` shows the lockups immediately.
-3. **Stakes** (`#tbtx-stakes`) — Game-show three-door beat. All three consequences are on the doors before anyone picks. Not a slider, not equal tiles, not a mystery prize.
+3. **Stakes** (`#tbtx-stakes`) — A choice with a cost. Sit out / Sit back / Stand up as words, unequal weight. Costs are readable before anyone picks. Not a slider, not equal tiles, not a mystery prize.
    - Sit out: `Refuse the tools. Get outrun by people who didn't.` Closed path. They see the cost. They stay. The site does not open.
    - Sit back: `Let AI start everything. You spend the day finishing it. That's the job nobody posted.` Closed path. Same hold.
    - Stand up: `Get your attention back to work only you can do.` Then the refrain. This door opens the site and proceeds to the stand beat.

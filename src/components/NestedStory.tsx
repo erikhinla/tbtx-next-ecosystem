@@ -179,10 +179,67 @@ export function NestField({
 }
 
 export function StakesCopy() {
+  const reduced = useReducedMotion();
   const [held, setHeld] = useState<(typeof POSITIONS)[number]["id"] | null>(null);
+  const enteredRef = useRef(false);
+  const [entered, setEntered] = useState(false);
   const closed = POSITIONS.filter((item) => !("brass" in item));
   const stand = POSITIONS.find((item) => "brass" in item);
-  const heldDoor = closed.find((item) => item.id === held) ?? null;
+  const heldPath = closed.find((item) => item.id === held) ?? null;
+
+  useEffect(() => {
+    if (entered) return;
+    const stakes = document.getElementById("tbtx-stakes");
+    if (!stakes) return;
+
+    const limit = () => stakes.offsetTop + 10;
+
+    const onWheel = (event: WheelEvent) => {
+      if (enteredRef.current) return;
+      if (window.scrollY >= limit() - 6 && event.deltaY > 0) {
+        event.preventDefault();
+        window.scrollTo(0, limit());
+      }
+    };
+
+    let touchY = 0;
+    const onTouchStart = (event: TouchEvent) => {
+      touchY = event.touches[0]?.clientY ?? 0;
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      if (enteredRef.current) return;
+      const y = event.touches[0]?.clientY ?? touchY;
+      if (window.scrollY >= limit() - 6 && y < touchY) {
+        event.preventDefault();
+        window.scrollTo(0, limit());
+      }
+    };
+
+    const onScroll = () => {
+      if (enteredRef.current) return;
+      if (window.scrollY > limit()) window.scrollTo(0, limit());
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [entered]);
+
+  const enter = () => {
+    enteredRef.current = true;
+    setEntered(true);
+    const next = document.getElementById("tbtx-stand");
+    window.requestAnimationFrame(() => {
+      next?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    });
+  };
 
   if (!stand) return null;
 
@@ -201,33 +258,38 @@ export function StakesCopy() {
         </p>
 
         <div className={`tbtx-ways${held ? " is-held" : ""}`}>
-          {closed.map((item) => {
-            const chosen = held === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                className={[
-                  "tbtx-ways__door",
-                  "tbtx-ways__door--closed",
-                  `tbtx-ways__door--${item.id}`,
-                  chosen ? "is-chosen" : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-                aria-pressed={chosen}
-                onClick={() => setHeld(item.id)}
-              >
-                <span className="tbtx-ways__name">{item.title}</span>
-                <span className="tbtx-ways__cost">{item.story}</span>
-              </button>
-            );
-          })}
+          <div className="tbtx-ways__closed">
+            {closed.map((item) => {
+              const chosen = held === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={[
+                    "tbtx-ways__path",
+                    `tbtx-ways__path--${item.id}`,
+                    chosen ? "is-chosen" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  aria-pressed={chosen}
+                  onClick={() => setHeld(item.id)}
+                >
+                  <span className="tbtx-ways__name">{item.title}</span>
+                  <span className="tbtx-ways__cost">{item.story}</span>
+                </button>
+              );
+            })}
+          </div>
 
           <a
             href="#tbtx-stand"
-            className="tbtx-ways__door tbtx-ways__door--up"
+            className="tbtx-ways__stand"
             aria-label={`${stand.title}. ${stand.story} ${stand.refrain}`}
+            onClick={(event) => {
+              event.preventDefault();
+              enter();
+            }}
           >
             <span className="tbtx-ways__name">{stand.title}</span>
             <span className="tbtx-ways__cost">{stand.story}</span>
@@ -236,7 +298,7 @@ export function StakesCopy() {
         </div>
 
         <p className="tbtx-sr" aria-live="polite">
-          {heldDoor ? `${heldDoor.title}. ${heldDoor.story}` : ""}
+          {heldPath ? `${heldPath.title}. ${heldPath.story}` : ""}
         </p>
       </div>
     </div>
