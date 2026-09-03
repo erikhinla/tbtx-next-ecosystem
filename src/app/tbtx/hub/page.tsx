@@ -42,13 +42,8 @@ export default function LaunchHandbook() {
         console.error(e);
       }
     }
-    setActiveSection(laneFromHash());
-    const onHash = () => {
-      setActiveSection(laneFromHash());
-      window.scrollTo(0, 0);
-    };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    const fromHash = laneFromHash();
+    if (fromHash !== "canon") setActiveSection(fromHash);
   }, []);
 
   const counts = useMemo(
@@ -74,7 +69,6 @@ export default function LaunchHandbook() {
 
   const selectLane = (id: HubSection["id"]) => {
     setActiveSection(id);
-    window.history.replaceState(null, "", `#${id}`);
     window.scrollTo(0, 0);
   };
 
@@ -98,6 +92,8 @@ export default function LaunchHandbook() {
     });
     return groups;
   }, []);
+
+  const activeLane = HUB_SECTIONS.find((s) => s.id === activeSection) ?? HUB_SECTIONS[0];
 
   return (
     <div className="launch-hub-root">
@@ -133,6 +129,9 @@ export default function LaunchHandbook() {
         <div className="launch-hub__masthead">
           <Link href="/tbtx">Public story</Link>
           <span>TBTX Command Center / Internal Handbook</span>
+          <strong className="launch-hub__masthead-lane">
+            {activeLane.index} / {activeLane.label}
+          </strong>
           <div className="launch-hub__masthead-counts">
             <span>
               <b>{counts.ship}</b> Ship
