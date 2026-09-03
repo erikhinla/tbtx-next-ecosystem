@@ -1607,19 +1607,19 @@ button.tbtx-scan__go {
   min-height: 100dvh;
   color: #f2f1ea;
   background:
-    radial-gradient(ellipse at 78% 18%, rgb(214 180 110 / 0.08), transparent 42%),
+    radial-gradient(ellipse at 80% 12%, rgb(214 180 110 / 0.1), transparent 38%),
     #0d1210;
 }
 
 .tbtx-nest-doors__stage {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.12fr);
-  gap: clamp(0.55rem, 1.3vw, 1.15rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.14fr);
+  gap: clamp(0.7rem, 1.5vw, 1.25rem);
   align-items: stretch;
   height: 100%;
   min-height: 100dvh;
-  padding: clamp(0.85rem, 2.4vh, 1.5rem) clamp(0.85rem, 2.6vw, 1.8rem);
-  perspective: 1800px;
+  padding: clamp(0.9rem, 2.6vh, 1.6rem) clamp(0.9rem, 2.8vw, 1.9rem);
+  perspective: 2200px;
 }
 
 .tbtx-door {
@@ -1636,121 +1636,163 @@ button.tbtx-scan__go {
   text-align: left;
   text-decoration: none;
   cursor: pointer;
-  transform-style: preserve-3d;
+  isolation: isolate;
 }
 
 .tbtx-door__jamb {
   position: absolute;
   inset: 0;
-  border: 1px solid color-mix(in srgb, #fff 16%, transparent);
+  border: 1px solid color-mix(in srgb, #fff 18%, transparent);
   background:
-    linear-gradient(180deg, #121a17 0%, #070b0a 100%);
+    linear-gradient(90deg, #1a221e 0, #0a0e0c 12px, #0a0e0c calc(100% - 12px), #151c19 100%),
+    #0a0e0c;
   box-shadow:
-    inset 0 0 0 9px #0a0f0d,
-    inset 0 0 48px rgb(0 0 0 / 0.55);
+    inset 0 0 0 11px #080c0b,
+    inset 0 0 0 12px color-mix(in srgb, #fff 10%, transparent);
   pointer-events: none;
 }
 
 .tbtx-door--up .tbtx-door__jamb {
-  border-color: color-mix(in srgb, #d6b46e 62%, transparent);
+  border-color: color-mix(in srgb, #d6b46e 70%, transparent);
   box-shadow:
-    inset 0 0 0 9px #12160f,
-    inset 0 0 56px rgb(214 180 110 / 0.08),
-    0 0 42px rgb(214 180 110 / 0.1);
+    inset 0 0 0 11px #12160f,
+    inset 0 0 0 12px color-mix(in srgb, #d6b46e 38%, transparent),
+    0 0 48px rgb(214 180 110 / 0.14);
 }
 
 .tbtx-door__leaf {
-  position: relative;
+  position: absolute;
+  inset: 12px;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: clamp(1.1rem, 2.8vh, 2rem);
-  box-sizing: border-box;
-  height: 100%;
-  padding: clamp(1.5rem, 4.2vh, 2.8rem) clamp(1.15rem, 2.5vw, 2.1rem) clamp(1.6rem, 4vh, 2.6rem);
+  overflow: hidden;
   transform-origin: left center;
-  transform: rotateY(-20deg);
+  transform: perspective(1600px) rotateY(-32deg);
   background:
-    linear-gradient(90deg, rgb(255 255 255 / 0.14) 0 2px, transparent 10px),
-    linear-gradient(180deg, #222c28 0%, #121916 46%, #0a0e0c 100%);
+    linear-gradient(90deg, rgb(255 255 255 / 0.22) 0 3px, transparent 14px),
+    linear-gradient(180deg, #2a3530 0%, #141c19 42%, #0b100e 100%);
   box-shadow:
-    14px 0 36px rgb(0 0 0 / 0.5),
-    inset -22px 0 34px rgb(0 0 0 / 0.32),
-    inset 0 1px 0 rgb(255 255 255 / 0.08);
+    18px 0 40px rgb(0 0 0 / 0.55),
+    inset -28px 0 40px rgb(0 0 0 / 0.38),
+    inset 0 1px 0 rgb(255 255 255 / 0.1);
   transition:
-    transform 0.72s cubic-bezier(.19, 1, .22, 1),
-    filter 0.72s ease,
-    box-shadow 0.72s ease,
-    background-color 0.72s ease;
+    transform 0.78s cubic-bezier(.15, .9, .2, 1),
+    filter 0.78s ease,
+    box-shadow 0.78s ease;
 }
 
 .tbtx-door--up .tbtx-door__leaf {
-  transform: rotateY(-28deg);
+  transform: perspective(1600px) rotateY(-40deg);
   background:
-    linear-gradient(90deg, rgb(214 180 110 / 0.7) 0 3px, transparent 12px),
-    linear-gradient(180deg, #2d2c1d 0%, #17180f 50%, #0c0e0a 100%);
+    linear-gradient(90deg, rgb(214 180 110 / 0.85) 0 4px, transparent 16px),
+    linear-gradient(180deg, #3a3724 0%, #1b1c12 46%, #0e100c 100%);
 }
 
-.tbtx-door--up .tbtx-door__leaf::after {
+.tbtx-door__panels {
+  position: absolute;
+  inset: 8% 16% 46% 10%;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow:
+    inset 0 0 0 10px rgb(8 12 11 / 0.55),
+    inset 0 0 28px rgb(0 0 0 / 0.35);
+  pointer-events: none;
+}
+
+.tbtx-door__panels::after {
   content: "";
   position: absolute;
-  top: 50%;
-  right: clamp(0.85rem, 1.6vw, 1.35rem);
-  width: 0.42rem;
-  height: 3.6rem;
-  margin-top: -1.8rem;
+  left: 0;
+  right: 0;
+  top: 118%;
+  height: 42%;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 0 0 10px rgb(8 12 11 / 0.45);
+}
+
+.tbtx-door__copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 2vh, 1.4rem);
+  padding: 0 clamp(1.1rem, 2.3vw, 1.9rem) clamp(1.5rem, 3.8vh, 2.4rem);
+}
+
+.tbtx-door__handle {
+  position: absolute;
+  top: 46%;
+  right: 0.95rem;
+  z-index: 3;
+  width: 0.46rem;
+  height: 4.2rem;
   border-radius: 99px;
+  background: color-mix(in srgb, #fff 34%, transparent);
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.4);
+  pointer-events: none;
+}
+
+.tbtx-door--up .tbtx-door__handle {
+  width: 0.52rem;
+  height: 4.6rem;
   background: #d6b46e;
-  box-shadow: 0 0 16px rgb(214 180 110 / 0.55);
+  box-shadow: 0 0 18px rgb(214 180 110 / 0.6);
 }
 
-.tbtx-door--out .tbtx-door__leaf::after,
-.tbtx-door--back .tbtx-door__leaf::after {
-  content: "";
+.tbtx-door__seal {
   position: absolute;
-  top: 50%;
-  right: clamp(0.85rem, 1.6vw, 1.35rem);
-  width: 0.32rem;
-  height: 3.1rem;
-  margin-top: -1.55rem;
-  border-radius: 99px;
-  background: color-mix(in srgb, #fff 28%, transparent);
+  inset: 0;
+  z-index: 4;
+  background: rgb(3 5 5 / 0);
+  pointer-events: none;
+  transition: background 0.7s ease;
 }
 
 .tbtx-door.is-shut .tbtx-door__leaf {
-  transform: rotateY(0deg);
-  filter: saturate(0.28) brightness(0.48);
-  box-shadow: inset 0 0 90px rgb(0 0 0 / 0.62);
-  cursor: default;
+  transform: perspective(1600px) rotateY(0deg);
+  filter: saturate(0.2) brightness(0.42);
+  box-shadow: inset 0 0 110px rgb(0 0 0 / 0.72);
+  animation: tbtx-door-slam 0.78s cubic-bezier(.12, .8, .2, 1) both;
+}
+
+.tbtx-door.is-shut .tbtx-door__seal {
+  background: rgb(2 4 4 / 0.55);
+}
+
+.tbtx-door.is-shut .tbtx-door__handle {
+  opacity: 0.12;
 }
 
 .tbtx-door.is-shut {
   cursor: default;
 }
 
-.tbtx-door.is-shut .tbtx-door__leaf::after {
-  opacity: 0.18;
+@keyframes tbtx-door-slam {
+  0% { transform: perspective(1600px) rotateY(-32deg); }
+  55% { transform: perspective(1600px) rotateY(8deg); }
+  78% { transform: perspective(1600px) rotateY(-3deg); }
+  100% { transform: perspective(1600px) rotateY(0deg); }
 }
 
 .tbtx-door--up:hover .tbtx-door__leaf,
 .tbtx-door--up:focus-visible .tbtx-door__leaf {
-  transform: rotateY(-34deg);
+  transform: perspective(1600px) rotateY(-48deg);
 }
 
 .tbtx-door--out:hover:not(.is-shut) .tbtx-door__leaf,
 .tbtx-door--back:hover:not(.is-shut) .tbtx-door__leaf,
 .tbtx-door--out:focus-visible:not(.is-shut) .tbtx-door__leaf,
 .tbtx-door--back:focus-visible:not(.is-shut) .tbtx-door__leaf {
-  transform: rotateY(-12deg);
+  transform: perspective(1600px) rotateY(-18deg);
 }
 
 .tbtx-door__name {
   display: block;
   max-width: 8ch;
   color: #fff;
-  font: 400 clamp(3.35rem, 7.4vw, 6.4rem) / 0.84 var(--sc-font-display);
-  letter-spacing: -0.055em;
+  font: 400 clamp(3.5rem, 7.8vw, 6.8rem) / 0.82 var(--sc-font-display);
+  letter-spacing: -0.058em;
   text-wrap: balance;
 }
 
@@ -1760,15 +1802,15 @@ button.tbtx-scan__go {
 
 .tbtx-door__joke {
   display: block;
-  max-width: 11ch;
+  max-width: 10ch;
   color: #f4f2ea;
-  font: 400 clamp(1.7rem, 3.4vw, 2.75rem) / 1.02 var(--sc-font-display);
-  letter-spacing: -0.038em;
+  font: 400 clamp(1.8rem, 3.6vw, 2.9rem) / 1 var(--sc-font-display);
+  letter-spacing: -0.04em;
 }
 
 .tbtx-door.is-shut .tbtx-door__name,
 .tbtx-door.is-shut .tbtx-door__joke {
-  color: color-mix(in srgb, #fff 68%, #7a8178);
+  color: color-mix(in srgb, #fff 78%, #8a9188);
 }
 
 .tbtx-door:focus-visible {
@@ -1777,14 +1819,15 @@ button.tbtx-scan__go {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tbtx-door__leaf {
+  .tbtx-door__leaf,
+  .tbtx-door.is-shut .tbtx-door__leaf {
     transition: none;
+    animation: none;
     transform: none;
   }
   .tbtx-door--up .tbtx-door__leaf,
   .tbtx-door--up:hover .tbtx-door__leaf,
-  .tbtx-door--up:focus-visible .tbtx-door__leaf,
-  .tbtx-door.is-shut .tbtx-door__leaf {
+  .tbtx-door--up:focus-visible .tbtx-door__leaf {
     transform: none;
   }
 }
@@ -1799,8 +1842,9 @@ button.tbtx-scan__go {
     grid-template-columns: 1fr;
     height: auto;
     min-height: 0;
-    gap: 0.7rem;
+    gap: 0.75rem;
     padding: 0.75rem 0.75rem 1.1rem;
+    perspective: none;
   }
 
   .tbtx-door {
@@ -1808,18 +1852,22 @@ button.tbtx-scan__go {
   }
 
   .tbtx-door__leaf,
-  .tbtx-door--up .tbtx-door__leaf,
+  .tbtx-door--up .tbtx-door__leaf {
+    transform: none;
+  }
+
   .tbtx-door.is-shut .tbtx-door__leaf {
+    animation: none;
     transform: none;
   }
 
   .tbtx-door__name {
-    font-size: clamp(3.1rem, 14vw, 5.2rem);
+    font-size: clamp(3.2rem, 15vw, 5.4rem);
   }
 
   .tbtx-door__joke {
     max-width: 12ch;
-    font-size: clamp(1.55rem, 6.4vw, 2.2rem);
+    font-size: clamp(1.65rem, 6.8vw, 2.3rem);
   }
 }
 

@@ -54,8 +54,13 @@ export function StakesCopy() {
             >
               <span className="tbtx-door__jamb" aria-hidden="true" />
               <span className="tbtx-door__leaf">
-                <span className="tbtx-door__name">{door.title}</span>
-                <span className="tbtx-door__joke">{door.joke}</span>
+                <span className="tbtx-door__panels" />
+                <span className="tbtx-door__copy">
+                  <span className="tbtx-door__name">{door.title}</span>
+                  <span className="tbtx-door__joke">{door.joke}</span>
+                </span>
+                <span className="tbtx-door__handle" />
+                <span className="tbtx-door__seal" />
               </span>
             </button>
           );
@@ -68,8 +73,12 @@ export function StakesCopy() {
         >
           <span className="tbtx-door__jamb" aria-hidden="true" />
           <span className="tbtx-door__leaf">
-            <span className="tbtx-door__name">{STAND.title}</span>
-            <span className="tbtx-door__joke">{STAND.joke}</span>
+            <span className="tbtx-door__panels" />
+            <span className="tbtx-door__copy">
+              <span className="tbtx-door__name">{STAND.title}</span>
+              <span className="tbtx-door__joke">{STAND.joke}</span>
+            </span>
+            <span className="tbtx-door__handle" />
           </span>
         </Link>
       </div>
