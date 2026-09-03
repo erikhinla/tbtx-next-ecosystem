@@ -12,7 +12,7 @@ Self-authored, refined with direct author review and asset curation.
 
 1. **Recognition (scrub + kinetic type)**
    - **Feeling:** *Seen* ("Someone described my day without me having to explain it.")
-   - **Asset:** `/media/hero-fog-people.mp4` with kinetic staggered headline: *"You don't need more AI. Clear the fog."*
+   - **Asset:** `/media/hero-site-827a.mp4` (arrival lockup). Do not use `hero-fog-people` — that clip is retired.
 2. **Tension (flow + iris reveal + pinned condition)**
    - **Feeling:** *Exposed* ("The problem isn't me — it's the missing operating layer.")
    - **Assets:** `/media/desk-fog-loop.mp4` (desk fog exhibit) + `/media/fog-corridor.mp4` (*"The condition has a name: Digital Fog"*).

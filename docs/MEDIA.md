@@ -33,13 +33,20 @@ media/task-logos.mp4
 media/b2b-sold-ai.mp4
 media/task-clockout.mp4
 media/computer-explodes.mp4
-media/hero-fog-people.mp4
 media/task-lives.mp4
 media/desk-fog-loop.mp4
 media/infra-endcard.mp4
 media/fog-cinematic.mp4
 media/fog-free-share.mp4
 ```
+
+Retired — unlinked from the site. Still on Blob until ops purges (no `BLOB_READ_WRITE_TOKEN` in this environment):
+
+```
+https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/hero-fog-people.mp4
+```
+
+Do not re-upload `hero-fog-people.mp4`. Recuts from that file stay dead. `hero-site-827a.mp4` is a different film; keep it.
 
 ## Upload or replace used films
 
@@ -50,7 +57,7 @@ The checkout must first be linked by an authenticated Infisical user with `infis
 ```bash
 infisical run --env=prod -- bash -lc '
   for media_file in \
-    hero-fog-people.mp4 desk-fog-loop.mp4 task-logos.mp4 task-clockout.mp4 \
+    desk-fog-loop.mp4 task-logos.mp4 task-clockout.mp4 \
     fog-cinematic.mp4 b2b-sold-ai.mp4 task-lives.mp4 fog-free-share.mp4 \
     infra-endcard.mp4 computer-explodes.mp4 long-form-combined-lowres.mp4 \
     door-b2b-827v2.mp4 door-b2c-827v2.mp4 hero-site-827a.mp4

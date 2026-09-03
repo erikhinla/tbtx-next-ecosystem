@@ -38,14 +38,6 @@ const FACTS = [
     story: "More output, more arbitration.",
   },
   {
-    id: "28",
-    area: "crowd",
-    src: "/media/hero-fog-people.mp4",
-    poster: "/media/hero-fog-poster.jpg",
-    hook: "Everyone else already 'gets it.' That's the feeling.",
-    story: "The fog is social before it is technical. You weren't late. You were handed a job with no name.",
-  },
-  {
     id: "19",
     area: "same",
     src: "/media/task-lives.mp4",
