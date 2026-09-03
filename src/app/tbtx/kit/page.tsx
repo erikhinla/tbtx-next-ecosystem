@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Film from "@/components/Film";
 
 export const metadata: Metadata = {
-  title: "Fog-Free Daily",
+  title: "Digital De-Fog Daily",
   description:
     "Busy. Buried. Behind? A 20-minute personal reset. One surface, one thread, one finishable move. $7.77 honor system.",
 };
@@ -59,7 +59,7 @@ export default function FogFreeDailyPage() {
         </Link>
         <p className="tbtx-scan__job">Social Life</p>
         <p className="tbtx-scan__mantle">Digital Fog</p>
-        <h1>Fog&#8209;Free Daily</h1>
+        <h1>Digital De-Fog Daily</h1>
         <p className="tbtx-kit__hook">Busy. Buried. Behind?</p>
         <section className="tbtx-peel is-open">
           <p className="tbtx-peel__title">What 20 minutes gives back</p>
