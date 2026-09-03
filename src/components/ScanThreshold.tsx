@@ -31,7 +31,6 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
   const headline = isPersonal
     ? "ChatGPT wrote three."
     : "You've been the one who finishes it.";
-  const payoff = isPersonal ? "Then you spent the night inside the draft." : null;
   const lead = isPersonal
     ? "None of them were you. At 11 you were still in the box putting your voice back in."
     : "They start. You still close. Let's name where.";
@@ -45,7 +44,6 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
       {mantle ? <p className="tbtx-scan__mantle">{mantle}</p> : null}
       <h1 className="tbtx-scan__question">{headline}</h1>
       <div className="tbtx-nest tbtx-nest--scan">
-        {payoff ? <p className="tbtx-nest__payoff">{payoff}</p> : null}
         <div className="tbtx-nest__support">
           <p className="tbtx-scan__lead tbtx-scan__covenant">{lead}</p>
           {isPersonal ? <p>So that's where the night went.</p> : null}
