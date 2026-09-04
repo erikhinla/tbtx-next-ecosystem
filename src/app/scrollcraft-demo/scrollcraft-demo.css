@@ -1878,15 +1878,15 @@ button.tbtx-scan__go {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 0.85rem;
+  gap: 0.7rem;
   width: 100%;
   height: 100%;
   min-height: min(58dvh, 28rem);
   margin: 0;
   padding: clamp(1.2rem, 4vh, 2rem) clamp(1.1rem, 3vw, 1.7rem);
-  border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+  border: 1px solid color-mix(in srgb, #fff 18%, transparent);
   background: color-mix(in srgb, #0d1210 82%, #17231d);
   text-align: left;
   cursor: pointer;
@@ -1894,32 +1894,39 @@ button.tbtx-scan__go {
   font: inherit;
 }
 
-.tbtx-path.is-chosen .tbtx-path__face {
-  border-color: color-mix(in srgb, currentColor 55%, #fff);
+.tbtx-path--out.is-chosen .tbtx-path__face { border-color: var(--sc-mist); }
+.tbtx-path--back.is-chosen .tbtx-path__face { border-color: var(--sc-ember); }
+.tbtx-path--up.is-chosen .tbtx-path__face { border-color: var(--sc-brass); }
+
+.tbtx-path__index {
+  display: block;
+  font-family: var(--sc-font-clear);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  color: #9ec4e0;
 }
 
 .tbtx-path__title {
   display: block;
-  max-width: 9ch;
+  max-width: 10ch;
   font-family: var(--sc-font-clear);
   font-weight: 500;
-  font-size: clamp(1.7rem, 4.2vw, 2.8rem);
+  font-size: clamp(1.9rem, 4.4vw, 3rem);
   line-height: 0.92;
-  letter-spacing: 0.12em;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: #fff;
+}
+
+.tbtx-path--back .tbtx-path__title,
+.tbtx-path--out .tbtx-path__title,
+.tbtx-path--up .tbtx-path__title {
+  color: #fff;
+}
+
+.tbtx-path--up .tbtx-path__title {
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.tbtx-path--back .tbtx-path__title {
-  color: var(--sc-ember);
-}
-
-.tbtx-path--out .tbtx-path__title {
-  color: var(--sc-mist);
-}
-
-.tbtx-path--up .tbtx-path__title,
-.tbtx-path--up .tbtx-path__go {
-  color: var(--sc-brass);
 }
 
 .tbtx-path__insight {
@@ -1930,32 +1937,32 @@ button.tbtx-scan__go {
   border: 0;
   background: none;
   font-family: var(--sc-font-clear);
-  font-size: clamp(0.98rem, 1.9vw, 1.22rem);
-  font-weight: 500;
-  line-height: 1.55;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: clamp(0.98rem, 1.8vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-transform: none;
   text-align: left;
-  color: color-mix(in srgb, #f2f1ea 88%, transparent);
+  color: color-mix(in srgb, #f2f1ea 72%, transparent);
 }
 
-.tbtx-path__go {
-  display: inline-block;
-  margin-top: 0.35rem;
-  max-width: 100%;
+.tbtx-path__mark {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--sc-brass);
   font-family: var(--sc-font-clear);
-  font-size: clamp(0.92rem, 1.7vw, 1.12rem);
+  font-size: 0.72rem;
   font-weight: 500;
-  line-height: 1.55;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
+  color: var(--sc-brass);
 }
 
 .tbtx-path__fog {
   position: absolute;
-  inset: clamp(1.6rem, 6vh, 3.4rem) var(--tbtx-path-pad);
+  inset: clamp(0.8rem, 3vh, 1.6rem) var(--tbtx-path-pad);
   z-index: 4;
   pointer-events: none;
   opacity: 0;

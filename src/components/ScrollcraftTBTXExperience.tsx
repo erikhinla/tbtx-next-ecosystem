@@ -230,7 +230,7 @@ export default function ScrollcraftTBTXExperience() {
           <Link
             href="/tbtx/map"
             className="tbtx-sc__doorway tbtx-sc__doorway--work"
-            aria-label="Enter to Scan Digital Fog in Business"
+            aria-label="Enter to Map Digital Fog in Business"
           >
             <div className="tbtx-sc__doorway-stage">
               <Film
@@ -245,7 +245,7 @@ export default function ScrollcraftTBTXExperience() {
               />
               <span className="tbtx-sc__doorway-enter">
                 <strong>Enter</strong>
-                <span>to Scan Digital Fog in Business</span>
+                <span>to Map Digital Fog in Business</span>
               </span>
             </div>
           </Link>

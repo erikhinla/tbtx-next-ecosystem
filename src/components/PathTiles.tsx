@@ -5,23 +5,25 @@ import { useState } from "react";
 const TILES = [
   {
     id: "out",
-    face: "Sit Out",
+    index: "01",
+    face: "Sit out",
     insight:
-      "Stay the coordinator, and you spend your time cleaning up what the agents start. Chasing the current version. That's the job nobody wanted.",
+      "Ignore the infrastructure AI is built on and the tools that run on it. Get outrun by the people who didn't.",
     continues: false,
   },
   {
     id: "back",
-    face: "Sit Back",
-    insight:
-      "Sit back, and the tools run the show. You lose the thread of your own work.",
+    index: "02",
+    face: "Sit back",
+    insight: "AI agents kick off the creative. You pick up coordinating the context.",
     continues: false,
   },
   {
     id: "up",
+    index: "03",
     face: "Stand UP",
     insight:
-      "Or, clear the digital fog first, so your focus goes back to the work that actually moves things. That's the third path.",
+      "Get clarity and gain momentum by focusing on the things you're made for in work and life. You pick where you feel the fog most.",
     continues: true,
   },
 ] as const;
@@ -63,13 +65,12 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
                 aria-pressed={chosenHere}
                 onClick={() => select(tile.id)}
               >
+                <span className="tbtx-path__index">{tile.index}</span>
                 <span className="tbtx-path__title">{tile.face}</span>
                 <span className="tbtx-path__insight">{tile.insight}</span>
-                {tile.continues && chosenHere ? (
-                  <span className="tbtx-path__go">
-                    Two places this shows up. Pick where you feel it most.
-                  </span>
-                ) : null}
+                {tile.continues ? null : (
+                  <span className="tbtx-path__mark">Choose this consequence</span>
+                )}
               </button>
               <span className="tbtx-path__fog" aria-hidden="true" />
             </article>
