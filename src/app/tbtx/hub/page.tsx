@@ -1,1 +1,1 @@
-placeholder
+use client placeholder will be replaced
