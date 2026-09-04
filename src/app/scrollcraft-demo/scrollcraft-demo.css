@@ -1767,6 +1767,7 @@ button.tbtx-scan__go {
 
 .tbtx-beat p,
 .tbtx-path__insight,
+.tbtx-path__after,
 .tbtx-sc__doorway-enter span,
 .tbtx-scan__question,
 .tbtx-scan__lead,
@@ -1936,11 +1937,52 @@ button.tbtx-scan__go {
 .tbtx-path--up.is-chosen .tbtx-path__face { border-color: var(--sc-brass); }
 
 .tbtx-path__index {
+  display: none;
+}
+
+.tbtx-path__after {
   display: block;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1.15rem;
+  border-top: 1px solid transparent;
   font-family: var(--sc-font-clear);
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  color: #9ec4e0;
+  font-size: clamp(0.98rem, 1.8vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #fff;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translate3d(0, 0.55rem, 0);
+  transition:
+    max-height 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease;
+}
+
+.tbtx-path.is-chosen .tbtx-path__after {
+  max-height: 12rem;
+  opacity: 1;
+  transform: none;
+}
+
+.tbtx-path--out.is-chosen .tbtx-path__after {
+  border-top-color: color-mix(in srgb, var(--sc-mist) 70%, transparent);
+  color: var(--sc-mist);
+}
+
+.tbtx-path--back.is-chosen .tbtx-path__after {
+  border-top-color: color-mix(in srgb, var(--sc-ember) 70%, transparent);
+  color: var(--sc-ember);
+}
+
+.tbtx-path--up.is-chosen .tbtx-path__after {
+  border-top-color: var(--sc-brass);
+  color: var(--sc-brass);
 }
 
 .tbtx-path__title {

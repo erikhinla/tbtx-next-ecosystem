@@ -9,6 +9,7 @@ import Film from "./Film";
 import { ArrivalCopy, StandCopy } from "./WhyJourney";
 import PathTiles from "./PathTiles";
 import { film } from "@/lib/media";
+import { clearStoodUp, hasStoodUp, markStoodUp } from "@/lib/stand-gate";
 
 declare global {
   interface Window {
@@ -32,9 +33,14 @@ export default function ScrollcraftTBTXExperience() {
   const [showReel, setShowReel] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
   const [stoodUp, setStoodUp] = useState(false);
+  const openFromChoice = useRef(false);
 
   useEffect(() => {
-    if (!stoodUp) return;
+    setStoodUp(hasStoodUp());
+  }, []);
+
+  useEffect(() => {
+    if (!stoodUp || !openFromChoice.current) return;
     const timer = window.setTimeout(() => {
       document.getElementById("tbtx-doors")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 120);
@@ -189,8 +195,17 @@ export default function ScrollcraftTBTXExperience() {
       >
         <PathTiles
           onChoose={(id) => {
-            if (id !== "up") return;
-            window.setTimeout(() => setStoodUp(true), 720);
+            if (id === "up") {
+              openFromChoice.current = true;
+              window.setTimeout(() => {
+                markStoodUp();
+                setStoodUp(true);
+              }, 720);
+              return;
+            }
+            openFromChoice.current = false;
+            clearStoodUp();
+            setStoodUp(false);
           }}
         />
       </section>
