@@ -11,5 +11,7 @@ tsconfig.tsbuildinfo
 # Films live on Vercel Blob. Stills (jpg) stay in git.
 # Never git add mp4s. GitHub times out around 500MB.
 public/media/*.mp4
+# Exception: campaign hero until tbtx-media has media/defog-daily-hero.mp4.
+!public/media/defog-daily-hero.mp4
 public/media/_web/
 .env*

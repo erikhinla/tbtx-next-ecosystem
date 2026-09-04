@@ -20,9 +20,11 @@ declare global {
 export default function ScrollcraftTBTXExperience() {
   const rootRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const defogVideoRef = useRef<HTMLVideoElement | null>(null);
   const mountedRef = useRef(false);
   const [showReel, setShowReel] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
+  const [defogSoundOn, setDefogSoundOn] = useState(false);
   const [stoodUp, setStoodUp] = useState(false);
   const openFromChoice = useRef(false);
 
@@ -45,6 +47,15 @@ export default function ScrollcraftTBTXExperience() {
     video.muted = !next;
     if (next) void video.play();
     setSoundOn(next);
+  };
+
+  const toggleDefogSound = () => {
+    const video = defogVideoRef.current;
+    if (!video) return;
+    const next = !defogSoundOn;
+    video.muted = !next;
+    if (next) void video.play();
+    setDefogSoundOn(next);
   };
 
   useEffect(() => {
@@ -72,21 +83,28 @@ export default function ScrollcraftTBTXExperience() {
 
     void loadAndMount();
 
-    const hero = heroVideoRef.current;
-    const observer =
-      hero &&
-      new IntersectionObserver(
+    const muteWhenOffscreen = (
+      node: HTMLVideoElement | null,
+      mute: () => void,
+    ) => {
+      if (!node) return null;
+      const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting || !heroVideoRef.current) return;
-          heroVideoRef.current.muted = true;
-          setSoundOn(false);
+          if (entry.isIntersecting) return;
+          node.muted = true;
+          mute();
         },
-        { threshold: 0.2 }
+        { threshold: 0.2 },
       );
-    if (hero && observer) observer.observe(hero);
+      observer.observe(node);
+      return observer;
+    };
+    const heroObserver = muteWhenOffscreen(heroVideoRef.current, () => setSoundOn(false));
+    const defogObserver = muteWhenOffscreen(defogVideoRef.current, () => setDefogSoundOn(false));
 
     return () => {
-      observer?.disconnect();
+      heroObserver?.disconnect();
+      defogObserver?.disconnect();
       cancelled = true;
       if (!mountedWithApi || !window.ScrollCraft) return;
       const scrollCraft = window.ScrollCraft as Window["ScrollCraft"] & {
@@ -150,6 +168,7 @@ export default function ScrollcraftTBTXExperience() {
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
           <p className="tbtx-sc__sr">Digital De-Fog Daily</p>
           <Film
+            ref={defogVideoRef}
             className="tbtx-sc__hero-film"
             src="/media/defog-daily-hero.mp4"
             autoPlay
@@ -161,6 +180,15 @@ export default function ScrollcraftTBTXExperience() {
             aria-hidden="true"
           />
           <Link href="/tbtx/kit" className="tbtx-sc__hero-cta">Digital De-Fog Daily</Link>
+          <button
+            type="button"
+            className="tbtx-sc__hero-sound"
+            onClick={toggleDefogSound}
+            aria-pressed={defogSoundOn}
+            aria-label={defogSoundOn ? "Mute Digital De-Fog Daily" : "Play Digital De-Fog Daily with sound"}
+          >
+            {defogSoundOn ? "Sound on" : "Sound off"}
+          </button>
         </div>
       </section>
 

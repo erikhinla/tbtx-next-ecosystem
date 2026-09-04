@@ -50,8 +50,8 @@ export default function FogFreeDailyPage() {
           muted
           loop
           playsInline
-          src="/media/door-b2c-827v2.mp4"
-          poster="/media/door-b2c-827v2.jpg"
+          src="/media/defog-daily-hero.mp4"
+          poster="/media/defog-daily-hero.jpg"
         />
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
