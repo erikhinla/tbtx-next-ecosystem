@@ -277,7 +277,7 @@ export default function LaunchHandbook() {
                 Authoritative Paths.
               </h2>
               <span>
-                Categorized by Front Door, Diagnose, Offer, Foundation, and Held. Digital De-Fog Daily is the
+                Categorized by Front Door, Diagnose, Offer, Foundation, and Held. Fog-Free Daily is the
                 canonical personal offer label.
               </span>
             </div>
@@ -697,14 +697,14 @@ export default function LaunchHandbook() {
         <footer className="launch-surface__footer">
           <div className="flex gap-6 items-center flex-wrap">
             <Link href="/tbtx">Return to the public story</Link>
-            <Link href="/scan" className="text-purple-300">
+            <Link href="/tbtx/scan" className="text-purple-300">
               Personal Scan
             </Link>
-            <Link href="/map" className="text-blue-300">
+            <Link href="/tbtx/map" className="text-blue-300">
               Business Map
             </Link>
             <Link href="/tbtx/kit" className="text-emerald-300">
-              Digital De-Fog Daily
+              Fog-Free Daily
             </Link>
           </div>
         </footer>

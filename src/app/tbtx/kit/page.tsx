@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import Film from "@/components/Film";
+import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
   title: "Fog-Free Daily",
@@ -41,6 +42,7 @@ const BEATS = [
 
 export default function FogFreeDailyPage() {
   return (
+    <StandGate>
     <main className="tbtx-scan tbtx-kit">
       <div className="tbtx-scan__stage" aria-hidden="true">
         <Film
@@ -137,10 +139,11 @@ export default function FogFreeDailyPage() {
             Share a Fog-Free moment
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            This is Digital Friction
+            Map Digital Fog in Business
           </Link>
         </div>
       </div>
     </main>
+    </StandGate>
   );
 }

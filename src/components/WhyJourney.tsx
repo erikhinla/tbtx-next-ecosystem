@@ -1,73 +1,45 @@
 "use client";
 
-const POSITIONS = [
-  {
-    id: "out",
-    title: "Sit out",
-    story: "Refuse the tools. Get outrun by people who didn't.",
-  },
-  {
-    id: "back",
-    title: "Sit back",
-    story: "Let AI start everything. You spend the day finishing it. That's the job nobody posted.",
-  },
-  {
-    id: "up",
-    title: "Stand up",
-    story: "Get your attention back to work only you can do.",
-    refrain: "You don't need more AI. Clear the fog.",
-  },
-] as const;
+import useScrollReveal from "@/hooks/useScrollReveal";
 
-export function StakesCopy() {
+export function ArrivalCopy() {
+  const { ref, shown } = useScrollReveal<HTMLDivElement>();
   return (
-    <div className="tbtx-why">
-      <header className="tbtx-why__lock">
-        <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
-        <h2 data-fog-text="Three ways this goes.">Three ways this goes.</h2>
-      </header>
-
-      <div className="tbtx-why__field">
-        <p className="tbtx-why__payoff">
-          You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
-        </p>
-
-        <div className="tbtx-why__positions">
-          {POSITIONS.map((item) => (
-            <article
-              key={item.id}
-              className={`tbtx-why__position tbtx-why__position--${item.id}`}
-            >
-              <h3>{item.title}</h3>
-              <p>{item.story}</p>
-              {"refrain" in item ? <p className="tbtx-why__refrain">{item.refrain}</p> : null}
-            </article>
-          ))}
-        </div>
-      </div>
+    <div
+      ref={ref}
+      className={`tbtx-beat tbtx-beat--arrival${shown ? " is-in" : ""}`}
+    >
+      <p>
+        You&apos;re here because you&apos;ve felt it. The tools don&apos;t take things off your plate. They stacked new ones on top and you&apos;re the one coordinating it all&nbsp;together.
+      </p>
+      <p>
+        That job has a name: <span className="tbtx-nowrap">Managing Digital Fog.</span>
+      </p>
+      <p>
+        AI isn&apos;t transformational, it&apos;s informational. And running more AI will only 10X output, but what you want is leverage. To get that you need your attention back from the loose ends AI leaves behind, and putting it toward creating things only you&nbsp;can.
+      </p>
+      <p>There are three paths&nbsp;forward.</p>
     </div>
   );
 }
 
 export function StandCopy() {
+  const { ref, shown } = useScrollReveal<HTMLDivElement>();
   return (
-    <div className="tbtx-why tbtx-why--stand">
-      <header className="tbtx-why__lock">
-        <h2 data-fog-text="You’ve been finishing what they start.">You&rsquo;ve been finishing what they start.</h2>
-      </header>
-
-      <div className="tbtx-nest tbtx-nest--stand">
-        <p className="tbtx-nest__payoff">I know. Someone had to.</p>
-        <div className="tbtx-nest__support">
-          <p>
-            You don&rsquo;t get that time twice. If that attention went to what&rsquo;s yours, the
-            making starts tonight. Not the cleanup.
-          </p>
-          <a href="#tbtx-doors" className="tbtx-fog-link">
-            Get the making back
-          </a>
-        </div>
-      </div>
+    <div
+      ref={ref}
+      className={`tbtx-beat tbtx-beat--stand${shown ? " is-in" : ""}`}
+    >
+      <p>
+        Clearing the fog exposes the gap. Not the noise, the operational architecture underneath it. Build that, and attention goes back to what matters. Your&nbsp;vision.
+      </p>
+      <p>
+        What comes next is not a personality quiz. It&apos;s not seeing how organized you&nbsp;are.
+      </p>
+      <p>
+        It&apos;s you deciding not to spend another year as the{" "}
+        <span className="tbtx-nowrap">AI&apos;s assistant.</span>
+      </p>
     </div>
   );
 }

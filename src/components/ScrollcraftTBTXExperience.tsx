@@ -6,8 +6,10 @@ import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
 import Film from "./Film";
-import { StakesCopy, StandCopy } from "./WhyJourney";
+import { ArrivalCopy, StandCopy } from "./WhyJourney";
+import PathTiles from "./PathTiles";
 import { film } from "@/lib/media";
+import { clearStoodUp, hasStoodUp, markStoodUp } from "@/lib/stand-gate";
 
 declare global {
   interface Window {
@@ -16,11 +18,11 @@ declare global {
 }
 
 /**
- * TransformBy10X front door — the scroll experience.
+ * TransformBy10X front door. The scroll experience.
  *
  * Public contract: docs/PUBLIC_JOURNEY.md
- *   Arrival → stakes → stand → doors → threshold → scan
- * Hero "Start Here" goes to stakes, never to a door.
+ *   Arrival → Stand → Choose Your Path → doors (after Stand UP) → threshold → scan or map
+ * Hero "Start Here" goes to Arrival, never to a door.
  * No internal product language (WIN, GOAL, FLOW, Quad Keystones) on the cold path.
  * Vendor engine stays untouched. All composition is page-layer.
  */
@@ -30,6 +32,20 @@ export default function ScrollcraftTBTXExperience() {
   const mountedRef = useRef(false);
   const [showReel, setShowReel] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
+  const [stoodUp, setStoodUp] = useState(false);
+  const openFromChoice = useRef(false);
+
+  useEffect(() => {
+    setStoodUp(hasStoodUp());
+  }, []);
+
+  useEffect(() => {
+    if (!stoodUp || !openFromChoice.current) return;
+    const timer = window.setTimeout(() => {
+      document.getElementById("tbtx-doors")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, [stoodUp]);
 
   const toggleHeroSound = () => {
     const video = heroVideoRef.current;
@@ -46,7 +62,7 @@ export default function ScrollcraftTBTXExperience() {
 
     async function loadAndMount() {
       try {
-        // @ts-ignore — vendor JS, not a module; mounts on window.ScrollCraft
+        // @ts-ignore vendor JS, not a module. Mounts on window.ScrollCraft
         const module = await import("../vendor/scrollcraft/scrollcraft.js");
         if (cancelled || mountedRef.current || !rootRef.current) return;
 
@@ -104,12 +120,12 @@ export default function ScrollcraftTBTXExperience() {
   return (
     <main ref={rootRef} className="tbtx-sc" data-sc-root data-sc-lerp="0.14">
       {/* ---- a11y skip ---- */}
-      <a className="tbtx-sc__skip" href="#tbtx-stakes">
+      <a className="tbtx-sc__skip" href="#tbtx-arrival">
         Skip to the why
       </a>
 
-      {/* ---- film grain (atmosphere) ---- */}
-      <div className="sc-grain" aria-hidden="true" />
+      {/* ---- film grain (atmosphere). Thins toward the later page. ---- */}
+      <div className="sc-grain tbtx-sc__grain" aria-hidden="true" />
 
       {/* Baked lockup film. HTML is the CTA only. */}
       <section
@@ -134,7 +150,7 @@ export default function ScrollcraftTBTXExperience() {
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
           />
-          <a href="#tbtx-stakes" className="tbtx-sc__hero-cta">
+          <a href="#tbtx-arrival" className="tbtx-sc__hero-cta">
             Start Here
           </a>
           <button
@@ -142,54 +158,71 @@ export default function ScrollcraftTBTXExperience() {
             className="tbtx-sc__hero-sound"
             onClick={toggleHeroSound}
             aria-pressed={soundOn}
-            aria-label={soundOn ? "Mute" : "Unmute"}
+            aria-label={soundOn ? "Mute the film" : "Play the film with sound"}
           >
-            {soundOn ? "🔊" : "🔇"}
+            {soundOn ? "Sound on" : "Sound off"}
           </button>
         </div>
       </section>
 
       <section
-        id="tbtx-stakes"
-        className="tbtx-sc__why-wrap"
+        id="tbtx-arrival"
+        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--arrival"
         data-sc-act="flow"
         data-sc-drift="#0d1210"
       >
         <div className="tbtx-sc__why-frame">
-          <StakesCopy />
+          <ArrivalCopy />
         </div>
       </section>
 
       <section
         id="tbtx-stand"
-        className="tbtx-sc__storm tbtx-sc__explain"
+        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stand"
         data-sc-act="flow"
-        data-sc-drift="#0f1714"
+        data-sc-drift="#101612"
       >
-        <div className="sc-stage tbtx-sc__stage tbtx-sc__storm-stage" data-sc-stage>
-          <img
-            className="tbtx-sc__storm-video"
-            src="/media/digital-fog-lockup-827.jpg"
-            alt=""
-          />
-          <div className="sc-scrim sc-scrim--band" />
-          <div className="tbtx-sc__storm-copy sc-copy sc-copy--lead">
-            <StandCopy />
-          </div>
+        <div className="tbtx-sc__why-frame">
+          <StandCopy />
         </div>
       </section>
 
-      {/* Doors come after the stand. Deep links still hit the scan threshold. */}
       <section
-        id="tbtx-doors"
-        className="tbtx-sc__split-wrap"
+        id="tbtx-stakes"
+        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stakes tbtx-sc__why-wrap--paths"
         data-sc-act="flow"
         data-sc-drift="#0d1210"
       >
-        <div className="tbtx-sc__split">
+        <PathTiles
+          onChoose={(id) => {
+            if (id === "up") {
+              openFromChoice.current = true;
+              window.setTimeout(() => {
+                markStoodUp();
+                setStoodUp(true);
+              }, 720);
+              return;
+            }
+            openFromChoice.current = false;
+            clearStoodUp();
+            setStoodUp(false);
+          }}
+        />
+      </section>
+
+      {stoodUp ? (
+        <>
+      {/* Doors. Only after Stand Up. Horizontal rail. */}
+      <section
+        id="tbtx-doors"
+        className="tbtx-sc__split-wrap is-open"
+        data-sc-act="flow"
+        data-sc-drift="#0d1210"
+      >
+        <div className="tbtx-sc__doors-rail">
           <Link
             href="/tbtx/scan"
-            className="tbtx-sc__doorway"
+            className="tbtx-sc__doorway tbtx-sc__doorway--life"
             aria-label="Enter to Scan for Digital Fog in Life"
           >
             <div className="tbtx-sc__doorway-stage">
@@ -203,13 +236,18 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2c-827v2.jpg"
               />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
+              <span className="tbtx-sc__doorway-enter">
+                <strong>Enter</strong>
+                <span>
+                  to Scan for <span className="tbtx-nowrap">Digital Fog</span> in Life
+                </span>
+              </span>
             </div>
           </Link>
           <Link
             href="/tbtx/map"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Scan Digital Fog in Business"
+            className="tbtx-sc__doorway tbtx-sc__doorway--work"
+            aria-label="Enter to Map Digital Fog in Business"
           >
             <div className="tbtx-sc__doorway-stage">
               <Film
@@ -222,13 +260,18 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2b-827v2.jpg"
               />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
+              <span className="tbtx-sc__doorway-enter">
+                <strong>Enter</strong>
+                <span>
+                  to Map <span className="tbtx-nowrap">Digital Fog</span> in Business
+                </span>
+              </span>
             </div>
           </Link>
         </div>
       </section>
 
-      {/* Invisible job as a moving mosaic — click a tile */}
+      {/* Invisible job as a moving mosaic. Click a tile. */}
       <section className="tbtx-sc__mosaic-wrap" data-sc-act="flow" data-sc-drift="#0d1210">
         <FogTaskMosaic />
       </section>
@@ -265,7 +308,6 @@ export default function ScrollcraftTBTXExperience() {
           />
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
-            <p className="tbtx-sc__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
             <a href="#tbtx-doors" className="tbtx-fog-go" data-sc-magnet="0.35">
               Choose a door
             </a>
@@ -293,6 +335,8 @@ export default function ScrollcraftTBTXExperience() {
           onClose={() => setShowReel(false)}
         />
       )}
+        </>
+      ) : null}
     </main>
   );
 }

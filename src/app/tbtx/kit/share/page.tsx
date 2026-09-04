@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import Film from "@/components/Film";
+import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
   title: "Fog-Free moment",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 export default function FogFreeSharePage() {
   return (
+    <StandGate>
     <main className="tbtx-scan tbtx-kit tbtx-kit--share">
       <div className="tbtx-scan__stage" aria-hidden="true">
         <Film
@@ -54,10 +56,11 @@ export default function FogFreeSharePage() {
             Download the reset
           </a>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Let's look again
+            Scan again
           </Link>
         </div>
       </div>
     </main>
+    </StandGate>
   );
 }

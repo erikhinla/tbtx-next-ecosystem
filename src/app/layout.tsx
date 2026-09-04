@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo_Black, DM_Sans, Outfit, JetBrains_Mono } from "next/font/google";
+import { Archivo_Black, DM_Sans, Outfit, JetBrains_Mono, Fraunces, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ScrollcraftGuard from "@/components/ScrollcraftGuard";
 
@@ -24,6 +24,17 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono"
 });
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
+
 export const metadata: Metadata = {
   title: "Managing Digital Fog",
   description:
@@ -37,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${archivoBlack.variable} ${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased min-h-[100dvh] bg-[#0d1210] text-[#f2f1ea]`}>
+      <body className={`${archivoBlack.variable} ${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${spaceGrotesk.variable} antialiased min-h-[100dvh] bg-[#0d1210] text-[#f2f1ea]`}>
         <ScrollcraftGuard />
         {children}
       </body>

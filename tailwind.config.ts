@@ -45,6 +45,8 @@ const config: Config = {
         },
       },
       fontFamily: {
+        serif: ["var(--font-fraunces)", "Georgia", "serif"],
+        grotesk: ["var(--font-space-grotesk)", "sans-serif"],
         display: ["var(--font-archivo-black)", "sans-serif"],
         body: ["var(--font-outfit)", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],

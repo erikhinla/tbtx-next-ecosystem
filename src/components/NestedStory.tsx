@@ -1,1 +1,2 @@
-export { StakesCopy as default, StakesCopy, StandCopy } from "./WhyJourney";
+export { ArrivalCopy, StandCopy } from "./WhyJourney";
+export { default, default as PathTiles } from "./PathTiles";
