@@ -100,7 +100,7 @@ export const ROUTES: RouteCard[] = [
   { group: "Front Door", label: "Public Story & Worldview", path: "/tbtx", note: "Cold Path / Front Door", tone: "brand" },
   { group: "Diagnose", label: "Digital Fog Scan", path: "/tbtx/scan", note: "Scan for Digital Fog in Life (B2C / 8 Questions)", tone: "life" },
   { group: "Diagnose", label: "Business Momentum Map", path: "/tbtx/map", note: "Map Digital Fog in Business (B2B / 15 Questions)", tone: "business" },
-  { group: "Offer", label: "Fog-Free Daily", path: "/tbtx/kit", note: "$7.77 honor system. Daily clearing space, not a bundle.", tone: "approved" },
+  { group: "Offer", label: "Digital De-Fog Daily", path: "/tbtx/kit", note: "$7.77 honor system. Daily clearing space, not a bundle.", tone: "approved" },
   { group: "Offer", label: "De-Fog Daily Share Loop", path: "/tbtx/kit/share", note: "Personal referral & video share surface", tone: "approved" },
   { group: "Offer", label: "AI Biz Blueprint", path: "/tbtx/blueprint", note: "Post-Diagnostic Business Deliverable", tone: "business" },
   { group: "Foundation", label: "BizBuilders AI", path: "/bbai", note: "Operating Foundation & Quad Keystones", tone: "business" },
