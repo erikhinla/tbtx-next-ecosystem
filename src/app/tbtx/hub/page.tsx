@@ -1,1 +1,1 @@
-use client placeholder will be replaced
+PLACEHOLDER_PAGE
