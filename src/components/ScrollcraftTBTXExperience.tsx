@@ -6,7 +6,8 @@ import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
 import Film from "./Film";
-import { ArrivalCopy, StakesCopy, StandCopy } from "./WhyJourney";
+import { ArrivalCopy, StandCopy } from "./WhyJourney";
+import PathTiles from "./PathTiles";
 import { film } from "@/lib/media";
 
 declare global {
@@ -30,6 +31,7 @@ export default function ScrollcraftTBTXExperience() {
   const mountedRef = useRef(false);
   const [showReel, setShowReel] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
+  const [thirdOpen, setThirdOpen] = useState(false);
 
   const toggleHeroSound = () => {
     const video = heroVideoRef.current;
@@ -161,17 +163,6 @@ export default function ScrollcraftTBTXExperience() {
       </section>
 
       <section
-        id="tbtx-stakes"
-        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stakes"
-        data-sc-act="flow"
-        data-sc-drift="#0d1210"
-      >
-        <div className="tbtx-sc__why-frame">
-          <StakesCopy />
-        </div>
-      </section>
-
-      <section
         id="tbtx-stand"
         className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stand"
         data-sc-act="flow"
@@ -182,10 +173,19 @@ export default function ScrollcraftTBTXExperience() {
         </div>
       </section>
 
-      {/* Doors come after the stand. Horizontal rail. */}
+      <section
+        id="tbtx-stakes"
+        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stakes tbtx-sc__why-wrap--paths"
+        data-sc-act="flow"
+        data-sc-drift="#0d1210"
+      >
+        <PathTiles onThird={() => setThirdOpen(true)} />
+      </section>
+
+      {/* Doors come after the third path. Horizontal rail. */}
       <section
         id="tbtx-doors"
-        className="tbtx-sc__split-wrap"
+        className={`tbtx-sc__split-wrap${thirdOpen ? " is-open" : " is-waiting"}`}
         data-sc-act="flow"
         data-sc-drift="#0d1210"
       >

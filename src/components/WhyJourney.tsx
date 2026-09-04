@@ -15,22 +15,6 @@ export function ArrivalCopy() {
   );
 }
 
-export function StakesCopy() {
-  return (
-    <div className="tbtx-beat tbtx-beat--stakes">
-      <p className="tbtx-beat__tone tbtx-beat__tone--back">
-        Sit back, and the tools run the show. You lose the thread of your own work.
-      </p>
-      <p className="tbtx-beat__tone tbtx-beat__tone--out">
-        Stay the coordinator, and you spend your time cleaning up what the agents start. Chasing the current version. That&apos;s the job nobody wanted.
-      </p>
-      <p className="tbtx-beat__tone tbtx-beat__tone--up">
-        Or, clear the digital fog first, so your focus goes back to the work that actually moves things. That&apos;s the third path.
-      </p>
-    </div>
-  );
-}
-
 export function StandCopy() {
   return (
     <div className="tbtx-beat tbtx-beat--stand">
@@ -39,7 +23,6 @@ export function StandCopy() {
       </p>
       <p>Taking this scan isn&apos;t a personality quiz. It&apos;s not seeing how organized you are.</p>
       <p>It&apos;s you deciding not to spend another year as the AI&apos;s assistant.</p>
-      <p>Two places this shows up. Pick where you feel it most.</p>
     </div>
   );
 }
