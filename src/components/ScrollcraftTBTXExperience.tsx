@@ -15,12 +15,6 @@ declare global {
   }
 }
 
-/**
- * Public front door.
- * Arrival → stakes → stand → doors.
- * Hero Start Here goes to #tbtx-stakes (arrival first).
- * The Stand copy is locked. Do not polish inline.
- */
 export default function ScrollcraftTBTXExperience() {
   const rootRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -43,7 +37,7 @@ export default function ScrollcraftTBTXExperience() {
 
     async function loadAndMount() {
       try {
-        // @ts-ignore — vendor JS, not a module; mounts on window.ScrollCraft
+        // @ts-ignore vendor JS mounts on window.ScrollCraft
         const module = await import("../vendor/scrollcraft/scrollcraft.js");
         if (cancelled || mountedRef.current || !rootRef.current) return;
 
@@ -151,6 +145,15 @@ export default function ScrollcraftTBTXExperience() {
       >
         <div className="tbtx-sc__why-frame">
           <ArrivalCopy />
+        </div>
+      </section>
+
+      <section
+        className="tbtx-sc__why-wrap"
+        data-sc-act="flow"
+        data-sc-drift="#101614"
+      >
+        <div className="tbtx-sc__why-frame">
           <StakesCopy />
         </div>
       </section>
@@ -159,7 +162,7 @@ export default function ScrollcraftTBTXExperience() {
         id="tbtx-stand"
         className="tbtx-sc__why-wrap"
         data-sc-act="flow"
-        data-sc-drift="#0f1714"
+        data-sc-drift="#14110c"
       >
         <div className="tbtx-sc__why-frame">
           <StandCopy />
@@ -169,48 +172,50 @@ export default function ScrollcraftTBTXExperience() {
       <section
         id="tbtx-doors"
         className="tbtx-sc__split-wrap"
-        data-sc-act="flow"
+        data-sc-act="pan"
         data-sc-drift="#0d1210"
       >
-        <div className="tbtx-sc__split">
-          <Link
-            href="/tbtx/scan"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Scan for Digital Fog in Life"
-          >
-            <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2c-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2c-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
-            </div>
-          </Link>
-          <Link
-            href="/tbtx/map"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Scan Digital Fog in Business"
-          >
-            <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2b-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2b-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
-            </div>
-          </Link>
+        <div className="sc-stage tbtx-sc__stage" data-sc-stage>
+          <div className="tbtx-sc__split" data-sc-pan>
+            <Link
+              href="/tbtx/scan"
+              className="tbtx-sc__doorway"
+              aria-label="Enter to Scan for Digital Fog in Life"
+            >
+              <div className="tbtx-sc__doorway-stage">
+                <Film
+                  className="tbtx-sc__doorway-video"
+                  src="/media/door-b2c-827v2.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/media/door-b2c-827v2.jpg"
+                />
+                <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
+              </div>
+            </Link>
+            <Link
+              href="/tbtx/map"
+              className="tbtx-sc__doorway"
+              aria-label="Enter to Scan Digital Fog in Business"
+            >
+              <div className="tbtx-sc__doorway-stage">
+                <Film
+                  className="tbtx-sc__doorway-video"
+                  src="/media/door-b2b-827v2.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/media/door-b2b-827v2.jpg"
+                />
+                <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
 
