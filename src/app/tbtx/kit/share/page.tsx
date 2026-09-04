@@ -4,7 +4,7 @@ import Film from "@/components/Film";
 import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
-  title: "Fog-Free moment",
+  title: "Digital De-Fog Daily",
   description:
     "Share after you finish. Cleared a surface. One move. Calm is the win.",
 };
@@ -26,11 +26,11 @@ export default function FogFreeSharePage() {
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">
         <Link href="/tbtx/kit" className="tbtx-kit__back tbtx-fog-link">
-          Back to Fog-Free Daily
+          Back to Digital De-Fog Daily
         </Link>
         <p className="tbtx-scan__job">Social Life</p>
         <p className="tbtx-scan__mantle">Digital Fog</p>
-        <h1>Fog&#8209;Free moment</h1>
+        <h1>Digital De&#8209;Fog Daily</h1>
         <p className="tbtx-kit__lede">
           Write down what moved. That&rsquo;s the proof. Small counts. Share it when
           you&rsquo;re ready to say it out loud.
@@ -45,11 +45,11 @@ export default function FogFreeSharePage() {
             preload="metadata"
           />
           <figcaption>
-            I ran Fog-Free Daily. Cleared a surface. One move. Calm is the win.
+            I ran Digital De-Fog Daily. Cleared a surface. One move.
           </figcaption>
         </figure>
 
-        <p className="tbtx-kit__close">Be Fog-Free. Then move.</p>
+        <p className="tbtx-kit__close">That&rsquo;s Digital De-Fog Daily. Then move.</p>
 
         <div className="tbtx-scan__moves tbtx-kit__actions">
           <a className="tbtx-scan__go tbtx-fog-go" href="/downloads/Fog-Free-Daily.pdf" download>
