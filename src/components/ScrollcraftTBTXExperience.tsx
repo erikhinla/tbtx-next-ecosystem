@@ -151,13 +151,13 @@ export default function ScrollcraftTBTXExperience() {
           <p className="tbtx-sc__sr">Digital De-Fog Daily</p>
           <Film
             className="tbtx-sc__hero-film"
-            src="/media/fog-free-share.mp4"
+            src="/media/defog-daily-hero.mp4"
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            poster="/media/fog-free-share.jpg"
+            poster="/media/defog-daily-hero.jpg"
             aria-hidden="true"
           />
           <Link href="/tbtx/kit" className="tbtx-sc__hero-cta">Digital De-Fog Daily</Link>
@@ -219,7 +219,7 @@ export default function ScrollcraftTBTXExperience() {
       </aside>
 
       <section id="tbtx-sc-close" className="tbtx-sc__close" data-sc-act="pin" data-sc-span="1.8" data-sc-dwell="0.22" data-sc-drift="#0d1210">
-        <div className="sc-stage tbtx-sc__stage tbtx-sc__close-stage" data-sc-stage>
+        <div className="sc-stage tbtx-sc__close-stage" data-sc-stage>
           <Film className="tbtx-sc__close-still" src="/media/founder-erik.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/hero-solo.jpg" aria-label="Founder of TransformBy10X" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
