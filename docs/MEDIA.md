@@ -15,7 +15,7 @@ Locked live names:
 | Locked name | Job | Notes |
 |---|---|---|
 | `hero-site.mp4` | Front-door film 1 | Must include an audio track. Current Blob `hero-site-827a.mp4` is video-only — that is why Sound on is silent. |
-| `defog-daily-hero.mp4` | Digital De-Fog Daily campaign film | Couple on the street + fog monster. Formerly Fog-Lift Kit campaign. Drive: `Fog-Lift-Kit-campaign-final.mp4`. |
+| `defog-daily-hero.mp4` | Digital De-Fog Daily campaign film | Couple on the street + fog monster. Formerly Fog-Lift Kit campaign. Live bytes today: Drive `Fog-Lift-Kit-campaign-clean-loop-v2.mp4` (23s loop, AAC, 1280×720). Replace with `Fog-Lift-Kit-campaign-final.mp4` (30s, 1920×1080) when uploading to Blob. |
 | `share-defog.mp4` | After-share / referral loop | Current Blob `fog-free-share.mp4`. Not the campaign hero. |
 | `door-life.mp4` | Personal scan door | Today: `door-b2c-827v2.mp4` |
 | `door-work.mp4` | Business map door | Today: `door-b2b-827v2.mp4` |
@@ -33,6 +33,7 @@ Rules
 
 - Localhost: `public/media/`.
 - Production: `src/lib/media.ts` `film()` → `https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/<file>`
+- Exception: files in `LOCAL_FILMS` (`defog-daily-hero.mp4`) stay on `/media/` so the Next deployment can play them before Blob has the object.
 - `Film.tsx` falls back to the poster if the mp4 404s.
 - Autoplay is muted (browser rule). Sound on only works if that file has an audio stream.
 
@@ -62,12 +63,14 @@ media/fog-cinematic.mp4           # lockup billboard, has audio
 media/fog-free-share.mp4          # share loop, has audio
 ```
 
-Missing from Blob (must upload before the second hero can play):
+Missing from Blob (second hero currently ships the mp4 from `public/media` until this upload):
 
 ```
 media/defog-daily-hero.mp4
 media/defog-daily-hero.jpg
 ```
+
+Git exception: `public/media/defog-daily-hero.mp4` is tracked so `/tbtx` and `/tbtx/kit` play before Blob has the object. After the upload below, drop it from git and from `LOCAL_FILMS` in `src/lib/media.ts`. Poster stays in git.
 
 Source on Drive (erik h bush):
 - `Fog-Lift-Kit-campaign-final.mp4` (30s, 1920x1080, AAC audio) — campaign hero
