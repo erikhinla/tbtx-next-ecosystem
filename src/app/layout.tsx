@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Archivo_Black, DM_Sans, Outfit, JetBrains_Mono } from "next/font/google";
+import { Archivo_Black, DM_Sans, Fraunces, JetBrains_Mono, Outfit, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ScrollcraftGuard from "@/components/ScrollcraftGuard";
 
-const archivoBlack = Archivo_Black({ 
-  weight: "400", 
+const archivoBlack = Archivo_Black({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-archivo-black" 
+  variable: "--font-archivo-black",
 });
 
 const dmSans = DM_Sans({
@@ -14,14 +14,25 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-const outfit = Outfit({ 
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-outfit"
+  variable: "--font-outfit",
 });
 
-const jetbrainsMono = JetBrains_Mono({ 
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono"
+  variable: "--font-jetbrains-mono",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${archivoBlack.variable} ${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased min-h-[100dvh] bg-[#0d1210] text-[#f2f1ea]`}>
+      <body className={`${archivoBlack.variable} ${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${spaceGrotesk.variable} antialiased min-h-[100dvh] bg-[#0d1210] text-[#f2f1ea]`}>
         <ScrollcraftGuard />
         {children}
       </body>

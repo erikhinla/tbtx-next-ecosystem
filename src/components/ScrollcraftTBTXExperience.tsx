@@ -6,7 +6,7 @@ import "../vendor/scrollcraft/scrollcraft.css";
 import VideoLightbox from "./VideoLightbox";
 import FogTaskMosaic from "./FogTaskMosaic";
 import Film from "./Film";
-import { StakesCopy, StandCopy } from "./WhyJourney";
+import { ArrivalCopy, StakesCopy, StandCopy } from "./WhyJourney";
 import { film } from "@/lib/media";
 
 declare global {
@@ -15,15 +15,6 @@ declare global {
   }
 }
 
-/**
- * TransformBy10X front door — the scroll experience.
- *
- * Public contract: docs/PUBLIC_JOURNEY.md
- *   Arrival → stakes → stand → doors → threshold → scan
- * Hero "Start Here" goes to stakes, never to a door.
- * No internal product language (WIN, GOAL, FLOW, Quad Keystones) on the cold path.
- * Vendor engine stays untouched. All composition is page-layer.
- */
 export default function ScrollcraftTBTXExperience() {
   const rootRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -46,7 +37,7 @@ export default function ScrollcraftTBTXExperience() {
 
     async function loadAndMount() {
       try {
-        // @ts-ignore — vendor JS, not a module; mounts on window.ScrollCraft
+        // @ts-ignore vendor JS mounts on window.ScrollCraft
         const module = await import("../vendor/scrollcraft/scrollcraft.js");
         if (cancelled || mountedRef.current || !rootRef.current) return;
 
@@ -103,15 +94,12 @@ export default function ScrollcraftTBTXExperience() {
 
   return (
     <main ref={rootRef} className="tbtx-sc" data-sc-root data-sc-lerp="0.14">
-      {/* ---- a11y skip ---- */}
       <a className="tbtx-sc__skip" href="#tbtx-stakes">
         Skip to the why
       </a>
 
-      {/* ---- film grain (atmosphere) ---- */}
       <div className="sc-grain" aria-hidden="true" />
 
-      {/* Baked lockup film. HTML is the CTA only. */}
       <section
         className="tbtx-sc__hero"
         data-sc-act="pin"
@@ -144,7 +132,7 @@ export default function ScrollcraftTBTXExperience() {
             aria-pressed={soundOn}
             aria-label={soundOn ? "Mute" : "Unmute"}
           >
-            {soundOn ? "🔊" : "🔇"}
+            {soundOn ? "\uD83D\uDD0A" : "\uD83D\uDD07"}
           </button>
         </div>
       </section>
@@ -156,79 +144,81 @@ export default function ScrollcraftTBTXExperience() {
         data-sc-drift="#0d1210"
       >
         <div className="tbtx-sc__why-frame">
+          <ArrivalCopy />
+        </div>
+      </section>
+
+      <section
+        className="tbtx-sc__why-wrap"
+        data-sc-act="flow"
+        data-sc-drift="#101614"
+      >
+        <div className="tbtx-sc__why-frame">
           <StakesCopy />
         </div>
       </section>
 
       <section
         id="tbtx-stand"
-        className="tbtx-sc__storm tbtx-sc__explain"
+        className="tbtx-sc__why-wrap"
         data-sc-act="flow"
-        data-sc-drift="#0f1714"
+        data-sc-drift="#14110c"
       >
-        <div className="sc-stage tbtx-sc__stage tbtx-sc__storm-stage" data-sc-stage>
-          <img
-            className="tbtx-sc__storm-video"
-            src="/media/digital-fog-lockup-827.jpg"
-            alt=""
-          />
-          <div className="sc-scrim sc-scrim--band" />
-          <div className="tbtx-sc__storm-copy sc-copy sc-copy--lead">
-            <StandCopy />
+        <div className="tbtx-sc__why-frame">
+          <StandCopy />
+        </div>
+      </section>
+
+      <section
+        id="tbtx-doors"
+        className="tbtx-sc__split-wrap"
+        data-sc-act="pan"
+        data-sc-drift="#0d1210"
+      >
+        <div className="sc-stage tbtx-sc__stage" data-sc-stage>
+          <div className="tbtx-sc__split" data-sc-pan>
+            <Link
+              href="/tbtx/scan"
+              className="tbtx-sc__doorway"
+              aria-label="Enter to Scan for Digital Fog in Life"
+            >
+              <div className="tbtx-sc__doorway-stage">
+                <Film
+                  className="tbtx-sc__doorway-video"
+                  src="/media/door-b2c-827v2.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/media/door-b2c-827v2.jpg"
+                />
+                <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
+              </div>
+            </Link>
+            <Link
+              href="/tbtx/map"
+              className="tbtx-sc__doorway"
+              aria-label="Enter to Scan Digital Fog in Business"
+            >
+              <div className="tbtx-sc__doorway-stage">
+                <Film
+                  className="tbtx-sc__doorway-video"
+                  src="/media/door-b2b-827v2.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/media/door-b2b-827v2.jpg"
+                />
+                <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Doors come after the stand. Deep links still hit the scan threshold. */}
-      <section
-        id="tbtx-doors"
-        className="tbtx-sc__split-wrap"
-        data-sc-act="flow"
-        data-sc-drift="#0d1210"
-      >
-        <div className="tbtx-sc__split">
-          <Link
-            href="/tbtx/scan"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Scan for Digital Fog in Life"
-          >
-            <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2c-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2c-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
-            </div>
-          </Link>
-          <Link
-            href="/tbtx/map"
-            className="tbtx-sc__doorway"
-            aria-label="Enter to Scan Digital Fog in Business"
-          >
-            <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2b-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2b-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* Invisible job as a moving mosaic — click a tile */}
       <section className="tbtx-sc__mosaic-wrap" data-sc-act="flow" data-sc-drift="#0d1210">
         <FogTaskMosaic />
       </section>
@@ -238,10 +228,6 @@ export default function ScrollcraftTBTXExperience() {
         <strong>Digital Fog is the leftover job. Name it. See it. Get the making back.</strong>
       </aside>
 
-      {/* ═══════════════════════════════════════════════════════════════════════
-         COMMITMENT & THE FOUNDER
-         After the why. CTA returns to the doors, not a skip past stakes.
-         ═══════════════════════════════════════════════════════════════════════ */}
       <section
         id="tbtx-sc-close"
         className="tbtx-sc__close"
@@ -260,7 +246,7 @@ export default function ScrollcraftTBTXExperience() {
             playsInline
             preload="metadata"
             poster="/media/hero-solo.jpg"
-            aria-label="Founder of TransformBy10X"
+            aria-label="Founder"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
           <div className="sc-scrim sc-scrim--lead" />
@@ -278,9 +264,7 @@ export default function ScrollcraftTBTXExperience() {
                 decades ago, back when large retainers were the norm and Digital Fog was a
                 bill-to code.
               </p>
-              <p>
-                Now I dedicate the next decades to lifting society&rsquo;s fog.
-              </p>
+              <p>Now I dedicate the next decades to lifting society&rsquo;s fog.</p>
             </div>
           </div>
         </div>
