@@ -25,6 +25,9 @@
   --sc-mist: #9aa39c;
   --sc-ember: #e07048;
   --sc-brass: #d6b46e;
+  --tbtx-path-tile: min(36vw, 24rem);
+  --tbtx-path-pad: clamp(0.85rem, 2vw, 1.4rem);
+  --tbtx-copy-measure: min(100%, calc(3 * var(--tbtx-path-tile)));
   min-height: 100dvh;
   overflow: clip;
   color: var(--sc-ink);
@@ -1686,18 +1689,23 @@ button.tbtx-scan__go {
   min-height: 100dvh;
   display: grid;
   align-content: start;
-  gap: 1.15rem;
-  padding: clamp(2.2rem, 10vh, 6.5rem) clamp(1.15rem, 7vw, 5.5rem) clamp(2.8rem, 12vh, 7rem);
+  gap: 1.45rem;
+  width: var(--tbtx-copy-measure);
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: clamp(2.2rem, 10vh, 6.5rem) var(--tbtx-path-pad) clamp(2.8rem, 12vh, 7rem);
   text-align: left;
 }
 
 .tbtx-beat p {
   margin: 0;
+  width: 100%;
+  max-width: none;
 }
 
 .tbtx-beat--arrival,
 .tbtx-beat--stakes {
-  max-width: 34rem;
+  max-width: var(--tbtx-copy-measure);
 }
 
 .tbtx-beat--arrival p,
@@ -1705,11 +1713,10 @@ button.tbtx-scan__go {
   font-family: var(--sc-font-fog);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.18rem, 2.6vw, 1.62rem);
-  line-height: 1.18;
-  letter-spacing: -0.05em;
+  font-size: clamp(1.85rem, 5.2vw, 3.15rem);
+  line-height: 1.42;
+  letter-spacing: -0.02em;
   color: var(--sc-mist);
-  max-width: 28ch;
 }
 
 .tbtx-beat--stakes {
@@ -1731,20 +1738,18 @@ button.tbtx-scan__go {
 
 .tbtx-beat--stand {
   gap: 1.85rem;
-  padding-left: clamp(1.15rem, 8vw, 6rem);
-  max-width: 54rem;
+  max-width: var(--tbtx-copy-measure);
 }
 
 .tbtx-beat--stand p {
   font-family: var(--sc-font-clear);
   font-style: normal;
   font-weight: 500;
-  font-size: clamp(0.92rem, 1.7vw, 1.12rem);
-  line-height: 1.55;
-  letter-spacing: 0.1em;
+  font-size: clamp(1.35rem, 3.2vw, 2.05rem);
+  line-height: 1.7;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: color-mix(in srgb, #f2f1ea 88%, var(--sc-brass));
-  max-width: 46ch;
 }
 
 .tbtx-sc__why-wrap--paths {
@@ -1780,11 +1785,11 @@ button.tbtx-scan__go {
 }
 
 .tbtx-path {
-  flex: 0 0 min(36vw, 24rem);
-  width: min(36vw, 24rem);
-  min-width: min(36vw, 24rem);
+  flex: 0 0 var(--tbtx-path-tile);
+  width: var(--tbtx-path-tile);
+  min-width: var(--tbtx-path-tile);
   min-height: 100dvh;
-  padding: clamp(1.6rem, 6vh, 3.4rem) clamp(0.85rem, 2vw, 1.4rem);
+  padding: clamp(1.6rem, 6vh, 3.4rem) var(--tbtx-path-pad);
   perspective: 1400px;
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -1866,10 +1871,10 @@ button.tbtx-scan__go {
   border: 0;
   background: none;
   font-family: var(--sc-font-clear);
-  font-size: clamp(0.92rem, 1.7vw, 1.12rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
   font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.1em;
+  line-height: 1.65;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: left;
   cursor: pointer;
@@ -1878,12 +1883,12 @@ button.tbtx-scan__go {
 .tbtx-path__go {
   display: inline-block;
   margin-top: 1.2rem;
-  max-width: 28ch;
+  max-width: 100%;
   font-family: var(--sc-font-clear);
-  font-size: clamp(0.78rem, 1.4vw, 0.92rem);
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
   font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.1em;
+  line-height: 1.65;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
   border-bottom: 1px solid currentColor;
@@ -2470,26 +2475,28 @@ button.tbtx-scan__go {
   .tbtx-sc__doorway-go { left: 1.1rem; bottom: 0.85rem; }
   .tbtx-beat {
     min-height: 100dvh;
-    padding: clamp(1.8rem, 8vh, 3.4rem) 1.15rem 2.4rem;
-    gap: 1rem;
+    padding: clamp(1.8rem, 8vh, 3.4rem) var(--tbtx-path-pad) 2.4rem;
+    gap: 1.25rem;
+  }
+  .tbtx-sc {
+    --tbtx-path-tile: 78vw;
   }
   .tbtx-beat--arrival p,
   .tbtx-beat--stakes p {
-    font-size: clamp(1.12rem, 4.6vw, 1.38rem);
-    max-width: 24ch;
+    font-size: clamp(1.7rem, 7.2vw, 2.35rem);
+    line-height: 1.4;
   }
   .tbtx-beat--stand {
-    gap: 1.35rem;
-    padding-left: 1.15rem;
+    gap: 1.5rem;
   }
   .tbtx-beat--stand p {
-    font-size: clamp(0.78rem, 3.4vw, 0.92rem);
-    max-width: 28ch;
+    font-size: clamp(1.2rem, 4.6vw, 1.55rem);
+    line-height: 1.68;
   }
   .tbtx-path {
-    flex: 0 0 78vw;
-    width: 78vw;
-    min-width: 78vw;
+    flex: 0 0 var(--tbtx-path-tile);
+    width: var(--tbtx-path-tile);
+    min-width: var(--tbtx-path-tile);
   }
   .tbtx-mosaic__grid {
     grid-template-columns: 1fr 1fr;
