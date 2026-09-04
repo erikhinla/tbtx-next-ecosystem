@@ -13,7 +13,7 @@ const TILES = [
     id: "back",
     face: "Sit back",
     insight: "AI agents kick off the creative. You pick up coordinating the\u00a0context.",
-    after: 'And you never get off the hamster wheel of "busyness" to live to good purpose.',
+    after: 'And you never get off the hamster wheel of "busyness" to live to good\u00a0purpose.',
   },
   {
     id: "up",
