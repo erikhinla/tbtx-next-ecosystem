@@ -47,9 +47,9 @@ export const CANON_LOCKUPS = {
   cta: "Start Here",
   gateTitle: "Choose Your Path",
   gateChoices: [
-    { label: "Sit out", result: "Consequence shown. Site stays closed." },
-    { label: "Sit back", result: "Consequence shown. Site stays closed." },
-    { label: "Stand UP", result: "Opens the doors, mosaic, and founder." },
+    { label: "Sit out", result: "After-click line. Site stays closed. Routes stay closed." },
+    { label: "Sit back", result: "After-click line. Site stays closed. Routes stay closed." },
+    { label: "Stand UP", result: "Opens the doors, mosaic, founder, scan, map, kit, and blueprint." },
   ],
   persona: {
     name: "Noah Bottiē~Élle",

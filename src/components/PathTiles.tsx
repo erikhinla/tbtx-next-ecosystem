@@ -5,26 +5,22 @@ import { useState } from "react";
 const TILES = [
   {
     id: "out",
-    index: "01",
     face: "Sit out",
-    insight:
-      "Ignore the infrastructure AI is built on and the tools that run on it. Get outrun by the people who\u00a0didn't.",
-    continues: false,
+    insight: "Ignore the infrastructure AI is built on and the tools that run on it.",
+    after: "Get outrun by the people who\u00a0didn't.",
   },
   {
     id: "back",
-    index: "02",
     face: "Sit back",
     insight: "AI agents kick off the creative. You pick up coordinating the\u00a0context.",
-    continues: false,
+    after: 'And you never get off the hamster wheel of "busyness" to live to good\u00a0purpose.',
   },
   {
     id: "up",
-    index: "03",
     face: "Stand UP",
     insight:
       "Get clarity and gain momentum by focusing on the things you're made for in work and life. You pick where you feel the fog\u00a0most.",
-    continues: true,
+    after: "Your future self thanks\u00a0you.",
   },
 ] as const;
 
@@ -65,12 +61,11 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
                 aria-pressed={chosenHere}
                 onClick={() => select(tile.id)}
               >
-                <span className="tbtx-path__index">{tile.index}</span>
                 <span className="tbtx-path__title tbtx-nowrap">{tile.face}</span>
                 <span className="tbtx-path__insight">{tile.insight}</span>
-                {tile.continues ? null : (
-                  <span className="tbtx-path__mark tbtx-nowrap">Choose this consequence</span>
-                )}
+                <span className="tbtx-path__after" aria-hidden={!chosenHere}>
+                  {tile.after}
+                </span>
               </button>
               <span className="tbtx-path__fog" aria-hidden="true" />
             </article>

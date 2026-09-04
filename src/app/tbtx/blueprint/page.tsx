@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import type { Archetype } from "@/config/intakeQuestions";
 import Film from "@/components/Film";
+import StandGate from "@/components/StandGate";
 
 const archetypeMap: Record<
   Archetype,
@@ -138,7 +139,9 @@ export default function BlueprintPage() {
         </div>
       }
     >
-      <BlueprintContent />
+      <StandGate>
+        <BlueprintContent />
+      </StandGate>
     </Suspense>
   );
 }

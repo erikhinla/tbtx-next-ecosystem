@@ -1,7 +1,12 @@
-'use client';
+"use client";
 
-import DiagnosticEngine from '@/components/DiagnosticEngine';
+import DiagnosticEngine from "@/components/DiagnosticEngine";
+import StandGate from "@/components/StandGate";
 
 export default function DigitalFogDiagnosticPage() {
-  return <DiagnosticEngine brand="tbtx" lane="business" />;
+  return (
+    <StandGate>
+      <DiagnosticEngine brand="tbtx" lane="business" />
+    </StandGate>
+  );
 }

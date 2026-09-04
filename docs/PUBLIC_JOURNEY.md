@@ -9,10 +9,10 @@ This is the public sequence. Internal product language (WIN, GOAL, FLOW, Quad Ke
 1. **Social post** — AI is changing every aspect of life and work. The trap is not only replacement. The trap is becoming the coordinator of leftovers.
 2. **Arrival** — The baked film is the greeting. Do not write a second hero on top of it. Hero `Start Here` goes to `#tbtx-arrival`, never to a door.
 3. **Stand** (`#tbtx-stand`) — Speak to one person. Mirror the leftover job. No quiz talk, no runtime, no "pick a door."
-4. **Choose Your Path** (`#tbtx-stakes`) — Three named positions, meaning on the face.
-   - Sit out: ignore the infrastructure. Get outrun. Footer: `Choose this consequence`. Site stays closed.
-   - Sit back: agents start the creative. You coordinate the context. Footer: `Choose this consequence`. Site stays closed.
-   - Stand UP: get clarity and momentum in work and life. Only this path opens the rest of the site.
+4. **Choose Your Path** (`#tbtx-stakes`) — Three named positions. Meaning on the face. Numbers off. After-click line at the bottom of the tile.
+   - Sit out: ignore the infrastructure. On click: get outrun. Site stays closed. Direct routes stay closed.
+   - Sit back: agents start the creative. On click: the hamster wheel of busyness. Site stays closed.
+   - Stand UP: get clarity and momentum in work and life. On click: your future self thanks you. Only this path opens doors, mosaic, founder, scan, map, kit, and blueprint.
 5. **Doors** (`#tbtx-doors`) — Only after Stand UP. Enter signs, same weight.
    - `Enter to Scan for Digital Fog in Life` → `/tbtx/scan`
    - `Enter to Map Digital Fog in Business` → `/tbtx/map`
