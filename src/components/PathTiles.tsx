@@ -47,34 +47,30 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
 
   return (
     <div className="tbtx-paths" data-chosen={chosen ?? "none"}>
+      <h2 className="tbtx-paths__cta">Choose Your Path</h2>
       <div className="tbtx-paths__rail">
         {TILES.map((tile) => {
-          const flipped = chosen === tile.id;
+          const chosenHere = chosen === tile.id;
           const fogging = fog === tile.id;
           return (
             <article
               key={tile.id}
-              className={`tbtx-path tbtx-path--${tile.id}${flipped ? " is-flipped" : ""}${fogging ? " is-fogging" : ""}`}
+              className={`tbtx-path tbtx-path--${tile.id}${chosenHere ? " is-chosen" : ""}${fogging ? " is-fogging" : ""}`}
             >
-              <div className="tbtx-path__card">
-                <button
-                  type="button"
-                  className="tbtx-path__face tbtx-path__face--front"
-                  aria-pressed={flipped}
-                  aria-expanded={flipped}
-                  onClick={() => select(tile.id)}
-                >
-                  <span className="tbtx-path__title">{tile.face}</span>
-                </button>
-                <div className="tbtx-path__face tbtx-path__face--back">
-                  <p className="tbtx-path__insight">{tile.insight}</p>
-                  {tile.continues ? (
-                    <a className="tbtx-path__go" href="#tbtx-doors">
-                      Two places this shows up. Pick where you feel it most.
-                    </a>
-                  ) : null}
-                </div>
-              </div>
+              <button
+                type="button"
+                className="tbtx-path__face"
+                aria-pressed={chosenHere}
+                onClick={() => select(tile.id)}
+              >
+                <span className="tbtx-path__title">{tile.face}</span>
+                <span className="tbtx-path__insight">{tile.insight}</span>
+                {tile.continues && chosenHere ? (
+                  <span className="tbtx-path__go">
+                    Two places this shows up. Pick where you feel it most.
+                  </span>
+                ) : null}
+              </button>
               <span className="tbtx-path__fog" aria-hidden="true" />
             </article>
           );
