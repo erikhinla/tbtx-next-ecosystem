@@ -1179,6 +1179,10 @@ button.tbtx-scan__go {
    ======================================================================== */
 .tbtx-sc__split-wrap {
   min-height: 100dvh;
+  height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   background: #0d1210;
 }
 
@@ -1190,24 +1194,29 @@ button.tbtx-scan__go {
 
 .tbtx-sc__doors-rail {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-flow: row nowrap;
   align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
   overflow-x: auto;
   overflow-y: hidden;
-  min-height: 100dvh;
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   scrollbar-color: color-mix(in srgb, var(--sc-accent) 55%, transparent) transparent;
 }
 
 .tbtx-sc__doors-rail .tbtx-sc__doorway {
-  flex: 0 0 min(78vw, 52rem);
-  width: min(78vw, 52rem);
-  min-width: min(78vw, 52rem);
-  min-height: 100dvh;
+  box-sizing: border-box;
+  flex: 0 0 72vw;
+  width: 72vw;
+  min-width: 72vw;
+  max-width: 72vw;
   height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100dvh;
   scroll-snap-align: start;
 }
 
@@ -2273,12 +2282,26 @@ button.tbtx-scan__go {
 @media (max-width: 700px) {
   .tbtx-nest__support { padding-left: 0.7rem; }
   .tbtx-sc__split { grid-template-columns: 1fr; }
-  .tbtx-sc__doors-rail .tbtx-sc__doorway {
-    flex: 0 0 86vw;
-    width: 86vw;
-    min-width: 86vw;
-    min-height: 100dvh;
+  .tbtx-sc__split-wrap {
     height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+  .tbtx-sc__doors-rail {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100dvh;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .tbtx-sc__doors-rail .tbtx-sc__doorway {
+    flex: 0 0 78vw;
+    width: 78vw;
+    min-width: 78vw;
+    max-width: 78vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
   }
   .tbtx-sc__doorway + .tbtx-sc__doorway {
     border-left: 1px solid color-mix(in srgb, var(--sc-ink) 18%, transparent);
