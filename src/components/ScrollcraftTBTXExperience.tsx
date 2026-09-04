@@ -31,7 +31,7 @@ export default function ScrollcraftTBTXExperience() {
   const mountedRef = useRef(false);
   const [showReel, setShowReel] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
-  const [thirdOpen, setThirdOpen] = useState(false);
+  const [stoodUp, setStoodUp] = useState(false);
 
   const toggleHeroSound = () => {
     const video = heroVideoRef.current;
@@ -179,13 +179,19 @@ export default function ScrollcraftTBTXExperience() {
         data-sc-act="flow"
         data-sc-drift="#0d1210"
       >
-        <PathTiles onThird={() => setThirdOpen(true)} />
+        <PathTiles
+          onChoose={(id) => {
+            if (id === "up") setStoodUp(true);
+          }}
+        />
       </section>
 
-      {/* Doors come after the third path. Horizontal rail. */}
+      {stoodUp ? (
+        <>
+      {/* Doors. Only after Stand Up. Horizontal rail. */}
       <section
         id="tbtx-doors"
-        className={`tbtx-sc__split-wrap${thirdOpen ? " is-open" : " is-waiting"}`}
+        className="tbtx-sc__split-wrap is-open"
         data-sc-act="flow"
         data-sc-drift="#0d1210"
       >
@@ -295,6 +301,8 @@ export default function ScrollcraftTBTXExperience() {
           onClose={() => setShowReel(false)}
         />
       )}
+        </>
+      ) : null}
     </main>
   );
 }

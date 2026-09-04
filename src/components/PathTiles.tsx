@@ -26,24 +26,25 @@ const TILES = [
   },
 ] as const;
 
+type PathId = (typeof TILES)[number]["id"];
+
 type PathTilesProps = {
-  onThird?: () => void;
+  onChoose?: (id: PathId) => void;
 };
 
-export default function PathTiles({ onThird }: PathTilesProps) {
-  const [open, setOpen] = useState<string | null>(null);
+export default function PathTiles({ onChoose }: PathTilesProps) {
+  const [chosen, setChosen] = useState<PathId | null>(null);
 
-  const select = (id: string, continues: boolean) => {
-    const next = open === id ? null : id;
-    setOpen(next);
-    if (continues && next === id) onThird?.();
+  const select = (id: PathId) => {
+    setChosen(id);
+    onChoose?.(id);
   };
 
   return (
-    <div className="tbtx-paths">
+    <div className="tbtx-paths" data-chosen={chosen ?? "none"}>
       <div className="tbtx-paths__rail">
         {TILES.map((tile) => {
-          const flipped = open === tile.id;
+          const flipped = chosen === tile.id;
           return (
             <article
               key={tile.id}
@@ -55,7 +56,7 @@ export default function PathTiles({ onThird }: PathTilesProps) {
                   className="tbtx-path__face tbtx-path__face--front"
                   aria-pressed={flipped}
                   aria-expanded={flipped}
-                  onClick={() => select(tile.id, tile.continues)}
+                  onClick={() => select(tile.id)}
                 >
                   <span className="tbtx-path__title">{tile.face}</span>
                 </button>
@@ -63,7 +64,7 @@ export default function PathTiles({ onThird }: PathTilesProps) {
                   <button
                     type="button"
                     className="tbtx-path__insight"
-                    onClick={() => select(tile.id, tile.continues)}
+                    onClick={() => select(tile.id)}
                   >
                     {tile.insight}
                   </button>
