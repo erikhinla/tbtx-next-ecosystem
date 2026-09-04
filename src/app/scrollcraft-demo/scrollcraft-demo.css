@@ -1299,6 +1299,7 @@ button.tbtx-scan__go {
   font-weight: 500;
   color: #fff;
   text-shadow: none;
+  white-space: nowrap;
 }
 
 .tbtx-sc__doorway-enter span {
@@ -1306,7 +1307,7 @@ button.tbtx-scan__go {
   font: 500 clamp(0.72rem, 1.3vw, 0.88rem) / 1.35 var(--sc-font-clear);
   letter-spacing: 0.16em;
   color: #fff;
-  max-width: 22ch;
+  max-width: 28ch;
 }
 
 .tbtx-sc__doorway-nest {
@@ -1743,10 +1744,21 @@ button.tbtx-scan__go {
   text-align: left;
 }
 
-.tbtx-beat p {
-  margin: 0;
-  width: 100%;
-  max-width: none;
+.tbtx-nowrap {
+  white-space: nowrap;
+}
+
+.tbtx-beat p,
+.tbtx-path__insight,
+.tbtx-sc__doorway-enter span {
+  hyphens: none;
+  -webkit-hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: pretty;
+  widows: 2;
+  orphans: 2;
+}
   opacity: 0;
   transform: translate3d(0, 1.1rem, 0);
   filter: blur(8px);
@@ -1841,11 +1853,12 @@ button.tbtx-scan__go {
   padding: clamp(1.4rem, 4vh, 2.2rem) var(--tbtx-path-pad) 0.4rem;
   font-family: var(--sc-font-clear);
   font-weight: 500;
-  font-size: clamp(1.55rem, 3.6vw, 2.4rem);
+  font-size: clamp(1.15rem, 4.8vw, 2.4rem);
   line-height: 0.95;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #fff;
+  white-space: nowrap;
 }
 
 .tbtx-paths__rail {
@@ -1908,7 +1921,7 @@ button.tbtx-scan__go {
 
 .tbtx-path__title {
   display: block;
-  max-width: 10ch;
+  max-width: none;
   font-family: var(--sc-font-clear);
   font-weight: 500;
   font-size: clamp(1.9rem, 4.4vw, 3rem);
@@ -1916,6 +1929,7 @@ button.tbtx-scan__go {
   letter-spacing: -0.02em;
   text-transform: none;
   color: #fff;
+  white-space: nowrap;
 }
 
 .tbtx-path--back .tbtx-path__title,
@@ -1953,11 +1967,12 @@ button.tbtx-scan__go {
   padding-top: 1rem;
   border-top: 1px solid var(--sc-brass);
   font-family: var(--sc-font-clear);
-  font-size: 0.72rem;
+  font-size: clamp(0.62rem, 1.6vw, 0.72rem);
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sc-brass);
+  white-space: nowrap;
 }
 
 .tbtx-path__fog {

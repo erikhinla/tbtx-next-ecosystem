@@ -223,7 +223,9 @@ export default function ScrollcraftTBTXExperience() {
               />
               <span className="tbtx-sc__doorway-enter">
                 <strong>Enter</strong>
-                <span>to Scan for Digital Fog in Life</span>
+                <span>
+                  to Scan for <span className="tbtx-nowrap">Digital Fog</span> in Life
+                </span>
               </span>
             </div>
           </Link>
@@ -245,7 +247,9 @@ export default function ScrollcraftTBTXExperience() {
               />
               <span className="tbtx-sc__doorway-enter">
                 <strong>Enter</strong>
-                <span>to Map Digital Fog in Business</span>
+                <span>
+                  to Map <span className="tbtx-nowrap">Digital Fog</span> in Business
+                </span>
               </span>
             </div>
           </Link>

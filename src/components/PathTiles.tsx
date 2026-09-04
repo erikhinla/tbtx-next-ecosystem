@@ -8,14 +8,14 @@ const TILES = [
     index: "01",
     face: "Sit out",
     insight:
-      "Ignore the infrastructure AI is built on and the tools that run on it. Get outrun by the people who didn't.",
+      "Ignore the infrastructure AI is built on and the tools that run on it. Get outrun by the people who\u00a0didn't.",
     continues: false,
   },
   {
     id: "back",
     index: "02",
     face: "Sit back",
-    insight: "AI agents kick off the creative. You pick up coordinating the context.",
+    insight: "AI agents kick off the creative. You pick up coordinating the\u00a0context.",
     continues: false,
   },
   {
@@ -23,7 +23,7 @@ const TILES = [
     index: "03",
     face: "Stand UP",
     insight:
-      "Get clarity and gain momentum by focusing on the things you're made for in work and life. You pick where you feel the fog most.",
+      "Get clarity and gain momentum by focusing on the things you're made for in work and life. You pick where you feel the fog\u00a0most.",
     continues: true,
   },
 ] as const;
@@ -49,7 +49,7 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
 
   return (
     <div className="tbtx-paths" data-chosen={chosen ?? "none"}>
-      <h2 className="tbtx-paths__cta">Choose Your Path</h2>
+      <h2 className="tbtx-paths__cta tbtx-nowrap">Choose Your Path</h2>
       <div className="tbtx-paths__rail">
         {TILES.map((tile) => {
           const chosenHere = chosen === tile.id;
@@ -66,10 +66,10 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
                 onClick={() => select(tile.id)}
               >
                 <span className="tbtx-path__index">{tile.index}</span>
-                <span className="tbtx-path__title">{tile.face}</span>
+                <span className="tbtx-path__title tbtx-nowrap">{tile.face}</span>
                 <span className="tbtx-path__insight">{tile.insight}</span>
                 {tile.continues ? null : (
-                  <span className="tbtx-path__mark">Choose this consequence</span>
+                  <span className="tbtx-path__mark tbtx-nowrap">Choose this consequence</span>
                 )}
               </button>
               <span className="tbtx-path__fog" aria-hidden="true" />
