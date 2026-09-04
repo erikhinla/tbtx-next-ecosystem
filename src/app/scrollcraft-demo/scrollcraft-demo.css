@@ -20,10 +20,19 @@
   --sc-font-display: var(--font-archivo-black), "Archivo Black", sans-serif;
   --sc-font-text: var(--font-dm-sans), var(--font-outfit), "DM Sans", sans-serif;
   --sc-font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  --sc-font-fog: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --sc-font-clear: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --sc-mist: #9aa39c;
+  --sc-ember: #e07048;
+  --sc-brass: #d6b46e;
   min-height: 100dvh;
   overflow: clip;
   color: var(--sc-ink);
   background: var(--sc-canvas);
+}
+
+.tbtx-sc > .sc-grain.tbtx-sc__grain {
+  opacity: 0.022;
 }
 
 /* ---------------------------------------------------------------- skip -- */
@@ -1179,6 +1188,29 @@ button.tbtx-scan__go {
   min-height: 100dvh;
 }
 
+.tbtx-sc__doors-rail {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-height: 100dvh;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: color-mix(in srgb, var(--sc-accent) 55%, transparent) transparent;
+}
+
+.tbtx-sc__doors-rail .tbtx-sc__doorway {
+  flex: 0 0 min(78vw, 52rem);
+  width: min(78vw, 52rem);
+  min-width: min(78vw, 52rem);
+  min-height: 100dvh;
+  height: 100dvh;
+  scroll-snap-align: start;
+}
+
 .tbtx-sc__doorway {
   position: relative;
   display: block;
@@ -1211,9 +1243,9 @@ button.tbtx-scan__go {
   z-index: 2;
   display: block;
   max-width: 28ch;
-  font: 400 clamp(1.05rem, 1.7vw, 1.28rem) / 1.3 var(--sc-font-text);
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font: 500 clamp(0.82rem, 1.4vw, 0.98rem) / 1.35 var(--sc-font-clear);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: #fff;
   text-decoration: none;
   text-shadow: 0 1px 18px rgb(7 11 16 / 0.95);
@@ -1580,6 +1612,7 @@ button.tbtx-scan__go {
 }
 
 /* Stakes + stand — the why, before the doors */
+#tbtx-arrival,
 #tbtx-stakes,
 #tbtx-stand,
 #tbtx-doors {
@@ -1596,6 +1629,113 @@ button.tbtx-scan__go {
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+.tbtx-sc__why-wrap--arrival,
+.tbtx-sc__why-wrap--stakes,
+.tbtx-sc__why-wrap--stand {
+  position: relative;
+  isolation: isolate;
+}
+
+.tbtx-sc__why-wrap--arrival::before,
+.tbtx-sc__why-wrap--stakes::before,
+.tbtx-sc__why-wrap--stand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+  opacity: 0.055;
+}
+
+.tbtx-sc__why-wrap--arrival::after,
+.tbtx-sc__why-wrap--stakes::after,
+.tbtx-sc__why-wrap--stand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(120% 90% at 50% 42%, transparent 38%, rgb(7 11 16 / 0.62) 100%);
+}
+
+.tbtx-sc__why-wrap--stakes::before { opacity: 0.038; }
+.tbtx-sc__why-wrap--stakes::after {
+  background: radial-gradient(120% 90% at 50% 42%, transparent 48%, rgb(7 11 16 / 0.4) 100%);
+}
+
+.tbtx-sc__why-wrap--stand::before { opacity: 0.016; }
+.tbtx-sc__why-wrap--stand::after {
+  background: radial-gradient(120% 90% at 50% 42%, transparent 64%, rgb(7 11 16 / 0.16) 100%);
+}
+
+.tbtx-beat {
+  position: relative;
+  z-index: 3;
+  min-height: 100dvh;
+  display: grid;
+  align-content: start;
+  gap: 1.15rem;
+  padding: clamp(2.2rem, 10vh, 6.5rem) clamp(1.15rem, 7vw, 5.5rem) clamp(2.8rem, 12vh, 7rem);
+  text-align: left;
+}
+
+.tbtx-beat p {
+  margin: 0;
+}
+
+.tbtx-beat--arrival,
+.tbtx-beat--stakes {
+  max-width: 34rem;
+}
+
+.tbtx-beat--arrival p,
+.tbtx-beat--stakes p {
+  font-family: var(--sc-font-fog);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.18rem, 2.6vw, 1.62rem);
+  line-height: 1.18;
+  letter-spacing: -0.05em;
+  color: var(--sc-mist);
+  max-width: 28ch;
+}
+
+.tbtx-beat--stakes {
+  gap: 1.55rem;
+  padding-top: clamp(2.8rem, 12vh, 7.5rem);
+}
+
+.tbtx-beat__tone--back {
+  color: var(--sc-ember) !important;
+}
+
+.tbtx-beat__tone--out {
+  color: var(--sc-mist) !important;
+}
+
+.tbtx-beat__tone--up {
+  color: var(--sc-brass) !important;
+}
+
+.tbtx-beat--stand {
+  gap: 1.85rem;
+  padding-left: clamp(1.15rem, 8vw, 6rem);
+  max-width: 54rem;
+}
+
+.tbtx-beat--stand p {
+  font-family: var(--sc-font-clear);
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(0.92rem, 1.7vw, 1.12rem);
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #f2f1ea 88%, var(--sc-brass));
+  max-width: 46ch;
 }
 
 .tbtx-why {
@@ -2133,11 +2273,38 @@ button.tbtx-scan__go {
 @media (max-width: 700px) {
   .tbtx-nest__support { padding-left: 0.7rem; }
   .tbtx-sc__split { grid-template-columns: 1fr; }
-  .tbtx-sc__doorway { min-height: 50dvh; }
-  .tbtx-sc__doorway + .tbtx-sc__doorway { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--sc-ink) 18%, transparent); }
-  .tbtx-sc__doorway-enter { font-size: clamp(1rem, 3.8vw, 1.2rem); max-width: 24ch; left: 1.1rem; right: 1.1rem; bottom: 1.1rem; }
+  .tbtx-sc__doors-rail .tbtx-sc__doorway {
+    flex: 0 0 86vw;
+    width: 86vw;
+    min-width: 86vw;
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+  .tbtx-sc__doorway + .tbtx-sc__doorway {
+    border-left: 1px solid color-mix(in srgb, var(--sc-ink) 18%, transparent);
+    border-top: 0;
+  }
+  .tbtx-sc__doorway-enter { font-size: clamp(0.72rem, 3vw, 0.9rem); max-width: 24ch; left: 1.1rem; right: 1.1rem; bottom: 1.1rem; }
   .tbtx-sc__doorway-nest { max-width: 34ch; margin-top: 0.8rem; }
   .tbtx-sc__doorway-go { left: 1.1rem; bottom: 0.85rem; }
+  .tbtx-beat {
+    min-height: 100dvh;
+    padding: clamp(1.8rem, 8vh, 3.4rem) 1.15rem 2.4rem;
+    gap: 1rem;
+  }
+  .tbtx-beat--arrival p,
+  .tbtx-beat--stakes p {
+    font-size: clamp(1.12rem, 4.6vw, 1.38rem);
+    max-width: 24ch;
+  }
+  .tbtx-beat--stand {
+    gap: 1.35rem;
+    padding-left: 1.15rem;
+  }
+  .tbtx-beat--stand p {
+    font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+    max-width: 28ch;
+  }
   .tbtx-mosaic__grid {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: minmax(38vh, auto) minmax(22vh, auto) minmax(22vh, auto) minmax(24vh, auto) minmax(32vh, auto);

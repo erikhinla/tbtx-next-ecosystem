@@ -1,71 +1,45 @@
 "use client";
 
-const POSITIONS = [
-  {
-    id: "out",
-    title: "Sit out",
-    story: "Refuse the tools. Get outrun by people who didn't.",
-  },
-  {
-    id: "back",
-    title: "Sit back",
-    story: "Let AI start everything. You spend the day finishing it. That's the job nobody posted.",
-  },
-  {
-    id: "up",
-    title: "Stand up",
-    story: "Get your attention back to work only you can do.",
-  },
-] as const;
+export function ArrivalCopy() {
+  return (
+    <div className="tbtx-beat tbtx-beat--arrival">
+      <p>
+        You&apos;re here because you&apos;ve felt it. The tools don&apos;t take things off your plate. They stacked new ones on top and you&apos;re the one coordinating it all together.
+      </p>
+      <p>That job has a name: Managing Digital Fog.</p>
+      <p>
+        AI isn&apos;t transformational, it&apos;s informational. And running more AI will only 10X output, but what you want is leverage. To get that you need your attention back from the loose ends AI leaves behind, and putting it toward creating things only you can.
+      </p>
+      <p>There are three paths forward.</p>
+    </div>
+  );
+}
 
 export function StakesCopy() {
   return (
-    <div className="tbtx-why">
-      <header className="tbtx-why__lock">
-        <p className="tbtx-why__kicker">AI is changing every aspect of life</p>
-        <h2 data-fog-text="Three ways this goes.">Three ways this goes.</h2>
-      </header>
-
-      <div className="tbtx-why__field">
-        <p className="tbtx-why__payoff">
-          You brought in agents to get ahead. They start. They don&rsquo;t close. You do.
-        </p>
-
-        <div className="tbtx-why__positions">
-          {POSITIONS.map((item) => (
-            <article
-              key={item.id}
-              className={`tbtx-why__position tbtx-why__position--${item.id}`}
-            >
-              <h3>{item.title}</h3>
-              <p>{item.story}</p>
-            </article>
-          ))}
-        </div>
-      </div>
+    <div className="tbtx-beat tbtx-beat--stakes">
+      <p className="tbtx-beat__tone tbtx-beat__tone--back">
+        Sit back, and the tools run the show. You lose the thread of your own work.
+      </p>
+      <p className="tbtx-beat__tone tbtx-beat__tone--out">
+        Stay the coordinator, and you spend your time cleaning up what the agents start. Chasing the current version. That&apos;s the job nobody wanted.
+      </p>
+      <p className="tbtx-beat__tone tbtx-beat__tone--up">
+        Or, clear the digital fog first, so your focus goes back to the work that actually moves things. That&apos;s the third path.
+      </p>
     </div>
   );
 }
 
 export function StandCopy() {
   return (
-    <div className="tbtx-why tbtx-why--stand">
-      <header className="tbtx-why__lock">
-        <h2 data-fog-text="You’ve been finishing what they start.">You&rsquo;ve been finishing what they start.</h2>
-      </header>
-
-      <div className="tbtx-nest tbtx-nest--stand">
-        <p className="tbtx-nest__payoff">I know. Someone had to.</p>
-        <div className="tbtx-nest__support">
-          <p>
-            You don&rsquo;t get that time twice. If that attention went to what&rsquo;s yours, the
-            making starts tonight. Not the cleanup.
-          </p>
-          <a href="#tbtx-doors" className="tbtx-fog-link">
-            Get the making back
-          </a>
-        </div>
-      </div>
+    <div className="tbtx-beat tbtx-beat--stand">
+      <p>
+        Clearing the fog exposes the gap. Not the noise, the operational architecture underneath it. Build that, and attention goes back to what matters. Your vision.
+      </p>
+      <p>Taking this scan isn&apos;t a personality quiz. It&apos;s not seeing how organized you are.</p>
+      <p>It&apos;s you deciding not to spend another year as the AI&apos;s assistant.</p>
+      <p>Two places this shows up. Pick where you feel it most.</p>
     </div>
   );
 }
