@@ -1831,20 +1831,14 @@ button.tbtx-scan__go {
   justify-content: center;
 }
 
-.tbtx-path__index {
-  font-family: var(--sc-font-clear);
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, #fff 42%, transparent);
-}
-
 .tbtx-path__title {
+  display: block;
+  max-width: 8ch;
   font-family: var(--sc-font-clear);
   font-weight: 500;
-  font-size: clamp(1.35rem, 3.4vw, 2.1rem);
-  line-height: 1.05;
-  letter-spacing: 0.1em;
+  font-size: clamp(2.1rem, 5.4vw, 3.8rem);
+  line-height: 0.92;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -1897,6 +1891,12 @@ button.tbtx-scan__go {
 
 .tbtx-sc__split-wrap.is-waiting {
   display: none;
+  pointer-events: none;
+}
+
+.tbtx-sc__split-wrap.is-open {
+  position: relative;
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

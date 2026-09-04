@@ -4,22 +4,22 @@ import { useState } from "react";
 
 const TILES = [
   {
-    id: "back",
-    face: "Sit back",
-    insight:
-      "Sit back, and the tools run the show. You lose the thread of your own work.",
-    continues: false,
-  },
-  {
     id: "out",
-    face: "Stay the coordinator",
+    face: "Sit Out",
     insight:
       "Stay the coordinator, and you spend your time cleaning up what the agents start. Chasing the current version. That's the job nobody wanted.",
     continues: false,
   },
   {
+    id: "back",
+    face: "Sit Back",
+    insight:
+      "Sit back, and the tools run the show. You lose the thread of your own work.",
+    continues: false,
+  },
+  {
     id: "up",
-    face: "The third path",
+    face: "Stand UP",
     insight:
       "Or, clear the digital fog first, so your focus goes back to the work that actually moves things. That's the third path.",
     continues: true,
@@ -42,7 +42,7 @@ export default function PathTiles({ onThird }: PathTilesProps) {
   return (
     <div className="tbtx-paths">
       <div className="tbtx-paths__rail">
-        {TILES.map((tile, index) => {
+        {TILES.map((tile) => {
           const flipped = open === tile.id;
           return (
             <article
@@ -57,7 +57,6 @@ export default function PathTiles({ onThird }: PathTilesProps) {
                   aria-expanded={flipped}
                   onClick={() => select(tile.id, tile.continues)}
                 >
-                  <span className="tbtx-path__index">{String(index + 1).padStart(2, "0")}</span>
                   <span className="tbtx-path__title">{tile.face}</span>
                 </button>
                 <div className="tbtx-path__face tbtx-path__face--back">
