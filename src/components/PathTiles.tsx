@@ -42,7 +42,7 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
 
   return (
     <div className="tbtx-paths" data-chosen={chosen ?? "none"}>
-      <div className="tbtx-paths__rail">
+      <div className="tbtx-paths__rail" data-sc-in="" data-sc-stagger="110">
         {TILES.map((tile) => {
           const flipped = chosen === tile.id;
           return (
