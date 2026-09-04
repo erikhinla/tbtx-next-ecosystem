@@ -20,9 +20,6 @@ export function StakesCopy() {
       <p className="tbtx-why__lead">There are three paths forward.</p>
       <div className="tbtx-why__paths">
         <p className="tbtx-why__path tbtx-why__path--mist">
-          Sit out, and the tools still run the room you left. You lose the thread anyway.
-        </p>
-        <p className="tbtx-why__path tbtx-why__path--ember">
           Sit back, and the tools run the show. You lose the thread of your own work.
         </p>
         <p className="tbtx-why__path tbtx-why__path--ember">
