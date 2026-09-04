@@ -34,21 +34,27 @@ type PathTilesProps = {
 
 export default function PathTiles({ onChoose }: PathTilesProps) {
   const [chosen, setChosen] = useState<PathId | null>(null);
+  const [fog, setFog] = useState<PathId | null>(null);
 
   const select = (id: PathId) => {
     setChosen(id);
+    setFog(id);
+    window.setTimeout(() => {
+      setFog((current) => (current === id ? null : current));
+    }, 1100);
     onChoose?.(id);
   };
 
   return (
     <div className="tbtx-paths" data-chosen={chosen ?? "none"}>
-      <div className="tbtx-paths__rail" data-sc-in="" data-sc-stagger="110">
+      <div className="tbtx-paths__rail">
         {TILES.map((tile) => {
           const flipped = chosen === tile.id;
+          const fogging = fog === tile.id;
           return (
             <article
               key={tile.id}
-              className={`tbtx-path tbtx-path--${tile.id}${flipped ? " is-flipped" : ""}`}
+              className={`tbtx-path tbtx-path--${tile.id}${flipped ? " is-flipped" : ""}${fogging ? " is-fogging" : ""}`}
             >
               <div className="tbtx-path__card">
                 <button
@@ -61,13 +67,7 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
                   <span className="tbtx-path__title">{tile.face}</span>
                 </button>
                 <div className="tbtx-path__face tbtx-path__face--back">
-                  <button
-                    type="button"
-                    className="tbtx-path__insight"
-                    onClick={() => select(tile.id)}
-                  >
-                    {tile.insight}
-                  </button>
+                  <p className="tbtx-path__insight">{tile.insight}</p>
                   {tile.continues ? (
                     <a className="tbtx-path__go" href="#tbtx-doors">
                       Two places this shows up. Pick where you feel it most.
@@ -75,6 +75,7 @@ export default function PathTiles({ onChoose }: PathTilesProps) {
                   ) : null}
                 </div>
               </div>
+              <span className="tbtx-path__fog" aria-hidden="true" />
             </article>
           );
         })}

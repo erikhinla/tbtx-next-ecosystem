@@ -33,6 +33,14 @@ export default function ScrollcraftTBTXExperience() {
   const [soundOn, setSoundOn] = useState(false);
   const [stoodUp, setStoodUp] = useState(false);
 
+  useEffect(() => {
+    if (!stoodUp) return;
+    const timer = window.setTimeout(() => {
+      document.getElementById("tbtx-doors")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, [stoodUp]);
+
   const toggleHeroSound = () => {
     const video = heroVideoRef.current;
     if (!video) return;
@@ -181,7 +189,8 @@ export default function ScrollcraftTBTXExperience() {
       >
         <PathTiles
           onChoose={(id) => {
-            if (id === "up") setStoodUp(true);
+            if (id !== "up") return;
+            window.setTimeout(() => setStoodUp(true), 720);
           }}
         />
       </section>
@@ -198,7 +207,7 @@ export default function ScrollcraftTBTXExperience() {
         <div className="tbtx-sc__doors-rail">
           <Link
             href="/tbtx/scan"
-            className="tbtx-sc__doorway"
+            className="tbtx-sc__doorway tbtx-sc__doorway--life"
             aria-label="Enter to Scan for Digital Fog in Life"
           >
             <div className="tbtx-sc__doorway-stage">
@@ -212,12 +221,15 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2c-827v2.jpg"
               />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan for Digital Fog in Life</span>
+              <span className="tbtx-sc__doorway-enter">
+                <strong>Enter</strong>
+                <span>to Scan for Digital Fog in Life</span>
+              </span>
             </div>
           </Link>
           <Link
             href="/tbtx/map"
-            className="tbtx-sc__doorway"
+            className="tbtx-sc__doorway tbtx-sc__doorway--work"
             aria-label="Enter to Scan Digital Fog in Business"
           >
             <div className="tbtx-sc__doorway-stage">
@@ -231,7 +243,10 @@ export default function ScrollcraftTBTXExperience() {
                 preload="metadata"
                 poster="/media/door-b2b-827v2.jpg"
               />
-              <span className="tbtx-sc__doorway-enter">Enter to Scan Digital Fog in Business</span>
+              <span className="tbtx-sc__doorway-enter">
+                <strong>Enter</strong>
+                <span>to Scan Digital Fog in Business</span>
+              </span>
             </div>
           </Link>
         </div>

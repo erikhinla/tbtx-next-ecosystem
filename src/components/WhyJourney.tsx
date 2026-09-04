@@ -1,8 +1,14 @@
 "use client";
 
+import useScrollReveal from "@/hooks/useScrollReveal";
+
 export function ArrivalCopy() {
+  const { ref, shown } = useScrollReveal<HTMLDivElement>();
   return (
-    <div className="tbtx-beat tbtx-beat--arrival" data-sc-in="" data-sc-stagger="90">
+    <div
+      ref={ref}
+      className={`tbtx-beat tbtx-beat--arrival${shown ? " is-in" : ""}`}
+    >
       <p>
         You&apos;re here because you&apos;ve felt it. The tools don&apos;t take things off your plate. They stacked new ones on top and you&apos;re the one coordinating it all together.
       </p>
@@ -16,8 +22,12 @@ export function ArrivalCopy() {
 }
 
 export function StandCopy() {
+  const { ref, shown } = useScrollReveal<HTMLDivElement>();
   return (
-    <div className="tbtx-beat tbtx-beat--stand" data-sc-in="" data-sc-stagger="90">
+    <div
+      ref={ref}
+      className={`tbtx-beat tbtx-beat--stand${shown ? " is-in" : ""}`}
+    >
       <p>
         Clearing the fog exposes the gap. Not the noise, the operational architecture underneath it. Build that, and attention goes back to what matters. Your vision.
       </p>
