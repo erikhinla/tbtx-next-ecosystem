@@ -20,7 +20,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
   return (
     <article className="tbtx-scan__report">
       <p className="tbtx-scan__job">Work Life</p>
-      <p className="tbtx-scan__mantle">Digital Friction</p>
+      <p className="tbtx-scan__mantle">Digital Fog</p>
       <h1 className="tbtx-scan__profile">{report.profile.profile}</h1>
       <section className="tbtx-peel">
         <p className="tbtx-peel__title">Here&rsquo;s what it&rsquo;s costing you</p>
@@ -62,7 +62,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
           onClick={() => setShowScale((open) => !open)}
           aria-expanded={showScale}
         >
-          {showScale ? "Hide the group" : "Scale it to the group"}
+          {showScale ? "Hide the group" : "See this for the group"}
         </button>
         {showScale && (
           <div className="tbtx-scan__scale-body">
@@ -90,24 +90,31 @@ export default function FogReport({ report, onReset }: FogReportProps) {
         <h2>The next clear move</h2>
         <p>{report.brand.nextStep}</p>
         <div className="tbtx-scan__moves">
-          <Link href={report.brand.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
+          <Link
+            href={
+              report.brand.ctaRoute.includes("/tbtx/blueprint")
+                ? `/tbtx/blueprint?archetype=${report.archetype}`
+                : report.brand.ctaRoute
+            }
+            className="tbtx-scan__go tbtx-fog-go"
+          >
             {report.brand.cta}
           </Link>
           <Link href="/bbai" className="tbtx-fog-link">
             Build the Backbone
           </Link>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            This is personal
+            Scan Digital Fog in Life
           </Link>
         </div>
       </section>
 
       <div className="tbtx-scan__foot">
         <button type="button" onClick={onReset} className="tbtx-fog-link">
-          Again
+          Map again
         </button>
         <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-          The why
+          Choose Your Path
         </Link>
       </div>
     </article>

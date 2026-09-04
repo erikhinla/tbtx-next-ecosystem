@@ -5,8 +5,8 @@
    (scrollcraft.css / scrollcraft.js) is untouched.
 
    Public journey (docs/PUBLIC_JOURNEY.md):
-     Arrival → stakes → stand → doors → threshold → scan
-     Hero "Start Here" goes to #tbtx-stakes, never to a door.
+     Arrival → Stand → Choose Your Path → doors (after Stand UP) → threshold → scan or map
+     Hero "Start Here" goes to #tbtx-arrival, never to a door.
    ========================================================================== */
 
 /* ---------------------------------------------------------------- tokens -- */
@@ -233,18 +233,25 @@
   z-index: 5;
   background: none;
   border: 0;
-  padding: 0.35rem;
-  color: #fff;
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  line-height: 1;
+  border-bottom: 1px solid color-mix(in srgb, #fff 55%, transparent);
+  padding: 0.12rem 0 0.28rem;
+  color: color-mix(in srgb, #fff 82%, var(--sc-brass));
+  font: 500 0.72rem / 1 var(--sc-font-clear);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   cursor: pointer;
-  opacity: 0.55;
   pointer-events: auto;
-  filter: drop-shadow(0 1px 6px rgb(0 0 0 / 0.7));
+  text-shadow: 0 1px 10px rgb(0 0 0 / 0.7);
+}
+
+.tbtx-sc__hero-sound[aria-pressed="true"] {
+  color: var(--sc-brass);
+  border-bottom-color: var(--sc-brass);
 }
 
 .tbtx-sc__hero-sound:hover {
-  opacity: 0.95;
+  color: var(--sc-brass);
+  border-bottom-color: var(--sc-brass);
 }
 
 .tbtx-sc__hero-cta:hover {
@@ -850,8 +857,8 @@
   min-height: 100dvh;
   background: #0d1210;
   color: #f2f1ea;
-  font-family: var(--font-dm-sans), var(--font-outfit), sans-serif;
-  overflow: hidden;
+  font-family: var(--sc-font-clear);
+  overflow: auto;
 }
 
 .tbtx-scan__stage {
@@ -893,7 +900,7 @@
   align-items: baseline;
   gap: 1rem;
   margin-bottom: clamp(1.8rem, 6vh, 3.2rem);
-  font: 500 0.78rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.78rem / 1 var(--sc-font-clear);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #9aab9e;
@@ -910,7 +917,7 @@
 .tbtx-scan__kicker {
   margin: 0;
   color: #d6b46e;
-  font: 500 0.78rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.78rem / 1 var(--sc-font-clear);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -931,7 +938,7 @@
 }
 
 .tbtx-scan__count small {
-  font: 500 0.72rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.72rem / 1 var(--sc-font-clear);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #9aab9e;
@@ -939,19 +946,29 @@
 
 .tbtx-scan__mantle {
   margin: 0 0 0.85rem;
-  max-width: 14ch;
-  font: 400 clamp(1.15rem, 2.4vw, 1.55rem) / 0.95 var(--font-archivo-black), sans-serif;
-  letter-spacing: -0.03em;
+  max-width: 18ch;
+  font: 500 clamp(1.05rem, 2.1vw, 1.35rem) / 1.05 var(--sc-font-clear);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: color-mix(in srgb, #f2f1ea 78%, #d6b46e);
 }
 
 .tbtx-scan__question {
   margin: 0 0 1.6rem;
-  max-width: 16ch;
-  font: 400 clamp(2.15rem, 6.4vw, 4.4rem) / 0.92 var(--font-archivo-black), sans-serif;
-  letter-spacing: -0.045em;
+  max-width: 22ch;
+  font: 500 clamp(1.85rem, 5.4vw, 3.4rem) / 1.12 var(--sc-font-clear);
+  letter-spacing: -0.03em;
   text-transform: none;
   text-wrap: pretty;
+}
+
+.tbtx-scan__question--story {
+  max-width: 18ch;
+  font-family: var(--sc-font-fog);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.28;
 }
 
 .tbtx-scan__choices {
@@ -973,7 +990,7 @@
   background: transparent;
   color: #f2f1ea;
   cursor: pointer;
-  font: 400 clamp(1.12rem, 2.1vw, 1.45rem) / 1.25 var(--font-dm-sans), sans-serif;
+  font: 500 clamp(1.12rem, 2.1vw, 1.45rem) / 1.35 var(--sc-font-clear);
   transition: color 0.18s ease, padding-left 0.18s ease;
 }
 
@@ -983,7 +1000,7 @@
 
 .tbtx-scan__choice-num {
   color: #d6b46e;
-  font: 500 0.78rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.78rem / 1 var(--sc-font-clear);
   letter-spacing: 0.12em;
 }
 
@@ -1011,7 +1028,7 @@
   cursor: pointer;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font: 500 0.72rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.72rem / 1 var(--sc-font-clear);
   padding: 0;
 }
 
@@ -1092,7 +1109,7 @@
   color: #d6b46e;
   padding: 0;
   cursor: pointer;
-  font: 500 0.78rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.78rem / 1 var(--sc-font-clear);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -1124,7 +1141,7 @@
   background: #d6b46e;
   text-decoration: none;
   padding: 0.85rem 1.2rem 0.8rem;
-  font: 500 clamp(1.05rem, 1.7vw, 1.2rem) / 1 var(--font-dm-sans), sans-serif;
+  font: 500 clamp(1.05rem, 1.7vw, 1.2rem) / 1 var(--sc-font-clear);
   letter-spacing: 0.02em;
 }
 
@@ -1147,7 +1164,7 @@ button.tbtx-scan__go {
   display: flex;
   gap: 1.4rem;
   margin-top: 2.6rem;
-  font: 500 0.75rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.75rem / 1 var(--sc-font-clear);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -1169,7 +1186,7 @@ button.tbtx-scan__go {
 .tbtx-scan__foot a:hover { color: #d6b46e; }
 
 @media (max-width: 700px) {
-  .tbtx-scan__question { max-width: 12ch; }
+  .tbtx-scan__question { max-width: 20ch; }
   .tbtx-scan__choice {
     grid-template-columns: 2.1rem 1fr;
     font-size: 1.12rem;
@@ -1750,7 +1767,12 @@ button.tbtx-scan__go {
 
 .tbtx-beat p,
 .tbtx-path__insight,
-.tbtx-sc__doorway-enter span {
+.tbtx-sc__doorway-enter span,
+.tbtx-scan__question,
+.tbtx-scan__lead,
+.tbtx-scan__choice-line,
+.tbtx-kit__lede,
+.tbtx-kit__note {
   hyphens: none;
   -webkit-hyphens: none;
   overflow-wrap: normal;
@@ -1759,6 +1781,8 @@ button.tbtx-scan__go {
   widows: 2;
   orphans: 2;
 }
+
+.tbtx-beat p {
   opacity: 0;
   transform: translate3d(0, 1.1rem, 0);
   filter: blur(8px);
@@ -2447,7 +2471,7 @@ button.tbtx-scan__go {
 }
 
 .tbtx-kit__beats small {
-  font: 500 0.72rem / 1 var(--font-dm-sans), sans-serif;
+  font: 500 0.72rem / 1 var(--sc-font-clear);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #9aab9e;

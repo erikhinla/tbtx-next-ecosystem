@@ -5,6 +5,7 @@ import { questions as businessQuestions, calculateScore, getProfile } from "@/co
 import { personalQuestions, personalBands } from "@/config/scan-personal";
 import { getBandKey, brandProfiles } from "@/config/result-profiles";
 import { deriveFogReport } from "@/config/fog-report";
+import { publicLanes } from "@/config/public-lanes";
 import Link from "next/link";
 import FogReport from "./FogReport";
 import ScanThreshold from "./ScanThreshold";
@@ -43,6 +44,7 @@ export default function DiagnosticEngine({
   onComplete,
 }: DiagnosticEngineProps) {
   const isPersonal = lane === "personal";
+  const copy = isPersonal ? publicLanes.personal : publicLanes.business;
   const questions = isPersonal ? personalQuestions : businessQuestions;
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(-1));
@@ -51,8 +53,6 @@ export default function DiagnosticEngine({
 
   const currentQuestion = questions[currentStep];
   const report = useMemo(() => deriveFogReport(answers), [answers]);
-  const jobLine = isPersonal ? "Social Life" : "Work Life";
-  const mantle = isPersonal ? "Digital Fog" : "Digital Friction";
 
   const selectAnswer = (value: number) => {
     const newAnswers = [...answers];
@@ -74,7 +74,7 @@ export default function DiagnosticEngine({
     setCurrentStep(0);
     setAnswers(Array(questions.length).fill(-1));
     setShowResult(false);
-    setReady(true);
+    setReady(false);
   };
 
   if (!ready && !showResult) {
@@ -91,8 +91,8 @@ export default function DiagnosticEngine({
     const band = personalBands.find((item) => health >= item.min && health <= item.max) || personalBands[0];
     return (
       <ScanShell isPersonal>
-        <p className="tbtx-scan__job">Social Life</p>
-        <p className="tbtx-scan__mantle">Digital Fog</p>
+        <p className="tbtx-scan__job">{copy.job}</p>
+        <p className="tbtx-scan__mantle">{copy.mantle}</p>
         <h1 className="tbtx-scan__profile">{band.profile}</h1>
         <section className="tbtx-peel">
           <p className="tbtx-peel__title">You named it</p>
@@ -104,16 +104,16 @@ export default function DiagnosticEngine({
           <Link href={band.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
             {band.cta}
           </Link>
-          <Link href="/tbtx/map" className="tbtx-fog-link">
-            This is Digital Friction
+          <Link href={copy.otherHref} className="tbtx-fog-link">
+            {copy.otherLabel}
           </Link>
         </div>
         <div className="tbtx-scan__foot">
           <button type="button" onClick={handleReset} className="tbtx-fog-link">
-            Again
+            {copy.again}
           </button>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            The why
+            Choose Your Path
           </Link>
         </div>
       </ScanShell>
@@ -137,8 +137,8 @@ export default function DiagnosticEngine({
 
     return (
       <ScanShell isPersonal={false}>
-        <p className="tbtx-scan__job">Work Life</p>
-        <p className="tbtx-scan__mantle">Digital Friction</p>
+        <p className="tbtx-scan__job">{copy.job}</p>
+        <p className="tbtx-scan__mantle">{copy.mantle}</p>
         <h1 className="tbtx-scan__profile">{profile.profile}</h1>
         <p className="tbtx-scan__lead">{profile.description}</p>
         <div className="tbtx-scan__moves">
@@ -146,12 +146,12 @@ export default function DiagnosticEngine({
             {brandProfile.cta}
           </Link>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            The why
+            Choose Your Path
           </Link>
         </div>
         <div className="tbtx-scan__foot">
           <button type="button" onClick={handleReset}>
-            Again
+            {copy.again}
           </button>
         </div>
       </ScanShell>
@@ -167,19 +167,15 @@ export default function DiagnosticEngine({
         <Link href="/tbtx" className="tbtx-fog-link">
           Back
         </Link>
-        <p className="tbtx-scan__job">{jobLine}</p>
+        <p className="tbtx-scan__job">{copy.job}</p>
         <div className="tbtx-scan__count" aria-current="step">
           <span>{n}</span>
           <small>of {total}</small>
         </div>
       </div>
 
-      <p className="tbtx-scan__mantle">{mantle}</p>
-      {currentStep === 0 ? (
-        <p className="tbtx-scan__frame-line">
-          {isPersonal ? "Let's name where the day got away." : "Let's find the leftover job."}
-        </p>
-      ) : null}
+      <p className="tbtx-scan__mantle">{copy.mantle}</p>
+      {currentStep === 0 ? <p className="tbtx-scan__frame-line">{copy.frameLine}</p> : null}
       <h1 className="tbtx-scan__question">{currentQuestion.text}</h1>
 
       <div className="tbtx-scan__choices">
@@ -211,7 +207,7 @@ export default function DiagnosticEngine({
             setReady(false);
           }}
         >
-          {currentStep === 0 ? "The stand" : "Previous"}
+          {currentStep === 0 ? "Back to the stand" : "Previous"}
         </button>
       </div>
     </ScanShell>

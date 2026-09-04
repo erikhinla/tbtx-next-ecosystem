@@ -45,11 +45,11 @@ export const CANON_LOCKUPS = {
   mutter: "(Nobody wanted.)",
   mantle: "Managing Digital Fog",
   cta: "Start Here",
-  gateTitle: "Where do you stand?",
+  gateTitle: "Choose Your Path",
   gateChoices: [
-    { label: "Sit out", result: "Consequence shown — site stays closed" },
-    { label: "Sit back", result: "Consequence shown — site stays closed" },
-    { label: "Stand up", result: "Opens the Digital Fog-Free surface and routes" },
+    { label: "Sit out", result: "Consequence shown. Site stays closed." },
+    { label: "Sit back", result: "Consequence shown. Site stays closed." },
+    { label: "Stand UP", result: "Opens the doors, mosaic, and founder." },
   ],
   persona: {
     name: "Noah Bottiē~Élle",
@@ -92,24 +92,24 @@ export const ROUTES: RouteCard[] = [
   {
     group: "Diagnose",
     label: "Digital Fog Scan",
-    path: "/scan",
-    note: "Personal Fog Scan (B2C / 8 Questions)",
+    path: "/tbtx/scan",
+    note: "Scan for Digital Fog in Life (B2C / 8 Questions)",
     tone: "life",
   },
   {
     group: "Diagnose",
     label: "Business Momentum Map",
-    path: "/map",
-    note: "Momentum Map (B2B / 15 Questions)",
+    path: "/tbtx/map",
+    note: "Map Digital Fog in Business (B2B / 15 Questions)",
     tone: "business",
   },
 
   // Offer
   {
     group: "Offer",
-    label: "Digital De-Fog Daily",
+    label: "Fog-Free Daily",
     path: "/tbtx/kit",
-    note: "$7.77 honor system — daily clearing space, not a bundle",
+    note: "$7.77 honor system. Daily clearing space, not a bundle.",
     tone: "approved",
   },
   {
@@ -161,8 +161,8 @@ export const CONVERT_SPINE: ConvertSpineBeat[] = [
     summary: "Identify where fog accumulates",
     details: "Split into Personal Digital Fog Scan (8 lived-day questions) or Business Momentum Map (15 questions).",
     doors: [
-      { label: "Personal Scan (/scan)", path: "/scan" },
-      { label: "Business Map (/map)", path: "/map" },
+      { label: "Personal Scan (/tbtx/scan)", path: "/tbtx/scan" },
+      { label: "Business Map (/tbtx/map)", path: "/tbtx/map" },
     ],
   },
   {

@@ -50,7 +50,7 @@ export const brandProfiles: Record<string, Record<string, BrandProfile>> = {
       band: "0-24",
       profile: "Not Ready",
       nextStep: "Momentum Map",
-      cta: "Map My Momentum",
+      cta: "Map Digital Fog in Business",
       ctaRoute: "/tbtx/map",
     },
     "25-49": {
@@ -80,14 +80,14 @@ export const brandProfiles: Record<string, Record<string, BrandProfile>> = {
       band: "0-24",
       profile: "Leaking Leads",
       nextStep: "Momentum Map",
-      cta: "Map My Momentum",
+      cta: "Map Digital Fog in Business",
       ctaRoute: "/tbtx/map",
     },
     "25-49": {
       band: "25-49",
       profile: "Weak Follow-Up",
       nextStep: "Momentum Map",
-      cta: "Map My Momentum",
+      cta: "Map Digital Fog in Business",
       ctaRoute: "/tbtx/map",
     },
     "50-74": {
