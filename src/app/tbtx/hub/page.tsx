@@ -1,1 +1,3 @@
-PLACEHOLDER_PAGE
+use client;
+
+// restored below
