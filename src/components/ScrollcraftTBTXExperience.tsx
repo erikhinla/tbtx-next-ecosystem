@@ -17,15 +17,6 @@ declare global {
   }
 }
 
-/**
- * TransformBy10X front door. The scroll experience.
- *
- * Public contract: docs/PUBLIC_JOURNEY.md
- *   Arrival → Stand → Choose Your Path → doors (after Stand UP) → threshold → scan or map
- * Hero "Start Here" goes to Arrival, never to a door.
- * No internal product language (WIN, GOAL, FLOW, Quad Keystones) on the cold path.
- * Vendor engine stays untouched. All composition is page-layer.
- */
 export default function ScrollcraftTBTXExperience() {
   const rootRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -65,15 +56,12 @@ export default function ScrollcraftTBTXExperience() {
         // @ts-ignore vendor JS, not a module. Mounts on window.ScrollCraft
         const module = await import("../vendor/scrollcraft/scrollcraft.js");
         if (cancelled || mountedRef.current || !rootRef.current) return;
-
         const scrollCraft =
           (module as { ScrollCraft?: Window["ScrollCraft"] }).ScrollCraft ?? window.ScrollCraft;
-
         if (!scrollCraft || typeof scrollCraft.mount !== "function") {
           console.warn("Scrollcraft loaded without a mount function.");
           return;
         }
-
         scrollCraft.mount(rootRef.current);
         mountedWithApi = true;
         mountedRef.current = true;
@@ -119,25 +107,14 @@ export default function ScrollcraftTBTXExperience() {
 
   return (
     <main ref={rootRef} className="tbtx-sc" data-sc-root data-sc-lerp="0.14">
-      {/* ---- a11y skip ---- */}
       <a className="tbtx-sc__skip" href="#tbtx-arrival">
         Skip to the why
       </a>
-
-      {/* ---- film grain (atmosphere). Thins toward the later page. ---- */}
       <div className="sc-grain tbtx-sc__grain" aria-hidden="true" />
 
-      {/* Baked lockup film. HTML is the CTA only. */}
-      <section
-        className="tbtx-sc__hero"
-        data-sc-act="pin"
-        data-sc-span="1.6"
-        data-sc-drift="#070b10"
-      >
+      <section className="tbtx-sc__hero" data-sc-act="pin" data-sc-span="1.6" data-sc-drift="#070b10">
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
-          <h1 className="tbtx-sc__sr">
-            AI Created a Job. Nobody wanted. Managing Digital Fog.
-          </h1>
+          <h1 className="tbtx-sc__sr">AI Created a Job. Nobody wanted. Managing Digital Fog.</h1>
           <Film
             ref={heroVideoRef}
             className="tbtx-sc__hero-film"
@@ -150,9 +127,7 @@ export default function ScrollcraftTBTXExperience() {
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
           />
-          <a href="#tbtx-arrival" className="tbtx-sc__hero-cta">
-            Start Here
-          </a>
+          <a href="#tbtx-arrival" className="tbtx-sc__hero-cta">Start Here</a>
           <button
             type="button"
             className="tbtx-sc__hero-sound"
@@ -166,33 +141,38 @@ export default function ScrollcraftTBTXExperience() {
       </section>
 
       <section
-        id="tbtx-arrival"
-        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--arrival"
-        data-sc-act="flow"
-        data-sc-drift="#0d1210"
+        className="tbtx-sc__hero tbtx-sc__hero--defog"
+        data-sc-act="pin"
+        data-sc-span="1.4"
+        data-sc-drift="#070b10"
+        aria-label="Digital De-Fog Daily"
       >
-        <div className="tbtx-sc__why-frame">
-          <ArrivalCopy />
+        <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
+          <p className="tbtx-sc__sr">Digital De-Fog Daily</p>
+          <Film
+            className="tbtx-sc__hero-film"
+            src="/media/fog-free-share.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/media/fog-free-share.jpg"
+            aria-hidden="true"
+          />
+          <Link href="/tbtx/kit" className="tbtx-sc__hero-cta">Digital De-Fog Daily</Link>
         </div>
       </section>
 
-      <section
-        id="tbtx-stand"
-        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stand"
-        data-sc-act="flow"
-        data-sc-drift="#101612"
-      >
-        <div className="tbtx-sc__why-frame">
-          <StandCopy />
-        </div>
+      <section id="tbtx-arrival" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--arrival" data-sc-act="flow" data-sc-drift="#0d1210">
+        <div className="tbtx-sc__why-frame"><ArrivalCopy /></div>
       </section>
 
-      <section
-        id="tbtx-stakes"
-        className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stakes tbtx-sc__why-wrap--paths"
-        data-sc-act="flow"
-        data-sc-drift="#0d1210"
-      >
+      <section id="tbtx-stand" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stand" data-sc-act="flow" data-sc-drift="#101612">
+        <div className="tbtx-sc__why-frame"><StandCopy /></div>
+      </section>
+
+      <section id="tbtx-stakes" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stakes tbtx-sc__why-wrap--paths" data-sc-act="flow" data-sc-drift="#0d1210">
         <PathTiles
           onChoose={(id) => {
             if (id === "up") {
@@ -212,66 +192,23 @@ export default function ScrollcraftTBTXExperience() {
 
       {stoodUp ? (
         <>
-      {/* Doors. Only after Stand Up. Horizontal rail. */}
-      <section
-        id="tbtx-doors"
-        className="tbtx-sc__split-wrap is-open"
-        data-sc-act="flow"
-        data-sc-drift="#0d1210"
-      >
+      <section id="tbtx-doors" className="tbtx-sc__split-wrap is-open" data-sc-act="flow" data-sc-drift="#0d1210">
         <div className="tbtx-sc__doors-rail">
-          <Link
-            href="/tbtx/scan"
-            className="tbtx-sc__doorway tbtx-sc__doorway--life"
-            aria-label="Enter to Scan for Digital Fog in Life"
-          >
+          <Link href="/tbtx/scan" className="tbtx-sc__doorway tbtx-sc__doorway--life" aria-label="Enter to Scan for Digital Fog in Life">
             <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2c-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2c-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">
-                <strong>Enter</strong>
-                <span>
-                  to Scan for <span className="tbtx-nowrap">Digital Fog</span> in Life
-                </span>
-              </span>
+              <Film className="tbtx-sc__doorway-video" src="/media/door-b2c-827v2.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/door-b2c-827v2.jpg" />
+              <span className="tbtx-sc__doorway-enter"><strong>Enter</strong><span>to Scan for <span className="tbtx-nowrap">Digital Fog</span> in Life</span></span>
             </div>
           </Link>
-          <Link
-            href="/tbtx/map"
-            className="tbtx-sc__doorway tbtx-sc__doorway--work"
-            aria-label="Enter to Map Digital Fog in Business"
-          >
+          <Link href="/tbtx/map" className="tbtx-sc__doorway tbtx-sc__doorway--work" aria-label="Enter to Map Digital Fog in Business">
             <div className="tbtx-sc__doorway-stage">
-              <Film
-                className="tbtx-sc__doorway-video"
-                src="/media/door-b2b-827v2.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/door-b2b-827v2.jpg"
-              />
-              <span className="tbtx-sc__doorway-enter">
-                <strong>Enter</strong>
-                <span>
-                  to Map <span className="tbtx-nowrap">Digital Fog</span> in Business
-                </span>
-              </span>
+              <Film className="tbtx-sc__doorway-video" src="/media/door-b2b-827v2.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/door-b2b-827v2.jpg" />
+              <span className="tbtx-sc__doorway-enter"><strong>Enter</strong><span>to Map <span className="tbtx-nowrap">Digital Fog</span> in Business</span></span>
             </div>
           </Link>
         </div>
       </section>
 
-      {/* Invisible job as a moving mosaic. Click a tile. */}
       <section className="tbtx-sc__mosaic-wrap" data-sc-act="flow" data-sc-drift="#0d1210">
         <FogTaskMosaic />
       </section>
@@ -281,59 +218,24 @@ export default function ScrollcraftTBTXExperience() {
         <strong>Digital Fog is the leftover job. Name it. See it. Get the making back.</strong>
       </aside>
 
-      {/* ═══════════════════════════════════════════════════════════════════════
-         COMMITMENT & THE FOUNDER
-         After the why. CTA returns to the doors, not a skip past stakes.
-         ═══════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="tbtx-sc-close"
-        className="tbtx-sc__close"
-        data-sc-act="pin"
-        data-sc-span="1.8"
-        data-sc-dwell="0.22"
-        data-sc-drift="#0d1210"
-      >
+      <section id="tbtx-sc-close" className="tbtx-sc__close" data-sc-act="pin" data-sc-span="1.8" data-sc-dwell="0.22" data-sc-drift="#0d1210">
         <div className="sc-stage tbtx-sc__stage tbtx-sc__close-stage" data-sc-stage>
-          <Film
-            className="tbtx-sc__close-still"
-            src="/media/founder-erik.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/media/hero-solo.jpg"
-            aria-label="Founder of TransformBy10X"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          <Film className="tbtx-sc__close-still" src="/media/founder-erik.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/hero-solo.jpg" aria-label="Founder of TransformBy10X" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           <div className="sc-scrim sc-scrim--lead" />
           <div className="tbtx-sc__close-copy sc-copy sc-copy--lead" data-sc-cue="0.1 0.92 0 0">
-            <a href="#tbtx-doors" className="tbtx-fog-go" data-sc-magnet="0.35">
-              Choose a door
-            </a>
-            <button type="button" onClick={() => setShowReel(true)} className="tbtx-fog-link">
-              See how the day plays out
-            </button>
+            <a href="#tbtx-doors" className="tbtx-fog-go" data-sc-magnet="0.35">Choose a door</a>
+            <button type="button" onClick={() => setShowReel(true)} className="tbtx-fog-link">See how the day plays out</button>
             <div className="tbtx-sc__founder">
               <p>The gap isn&rsquo;t AI adoption. It&rsquo;s infrastructure.</p>
-              <p>
-                I know what fog feels like. I started in project management at global agencies
-                decades ago, back when large retainers were the norm and Digital Fog was a
-                bill-to code.
-              </p>
-              <p>
-                Now I dedicate the next decades to lifting society&rsquo;s fog.
-              </p>
+              <p>I know what fog feels like. I started in project management at global agencies decades ago, back when large retainers were the norm and Digital Fog was a bill-to code.</p>
+              <p>Now I dedicate the next decades to lifting society&rsquo;s fog.</p>
             </div>
           </div>
         </div>
       </section>
 
       {showReel && (
-        <VideoLightbox
-          src={film("/media/long-form-combined-lowres.mp4")}
-          onClose={() => setShowReel(false)}
-        />
+        <VideoLightbox src={film("/media/long-form-combined-lowres.mp4")} onClose={() => setShowReel(false)} />
       )}
         </>
       ) : null}
