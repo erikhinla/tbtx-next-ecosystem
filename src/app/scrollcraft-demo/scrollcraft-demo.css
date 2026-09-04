@@ -1418,7 +1418,7 @@ button.tbtx-scan__go {
   grid-template-areas:
     "lead lead cut"
     "lead pulse night"
-    "crowd crowd same"
+    "same same same"
     "yours yours yours";
   gap: 0.22rem;
   flex: 1;
@@ -1441,7 +1441,6 @@ button.tbtx-scan__go {
 .tbtx-mosaic__tile[data-area="cut"] { grid-area: cut; }
 .tbtx-mosaic__tile[data-area="pulse"] { grid-area: pulse; }
 .tbtx-mosaic__tile[data-area="night"] { grid-area: night; }
-.tbtx-mosaic__tile[data-area="crowd"] { grid-area: crowd; }
 .tbtx-mosaic__tile[data-area="same"] { grid-area: same; }
 .tbtx-mosaic__tile[data-area="yours"] { grid-area: yours; }
 
@@ -2619,12 +2618,11 @@ button.tbtx-scan__go {
   }
   .tbtx-mosaic__grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: minmax(38vh, auto) minmax(22vh, auto) minmax(22vh, auto) minmax(24vh, auto) minmax(32vh, auto);
+    grid-template-rows: minmax(38vh, auto) minmax(22vh, auto) minmax(22vh, auto) minmax(32vh, auto);
     grid-template-areas:
       "lead lead"
       "cut pulse"
-      "night crowd"
-      "same same"
+      "night same"
       "yours yours";
   }
   .tbtx-kit__need,
