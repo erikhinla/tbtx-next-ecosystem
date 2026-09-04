@@ -45,7 +45,7 @@ export default function FogFreeSharePage() {
             preload="metadata"
           />
           <figcaption>
-            I ran Fog-Free Daily. Cleared a surface. One move. Calm is the win.
+            I ran Digital De-Fog Daily. Cleared a surface. One move. Calm is the win.
           </figcaption>
         </figure>
 
