@@ -33,6 +33,24 @@ export interface DepartmentMatrixItem {
   irony: string;
 }
 
+export interface HubSection {
+  id: "canon" | "routes" | "convert" | "selects" | "say" | "diagnose" | "social" | "files";
+  index: string;
+  label: string;
+}
+
+/** Internal hub workstream lanes. One tab per handbook section — not the B2B ad matrix. */
+export const HUB_SECTIONS: HubSection[] = [
+  { id: "canon", index: "00", label: "Canon" },
+  { id: "routes", index: "01", label: "Routes" },
+  { id: "convert", index: "02", label: "Convert" },
+  { id: "selects", index: "03", label: "Selects" },
+  { id: "say", index: "04", label: "Say" },
+  { id: "diagnose", index: "05", label: "Diagnose" },
+  { id: "social", index: "06", label: "Social" },
+  { id: "files", index: "07", label: "Files" },
+];
+
 export interface CommandCenterFileCard {
   name: string;
   path: string;
