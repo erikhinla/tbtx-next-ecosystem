@@ -100,7 +100,7 @@ export const personalBands: ProfileBand[] = [
     profile: "CLEAR ENOUGH TO BUILD",
     description:
       "Your day isn't the problem. Work is. Agents started it. People are stuck in the middle. The stand continues there.",
-    cta: "Map the Digital Friction",
+    cta: "Map Digital Fog in Business",
     ctaRoute: "/tbtx/map",
   },
 ];

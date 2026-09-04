@@ -54,7 +54,7 @@ export default function FogFreeSharePage() {
             Download the reset
           </a>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Let's look again
+            Scan again
           </Link>
         </div>
       </div>

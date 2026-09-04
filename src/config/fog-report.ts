@@ -1,5 +1,6 @@
 import { getProfile, type ProfileBand } from "./diagnostic-tbtx";
 import { brandProfiles, getBandKey, type BrandProfile } from "./result-profiles";
+import type { Archetype } from "./intakeQuestions";
 
 export type FogPressure = {
   id: string;
@@ -21,6 +22,7 @@ export type FogReportModel = {
   brand: BrandProfile;
   pressures: FogPressure[];
   load: FogLoad;
+  archetype: Archetype;
 };
 
 const MAX_PER_QUESTION = 2;
@@ -146,6 +148,20 @@ const PRESSURE_WHEN_ONE: Record<number, FogPressure> = {
   },
 };
 
+function deriveArchetype(pressures: FogPressure[]): Archetype {
+  const ids = new Set(pressures.map((item) => item.id));
+  if (ids.has("key-person") || ids.has("ownership") || ids.has("informal-owner")) {
+    return "bottleneckOperator";
+  }
+  if (ids.has("tools") || ids.has("handoff")) {
+    return "toolOverload";
+  }
+  if (ids.has("start") || ids.has("loop") || ids.has("next")) {
+    return "executionStall";
+  }
+  return "fragmentedWorkflow";
+}
+
 function loadForHealth(health: number): FogLoad {
   if (health <= 24) {
     return {
@@ -200,6 +216,7 @@ export function deriveFogReport(answers: number[]): FogReportModel {
     brand,
     pressures,
     load: loadForHealth(health),
+    archetype: deriveArchetype(pressures),
   };
 }
 

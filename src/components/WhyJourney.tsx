@@ -33,7 +33,9 @@ export function StandCopy() {
       <p>
         Clearing the fog exposes the gap. Not the noise, the operational architecture underneath it. Build that, and attention goes back to what matters. Your&nbsp;vision.
       </p>
-      <p>Taking this scan isn&apos;t a personality quiz. It&apos;s not seeing how organized you&nbsp;are.</p>
+      <p>
+        What comes next is not a personality quiz. It&apos;s not seeing how organized you&nbsp;are.
+      </p>
       <p>
         It&apos;s you deciding not to spend another year as the{" "}
         <span className="tbtx-nowrap">AI&apos;s assistant.</span>

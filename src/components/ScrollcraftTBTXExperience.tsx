@@ -20,8 +20,8 @@ declare global {
  * TransformBy10X front door. The scroll experience.
  *
  * Public contract: docs/PUBLIC_JOURNEY.md
- *   Arrival → stakes → stand → doors → threshold → scan
- * Hero "Start Here" goes to the first beat, never to a door.
+ *   Arrival → Stand → Choose Your Path → doors (after Stand UP) → threshold → scan or map
+ * Hero "Start Here" goes to Arrival, never to a door.
  * No internal product language (WIN, GOAL, FLOW, Quad Keystones) on the cold path.
  * Vendor engine stays untouched. All composition is page-layer.
  */
@@ -152,9 +152,9 @@ export default function ScrollcraftTBTXExperience() {
             className="tbtx-sc__hero-sound"
             onClick={toggleHeroSound}
             aria-pressed={soundOn}
-            aria-label={soundOn ? "Mute" : "Unmute"}
+            aria-label={soundOn ? "Mute the film" : "Play the film with sound"}
           >
-            {soundOn ? "🔊" : "🔇"}
+            {soundOn ? "Sound on" : "Sound off"}
           </button>
         </div>
       </section>
