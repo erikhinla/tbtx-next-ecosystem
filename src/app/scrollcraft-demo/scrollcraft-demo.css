@@ -1749,14 +1749,21 @@ button.tbtx-scan__go {
 
 .tbtx-sc__why-wrap--paths {
   min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0d1210;
+  isolation: isolate;
+  z-index: 4;
 }
 
 .tbtx-paths {
   position: relative;
   z-index: 3;
   min-height: 100dvh;
+  height: 100dvh;
   display: flex;
   align-items: stretch;
+  background: #0d1210;
 }
 
 .tbtx-paths__rail {
@@ -1773,12 +1780,11 @@ button.tbtx-scan__go {
 }
 
 .tbtx-path {
-  flex: 0 0 72vw;
-  width: 72vw;
-  min-width: 72vw;
-  max-width: 28rem;
+  flex: 0 0 min(36vw, 24rem);
+  width: min(36vw, 24rem);
+  min-width: min(36vw, 24rem);
   min-height: 100dvh;
-  padding: clamp(1.6rem, 6vh, 3.4rem) clamp(1rem, 3vw, 1.8rem);
+  padding: clamp(1.6rem, 6vh, 3.4rem) clamp(0.85rem, 2vw, 1.4rem);
   perspective: 1400px;
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -2484,7 +2490,6 @@ button.tbtx-scan__go {
     flex: 0 0 78vw;
     width: 78vw;
     min-width: 78vw;
-    max-width: none;
   }
   .tbtx-mosaic__grid {
     grid-template-columns: 1fr 1fr;
