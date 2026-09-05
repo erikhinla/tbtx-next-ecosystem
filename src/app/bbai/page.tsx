@@ -41,7 +41,7 @@ export default function BBAIPage() {
       <header className="bbai2__hero">
         <Film
           className="bbai2__hero-film"
-          src="/media/door-b2b-827v2.mp4"
+          src="/media/fog-b2b-short.mp4"
           poster="/media/fog-to-route.jpg"
           autoPlay
           muted
@@ -75,8 +75,15 @@ export default function BBAIPage() {
         </Reveal>
         <div className="bbai2__story-stack">
           <figure>
-            <img src="/media/bbai-digital-fog-infographic.png" alt="Digital Fog becomes Digital Friction" />
-            <figcaption>Condition on the left. Cost on the right.</figcaption>
+            <Film
+              src="/media/computer-explodes.mp4"
+              poster="/media/bbai-digital-fog-infographic.png"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+            <figcaption>Legacy stack. Still running. Already stone.</figcaption>
           </figure>
           <div className="bbai2__proof-list" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: "1px", background: "rgb(255 255 255 / 0.12)" }}>
             {DEPTS.map(([title, body]) => (
