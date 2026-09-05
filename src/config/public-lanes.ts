@@ -1,28 +1,31 @@
 export const publicLanes = {
   personal: {
-    job: "Social Life",
-    mantle: "Digital Fog",
+    job: "Digital Fog in Life",
+    mantle: "",
     begin: "Begin the Scan",
+    mapLabel: "Scan the Day",
     again: "Scan again",
     otherHref: "/tbtx/map",
     otherLabel: "Map Digital Fog in Business",
-    frameLine: "Find the leftover job.",
-    headline: "You asked it to give you the night back.",
-    payoff: "Then you spent the night inside the draft.",
-    lead:
-      "You wanted one text to your sister so you could sleep. ChatGPT wrote three. None of them were you. At 11 you were still in the box, putting your voice back in.",
+    frameLine: "",
+    headline:
+      "See where the day stalls before it turns into leftover work, so you can gain clarity and focus on what you\u2019re made to do.",
+    payoff: "You asked it to give you the night back.",
+    lead: "Then you spent the night inside the draft.",
   },
   business: {
-    job: "Work Life",
-    mantle: "Digital Fog",
+    job: "Digital Fog in Business",
+    mantle: "",
     begin: "Begin the Map",
+    mapLabel: "Map the Gap",
     again: "Map again",
     otherHref: "/tbtx/scan",
     otherLabel: "Scan Digital Fog in Life",
-    frameLine: "Find the leftover job.",
-    headline: "You've been the one who finishes it.",
-    payoff: "You don't have to keep doing that.",
-    lead: "They start. You still close. Name where.",
+    frameLine: "",
+    headline:
+      "See where momentum is stalling before it leads to friction so you can gain clarity and focus on growing what you\u2019re made to do.",
+    payoff: "",
+    lead: "",
   },
 } as const;
 

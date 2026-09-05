@@ -1,6 +1,5 @@
 import type { Question, ProfileBand } from "./diagnostic-tbtx";
 
-/** B2C / Fog-Free Daily path. Lived-day questions. Not a business ops quiz. */
 export const personalQuestions: Question[] = [
   {
     id: 1,
@@ -90,7 +89,7 @@ export const personalBands: ProfileBand[] = [
     max: 49,
     profile: "CARRYING IT",
     description:
-      "You named it. You are still finishing what the agents start. Twenty minutes to close one loop and get one piece of the day back.",
+      "You named where the day stalls. You are still finishing what the tools start. Fog-Free Daily is twenty minutes to close one loop and put attention back on what you\u2019re made to do.",
     cta: "Get Fog-Free Daily",
     ctaRoute: "/tbtx/kit",
   },
@@ -99,7 +98,7 @@ export const personalBands: ProfileBand[] = [
     max: 100,
     profile: "CLEAR ENOUGH TO BUILD",
     description:
-      "Your day isn't the problem. Work is. Agents started it. People are stuck in the middle. The stand continues there.",
+      "The day is clear enough. Work is where momentum stalls. Map Digital Fog in Business to see the stall before it becomes friction.",
     cta: "Map Digital Fog in Business",
     ctaRoute: "/tbtx/map",
   },

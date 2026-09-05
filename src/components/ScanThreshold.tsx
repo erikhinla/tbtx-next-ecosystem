@@ -12,17 +12,15 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
   return (
     <>
       <div className="tbtx-scan__top">
-        <Link href="/tbtx#tbtx-stakes">Back</Link>
+        <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
+          <span aria-hidden="true">&lt;</span>
+        </Link>
         <p className="tbtx-scan__job">{lane.job}</p>
       </div>
-      <p className="tbtx-scan__mantle">{lane.mantle}</p>
-      <h1 className="tbtx-scan__question">{lane.headline}</h1>
-      <div className="tbtx-nest tbtx-nest--scan">
-        <p className="tbtx-nest__payoff">{lane.payoff}</p>
-        <div className="tbtx-nest__support">
-          <p className="tbtx-scan__lead tbtx-scan__covenant">{lane.lead}</p>
-        </div>
-      </div>
+      <h1 className="tbtx-scan__question tbtx-scan__question--open">{lane.headline}</h1>
+      {lane.payoff ? <p className="tbtx-nest__payoff">{lane.payoff}</p> : null}
+      {lane.lead ? <p className="tbtx-scan__lead">{lane.lead}</p> : null}
+      <p className="tbtx-scan__map-label">{lane.mapLabel}</p>
       <div className="tbtx-scan__moves">
         <button type="button" className="tbtx-scan__go" onClick={onBegin}>
           {lane.begin}
