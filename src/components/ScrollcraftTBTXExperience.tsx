@@ -107,27 +107,27 @@ export default function ScrollcraftTBTXExperience() {
 
   return (
     <main ref={rootRef} className="tbtx-sc" data-sc-root data-sc-lerp="0.14">
-      <a className="tbtx-sc__skip" href="#tbtx-arrival">
-        Skip to the why
+      <a className="tbtx-sc__skip" href="#tbtx-stand">
+        Skip to the stand
       </a>
       <div className="sc-grain tbtx-sc__grain" aria-hidden="true" />
 
-      <section className="tbtx-sc__hero" data-sc-act="pin" data-sc-span="1.6" data-sc-drift="#070b10">
+      <section className="tbtx-sc__hero" data-sc-act="flow" data-sc-drift="#070b10">
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
           <h1 className="tbtx-sc__sr">AI Created a Job. Nobody wanted. Managing Digital Fog.</h1>
           <Film
             ref={heroVideoRef}
             className="tbtx-sc__hero-film"
-            src="/media/hero-site-827a.mp4"
+            src="/media/fog-b2b-short.mp4"
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
           />
-          <a href="#tbtx-arrival" className="tbtx-sc__hero-cta">Start Here</a>
+          <Link href="/tbtx/kit" className="tbtx-sc__hero-cta">Digital De-Fog Daily</Link>
           <button
             type="button"
             className="tbtx-sc__hero-sound"
@@ -140,36 +140,12 @@ export default function ScrollcraftTBTXExperience() {
         </div>
       </section>
 
-      <section
-        className="tbtx-sc__hero tbtx-sc__hero--defog"
-        data-sc-act="pin"
-        data-sc-span="1.4"
-        data-sc-drift="#070b10"
-        aria-label="Digital De-Fog Daily"
-      >
-        <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
-          <p className="tbtx-sc__sr">Digital De-Fog Daily</p>
-          <Film
-            className="tbtx-sc__hero-film"
-            src="/media/defog-daily-hero.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/media/defog-daily-hero.jpg"
-            aria-hidden="true"
-          />
-          <Link href="/tbtx/kit" className="tbtx-sc__hero-cta">Digital De-Fog Daily</Link>
-        </div>
+      <section id="tbtx-stand" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stand" data-sc-act="flow" data-sc-drift="#101612">
+        <div className="tbtx-sc__why-frame"><StandCopy /></div>
       </section>
 
       <section id="tbtx-arrival" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--arrival" data-sc-act="flow" data-sc-drift="#0d1210">
         <div className="tbtx-sc__why-frame"><ArrivalCopy /></div>
-      </section>
-
-      <section id="tbtx-stand" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stand" data-sc-act="flow" data-sc-drift="#101612">
-        <div className="tbtx-sc__why-frame"><StandCopy /></div>
       </section>
 
       <section id="tbtx-stakes" className="tbtx-sc__why-wrap tbtx-sc__why-wrap--stakes tbtx-sc__why-wrap--paths" data-sc-act="flow" data-sc-drift="#0d1210">
