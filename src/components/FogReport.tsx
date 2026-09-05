@@ -18,31 +18,34 @@ export default function FogReport({ report, onReset }: FogReportProps) {
   );
 
   return (
-    <article className="tbtx-scan__report">
-      <p className="tbtx-scan__job">Work Life</p>
-      <p className="tbtx-scan__mantle">Digital Fog</p>
+    <article className="tbtx-scan__report is-in">
+      <div className="tbtx-scan__top">
+        <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
+          <span aria-hidden="true">&lt;</span>
+        </Link>
+        <p className="tbtx-scan__job">Digital Fog in Business</p>
+      </div>
       <h1 className="tbtx-scan__profile">{report.profile.profile}</h1>
-      <section className="tbtx-peel">
-        <p className="tbtx-peel__title">Here&rsquo;s what it&rsquo;s costing you</p>
+      <section className="tbtx-peel is-in">
+        <p className="tbtx-peel__title">Where momentum is stalling</p>
         <div className="tbtx-peel__fog">
           <p className="tbtx-scan__lead">{report.profile.description}</p>
         </div>
       </section>
 
-      <section className="tbtx-scan__load tbtx-peel">
+      <section className="tbtx-scan__load tbtx-peel is-in">
         <h2>{report.load.headline}</h2>
         <div className="tbtx-peel__fog">
           <p>{report.load.body}</p>
           <p className="tbtx-scan__range">
             About {report.load.hoursPerPersonWeek[0]} to {report.load.hoursPerPersonWeek[1]} hours a
-            week finishing what the agents started. Hours that should have been the work, not the
-            residue.
+            week finishing what the agents started. Hours that should have been the work you&rsquo;re made to do.
           </p>
         </div>
       </section>
 
       {report.pressures.length > 0 && (
-        <section className="tbtx-scan__pressures tbtx-peel">
+        <section className="tbtx-scan__pressures tbtx-peel is-in">
           <h2>What your answers named</h2>
           <ul className="tbtx-peel__fog">
             {report.pressures.map((item) => (
@@ -79,14 +82,14 @@ export default function FogReport({ report, onReset }: FogReportProps) {
               <span>{people === 1 ? "1 person" : `${people} people`}</span>
             </div>
             <p>
-              Across {people === 1 ? "that person" : `those ${people} people`}, that's about{" "}
+              Across {people === 1 ? "that person" : `those ${people} people`}, that&rsquo;s about{" "}
               {grouped[0]} to {grouped[1]} hours a week.
             </p>
           </div>
         )}
       </section>
 
-      <section className="tbtx-scan__next">
+      <section className="tbtx-scan__next is-in">
         <h2>The next clear move</h2>
         <p>{report.brand.nextStep}</p>
         <div className="tbtx-scan__moves">
@@ -100,9 +103,6 @@ export default function FogReport({ report, onReset }: FogReportProps) {
           >
             {report.brand.cta}
           </Link>
-          <Link href="/bbai" className="tbtx-fog-link">
-            Build the Backbone
-          </Link>
         </div>
       </section>
 
@@ -110,9 +110,6 @@ export default function FogReport({ report, onReset }: FogReportProps) {
         <button type="button" onClick={onReset} className="tbtx-fog-link">
           Map again
         </button>
-        <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-          Choose Your Path
-        </Link>
       </div>
     </article>
   );

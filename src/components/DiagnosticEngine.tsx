@@ -91,11 +91,15 @@ export default function DiagnosticEngine({
     const band = personalBands.find((item) => health >= item.min && health <= item.max) || personalBands[0];
     return (
       <ScanShell isPersonal>
-        <p className="tbtx-scan__job">{copy.job}</p>
-        <p className="tbtx-scan__mantle">{copy.mantle}</p>
-        <h1 className="tbtx-scan__profile">{band.profile}</h1>
-        <section className="tbtx-peel">
-          <p className="tbtx-peel__title">You named it</p>
+        <div className="tbtx-scan__top">
+          <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
+            <span aria-hidden="true">&lt;</span>
+          </Link>
+          <p className="tbtx-scan__job">{copy.job}</p>
+        </div>
+        <h1 className="tbtx-scan__profile is-in">{band.profile}</h1>
+        <section className="tbtx-peel is-in">
+          <p className="tbtx-peel__title">What the scan named</p>
           <div className="tbtx-peel__fog">
             <p className="tbtx-scan__lead">{band.description}</p>
           </div>
@@ -104,17 +108,11 @@ export default function DiagnosticEngine({
           <Link href={band.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
             {band.cta}
           </Link>
-          <Link href={copy.otherHref} className="tbtx-fog-link">
-            {copy.otherLabel}
-          </Link>
         </div>
         <div className="tbtx-scan__foot">
           <button type="button" onClick={handleReset} className="tbtx-fog-link">
             {copy.again}
           </button>
-          <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            Choose Your Path
-          </Link>
         </div>
       </ScanShell>
     );
@@ -137,16 +135,17 @@ export default function DiagnosticEngine({
 
     return (
       <ScanShell isPersonal={false}>
-        <p className="tbtx-scan__job">{copy.job}</p>
-        <p className="tbtx-scan__mantle">{copy.mantle}</p>
-        <h1 className="tbtx-scan__profile">{profile.profile}</h1>
-        <p className="tbtx-scan__lead">{profile.description}</p>
+        <div className="tbtx-scan__top">
+          <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
+            <span aria-hidden="true">&lt;</span>
+          </Link>
+          <p className="tbtx-scan__job">{copy.job}</p>
+        </div>
+        <h1 className="tbtx-scan__profile is-in">{profile.profile}</h1>
+        <p className="tbtx-scan__lead is-in">{profile.description}</p>
         <div className="tbtx-scan__moves">
           <Link href={brandProfile.ctaRoute || profile.ctaRoute} className="tbtx-scan__go tbtx-fog-go">
             {brandProfile.cta}
-          </Link>
-          <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
-            Choose Your Path
           </Link>
         </div>
         <div className="tbtx-scan__foot">
@@ -164,8 +163,8 @@ export default function DiagnosticEngine({
   return (
     <ScanShell isPersonal={isPersonal}>
       <div className="tbtx-scan__top">
-        <Link href="/tbtx" className="tbtx-fog-link">
-          Back
+        <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
+          <span aria-hidden="true">&lt;</span>
         </Link>
         <p className="tbtx-scan__job">{copy.job}</p>
         <div className="tbtx-scan__count" aria-current="step">
@@ -174,7 +173,6 @@ export default function DiagnosticEngine({
         </div>
       </div>
 
-      <p className="tbtx-scan__mantle">{copy.mantle}</p>
       <h1 className="tbtx-scan__question">{currentQuestion.text}</h1>
 
       <div className="tbtx-scan__choices">
@@ -195,20 +193,13 @@ export default function DiagnosticEngine({
         })}
       </div>
 
-      <div className="tbtx-scan__nav">
-        <button
-          type="button"
-          onClick={() => {
-            if (currentStep > 0) {
-              setCurrentStep(currentStep - 1);
-              return;
-            }
-            setReady(false);
-          }}
-        >
-          {currentStep === 0 ? "Back to the stand" : "Previous"}
-        </button>
-      </div>
+      {currentStep > 0 ? (
+        <div className="tbtx-scan__nav">
+          <button type="button" onClick={() => setCurrentStep(currentStep - 1)}>
+            Previous
+          </button>
+        </div>
+      ) : null}
     </ScanShell>
   );
 }

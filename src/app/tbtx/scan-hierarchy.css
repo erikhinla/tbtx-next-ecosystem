@@ -1,0 +1,94 @@
+/* Hierarchy and grid fixes for scan / map / path tiles */
+.tbtx-scan__frame {
+  text-align: left;
+  align-items: stretch;
+}
+
+.tbtx-scan__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  font: 500 1.6rem / 1 var(--sc-font-clear, sans-serif);
+  letter-spacing: 0;
+  text-transform: none;
+  color: #f2f1ea;
+}
+
+.tbtx-scan__back:hover { color: #d6b46e; }
+
+.tbtx-scan__job {
+  text-align: right;
+  max-width: 16ch;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.tbtx-scan__mantle { display: none; }
+
+.tbtx-scan__count span {
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+}
+
+.tbtx-scan__count small {
+  font-size: 0.9rem;
+}
+
+.tbtx-scan__question {
+  max-width: 22ch;
+  font-size: clamp(2.1rem, 6.4vw, 4rem);
+  line-height: 1.08;
+}
+
+.tbtx-scan__question--open {
+  max-width: 28ch;
+  font-size: clamp(1.55rem, 4.2vw, 2.5rem);
+  line-height: 1.18;
+}
+
+.tbtx-scan__choice {
+  font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+}
+
+.tbtx-scan__map-label {
+  margin: 1.4rem 0 0.4rem;
+  color: #d6b46e;
+  font: 500 0.78rem / 1 var(--sc-font-clear, sans-serif);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.tbtx-scan__report,
+.tbtx-scan__profile,
+.tbtx-peel,
+.tbtx-scan__next,
+.tbtx-scan__lead {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.tbtx-paths__rail {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgb(242 241 234 / 0.16);
+}
+
+.tbtx-path {
+  background: #0d1210;
+}
+
+.tbtx-sc__doors-rail {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgb(242 241 234 / 0.16);
+}
+
+@media (max-width: 820px) {
+  .tbtx-paths__rail,
+  .tbtx-sc__doors-rail {
+    grid-template-columns: 1fr;
+  }
+}
