@@ -103,9 +103,6 @@ export default function FogReport({ report, onReset }: FogReportProps) {
           <Link href="/bbai" className="tbtx-fog-link">
             Build the Backbone
           </Link>
-          <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Scan Digital Fog in Life
-          </Link>
         </div>
       </section>
 

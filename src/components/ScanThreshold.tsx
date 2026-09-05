@@ -16,20 +16,20 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
         <p className="tbtx-scan__job">{lane.job}</p>
       </div>
       <p className="tbtx-scan__mantle">{lane.mantle}</p>
-      <h1 className="tbtx-scan__question tbtx-scan__question--story">{lane.headline}</h1>
+      <h1 className="tbtx-scan__question">{lane.headline}</h1>
       <div className="tbtx-nest tbtx-nest--scan">
         <p className="tbtx-nest__payoff">{lane.payoff}</p>
         <div className="tbtx-nest__support">
           <p className="tbtx-scan__lead tbtx-scan__covenant">{lane.lead}</p>
-          <p className="tbtx-scan__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
         </div>
       </div>
       <div className="tbtx-scan__moves">
         <button type="button" className="tbtx-scan__go" onClick={onBegin}>
           {lane.begin}
         </button>
-        <Link href={lane.otherHref}>{lane.otherLabel}</Link>
+        {isPersonal ? <Link href={lane.otherHref}>{lane.otherLabel}</Link> : null}
       </div>
+      <p className="tbtx-scan__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
     </>
   );
 }
