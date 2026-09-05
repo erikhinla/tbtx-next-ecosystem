@@ -213,11 +213,6 @@ export default function ScrollcraftTBTXExperience() {
         <FogTaskMosaic />
       </section>
 
-      <aside className="tbtx-sc__surface-note" aria-label="Digital Fog method">
-        <p>Identify <span /> Visualize <span /> Lift</p>
-        <strong>Digital Fog is the leftover job. Name it. See it. Get the making back.</strong>
-      </aside>
-
       <section id="tbtx-sc-close" className="tbtx-sc__close" data-sc-act="pin" data-sc-span="1.8" data-sc-dwell="0.22" data-sc-drift="#0d1210">
         <div className="sc-stage tbtx-sc__close-stage" data-sc-stage>
           <Film className="tbtx-sc__close-still" src="/media/founder-erik.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/hero-solo.jpg" aria-label="Founder of TransformBy10X" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
