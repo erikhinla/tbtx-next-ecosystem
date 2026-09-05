@@ -86,6 +86,27 @@
   background: rgb(242 241 234 / 0.16);
 }
 
+.tbtx-sc__hero {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+.tbtx-sc__hero-stage {
+  position: relative !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 16 / 9;
+  max-height: 100vh;
+}
+
+.tbtx-sc__hero-film {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
 @media (max-width: 820px) {
   .tbtx-paths__rail,
   .tbtx-sc__doors-rail {
