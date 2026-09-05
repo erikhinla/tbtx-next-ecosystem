@@ -2,71 +2,153 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import Film from "@/components/Film";
 
-const BUILD = [
-  { n: "01", title: "Find the drag", body: "Map where momentum stops, where context disappears, and which handoffs return as rework.", link: "/tbtx/map", cta: "Run the Momentum Map" },
-  { n: "02", title: "Establish operating truth", body: "Give people and AI one current source for decisions, ownership, constraints, and the next move.", link: "/downloads/Architecting-AI-Flow.pdf", cta: "Open the architecture deck" },
-  { n: "03", title: "Govern the path to done", body: "Route generated work through review, approval, execution, evidence, and completion. Output stops becoming human cleanup.", link: "/downloads/The-Architecture-of-AI-Native-Operations.pdf", cta: "Open the operations deck" },
-  { n: "04", title: "Activate growth after", body: "Demand enters after the operating layer can carry it. Acceleration stops amplifying disorder.", link: "#build", cta: "See the engagement" },
-] as const;
-
-const PROOF = [
-  ["Context", "People and AI work from the same current truth."],
-  ["Memory", "Decisions survive the session that created them."],
-  ["Routing", "Every job has an owner, a gate, and a next state."],
-  ["Governance", "Risky work waits for approval and leaves evidence."],
-  ["Completion", "The system knows what done means before work begins."],
+const DEPTS = [
+  ["Ops", "Versions multiply. Nobody owns the live one."],
+  ["Sales", "Follow-up lives in a head, not a route."],
+  ["Delivery", "Handoffs return as human cleanup."],
+  ["Finance", "Decisions wait on reconstructed context."],
+  ["People", "The operator becomes the runtime."],
+  ["AI stack", "Output outpaces the infrastructure under it."],
 ] as const;
 
 function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const reduced = useReducedMotion();
-  return <motion.div className={className} initial={reduced ? false : { opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-12%" }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>{children}</motion.div>;
+  return (
+    <motion.div
+      className={className}
+      initial={reduced ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 export default function BBAIPage() {
-  return <main className="bbai2">
-    <a className="bbai2__skip" href="#problem">Skip to the problem</a>
-    <nav className="bbai2__nav"><Link href="/tbtx">TransformBy10X</Link><span>BizBuilders AI / Operating infrastructure</span><Link href="/tbtx/map">Map the drag</Link></nav>
+  return (
+    <main className="bbai2">
+      <a className="bbai2__skip" href="#fracture">Skip to the fracture</a>
+      <nav className="bbai2__nav">
+        <Link href="/tbtx">TransformBy10X</Link>
+        <span>BizBuilders AI</span>
+        <Link href="/tbtx/map">Map Momentum</Link>
+      </nav>
 
-    <header className="bbai2__hero">
-      <img className="bbai2__hero-film" src="/media/fog-to-route.jpg" alt="Scattered systems resolving into connected operating infrastructure" />
-      <div className="bbai2__hero-veil" />
-      <div className="bbai2__hero-copy">
-        <p>Digital Fog becomes business drag.</p>
-        <h1>AI didn&rsquo;t remove the work.<br /><em>It moved it into the gaps.</em></h1>
-        <div className="bbai2__hero-foot"><span>Context disappears. Handoffs stall. People become the operating system.</span><Link href="#problem">See what is happening</Link></div>
-      </div>
-    </header>
+      <header className="bbai2__hero">
+        <Film
+          className="bbai2__hero-film"
+          src="/media/door-b2b-827v2.mp4"
+          poster="/media/fog-to-route.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="bbai2__hero-veil" />
+        <div className="bbai2__hero-copy">
+          <p>Prevent Digital Friction</p>
+          <h1>
+            Digital Fog is the condition.
+            <br />
+            <em>Digital Friction is the cost.</em>
+          </h1>
+          <div className="bbai2__hero-foot">
+            <span>Tools multiply faster than context. The business feels it as stall, rework, and lost attention.</span>
+          </div>
+        </div>
+      </header>
 
-    <section id="problem" className="bbai2__chapter bbai2__problem">
-      <Reveal className="bbai2__chapter-copy"><p className="bbai2__eyebrow">01 / The consequence</p><h2>More output.<br />Less momentum.</h2><p>Digital Friction is what the business feels when output outpaces infrastructure. Teams reconcile versions, restore missing context, chase approvals, and finish what the tools started.</p><p className="bbai2__pull">The tools got faster. The work got foggier.</p><Link className="bbai2__text-link" href="/tbtx/map">Find where momentum stops</Link></Reveal>
-      <div className="bbai2__story-stack">
-        <figure><img src="/media/bbai-blue-final-folders.jpg" alt="Team reconciling three conflicting final folders" /><figcaption>Three teams. Three finals. One human reconciliation layer.</figcaption></figure>
-        <figure><img src="/media/bbai-digital-fog-infographic.png" alt="Digital Fog and Digital Friction operating diagram" /><figcaption>The hidden job becomes measurable business drag.</figcaption></figure>
-      </div>
-    </section>
+      <section id="fracture" className="bbai2__chapter bbai2__problem">
+        <Reveal className="bbai2__chapter-copy">
+          <p className="bbai2__eyebrow">02 / Fundamental fracture</p>
+          <h2>The architectural blindspot.</h2>
+          <p>
+            Probabilistic tools were dropped into deterministic systems with no mediating layer.
+            Departments keep their own truth. AI writes faster than the business can decide.
+            The human operator absorbs the exception.
+          </p>
+          <p className="bbai2__pull">Output outpaces infrastructure.</p>
+        </Reveal>
+        <div className="bbai2__story-stack">
+          <figure>
+            <img src="/media/bbai-digital-fog-infographic.png" alt="Digital Fog becomes Digital Friction" />
+            <figcaption>Condition on the left. Cost on the right.</figcaption>
+          </figure>
+          <div className="bbai2__proof-list" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: "1px", background: "rgb(255 255 255 / 0.12)" }}>
+            {DEPTS.map(([title, body]) => (
+              <article key={title} style={{ background: "#0d1210", padding: "1.1rem 1rem" }}>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section className="bbai2__interruption"><img src="/media/bbai-blue-billboard.jpg" alt="Managing Digital Fog campaign displayed over a business operations room" /><div><p>Digital Fog is the condition.</p><h2>Digital Friction is the cost.</h2></div></section>
+      <section className="bbai2__chapter bbai2__build">
+        <Reveal className="bbai2__chapter-copy">
+          <p className="bbai2__eyebrow">03 / Fundamental fix</p>
+          <h2>AI-assisted work still needs a route.</h2>
+          <p>
+            AI-assisted and AI-native businesses are increasing. Legacy systems without an operating
+            layer cannot hold that volume. Shared memory, durable protocols, and clear ownership are
+            the fix — not another tool.
+          </p>
+        </Reveal>
+        <div className="bbai2__decks">
+          <a href="/downloads/The-Architecture-of-AI-Native-Operations.pdf" target="_blank" className="bbai2__deck">
+            <img src="/media/bbai-deck-architecture.jpg" alt="Architecture of AI-native operations" />
+            <div>
+              <small>Operating model</small>
+              <h3>The architecture of AI-native operations</h3>
+              <span>Open the deck</span>
+            </div>
+          </a>
+          <a href="/downloads/Architecting-AI-Flow.pdf" target="_blank" className="bbai2__deck">
+            <img src="/media/bbai-deck-flow.jpg" alt="FLOW Agent architecture" />
+            <div>
+              <small>FLOW Agent AS</small>
+              <h3>Architecting AI flow</h3>
+              <span>Open the deck</span>
+            </div>
+          </a>
+        </div>
+      </section>
 
-    <section className="bbai2__chapter bbai2__build">
-      <Reveal className="bbai2__chapter-copy"><p className="bbai2__eyebrow">02 / The build</p><h2>Infrastructure<br />before acceleration.</h2><p>BizBuilders AI builds the operating layer between ambition and execution. Each layer closes a gap the tools cannot close by themselves.</p></Reveal>
-      <div className="bbai2__build-list">{BUILD.map((item) => <article key={item.n}><small>{item.n}</small><div><h3>{item.title}</h3><p>{item.body}</p></div><Link href={item.link} target={item.link.endsWith(".pdf") ? "_blank" : undefined}>{item.cta}</Link></article>)}</div>
-    </section>
+      <section id="future" className="bbai2__chapter bbai2__proof">
+        <Reveal className="bbai2__chapter-copy">
+          <p className="bbai2__eyebrow">04 / Foundation for the future</p>
+          <h2>Legacy cannot compete with a governed route.</h2>
+          <p>
+            Businesses that only bolt AI onto yesterday&rsquo;s handoffs will spend the next decade
+            reconciling versions. Businesses that install an operating layer first let attention
+            compound.
+          </p>
+        </Reveal>
+      </section>
 
-    <section className="bbai2__decks">
-      <a href="/downloads/The-Architecture-of-AI-Native-Operations.pdf" target="_blank" className="bbai2__deck"><img src="/media/bbai-deck-architecture.jpg" alt="The Architecture of AI-Native Operations presentation cover" /><div><small>13 pages / operating model</small><h3>The architecture of AI-native operations</h3><span>Open presentation</span></div></a>
-      <a href="/downloads/Architecting-AI-Flow.pdf" target="_blank" className="bbai2__deck"><img src="/media/bbai-deck-flow.jpg" alt="FLOW Agent AS presentation cover" /><div><small>15 pages / execution architecture</small><h3>Architecting AI flow</h3><span>Open presentation</span></div></a>
-    </section>
+      <section id="build" className="bbai2__close">
+        <img src="/media/bbai-blue-phone.jpg" alt="" />
+        <div>
+          <p>Gather the picture first. Then write the route.</p>
+          <h2>Map Momentum. Then get the BizBlueprint.</h2>
+          <div className="bbai2__hero-foot" style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+            <Link href="/tbtx/map">Map Momentum</Link>
+            <Link href="/tbtx/blueprint">Get Your BizBlueprint</Link>
+            <a href="#call">Set up a video call</a>
+          </div>
+        </div>
+      </section>
 
-    <section className="bbai2__chapter bbai2__proof">
-      <Reveal className="bbai2__chapter-copy"><p className="bbai2__eyebrow">03 / What changes</p><h2>Work stops<br />starting over.</h2><p>The value is not another interface. It is an operating memory that keeps people, agents, decisions, and delivery moving in the same direction.</p></Reveal>
-      <div className="bbai2__proof-list">{PROOF.map(([title, body], index) => <article key={title}><small>0{index + 1}</small><h3>{title}</h3><p>{body}</p></article>)}</div>
-    </section>
-
-    <section id="build" className="bbai2__close">
-      <img src="/media/bbai-blue-phone.jpg" alt="Digital Fog business campaign shown on a phone beside working documents" />
-      <div><p>Momentum Map → Blueprint → operating foundation</p><h2>Stop managing the gaps.</h2><span>Start with the drag already costing the business time, trust, and momentum.</span><Link href="/tbtx/map">Map the business</Link></div>
-    </section>
-    <footer className="bbai2__footer"><Link href="/tbtx">TransformBy10X</Link><p>BizBuilders AI builds the foundation. Growth comes after it can carry the weight.</p><Link href="/tbtx/hub">Launch surface</Link></footer>
-  </main>;
+      <footer className="bbai2__footer" id="call">
+        <Link href="/tbtx">TransformBy10X</Link>
+        <p>Map the Gap. Align the Infra. Build Fog-Free.</p>
+        <Link href="/tbtx/map">Map Momentum</Link>
+      </footer>
+    </main>
+  );
 }
