@@ -175,7 +175,6 @@ export default function DiagnosticEngine({
       </div>
 
       <p className="tbtx-scan__mantle">{copy.mantle}</p>
-      {currentStep === 0 ? <p className="tbtx-scan__frame-line">{copy.frameLine}</p> : null}
       <h1 className="tbtx-scan__question">{currentQuestion.text}</h1>
 
       <div className="tbtx-scan__choices">
