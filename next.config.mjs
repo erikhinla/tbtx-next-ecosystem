@@ -3,17 +3,6 @@ const nextConfig = {
   turbopack: {
     root: process.cwd(),
   },
-  async rewrites() {
-    return {
-      fallback: [
-        {
-          source: "/media/:file",
-          destination:
-            "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/:file",
-        },
-      ],
-    };
-  },
   async redirects() {
     return [
       { source: "/scan", destination: "/tbtx/scan", permanent: false },
