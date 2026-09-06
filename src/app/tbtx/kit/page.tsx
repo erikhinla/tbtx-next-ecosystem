@@ -4,13 +4,13 @@ import Film from "@/components/Film";
 import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
-  title: "Fog-Free Daily",
+  title: "Digital Fog-Free Daily",
   description:
-    "Busy. Buried. Behind? A 20-minute personal reset. One surface, one thread, one finishable move. $7.77 honor system.",
+    "Your first month is free. Someone paid it forward. Twenty minutes. One surface. One move.",
 };
 
 const VENMO =
-  "https://venmo.com/erikhbush?txn=pay&amount=7.77&note=Fog-Free%20Daily";
+  "https://venmo.com/erikhbush?txn=pay&amount=7.77&note=Digital%20Fog-Free%20Daily";
 const CASHAPP = "https://cash.app/$erikhbush/7.77";
 
 const BEATS = [
@@ -18,7 +18,7 @@ const BEATS = [
     n: "01",
     title: "Pick today's surface",
     time: "2 min",
-    body: "Choose one place to clear: desktop, downloads, inbox, notes, tabs, or one project folder.",
+    body: "Desktop, downloads, inbox, notes, tabs, or one project folder.",
   },
   {
     n: "02",
@@ -30,13 +30,13 @@ const BEATS = [
     n: "03",
     title: "Choose one thread",
     time: "8 min",
-    body: "Pick one open loop and write the next visible move in one sentence.",
+    body: "Pick one open loop. Write the next visible step in one sentence.",
   },
   {
     n: "04",
-    title: "Lock the next move",
+    title: "Lock the next step",
     time: "4 min",
-    body: "Put the move where you'll see it. Calendar, note, sticky, or task list.",
+    body: "Put that sentence where you will see it tomorrow.",
   },
 ] as const;
 
@@ -56,40 +56,36 @@ export default function FogFreeDailyPage() {
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">
-        <Link href="/tbtx" className="tbtx-kit__back tbtx-fog-link">
-          Back
+        <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
+          <span aria-hidden="true"><</span>
         </Link>
-        <p className="tbtx-scan__job">Social Life</p>
-        <p className="tbtx-scan__mantle">Digital Fog</p>
-        <h1>Fog&#8209;Free Daily</h1>
+        <p className="tbtx-scan__job">Life</p>
+        <h1>Digital Fog&#8209;Free Daily</h1>
         <p className="tbtx-kit__hook">Busy. Buried. Behind?</p>
         <section className="tbtx-peel is-open">
-          <p className="tbtx-peel__title">What 20 minutes gives back</p>
+          <p className="tbtx-peel__title">Twenty minutes</p>
           <div className="tbtx-peel__fog">
             <p className="tbtx-kit__lede">
-              You named the fog. This is twenty minutes to finish one thing and get
-              that attention back. Not a business operating system. One surface, one
-              thread, one finishable move. The leftover job stops using your night.
+              One surface. One thread. One finishable step. The leftover job stops using your night.
             </p>
           </div>
         </section>
         <p className="tbtx-kit__price">$7.77 · honor system · 20 minutes</p>
         <p className="tbtx-kit__note">
-          Pay if you can. Download either way. The price keeps the work against
-          Digital Fog alive. You get the night back either way.
+          Your first month is free. Someone paid it forward. If you&rsquo;d like, you can cover the next person&rsquo;s month.
         </p>
 
         <div className="tbtx-kit__need">
           <article>
             <h2>What you need</h2>
-            <p>A timer, your laptop, and 20 honest minutes.</p>
+            <p>A timer, your laptop, and 20 minutes.</p>
           </article>
           <article>
             <h2>What you don&rsquo;t need</h2>
-            <p>A second brain, a new system, or more tabs.</p>
+            <p>A new system. More tabs.</p>
           </article>
         </div>
-        <p className="tbtx-kit__rule">If it starts feeling too big, shrink the move.</p>
+        <p className="tbtx-kit__rule">If it gets too big, shrink the step.</p>
 
         <ol className="tbtx-kit__beats">
           {BEATS.map((beat) => (
@@ -106,13 +102,11 @@ export default function FogFreeDailyPage() {
           ))}
         </ol>
 
-        <p className="tbtx-kit__close">Calm is the win. One clear move is enough.</p>
-
-        <div className="tbtx-kit__pay" aria-label="Honor system payment">
+        <div className="tbtx-kit__pay" aria-label="Pay it forward">
           <a className="tbtx-kit__method" href={VENMO} target="_blank" rel="noreferrer">
             <img
               src="/pay/venmo.png"
-              alt="Venmo QR for $7.77 Fog-Free Daily"
+              alt="Venmo $7.77"
               width={168}
               height={168}
             />
@@ -122,7 +116,7 @@ export default function FogFreeDailyPage() {
           <a className="tbtx-kit__method" href={CASHAPP} target="_blank" rel="noreferrer">
             <img
               src="/pay/cashapp.png"
-              alt="Cash App QR for $7.77 Fog-Free Daily"
+              alt="Cash App $7.77"
               width={168}
               height={168}
             />
@@ -133,13 +127,10 @@ export default function FogFreeDailyPage() {
 
         <div className="tbtx-scan__moves tbtx-kit__actions">
           <a className="tbtx-scan__go tbtx-fog-go" href="/downloads/Fog-Free-Daily.pdf" download>
-            Download Fog-Free Daily
+            Save Scan
           </a>
           <Link href="/tbtx/kit/share" className="tbtx-fog-link">
-            Share a Fog-Free moment
-          </Link>
-          <Link href="/tbtx/map" className="tbtx-fog-link">
-            Map Digital Fog in Business
+            Share Scan
           </Link>
         </div>
       </div>
