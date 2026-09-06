@@ -5,8 +5,8 @@ export const publicLanes = {
     begin: "Begin the Scan",
     mapLabel: "Scan the Day",
     again: "Scan again",
-    otherHref: "/tbtx/map",
-    otherLabel: "Map Digital Fog in Business",
+    otherHref: "/tbtx/kit",
+    otherLabel: "Digital De-Fog Daily · $7.77",
     frameLine: "",
     headline:
       "See where the day stalls before it turns into leftover work, so you can gain clarity and focus on what you\u2019re made to do.",
@@ -19,8 +19,8 @@ export const publicLanes = {
     begin: "Begin the Map",
     mapLabel: "Map the Gap",
     again: "Map again",
-    otherHref: "/tbtx/scan",
-    otherLabel: "Scan Digital Fog in Life",
+    otherHref: "",
+    otherLabel: "",
     frameLine: "",
     headline:
       "See where momentum is stalling before it leads to friction so you can gain clarity and focus on growing what you\u2019re made to do.",
