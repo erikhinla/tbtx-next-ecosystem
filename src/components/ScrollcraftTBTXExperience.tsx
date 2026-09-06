@@ -118,7 +118,7 @@ export default function ScrollcraftTBTXExperience() {
           <Film
             ref={heroVideoRef}
             className="tbtx-sc__hero-film"
-            src="/media/fog-b2b-short.mp4"
+            src="/media/hero-site-827a.mp4"
             autoPlay
             muted
             loop
