@@ -9,8 +9,8 @@ const DEPTS = [
   ["Sales", "Follow-up lives in a head, not a route."],
   ["Delivery", "Handoffs return as human cleanup."],
   ["Finance", "Decisions wait on reconstructed context."],
-  ["People", "The operator becomes the runtime."],
-  ["AI stack", "Output outpaces the infrastructure under it."],
+  ["People", "People hold the process together."],
+  ["AI agents and tools", "Output outpaces the infrastructure under it."],
 ] as const;
 
 function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -31,11 +31,11 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
 export default function BBAIPage() {
   return (
     <main className="bbai2">
-      <a className="bbai2__skip" href="#fracture">Skip to the fracture</a>
+      <a className="bbai2__skip" href="#fracture">Skip to the problem</a>
       <nav className="bbai2__nav">
         <Link href="/tbtx">TransformBy10X</Link>
         <span>BizBuilders AI</span>
-        <Link href="/tbtx/map">Map Momentum</Link>
+        <Link href="/tbtx/map">Start Map</Link>
       </nav>
 
       <header className="bbai2__hero">
@@ -57,19 +57,18 @@ export default function BBAIPage() {
             <em>Digital Friction is the cost.</em>
           </h1>
           <div className="bbai2__hero-foot">
-            <span>Tools multiply faster than context. The business feels it as stall, rework, and lost attention.</span>
+            <span>AI agents and tools add output. Disconnected handoffs add work.</span>
           </div>
         </div>
       </header>
 
       <section id="fracture" className="bbai2__chapter bbai2__problem">
         <Reveal className="bbai2__chapter-copy">
-          <p className="bbai2__eyebrow">02 / Fundamental fracture</p>
-          <h2>The architectural blindspot.</h2>
+          <p className="bbai2__eyebrow">02 / The gap</p>
+          <h2>The gap between output and action.</h2>
           <p>
-            Probabilistic tools were dropped into deterministic systems with no mediating layer.
-            Departments keep their own truth. AI writes faster than the business can decide.
-            The human operator absorbs the exception.
+            AI agents and tools can produce work faster than a team can review and use it.
+            When context and ownership are unclear, someone has to connect the pieces.
           </p>
           <p className="bbai2__pull">Output outpaces infrastructure.</p>
         </Reveal>
@@ -83,7 +82,7 @@ export default function BBAIPage() {
               loop
               playsInline
             />
-            <figcaption>Legacy stack. Still running. Already stone.</figcaption>
+            <figcaption>More output. The same handoffs.</figcaption>
           </figure>
           <div className="bbai2__proof-list" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: "1px", background: "rgb(255 255 255 / 0.12)" }}>
             {DEPTS.map(([title, body]) => (
@@ -98,12 +97,11 @@ export default function BBAIPage() {
 
       <section className="bbai2__chapter bbai2__build">
         <Reveal className="bbai2__chapter-copy">
-          <p className="bbai2__eyebrow">03 / Fundamental fix</p>
-          <h2>AI-assisted work still needs a route.</h2>
+          <p className="bbai2__eyebrow">03 / The setup</p>
+          <h2>Give the work a next step.</h2>
           <p>
-            AI-assisted and AI-native businesses are increasing. Legacy systems without an operating
-            layer cannot hold that volume. Shared memory, durable protocols, and clear ownership are
-            the fix — not another tool.
+            Keep context where the work happens. Define who decides, who reviews, and what happens next.
+            Give AI agents and tools a place in that process.
           </p>
         </Reveal>
         <div className="bbai2__decks">
@@ -129,11 +127,10 @@ export default function BBAIPage() {
       <section id="future" className="bbai2__chapter bbai2__proof">
         <Reveal className="bbai2__chapter-copy">
           <p className="bbai2__eyebrow">04 / Foundation for the future</p>
-          <h2>Legacy cannot compete with a governed route.</h2>
+          <h2>Build around how work moves.</h2>
           <p>
-            Businesses that only bolt AI onto yesterday&rsquo;s handoffs will spend the next decade
-            reconciling versions. Businesses that install an operating layer first let attention
-            compound.
+            Start with one workflow. Connect its information, decisions, and handoffs.
+            Check whether it reduces repeated work before extending it.
           </p>
         </Reveal>
       </section>
@@ -141,12 +138,12 @@ export default function BBAIPage() {
       <section id="build" className="bbai2__close">
         <img src="/media/bbai-blue-phone.jpg" alt="" />
         <div>
-          <p>Gather the picture first. Then write the route.</p>
-          <h2>Map Momentum. Then get the BizBlueprint.</h2>
+          <p>Start where work gets held up.</p>
+          <h2>Map your business. Choose one change.</h2>
           <div className="bbai2__hero-foot" style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-            <Link href="/tbtx/map">Map Momentum</Link>
-            <Link href="/tbtx/blueprint">Get Your BizBlueprint</Link>
-            <a href="#call">Set up a video call</a>
+            <Link href="/tbtx/map">Start Map</Link>
+            <Link href="/tbtx/blueprint">View Blueprint</Link>
+            <a href="#fracture">Review the setup</a>
           </div>
         </div>
       </section>
@@ -154,7 +151,7 @@ export default function BBAIPage() {
       <footer className="bbai2__footer" id="call">
         <Link href="/tbtx">TransformBy10X</Link>
         <p>Map the Gap. Align the Infra. Build Fog-Free.</p>
-        <Link href="/tbtx/map">Map Momentum</Link>
+        <Link href="/tbtx/map">Start Map</Link>
       </footer>
     </main>
   );
