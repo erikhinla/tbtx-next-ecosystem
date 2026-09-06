@@ -20,8 +20,8 @@ export default function FogReport({ report, onReset }: FogReportProps) {
   return (
     <article className="tbtx-scan__report is-in">
       <div className="tbtx-scan__top">
-        <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
-          <span aria-hidden="true">&lt;</span>
+        <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
+          <span aria-hidden="true"><</span>
         </Link>
         <p className="tbtx-scan__job">Digital Fog in Business</p>
       </div>
@@ -39,7 +39,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
           <p>{report.load.body}</p>
           <p className="tbtx-scan__range">
             About {report.load.hoursPerPersonWeek[0]} to {report.load.hoursPerPersonWeek[1]} hours a
-            week finishing what the agents started. Hours that should have been the work you&rsquo;re made to do.
+            week finishing what the agents started.
           </p>
         </div>
       </section>
@@ -108,7 +108,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
 
       <div className="tbtx-scan__foot">
         <button type="button" onClick={onReset} className="tbtx-fog-link">
-          Map again
+          Begin Again
         </button>
       </div>
     </article>
