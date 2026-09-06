@@ -4,9 +4,8 @@ import Film from "@/components/Film";
 import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
-  title: "Fog-Free moment",
-  description:
-    "Share after you finish. Cleared a surface. One move. Calm is the win.",
+  title: "Share Scan",
+  description: "Share Digital Fog-Free Daily after you finish.",
 };
 
 export default function FogFreeSharePage() {
@@ -25,15 +24,13 @@ export default function FogFreeSharePage() {
       </div>
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">
-        <Link href="/tbtx/kit" className="tbtx-kit__back tbtx-fog-link">
-          Back to Fog-Free Daily
+        <Link href="/tbtx/kit" className="tbtx-scan__back" aria-label="Back">
+          <span aria-hidden="true"><</span>
         </Link>
-        <p className="tbtx-scan__job">Social Life</p>
-        <p className="tbtx-scan__mantle">Digital Fog</p>
-        <h1>Fog&#8209;Free moment</h1>
+        <p className="tbtx-scan__job">Life</p>
+        <h1>Share Scan</h1>
         <p className="tbtx-kit__lede">
-          Write down what moved. That&rsquo;s the proof. Small counts. Share it when
-          you&rsquo;re ready to say it out loud.
+          Write the thing you finished. Then send this to someone who is still carrying theirs.
         </p>
 
         <figure className="tbtx-kit__share">
@@ -45,18 +42,16 @@ export default function FogFreeSharePage() {
             preload="metadata"
           />
           <figcaption>
-            I ran Fog-Free Daily. Cleared a surface. One move. Calm is the win.
+            I ran Digital Fog-Free Daily. Cleared a surface. One step.
           </figcaption>
         </figure>
 
-        <p className="tbtx-kit__close">Be Fog-Free. Then move.</p>
-
         <div className="tbtx-scan__moves tbtx-kit__actions">
           <a className="tbtx-scan__go tbtx-fog-go" href="/downloads/Fog-Free-Daily.pdf" download>
-            Download the reset
+            Save Scan
           </a>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Scan again
+            Begin Again
           </Link>
         </div>
       </div>
