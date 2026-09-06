@@ -2,11 +2,11 @@ export const publicLanes = {
   personal: {
     job: "Digital Fog in Life",
     mantle: "",
-    begin: "Begin the Scan",
+    begin: "Start Scan",
     mapLabel: "Scan the Day",
-    again: "Scan again",
+    again: "Begin Again",
     otherHref: "/tbtx/kit",
-    otherLabel: "Digital De-Fog Daily · $7.77",
+    otherLabel: "Digital Fog-Free Daily",
     frameLine: "",
     headline:
       "See where the day stalls before it turns into leftover work, so you can gain clarity and focus on what you\u2019re made to do.",
@@ -16,9 +16,9 @@ export const publicLanes = {
   business: {
     job: "Digital Fog in Business",
     mantle: "",
-    begin: "Begin the Map",
+    begin: "Start Map",
     mapLabel: "Map the Gap",
-    again: "Map again",
+    again: "Begin Again",
     otherHref: "",
     otherLabel: "",
     frameLine: "",
