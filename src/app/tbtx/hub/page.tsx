@@ -495,7 +495,7 @@ export default function LaunchHandbook() {
               Business Map
             </Link>
             <Link href="/tbtx/kit" className="text-emerald-300">
-              Fog-Free Daily
+              Digital De-Fog Daily
             </Link>
           </div>
         </footer>
