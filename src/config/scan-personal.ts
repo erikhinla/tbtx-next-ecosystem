@@ -89,8 +89,8 @@ export const personalBands: ProfileBand[] = [
     max: 49,
     profile: "CARRYING IT",
     description:
-      "You named where the day stalls. Digital De-Fog Daily is twenty minutes to close one loop. $7.77 honor system so the next person can get it free.",
-    cta: "Digital De-Fog Daily · $7.77",
+      "You named where the day stalls. Digital Fog-Free Daily is twenty minutes to close one loop. Your first month is free. Someone paid it forward.",
+    cta: "Digital Fog-Free Daily",
     ctaRoute: "/tbtx/kit",
   },
   {
@@ -98,8 +98,8 @@ export const personalBands: ProfileBand[] = [
     max: 100,
     profile: "CLEAR ENOUGH",
     description:
-      "The day is clearer. Keep it that way. Digital De-Fog Daily is the 20-minute reset. $7.77 honor system so the next person can get it free.",
-    cta: "Digital De-Fog Daily · $7.77",
+      "The day is clearer. Digital Fog-Free Daily keeps it that way. Your first month is free. Someone paid it forward.",
+    cta: "Digital Fog-Free Daily",
     ctaRoute: "/tbtx/kit",
   },
 ];
