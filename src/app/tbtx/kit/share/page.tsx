@@ -5,7 +5,7 @@ import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
   title: "Share Scan",
-  description: "Share Digital Fog-Free Daily after you finish.",
+  description: "Share the Scan and a small change from your day.",
 };
 
 export default function FogFreeSharePage() {
@@ -25,12 +25,12 @@ export default function FogFreeSharePage() {
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">
         <Link href="/tbtx/kit" className="tbtx-scan__back" aria-label="Back">
-          <span aria-hidden="true"><</span>
+          <span aria-hidden="true">‹</span>
         </Link>
         <p className="tbtx-scan__job">Life</p>
         <h1>Share Scan</h1>
         <p className="tbtx-kit__lede">
-          Write the thing you finished. Then send this to someone who is still carrying theirs.
+          Share transformby10x.ai/tbtx/scan. Add what you noticed or changed, in your own words.
         </p>
 
         <figure className="tbtx-kit__share">
@@ -42,16 +42,16 @@ export default function FogFreeSharePage() {
             preload="metadata"
           />
           <figcaption>
-            I ran Digital Fog-Free Daily. Cleared a surface. One step.
+            One place to start. One next step.
           </figcaption>
         </figure>
 
         <div className="tbtx-scan__moves tbtx-kit__actions">
           <a className="tbtx-scan__go tbtx-fog-go" href="/downloads/Fog-Free-Daily.pdf" download>
-            Save Scan
+            Save Daily
           </a>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Begin Again
+            Start Scan
           </Link>
         </div>
       </div>

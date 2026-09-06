@@ -93,13 +93,13 @@ export default function DiagnosticEngine({
       <ScanShell isPersonal>
         <div className="tbtx-scan__top">
           <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
-            <span aria-hidden="true"><</span>
+            <span aria-hidden="true">‹</span>
           </Link>
           <p className="tbtx-scan__job">{copy.job}</p>
         </div>
         <h1 className="tbtx-scan__profile is-in">{band.profile}</h1>
         <section className="tbtx-peel is-in">
-          <p className="tbtx-peel__title">What the scan named</p>
+          <p className="tbtx-peel__title">What your answers show</p>
           <div className="tbtx-peel__fog">
             <p className="tbtx-scan__lead">{band.description}</p>
           </div>
@@ -137,7 +137,7 @@ export default function DiagnosticEngine({
       <ScanShell isPersonal={false}>
         <div className="tbtx-scan__top">
           <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
-            <span aria-hidden="true"><</span>
+            <span aria-hidden="true">‹</span>
           </Link>
           <p className="tbtx-scan__job">{copy.job}</p>
         </div>
@@ -164,7 +164,7 @@ export default function DiagnosticEngine({
     <ScanShell isPersonal={isPersonal}>
       <div className="tbtx-scan__top">
         <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
-          <span aria-hidden="true"><</span>
+          <span aria-hidden="true">‹</span>
         </Link>
         <p className="tbtx-scan__job">{copy.job}</p>
         <div className="tbtx-scan__count" aria-current="step">
@@ -195,8 +195,8 @@ export default function DiagnosticEngine({
 
       {currentStep > 0 ? (
         <div className="tbtx-scan__nav">
-          <button type="button" onClick={() => setCurrentStep(currentStep - 1)}>
-            Previous
+          <button type="button" aria-label="Previous question" onClick={() => setCurrentStep(currentStep - 1)}>
+            ‹
           </button>
         </div>
       ) : null}

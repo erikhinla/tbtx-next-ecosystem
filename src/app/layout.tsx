@@ -38,7 +38,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Managing Digital Fog",
   description:
-    "AI created a job. Nobody wanted. Start here. The Digital Fog Scan.",
+    "Find where AI agents and tools outpace your setup. Scan your life or map your business.",
 };
 
 export default function RootLayout({

@@ -6,21 +6,21 @@ const TILES = [
   {
     id: "out",
     face: "Sit out",
-    insight: "Ignore the infrastructure AI is built on and the tools that run on it.",
-    after: "Get outrun by the people who\u00a0didn't.",
+    insight: "Leave the setup as it is.",
+    after: "The loose ends remain.",
   },
   {
     id: "back",
     face: "Sit back",
-    insight: "AI agents kick off the creative. You pick up coordinating the\u00a0context.",
-    after: 'And you never get off the hamster wheel of "busyness" to live to good\u00a0purpose.',
+    insight: "Keep adding AI agents and tools.",
+    after: 'Keep connecting the pieces yourself.',
   },
   {
     id: "up",
-    face: "Stand UP",
+    face: "STAND UP",
     insight:
-      "Get clarity and gain momentum by focusing on the things you're made for in work and life. You pick where you feel the fog\u00a0most.",
-    after: "Your future self thanks\u00a0you.",
+      "Change the setup. Make room for what matters.",
+    after: "Start where you feel the fog most.",
   },
 ] as const;
 

@@ -15,25 +15,25 @@ const archetypeMap: Record<
     name: "Tool Overload",
     status: "Fragmented",
     fix: "Consolidate tools and remove duplicate steps.",
-    next: "Reduce stack complexity before applying automation.",
+    next: "Remove duplicate steps before adding automation.",
   },
   bottleneckOperator: {
     name: "Bottleneck Operator",
     status: "Owner-Dependent",
-    fix: "Externalize decisions and standardize handoffs.",
-    next: "Remove single-point dependency from operations.",
+    fix: "Write down decisions and make handoffs clear.",
+    next: "Make it possible for someone else to pick up the work.",
   },
   fragmentedWorkflow: {
     name: "Fragmented Workflow",
     status: "Disconnected",
-    fix: "Create one workflow spine and one context layer.",
-    next: "Connect inputs, decisions, and outputs structurally.",
+    fix: "Keep the task, context, and next step together.",
+    next: "Trace one task from request to finish.",
   },
   executionStall: {
     name: "Execution Stall",
     status: "Stalled",
-    fix: "Define completion triggers and close open loops.",
-    next: "Move from reactive work to structured progression.",
+    fix: "Define what finished means and who takes the next step.",
+    next: "Give one unfinished task an owner and a next action.",
   },
 };
 
@@ -60,10 +60,10 @@ function BlueprintContent() {
 
       <div className="tbtx-scan__frame">
         <div className="tbtx-scan__top">
-          <Link href="/tbtx/map" className="tbtx-fog-link">
-            Back to the Map
+          <Link href="/tbtx/map" className="tbtx-fog-link" aria-label="Back to Map">
+            ‹
           </Link>
-          <p className="tbtx-scan__job">Work Life</p>
+          <p className="tbtx-scan__job">Business</p>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
             Choose Your Path
           </Link>
@@ -74,12 +74,10 @@ function BlueprintContent() {
         <h1 className="tbtx-scan__profile">{data.name}</h1>
         <p className="tbtx-scan__status">{data.status}</p>
         <section className="tbtx-peel">
-          <p className="tbtx-peel__title">What this prescription is for</p>
+          <p className="tbtx-peel__title">A starting point</p>
           <div className="tbtx-peel__fog">
             <p className="tbtx-scan__lead">
-              You named the friction. This is the first prescription, not a finished operating
-              system. It names the shape of the drag so the stand has somewhere to start, and so
-              the team stops being the operating system.
+              Use this pattern to review one task in your business. These are suggested changes, not a completed setup.
             </p>
           </div>
         </section>
@@ -88,7 +86,7 @@ function BlueprintContent() {
           <h2>The first fix</h2>
           <div className="tbtx-peel__fog">
             <p className="tbtx-blue__fix">{data.fix}</p>
-            <p>Treating symptoms only thickens the fog. Correct the operating architecture first.</p>
+            <p>Try the change on one task before applying it more widely.</p>
           </div>
         </section>
 
@@ -97,21 +95,20 @@ function BlueprintContent() {
           <div className="tbtx-peel__fog">
             <p className="tbtx-blue__fix">{data.next}</p>
             <p>
-              BizBuilders AI is the foundation engagement. Context, then the operating layer, then
-              governed execution. Growth waits until that layer can carry it.
+              Explore BizBuilders AI for shared context, clear ownership, and rules for how work moves.
             </p>
           </div>
         </section>
 
         <div className="tbtx-scan__moves">
           <Link href="/bbai" className="tbtx-scan__go tbtx-fog-go">
-            Build the Backbone
+            Explore BizBuilders AI
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
-            Map again
+            Start Map Again
           </Link>
           <Link href="/tbtx/scan" className="tbtx-fog-link">
-            Scan Digital Fog in Life
+            Start Scan
           </Link>
           <Link href="/tbtx#tbtx-stakes" className="tbtx-fog-link">
             Choose Your Path
@@ -134,7 +131,7 @@ export default function BlueprintPage() {
       fallback={
         <div className="tbtx-scan">
           <div className="tbtx-scan__frame">
-            <p className="tbtx-scan__job">Compiling the prescription</p>
+            <p className="tbtx-scan__job">Loading Blueprint</p>
           </div>
         </div>
       }

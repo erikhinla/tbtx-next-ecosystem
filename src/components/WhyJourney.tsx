@@ -10,15 +10,15 @@ export function ArrivalCopy() {
       className={`tbtx-beat tbtx-beat--arrival${shown ? " is-in" : ""}`}
     >
       <p>
-        You&apos;re here because you&apos;ve felt it. The tools don&apos;t take things off your plate. They stacked new ones on top and you&apos;re the one coordinating it all&nbsp;together.
+        When output outgrows your setup, keeping track becomes another job.
       </p>
       <p>
         That job has a name: <span className="tbtx-nowrap">Managing Digital Fog.</span>
       </p>
       <p>
-        AI isn&apos;t transformational, it&apos;s informational. And running more AI will only 10X output, but what you want is leverage. To get that you need your attention back from the loose ends AI leaves behind, and putting it toward creating things only you&nbsp;can.
+        Your attention belongs to what matters to you. Start with the setup that keeps pulling it&nbsp;away.
       </p>
-      <p>There are three paths&nbsp;forward.</p>
+      <p>What happens next is your&nbsp;choice.</p>
     </div>
   );
 }
@@ -31,14 +31,13 @@ export function StandCopy() {
       className={`tbtx-beat tbtx-beat--stand${shown ? " is-in" : ""}`}
     >
       <p>
-        Clearing the fog exposes the gap. Not the noise, the operational architecture underneath it. Build that, and attention goes back to what matters. Your&nbsp;vision.
+        AI agents and tools move faster. You&apos;re still connecting the&nbsp;pieces.
       </p>
       <p>
-        What comes next is not a personality quiz. It&apos;s not seeing how organized you&nbsp;are.
+        More output. More places to check. More loose&nbsp;ends.
       </p>
       <p>
-        It&apos;s you deciding not to spend another year as the{" "}
-        <span className="tbtx-nowrap">AI&apos;s assistant.</span>
+        That&apos;s Digital&nbsp;Fog.
       </p>
     </div>
   );

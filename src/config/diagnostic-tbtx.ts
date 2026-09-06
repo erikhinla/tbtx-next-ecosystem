@@ -21,7 +21,7 @@ export const questions: Question[] = [
       { text: "Starting things", value: 0 },
       { text: "Switching between tools", value: 1 },
       { text: "Waiting on others", value: 1 },
-      { text: "Getting things across the finish line", value: 2 },
+      { text: "Finishing", value: 2 },
     ],
   },
   {
@@ -36,7 +36,7 @@ export const questions: Question[] = [
   },
   {
     id: 3,
-    text: "Where does your business store its most important operating knowledge?",
+    text: "Where does your team keep the knowledge it needs?",
     options: [
       { text: "In people's heads", value: 0 },
       { text: "In scattered docs and chats", value: 0 },
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   },
   {
     id: 4,
-    text: "How many AI tools or automations are you currently running?",
+    text: "How many AI agents and tools do you use?",
     options: [
       { text: "None yet", value: 0 },
       { text: "One or two, lightly", value: 1 },
@@ -86,12 +86,12 @@ export const questions: Question[] = [
   },
   {
     id: 8,
-    text: "How would you describe your AI usage right now?",
+    text: "How do AI agents and tools fit into your work?",
     options: [
       { text: "Experimenting with no system", value: 0 },
       { text: "Using tools but results are inconsistent", value: 1 },
       { text: "Running workflows but they are fragmented", value: 1 },
-      { text: "Operating a governed AI execution layer", value: 2 },
+      { text: "Using AI agents and tools with clear rules and oversight", value: 2 },
     ],
   },
   {
@@ -151,12 +151,12 @@ export const questions: Question[] = [
       { text: "It doesn't", value: 0 },
       { text: "Informally, through conversation", value: 1 },
       { text: "We review occasionally", value: 1 },
-      { text: "We have a structured reflection and learning loop", value: 2 },
+      { text: "We review results and update how we work", value: 2 },
     ],
   },
   {
     id: 15,
-    text: "If you had to describe your current operating system in one word, which fits best?",
+    text: "Which word best describes how work runs today?",
     options: [
       { text: "Chaos", value: 0 },
       { text: "Reactive", value: 0 },
@@ -180,32 +180,32 @@ export const scoringBands: ProfileBand[] = [
     min: 0,
     max: 24,
     profile: "FRAGMENTED",
-    description: "Agents opened more than the team can close. Work starts fresh every time. People are the operating system. That is leftover coordination, not 10x.",
-    cta: "Get the AI Biz Blueprint",
+    description: "Your answers suggest work depends on scattered information and manual coordination. Start with one task that keeps getting held up.",
+    cta: "View Blueprint",
     ctaRoute: "/tbtx/blueprint",
   },
   {
     min: 25,
     max: 49,
     profile: "STALLED",
-    description: "Pieces exist. Nothing holds them. Humans still finish what the agents start. The stand now is to give the leftover work a route.",
-    cta: "Get the AI Biz Blueprint",
+    description: "Your answers suggest some processes are in place, with gaps between steps. Pick one handoff and make the next action clear.",
+    cta: "View Blueprint",
     ctaRoute: "/tbtx/blueprint",
   },
   {
     min: 50,
     max: 74,
     profile: "SCALING",
-    description: "Work gets done. Then you do it again. The 10x is still trapped in coordination. Backbone is how the stand holds at work scale.",
-    cta: "Build the Backbone",
+    description: "Your answers suggest a working setup with room to reduce repeated work. Check where context or ownership gets lost.",
+    cta: "Explore BizBuilders AI",
     ctaRoute: "/bbai",
   },
   {
     min: 75,
     max: 100,
     profile: "COMPOUNDING",
-    description: "The system compounds. Guard it. Adding tools faster than the route can hold them puts you back in leftover-finishing.",
-    cta: "Build the Backbone",
+    description: "Your answers suggest a connected setup. Check that new AI agents and tools fit the way work already moves.",
+    cta: "Explore BizBuilders AI",
     ctaRoute: "/bbai",
   },
 ];

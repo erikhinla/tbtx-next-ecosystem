@@ -10,31 +10,31 @@ const FACTS = [
     area: "lead",
     src: "/media/task-logos.mp4",
     poster: "/media/task-logos.jpg",
-    hook: "An agent made 83 logos. You're still the one who has to pick.",
-    story: "Volume is not a decision. The leftover job is taste, and taste still sits with you after the agent clocks out.",
+    hook: "An AI agent made 83 logos. You still have to pick.",
+    story: "More options. The same decision.",
   },
   {
     id: "12",
     area: "cut",
     src: "/media/b2b-sold-ai.mp4",
     poster: "/media/grok-b2b-billboard.jpg",
-    hook: "They sold you the agents. You inherited the leftovers.",
-    story: "The pitch was speed. The residue is a human finishing what the stack started. That's the job nobody posted.",
+    hook: "AI agents and tools start the work. You connect the pieces.",
+    story: "Finding context. Checking output. Deciding what happens next.",
   },
   {
     id: "44",
     area: "pulse",
     src: "/media/task-clockout.mp4",
     poster: "/media/task-clockout.jpg",
-    hook: "You closed the laptop. The agents didn't.",
-    story: "The day ends. The leftover job doesn't. Someone still has to close the loops the agents left open.",
+    hook: "You closed the laptop. The AI agents kept going.",
+    story: "Tomorrow starts with another queue to review.",
   },
   {
     id: "7",
     area: "night",
     src: "/media/computer-explodes.mp4",
     poster: "/media/fog-context.jpg",
-    hook: "Three agents. Three answers. You're the fourth.",
+    hook: "Three AI agents. Three answers. Your decision.",
     story: "More output, more arbitration.",
   },
   {
@@ -43,15 +43,15 @@ const FACTS = [
     src: "/media/hero-fog-people.mp4",
     poster: "/media/hero-fog-poster.jpg",
     hook: "Everyone else already 'gets it.' That's the feeling.",
-    story: "The fog is social before it is technical. You weren't late. You were handed a job with no name.",
+    story: "Someone else's pace does not have to set yours.",
   },
   {
     id: "19",
     area: "same",
     src: "/media/task-lives.mp4",
     poster: "/media/task-lives.jpg",
-    hook: "Same agents. Different lives. Same leftover mess.",
-    story: "Personal or the company, the residue is identical. Someone still has to finish it. That's who we film.",
+    hook: "AI agents and tools at work. Loose ends at home.",
+    story: "Different tasks can leave you with the same job: keeping track.",
   },
 ] as const;
 
@@ -135,13 +135,12 @@ export default function FogTaskMosaic() {
           {status === "sent" ? (
             <>
               <p className="tbtx-mosaic__yours-line">{sentLine}</p>
-              <p className="tbtx-mosaic__got">If we film it, your line is the one on the scene.</p>
+              <p className="tbtx-mosaic__got">Your scene was submitted.</p>
             </>
           ) : (
             <>
               <p className="tbtx-mosaic__why">
-                Write it like a scene. Name, what they were trying to finish, what they actually did.
-                If the line lands, it becomes the film.
+                What were you trying to finish? What did you end up doing? Write one scene in 12 to 280 characters.
               </p>
               <div className="tbtx-mosaic__row">
                 <label htmlFor="fog-fact" className="tbtx-sr">
@@ -159,11 +158,11 @@ export default function FogTaskMosaic() {
                   placeholder={SCENE_PLACEHOLDER}
                 />
                 <button type="submit" disabled={status === "sending"}>
-                  {status === "sending" ? "Sending" : "Send the line"}
+                  {status === "sending" ? "Sending" : "Send Scene"}
                 </button>
               </div>
               {status === "error" && (
-                <p className="tbtx-mosaic__got">Keep it to one scene. 12 to 280 characters.</p>
+                <p className="tbtx-mosaic__got">Submission failed. Keep your text, check it is 12 to 280 characters, and try again.</p>
               )}
             </>
           )}
@@ -193,8 +192,7 @@ export default function FogTaskMosaic() {
             <h3>{active.hook}</h3>
             <p className="tbtx-mosaic__caption-story">{active.story}</p>
             <p className="tbtx-mosaic__caption-convert">
-              If this is yours, the last tile is waiting. Write the scene. If it names the leftover
-              job, we film it.
+              Recognize the situation? Add your own scene in the last tile.
             </p>
           </div>
         </div>

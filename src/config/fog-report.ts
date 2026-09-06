@@ -30,121 +30,121 @@ const MAX_PER_QUESTION = 2;
 const PRESSURE_WHEN_ZERO: Record<number, FogPressure> = {
   0: {
     id: "start",
-    title: "Momentum dies at the start",
-    implication: "Work doesn't have a first move. Someone has to invent the start every time.",
+    title: "Starting work",
+    implication: "You reported difficulty starting. Check whether the first step is clear.",
   },
   1: {
     id: "next",
-    title: "Nobody can see the next move",
-    implication: "Priorities are reconstructed in conversation instead of routed.",
+    title: "Choosing the next step",
+    implication: "You work out priorities as you go. Try keeping the next action in one place.",
   },
   2: {
     id: "memory",
-    title: "The system is someone's head",
-    implication: "Operating knowledge lives in people and chat threads. It walks out of the room.",
+    title: "Finding shared knowledge",
+    implication: "Your answer points to knowledge held in people's heads or scattered messages.",
   },
   3: {
     id: "tools",
-    title: "No operating layer yet",
-    implication: "Tools haven't been asked to hold a route. They only add surfaces.",
+    title: "Before adding AI agents and tools",
+    implication: "You reported no AI agents and tools in use. Start with the task and its handoffs before choosing any.",
   },
   4: {
     id: "learning",
-    title: "Finished work leaves no memory",
-    implication: "Each project starts as if the last one never happened.",
+    title: "Keeping what you learn",
+    implication: "You reported losing what a project taught you. Save one lesson with the work.",
   },
   5: {
     id: "followup",
-    title: "Follow-up depends on recall",
-    implication: "Leads and replies fall through unless a person remembers them.",
+    title: "Tracking follow-up",
+    implication: "Your answer suggests follow-up can depend on someone remembering.",
   },
   6: {
     id: "ownership",
     title: "Ownership is unclear",
-    implication: "When something needs to move, it waits on whoever happens to notice.",
+    implication: "You reported unclear ownership. Give one waiting task an owner.",
   },
   7: {
     id: "ai",
-    title: "AI is activity without a spine",
-    implication: "Prompts and tools fire. Nothing governs what should happen next.",
+    title: "AI agents and tools need a process",
+    implication: "You reported experimenting without a system. Define what happens after an output arrives.",
   },
   8: {
     id: "decisions",
-    title: "Pressure picks the loudest voice",
-    implication: "Decisions are not routed. They are improvised.",
+    title: "Deciding under pressure",
+    implication: "Your answer suggests decisions depend on who speaks up or is available.",
   },
   9: {
     id: "revenue",
-    title: "Revenue still rides on memory",
-    implication: "If people forget to follow up, the money doesn't arrive.",
+    title: "Revenue follow-up",
+    implication: "You reported that much of your revenue depends on manual follow-up or memory.",
   },
   10: {
     id: "repeat",
-    title: "Work is done twice",
-    implication: "Context doesn't survive the last cycle, so the same labor returns.",
+    title: "Repeated work",
+    implication: "You reported frequent repeated work. Check what could be reused.",
   },
   11: {
     id: "key-person",
-    title: "One absence stops the machine",
-    implication: "The operating system is a person. When they are out, work stops.",
+    title: "Covering an absence",
+    implication: "You reported work stopping or slowing when a key person is away.",
   },
   12: {
     id: "pipeline",
     title: "The pipeline is not visible",
-    implication: "You can't see what's waiting, slipping, or already lost.",
+    implication: "You reported limited visibility into leads. Check where status is recorded.",
   },
   13: {
     id: "loop",
-    title: "Execution doesn't teach the next cycle",
-    implication: "The business doesn't get sharper from the work it already did.",
+    title: "Learning from completed work",
+    implication: "You reported no regular learning process. Review one completed task.",
   },
   14: {
     id: "shape",
-    title: "The shape is chaos or reaction",
-    implication: "There's motion. There isn't a system that compounds.",
+    title: "Responding as work arrives",
+    implication: "You described work as chaotic or reactive. Start with one repeatable next step.",
   },
 };
 
 const PRESSURE_WHEN_ONE: Record<number, FogPressure> = {
   0: {
     id: "handoff",
-    title: "Momentum leaks between tools and waiting",
-    implication: "The work exists. The path between steps doesn't.",
+    title: "Tools and handoffs",
+    implication: "You reported delays switching tools or waiting on others.",
   },
   1: {
     id: "priorities",
     title: "Priorities are informal",
-    implication: "People know a list. The list doesn't route itself.",
+    implication: "Your priorities or process are informal. Make the next owner and action visible.",
   },
   2: {
     id: "scattered",
-    title: "Knowledge is filed, not usable",
-    implication: "Docs exist. Finding the live version is still a job.",
+    title: "Finding the current information",
+    implication: "You reported loosely organized knowledge. Check whether the current version is easy to find.",
   },
   5: {
     id: "loose-followup",
     title: "Follow-up is a loose process",
-    implication: "It works when someone has slack. It fails when they don't.",
+    implication: "You reported a loose follow-up process. Make the next contact date visible.",
   },
   6: {
     id: "informal-owner",
     title: "Ownership depends on who is free",
-    implication: "Tasks move by availability, not by a rule.",
+    implication: "You reported informal ownership or assignments based on availability.",
   },
   9: {
     id: "some-manual",
-    title: "Part of revenue still needs a human prompt",
-    implication: "Systems cover some of it. Memory covers the rest.",
+    title: "Some follow-up remains manual",
+    implication: "You reported some revenue depending on manual follow-up or memory.",
   },
   10: {
     id: "sometimes-repeat",
-    title: "Work repeats often enough to feel it",
-    implication: "Reusable pieces exist. They are not the default.",
+    title: "Occasional repeated work",
+    implication: "You reported repeating some work. Keep a useful example with the next task.",
   },
   12: {
     id: "partial-pipe",
     title: "The pipeline is only partly visible",
-    implication: "You can see some of the work. The rest is weather.",
+    implication: "Your answer suggests some lead status is visible. Check the gaps.",
   },
 };
 
@@ -165,28 +165,28 @@ function deriveArchetype(pressures: FogPressure[]): Archetype {
 function loadForHealth(health: number): FogLoad {
   if (health <= 24) {
     return {
-      headline: "Agents started more than anyone can finish.",
-      body: "A week of re-explaining, chasing, restarting. After agents. A person is still holding it.",
+      headline: "Start with one point of friction.",
+      body: "Look for time spent finding context, chasing updates, or restarting work.",
       hoursPerPersonWeek: [6, 12],
     };
   }
   if (health <= 49) {
     return {
-      headline: "People are still finishing what the agents leave.",
-      body: "Some of a system exists. It doesn't hold. Someone still does it by hand.",
+      headline: "Check the gaps between steps.",
+      body: "Trace one task from request to finish. Note where someone has to reconnect the pieces.",
       hoursPerPersonWeek: [4, 8],
     };
   }
   if (health <= 74) {
     return {
-      headline: "Work gets done. Then you do it again.",
-      body: "The tools don't remember. Agents don't govern themselves. That's the fog showing up at work.",
+      headline: "Look for repeated coordination.",
+      body: "Check whether the next task can reuse the decisions and context from the last.",
       hoursPerPersonWeek: [2, 5],
     };
   }
   return {
-    headline: "It's working. Don't flood it.",
-    body: "Don't add another agent until this can hold the ones you have.",
+    headline: "Keep the setup connected.",
+    body: "Give each new AI agent or tool a clear purpose, owner, and place in the process.",
     hoursPerPersonWeek: [1, 3],
   };
 }

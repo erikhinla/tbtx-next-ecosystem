@@ -43,7 +43,7 @@ export const personalQuestions: Question[] = [
   },
   {
     id: 5,
-    text: "When AI helps you produce something, what happens next?",
+    text: "When AI agents and tools produce something, what happens next?",
     options: [
       { text: "I use it and move on", value: 2 },
       { text: "I edit it, then I can use it", value: 1 },
@@ -89,8 +89,8 @@ export const personalBands: ProfileBand[] = [
     max: 49,
     profile: "CARRYING IT",
     description:
-      "You named where the day stalls. Digital Fog-Free Daily is twenty minutes to close one loop. Your first month is free. Someone paid it forward.",
-    cta: "Digital Fog-Free Daily",
+      "Your answers point to loose ends taking up your day. Start with one small change through Digital De-Fog Daily.",
+    cta: "Digital De-Fog Daily",
     ctaRoute: "/tbtx/kit",
   },
   {
@@ -98,8 +98,8 @@ export const personalBands: ProfileBand[] = [
     max: 100,
     profile: "CLEAR ENOUGH",
     description:
-      "The day is clearer. Digital Fog-Free Daily keeps it that way. Your first month is free. Someone paid it forward.",
-    cta: "Digital Fog-Free Daily",
+      "Your answers suggest your setup is mostly keeping pace. Use Digital De-Fog Daily to give one loose end a next step.",
+    cta: "Digital De-Fog Daily",
     ctaRoute: "/tbtx/kit",
   },
 ];
