@@ -12,8 +12,8 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
   return (
     <>
       <div className="tbtx-scan__top">
-        <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
-          <span aria-hidden="true">&lt;</span>
+        <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
+          <span aria-hidden="true"><</span>
         </Link>
         <p className="tbtx-scan__job">{lane.job}</p>
       </div>
@@ -27,7 +27,6 @@ export default function ScanThreshold({ isPersonal, onBegin }: ScanThresholdProp
         </button>
         {isPersonal ? <Link href={lane.otherHref}>{lane.otherLabel}</Link> : null}
       </div>
-      <p className="tbtx-scan__refrain">You don&rsquo;t need more AI. Clear the fog.</p>
     </>
   );
 }
