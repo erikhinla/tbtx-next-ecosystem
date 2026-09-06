@@ -21,13 +21,13 @@ export default function FogReport({ report, onReset }: FogReportProps) {
     <article className="tbtx-scan__report is-in">
       <div className="tbtx-scan__top">
         <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
-          <span aria-hidden="true"><</span>
+          <span aria-hidden="true">‹</span>
         </Link>
         <p className="tbtx-scan__job">Digital Fog in Business</p>
       </div>
       <h1 className="tbtx-scan__profile">{report.profile.profile}</h1>
       <section className="tbtx-peel is-in">
-        <p className="tbtx-peel__title">Where momentum is stalling</p>
+        <p className="tbtx-peel__title">What your answers suggest</p>
         <div className="tbtx-peel__fog">
           <p className="tbtx-scan__lead">{report.profile.description}</p>
         </div>
@@ -38,15 +38,14 @@ export default function FogReport({ report, onReset }: FogReportProps) {
         <div className="tbtx-peel__fog">
           <p>{report.load.body}</p>
           <p className="tbtx-scan__range">
-            About {report.load.hoursPerPersonWeek[0]} to {report.load.hoursPerPersonWeek[1]} hours a
-            week finishing what the agents started.
+            Illustrative range: {report.load.hoursPerPersonWeek[0]} to {report.load.hoursPerPersonWeek[1]} hours per person per week. This is a preset scenario, not time measured by the Map.
           </p>
         </div>
       </section>
 
       {report.pressures.length > 0 && (
         <section className="tbtx-scan__pressures tbtx-peel is-in">
-          <h2>What your answers named</h2>
+          <h2>Places to check</h2>
           <ul className="tbtx-peel__fog">
             {report.pressures.map((item) => (
               <li key={item.id}>
@@ -65,11 +64,11 @@ export default function FogReport({ report, onReset }: FogReportProps) {
           onClick={() => setShowScale((open) => !open)}
           aria-expanded={showScale}
         >
-          {showScale ? "Hide the group" : "See this for the group"}
+          {showScale ? "Hide team scenario" : "Explore team scenario"}
         </button>
         {showScale && (
           <div className="tbtx-scan__scale-body">
-            <label htmlFor="fog-people">How many people carry this load?</label>
+            <label htmlFor="fog-people">How many people should this scenario include?</label>
             <div className="tbtx-scan__slider">
               <input
                 id="fog-people"
@@ -82,7 +81,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
               <span>{people === 1 ? "1 person" : `${people} people`}</span>
             </div>
             <p>
-              Across {people === 1 ? "that person" : `those ${people} people`}, that&rsquo;s about{" "}
+              Across {people === 1 ? "that person" : `those ${people} people`}, the same assumption gives{" "}
               {grouped[0]} to {grouped[1]} hours a week.
             </p>
           </div>
@@ -90,7 +89,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
       </section>
 
       <section className="tbtx-scan__next is-in">
-        <h2>The next clear move</h2>
+        <h2>Choose a next step</h2>
         <p>{report.brand.nextStep}</p>
         <div className="tbtx-scan__moves">
           <Link
@@ -108,7 +107,7 @@ export default function FogReport({ report, onReset }: FogReportProps) {
 
       <div className="tbtx-scan__foot">
         <button type="button" onClick={onReset} className="tbtx-fog-link">
-          Begin Again
+          Start Map Again
         </button>
       </div>
     </article>
