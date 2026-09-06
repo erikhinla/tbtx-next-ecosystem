@@ -11,25 +11,25 @@ const archetypeMap: Record<Archetype, { name: string, status: string, fix: strin
     name: "Tool Overload",
     status: "Fragmented",
     fix: "Consolidate tools and remove duplicate steps.",
-    next: "Reduce stack complexity before applying automation."
+    next: "Remove duplicate steps before adding automation."
   },
   bottleneckOperator: {
     name: "Bottleneck Operator",
     status: "Owner-Dependent",
-    fix: "Externalize decisions and standardize handoffs.",
-    next: "Remove single-point dependency from operations."
+    fix: "Write down decisions and make handoffs clear.",
+    next: "Make it possible for someone else to pick up the work."
   },
   fragmentedWorkflow: {
     name: "Fragmented Workflow",
     status: "Disconnected",
-    fix: "Create one workflow spine and one context layer.",
-    next: "Connect inputs, decisions, and outputs structurally."
+    fix: "Keep the task, context, and next step together.",
+    next: "Trace one task from request to finish."
   },
   executionStall: {
     name: "Execution Stall",
     status: "Stalled",
-    fix: "Define completion triggers and close open loops.",
-    next: "Move from reactive work to structured progression."
+    fix: "Define what finished means and who takes the next step.",
+    next: "Give one unfinished task an owner and a next action."
   }
 };
 
@@ -42,9 +42,9 @@ function BlueprintContent() {
   return (
     <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] paper-bg p-5 md:p-10 font-body">
       <header className="flex justify-between items-center pb-8 border-b border-[#D8D2C5] mb-12 md:mb-16">
-        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#B89A6E]">AI BLUEPRINT // CONTEXT ARCHITECTURE RESULT</div>
-        <Link href="/tbtx" className="engineered-control text-[10px]">
-          <ArrowLeft className="w-3.5 h-3.5" /> BACK TO THE MAP
+        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#B89A6E]">BUSINESS BLUEPRINT // STARTING POINT</div>
+        <Link href="/bbm" className="engineered-control text-[10px]" aria-label="Back to intake">
+          <span aria-hidden="true">‹</span>
         </Link>
       </header>
 
@@ -58,7 +58,7 @@ function BlueprintContent() {
         <section className="border-l-2 border-[#2C5F4A] pl-6">
           <div className="blueprint-label mb-2">02 / THE INITIAL FIX</div>
           <h2 className="type-macro text-[clamp(1.85rem,5.8vw,2.8rem)] leading-[0.9] text-[#2C5F4A]">{data.fix}</h2>
-          <p className="mt-5 max-w-[52ch] text-[15px] leading-[1.7]">Treating symptoms only thickens the fog. Correct the underlying operating architecture first.</p>
+          <p className="mt-5 max-w-[52ch] text-[15px] leading-[1.7]">Use this suggestion to review one task. This is a starting point, not a completed business setup.</p>
         </section>
 
         <section>
@@ -67,21 +67,21 @@ function BlueprintContent() {
 
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
             <button onClick={() => window.print()} className="engineered-control">
-              <Download className="w-4 h-4" /> EXPORT BLUEPRINT
+              <Download className="w-4 h-4" /> PRINT BLUEPRINT
             </button>
-            <Link href="/bbai" className="engineered-control">BUILD THE BACKBONE</Link>
+            <Link href="/bbai" className="engineered-control">EXPLORE BIZBUILDERS AI</Link>
           </div>
         </section>
       </div>
 
-      <footer className="mt-20 text-[10px] font-mono text-[#B89A6E] tracking-[0.1em]">EVERY ASSET ROUTES TO A FUNNEL. CONTEXT ARCHITECTURE FIRST.</footer>
+      <footer className="mt-20 text-[10px] font-mono text-[#B89A6E] tracking-[0.1em]">START WITH ONE TASK. CHECK WHAT CHANGES.</footer>
     </main>
   );
 }
 
 export default function BlueprintPage() {
   return (
-    <Suspense fallback={<div className="h-screen w-full bg-[#F4EDE3] flex items-center justify-center font-mono text-xs tracking-[0.1em]">COMPILING BLUEPRINT...</div>}>
+    <Suspense fallback={<div className="h-screen w-full bg-[#F4EDE3] flex items-center justify-center font-mono text-xs tracking-[0.1em]">LOADING BLUEPRINT...</div>}>
       <BlueprintContent />
     </Suspense>
   );
