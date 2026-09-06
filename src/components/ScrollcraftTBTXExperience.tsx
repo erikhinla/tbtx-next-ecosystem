@@ -114,7 +114,7 @@ export default function ScrollcraftTBTXExperience() {
 
       <section className="tbtx-sc__hero" data-sc-act="flow" data-sc-drift="#070b10">
         <div className="sc-stage tbtx-sc__stage tbtx-sc__hero-stage" data-sc-stage>
-          <h1 className="tbtx-sc__sr">AI Created a Job. Nobody wanted. Managing Digital Fog.</h1>
+          <h1 className="tbtx-sc__sr">AI agents and tools created another job. Managing Digital Fog.</h1>
           <Film
             ref={heroVideoRef}
             className="tbtx-sc__hero-film"
@@ -170,16 +170,16 @@ export default function ScrollcraftTBTXExperience() {
         <>
       <section id="tbtx-doors" className="tbtx-sc__split-wrap is-open" data-sc-act="flow" data-sc-drift="#0d1210">
         <div className="tbtx-sc__doors-rail">
-          <Link href="/tbtx/scan" className="tbtx-sc__doorway tbtx-sc__doorway--life" aria-label="Enter to Scan for Digital Fog in Life">
+          <Link href="/tbtx/scan" className="tbtx-sc__doorway tbtx-sc__doorway--life" aria-label="Scan your life">
             <div className="tbtx-sc__doorway-stage">
               <Film className="tbtx-sc__doorway-video" src="/media/door-b2c-827v2.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/door-b2c-827v2.jpg" />
-              <span className="tbtx-sc__doorway-enter"><strong>Enter</strong><span>to Scan for <span className="tbtx-nowrap">Digital Fog</span> in Life</span></span>
+              <span className="tbtx-sc__doorway-enter"><strong>Scan</strong><span>your life</span></span>
             </div>
           </Link>
-          <Link href="/tbtx/map" className="tbtx-sc__doorway tbtx-sc__doorway--work" aria-label="Enter to Map Digital Fog in Business">
+          <Link href="/tbtx/map" className="tbtx-sc__doorway tbtx-sc__doorway--work" aria-label="Map your business">
             <div className="tbtx-sc__doorway-stage">
               <Film className="tbtx-sc__doorway-video" src="/media/door-b2b-827v2.mp4" autoPlay muted loop playsInline preload="metadata" poster="/media/door-b2b-827v2.jpg" />
-              <span className="tbtx-sc__doorway-enter"><strong>Enter</strong><span>to Map <span className="tbtx-nowrap">Digital Fog</span> in Business</span></span>
+              <span className="tbtx-sc__doorway-enter"><strong>Map</strong><span>your business</span></span>
             </div>
           </Link>
         </div>
@@ -197,7 +197,7 @@ export default function ScrollcraftTBTXExperience() {
             <a href="#tbtx-doors" className="tbtx-fog-go" data-sc-magnet="0.35">Choose a door</a>
             <button type="button" onClick={() => setShowReel(true)} className="tbtx-fog-link">See how the day plays out</button>
             <div className="tbtx-sc__founder">
-              <p>The gap isn&rsquo;t AI adoption. It&rsquo;s infrastructure.</p>
+              <p>AI agents and tools need a setup that connects the work.</p>
               <p>I know what fog feels like. I started in project management at global agencies decades ago, back when large retainers were the norm and Digital Fog was a bill-to code.</p>
               <p>Now I dedicate the next decades to lifting society&rsquo;s fog.</p>
             </div>
