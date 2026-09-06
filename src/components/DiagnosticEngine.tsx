@@ -92,8 +92,8 @@ export default function DiagnosticEngine({
     return (
       <ScanShell isPersonal>
         <div className="tbtx-scan__top">
-          <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
-            <span aria-hidden="true">&lt;</span>
+          <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
+            <span aria-hidden="true"><</span>
           </Link>
           <p className="tbtx-scan__job">{copy.job}</p>
         </div>
@@ -136,8 +136,8 @@ export default function DiagnosticEngine({
     return (
       <ScanShell isPersonal={false}>
         <div className="tbtx-scan__top">
-          <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
-            <span aria-hidden="true">&lt;</span>
+          <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
+            <span aria-hidden="true"><</span>
           </Link>
           <p className="tbtx-scan__job">{copy.job}</p>
         </div>
@@ -163,8 +163,8 @@ export default function DiagnosticEngine({
   return (
     <ScanShell isPersonal={isPersonal}>
       <div className="tbtx-scan__top">
-        <Link href="/tbtx#tbtx-stakes" className="tbtx-scan__back" aria-label="Back to choose your path">
-          <span aria-hidden="true">&lt;</span>
+        <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
+          <span aria-hidden="true"><</span>
         </Link>
         <p className="tbtx-scan__job">{copy.job}</p>
         <div className="tbtx-scan__count" aria-current="step">
