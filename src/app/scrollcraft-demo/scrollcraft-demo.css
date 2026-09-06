@@ -6,7 +6,7 @@
 
    Public journey (docs/PUBLIC_JOURNEY.md):
      Arrival → Stand → Choose Your Path → doors (after Stand UP) → threshold → scan or map
-     Hero "Start Here" goes to #tbtx-arrival, never to a door.
+     Hero "Start Here" goes to #tbtx-stand (first copy after the film), never to a door or product.
    ========================================================================== */
 
 /* ---------------------------------------------------------------- tokens -- */

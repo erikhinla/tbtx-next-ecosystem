@@ -127,7 +127,7 @@ export default function ScrollcraftTBTXExperience() {
             poster="/media/hero-site-827.jpg"
             aria-hidden="true"
           />
-          <Link href="/tbtx/kit" className="tbtx-sc__hero-cta">Digital De-Fog Daily</Link>
+          <Link href="#tbtx-stand" className="tbtx-sc__hero-cta">Start Here</Link>
           <button
             type="button"
             className="tbtx-sc__hero-sound"
