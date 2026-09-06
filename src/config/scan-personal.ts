@@ -89,17 +89,17 @@ export const personalBands: ProfileBand[] = [
     max: 49,
     profile: "CARRYING IT",
     description:
-      "You named where the day stalls. You are still finishing what the tools start. Fog-Free Daily is twenty minutes to close one loop and put attention back on what you\u2019re made to do.",
-    cta: "Get Fog-Free Daily",
+      "You named where the day stalls. Digital De-Fog Daily is twenty minutes to close one loop. $7.77 honor system so the next person can get it free.",
+    cta: "Digital De-Fog Daily · $7.77",
     ctaRoute: "/tbtx/kit",
   },
   {
     min: 50,
     max: 100,
-    profile: "CLEAR ENOUGH TO BUILD",
+    profile: "CLEAR ENOUGH",
     description:
-      "The day is clear enough. Work is where momentum stalls. Map Digital Fog in Business to see the stall before it becomes friction.",
-    cta: "Map Digital Fog in Business",
-    ctaRoute: "/tbtx/map",
+      "The day is clearer. Keep it that way. Digital De-Fog Daily is the 20-minute reset. $7.77 honor system so the next person can get it free.",
+    cta: "Digital De-Fog Daily · $7.77",
+    ctaRoute: "/tbtx/kit",
   },
 ];
