@@ -30,8 +30,8 @@ export const intakeConfig: IntakeQuestion[] = [
     question: "How many apps does it take to finish one core task?",
     options: [
       { label: "Just 1 or 2. It's focused.", weights: { bottleneckOperator: 1 } },
-      { label: "3 to 4. Standard stack.", weights: { fragmentedWorkflow: 1 } },
-      { label: "5+. It feels like jumping between tabs constantly.", weights: { toolOverload: 3 } },
+      { label: "3 to 4.", weights: { fragmentedWorkflow: 1 } },
+      { label: "5 or more. I keep switching tabs.", weights: { toolOverload: 3 } },
       { label: "I don't know, everyone uses different things.", weights: { fragmentedWorkflow: 2, toolOverload: 1 } }
     ]
   },
@@ -42,14 +42,14 @@ export const intakeConfig: IntakeQuestion[] = [
     options: [
       { label: "Rarely. I handle it end-to-end.", weights: { bottleneckOperator: 2 } },
       { label: "Once or twice for review.", weights: { executionStall: 1 } },
-      { label: "Constantly. It's a game of hot potato.", weights: { fragmentedWorkflow: 3 } },
+      { label: "Many times before it is finished.", weights: { fragmentedWorkflow: 3 } },
       { label: "We avoid handoffs because they always break.", weights: { bottleneckOperator: 1, toolOverload: 1 } }
     ]
   },
   {
     id: "q4",
     topic: "knowledge location",
-    question: "Where does the truth live for a project?",
+    question: "Where do you find current project information?",
     options: [
       { label: "In one single tool of record.", weights: {} },
       { label: "Spread across Slack, Docs, and email.", weights: { fragmentedWorkflow: 2, toolOverload: 1 } },
@@ -104,12 +104,12 @@ export const intakeConfig: IntakeQuestion[] = [
   {
     id: "q9",
     topic: "AI usage",
-    question: "How is AI currently driving your progress?",
+    question: "How do you use AI agents and tools?",
     options: [
       { label: "Randomly. One-off ChatGPT queries.", weights: { fragmentedWorkflow: 2 } },
-      { label: "We pay for 5 AI tools but hardly use them.", weights: { toolOverload: 3 } },
-      { label: "We want to use it, but can't find the time.", weights: { executionStall: 2 } },
-      { label: "It's integrated natively into our process.", weights: {} }
+      { label: "We pay for several AI agents and tools we rarely use.", weights: { toolOverload: 3 } },
+      { label: "We want to try them, but haven't found the time.", weights: { executionStall: 2 } },
+      { label: "They are part of our regular process.", weights: {} }
     ]
   },
   {
@@ -118,7 +118,7 @@ export const intakeConfig: IntakeQuestion[] = [
     question: "What happens to the output of a completed task?",
     options: [
       { label: "Saved in the system of record.", weights: {} },
-      { label: "Lost in a Google Drive folder forever.", weights: { fragmentedWorkflow: 2 } },
+      { label: "Saved in a folder but hard to find.", weights: { fragmentedWorkflow: 2 } },
       { label: "Siloed in a specialized tool.", weights: { toolOverload: 2 } },
       { label: "It sits on my desktop locally.", weights: { bottleneckOperator: 2 } }
     ]
@@ -142,7 +142,7 @@ export const intakeConfig: IntakeQuestion[] = [
       { label: "Yes, perfectly aligned.", weights: {} },
       { label: "No, I have to re-enter data into 'the system'.", weights: { toolOverload: 2, fragmentedWorkflow: 1 } },
       { label: "What company system? I just do what works.", weights: { bottleneckOperator: 2 } },
-      { label: "The system is so heavy it kills momentum.", weights: { executionStall: 2 } }
+      { label: "The process takes too long.", weights: { executionStall: 2 } }
     ]
   },
   {
@@ -152,7 +152,7 @@ export const intakeConfig: IntakeQuestion[] = [
     options: [
       { label: "Always. The queue tells me.", weights: {} },
       { label: "I usually have to hunt for the status.", weights: { fragmentedWorkflow: 2 } },
-      { label: "I have 40 notifications telling me different things.", weights: { toolOverload: 2 } },
+      { label: "Notifications point me in different directions.", weights: { toolOverload: 2 } },
       { label: "No, I spend an hour deciding what to do.", weights: { executionStall: 3 } }
     ]
   },
@@ -170,7 +170,7 @@ export const intakeConfig: IntakeQuestion[] = [
   {
     id: "q15",
     topic: "desired outcome",
-    question: "What's the one thing that would fix this?",
+    question: "Which change would help most?",
     options: [
       { label: "Fewer tools. More connection.", weights: { toolOverload: 2, fragmentedWorkflow: 1 } },
       { label: "Taking myself out of the critical path.", weights: { bottleneckOperator: 3 } },
