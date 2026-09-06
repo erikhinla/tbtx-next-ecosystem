@@ -31,7 +31,7 @@ export default function BBMPage() {
   const clarityScore = Math.min(100, Math.round(((currentQIndex) / intakeConfig.length) * 100));
   const getStatus = () => {
     if (isFinished) return formatArchetype(topArchetype);
-    return currentQIndex < 6 ? "MAPPING GAPS" : currentQIndex < 11 ? "TRACING ROUTES" : "COMPILING BLUEPRINT";
+    return currentQIndex < 6 ? "MAPPING GAPS" : currentQIndex < 11 ? "TRACING ROUTES" : "REVIEWING ANSWERS";
   };
 
   return (
@@ -39,8 +39,8 @@ export default function BBMPage() {
       {/* HEADER */}
       <header className="px-5 md:px-8 py-4 flex justify-between items-center text-xs font-mono tracking-[0.12em] border-b border-[#D8D2C5] z-10 bg-[#F4EDE3]/95 backdrop-blur">
         <Link href="/tbtx">TRANSFORMBY10X</Link>
-        <div>ACTIVATION LAYER • UNLOCKS AFTER GOAL</div>
-        <Link href="/diagnostic" className="engineered-control text-[10px]">ACTIVATE GROWTH SYSTEM</Link>
+        <div>BIZBOT MRKTNG • BUSINESS INTAKE</div>
+        <Link href="/tbtx/map" className="engineered-control text-[10px]">START MAP</Link>
       </header>
 
       <div className="flex-1 flex flex-col md:flex-row">
@@ -48,17 +48,17 @@ export default function BBMPage() {
         <div className="md:w-5/12 px-6 md:px-10 pt-10 pb-8 md:pb-0 border-b md:border-b-0 md:border-r border-[#D8D2C5] flex flex-col justify-center bg-[#EDE4D8]">
           <div className="blueprint-label mb-4">LAYER 03 • REVENUE ACTIVATION</div>
           <h1 className="type-macro text-[clamp(2.35rem,8.2vw,3.85rem)] leading-[0.86] tracking-[-0.055em] max-w-[15ch]">
-            STOP LOSING LEADS BEFORE THEY BECOME CUSTOMERS.
+            GIVE EVERY LEAD A NEXT STEP.
           </h1>
-          <p className="mt-6 max-w-[42ch] text-[15px] leading-[1.65]">BizBot Marketing installs AI voice, follow-up, and marketing automation systems that help local businesses capture, nurture, and convert more demand.</p>
-          <div className="mt-auto pt-12 text-xs text-[#B89A6E] font-mono tracking-[0.08em]">COMPLETE CONTEXT ARCHITECTURE FIRST. GROWTH ON BROKEN INFRASTRUCTURE CREATES FASTER CHAOS.</div>
+          <p className="mt-6 max-w-[42ch] text-[15px] leading-[1.65]">Review how inquiries reach your business, who follows up, and where the handoff gets held up.</p>
+          <div className="mt-auto pt-12 text-xs text-[#B89A6E] font-mono tracking-[0.08em]">CONNECT THE PROCESS BEFORE ADDING AI AGENTS AND TOOLS.</div>
         </div>
 
         {/* RIGHT — DIAGNOSTIC SURFACE AS BLUEPRINT ENGINE */}
         <div className="md:w-7/12 flex flex-col bg-[#F4EDE3] p-6 md:p-10 relative">
           <div className="font-mono text-xs text-[#B89A6E] flex gap-8 border-b border-[#D8D2C5] pb-3 mb-8">
             <div>SYSTEM STATUS: <span className="text-[#1C1916]">{getStatus()}</span></div>
-            <div>CLARITY: {clarityScore}%</div>
+            <div>QUESTIONS COMPLETE: {clarityScore}%</div>
           </div>
 
           {!isFinished ? (
@@ -84,9 +84,9 @@ export default function BBMPage() {
             </AnimatePresence>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center text-center">
-              <div className="blueprint-label mb-3">BLUEPRINT COMPILED</div>
-              <h2 className="type-macro text-4xl md:text-5xl tracking-[-0.04em]">Ready for activation.</h2>
-              <p className="mt-3 text-sm max-w-[32ch]">Your system is mapped. The next move is governed by the architecture you now have.</p>
+              <div className="blueprint-label mb-3">QUESTIONS COMPLETE</div>
+              <h2 className="type-macro text-4xl md:text-5xl tracking-[-0.04em]">A starting point to review.</h2>
+              <p className="mt-3 text-sm max-w-[32ch]">Your answers suggest a pattern to check. The Blueprint offers a first change to try.</p>
 
               <Link href={`/diagnostic/blueprint?archetype=${topArchetype}`} className="engineered-control mt-9">
                 OPEN BLUEPRINT <ArrowRight className="w-4 h-4" />
@@ -95,7 +95,7 @@ export default function BBMPage() {
           )}
 
           <div className="mt-8 pt-6 border-t border-[#D8D2C5] text-[10px] font-mono tracking-[0.1em] text-[#B89A6E]">
-            BIZBOT MRKTNG • VOICE • FOLLOW-UP • CONVERSION • ONLY AFTER THE BACKBONE
+            BIZBOT MRKTNG • CLEAR OWNERSHIP • CONNECTED FOLLOW-UP
           </div>
         </div>
       </div>
