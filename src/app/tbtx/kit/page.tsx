@@ -4,7 +4,7 @@ import Film from "@/components/Film";
 import StandGate from "@/components/StandGate";
 
 export const metadata: Metadata = {
-  title: "Digital Fog-Free Daily",
+  title: "Digital De-Fog Daily",
   description:
     "Your first month is free. Someone paid it forward. Twenty minutes. One surface. One move.",
 };
@@ -57,20 +57,20 @@ export default function FogFreeDailyPage() {
       <div className="tbtx-scan__veil" aria-hidden="true" />
       <div className="tbtx-scan__frame">
         <Link href="/tbtx" className="tbtx-scan__back" aria-label="Back">
-          <span aria-hidden="true"><</span>
+          <span aria-hidden="true">‹</span>
         </Link>
         <p className="tbtx-scan__job">Life</p>
-        <h1>Digital Fog&#8209;Free Daily</h1>
-        <p className="tbtx-kit__hook">Busy. Buried. Behind?</p>
+        <h1>Digital De-Fog Daily</h1>
+        <p className="tbtx-kit__hook">Less to keep track of. More room to live.</p>
         <section className="tbtx-peel is-open">
           <p className="tbtx-peel__title">Twenty minutes</p>
           <div className="tbtx-peel__fog">
             <p className="tbtx-kit__lede">
-              One surface. One thread. One finishable step. The leftover job stops using your night.
+              Choose one place where things pile up. Give one unfinished task a next step.
             </p>
           </div>
         </section>
-        <p className="tbtx-kit__price">$7.77 · honor system · 20 minutes</p>
+        <p className="tbtx-kit__price">First month free · Pay it forward: $7.77</p>
         <p className="tbtx-kit__note">
           Your first month is free. Someone paid it forward. If you&rsquo;d like, you can cover the next person&rsquo;s month.
         </p>
@@ -127,7 +127,7 @@ export default function FogFreeDailyPage() {
 
         <div className="tbtx-scan__moves tbtx-kit__actions">
           <a className="tbtx-scan__go tbtx-fog-go" href="/downloads/Fog-Free-Daily.pdf" download>
-            Save Scan
+            Save Daily
           </a>
           <Link href="/tbtx/kit/share" className="tbtx-fog-link">
             Share Scan
