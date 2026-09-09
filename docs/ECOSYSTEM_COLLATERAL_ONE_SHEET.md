@@ -3,7 +3,7 @@
 
 **Core Truth**  
 Intelligence is not in the tools. It is in the infrastructure.  
-You can't automate what's not organized.
+Ambiguity is the enemy of automation.
 
 ## The Hierarchy
 WIN (decide) → GOAL (structure) → FLOW (execute)

@@ -177,7 +177,7 @@ export const APPROVED_LINES: ApprovedLine[] = [
   { category: "Campaign", line: "Map the gap. Align the Infra. Build Fog-Free." },
   { category: "Ecosystem", line: "Intelligence isn't the tool. It's the infrastructure." },
   { category: "Ecosystem", line: "Tools multiply faster than context." },
-  { category: "Ecosystem", line: "You can't automate what's not organized." },
+  { category: "Ecosystem", line: "Ambiguity is the enemy of automation." },
   { category: "Ecosystem", line: "Sequence is strategy." },
   { category: "Ecosystem", line: "The gap isn't AI adoption. The gap is operational architecture." },
   { category: "TBTX", line: "AI created a job. Nobody wanted." },
