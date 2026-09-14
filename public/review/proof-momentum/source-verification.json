@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "fcfca64096e815c630913a27801c8779bf6c4ffc",
+  "questionCount": 23,
+  "optionCount": 92,
+  "attainableTotalCases": 48,
+  "invalidInputsReturnNull": true,
+  "approvedFilmMapping": true,
+  "rejectedImagesExcluded": true,
+  "localReferencesExist": true,
+  "scope": "Source checks only. Browser playback of the newly added approved films was not rerun after the permission request was declined."
+}

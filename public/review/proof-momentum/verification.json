@@ -1,0 +1,30 @@
+{
+  "scrollcraft": true,
+  "devices": [
+    "scrub",
+    "flow",
+    "pin",
+    "pan"
+  ],
+  "scrub": {
+    "before": {
+      "time": 0.001,
+      "progress": "0.0000"
+    },
+    "after": {
+      "time": 7.735476,
+      "progress": "0.5709"
+    }
+  },
+  "checks": [
+    "Sit back stays closed",
+    "Stand up opens doors",
+    "personal 8/16 = 50",
+    "business 30/30 = 100",
+    "option identity on back",
+    "responsive 1440/768/390/320",
+    "reduced motion skips film fetch"
+  ],
+  "pageErrors": [],
+  "scope": "Earlier browser pass, before the approved film additions. The later browser verification request was declined; do not treat this as playback verification of the new films."
+}

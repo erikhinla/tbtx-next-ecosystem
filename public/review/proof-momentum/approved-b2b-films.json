@@ -1,0 +1,218 @@
+[
+  {
+    "index": 1,
+    "source_name": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_484d9640-c045-453e-b694-6b148bd2ff8f_generated_video.MP4",
+    "file": "b2b-task-1.mp4",
+    "size": 5535116,
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 784
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 784
+        }
+      ],
+      "format": {
+        "duration": "10.041667",
+        "size": "5535116"
+      }
+    },
+    "review_frames": "extracted",
+    "task": "Checking the code",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "d3eabc9804789e9b1dbcf51c874da9c5882ecdc7f868b908ae259ef1fbd7c1f3"
+  },
+  {
+    "index": 2,
+    "source_name": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_1d1ef9b2-2aa7-4369-9038-17efbfb6d55f_generated_video.MP4",
+    "file": "b2b-task-2.mp4",
+    "size": 6064040,
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        }
+      ],
+      "format": {
+        "duration": "10.041667",
+        "size": "6064040"
+      }
+    },
+    "review_frames": "extracted",
+    "task": "Rewriting the content strategy",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "e4c601c6e7fe15ab0a8d4f991d62afec123a5234f8aed470cfdaf5fff360fa2c"
+  },
+  {
+    "index": 3,
+    "source_name": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_3cfb4e13-97c5-4c23-80dd-6a52f3ffe203_generated_video.MP4",
+    "file": "b2b-task-3.mp4",
+    "size": 6866043,
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        }
+      ],
+      "format": {
+        "duration": "10.041667",
+        "size": "6866043"
+      }
+    },
+    "review_frames": "extracted",
+    "task": "Reconciling conflicting outputs",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "6274ae874505b29ed1c9937c238edaba778a87b57b0b3e27539954357941de68"
+  },
+  {
+    "index": 4,
+    "source_name": "grok_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_22b738bd-ec69-459b-a971-471cc8139d59_generated_video.MP4",
+    "file": "b2b-task-4.mp4",
+    "size": 4313802,
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        }
+      ],
+      "format": {
+        "duration": "10.041667",
+        "size": "4313802"
+      }
+    },
+    "review_frames": "extracted",
+    "task": "Choosing a logo",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "1c9a8bc048f98644abbb1aeff7f6c620767705ffba9e7864ba5aa72318606e11"
+  },
+  {
+    "index": 5,
+    "source_name": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_5bfb4442-8715-4243-9ec8-c33b91cd0cb9_generated_video.MP4",
+    "file": "b2b-task-5.mp4",
+    "size": 5866375,
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        }
+      ],
+      "format": {
+        "duration": "10.041667",
+        "size": "5866375"
+      }
+    },
+    "review_frames": "extracted",
+    "task": "Finding the final summary",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "d1450ccf1d9ad9f7b10d11e69a9ded81355d8c26ddd4389bd0ffce30a55871b7"
+  },
+  {
+    "index": 6,
+    "source_name": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_da6240f5-c90c-46f6-9088-e27daad87096_generated_video.MP4",
+    "file": "b2b-task-6.mp4",
+    "size": 4677255,
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 1168,
+          "height": 768
+        }
+      ],
+      "format": {
+        "duration": "10.041667",
+        "size": "4677255"
+      }
+    },
+    "review_frames": "extracted",
+    "task": "Keeping the strategy in view",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "3a5fbb0784af2a39d0fa80f5190356127fe72f250a4ca725677ae897bba9c5c3"
+  }
+]
