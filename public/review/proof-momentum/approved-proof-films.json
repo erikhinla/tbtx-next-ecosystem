@@ -1,0 +1,95 @@
+[
+  {
+    "source_name": "grok-video-6947b0b5-242e-46b8-919c-66d503437dbf (1).mp4",
+    "file": "proof-mood-1.mp4",
+    "sha256": "9ae9a06218fa3c4efb48b54feada2a27c2f4cd814bae24c2be35c4fe91d3af0f",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 688,
+          "height": 464
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 688,
+          "height": 464
+        }
+      ],
+      "format": {
+        "duration": "25.041667",
+        "size": "8283626"
+      }
+    }
+  },
+  {
+    "source_name": "grok-video-6947b0b5-242e-46b8-919c-66d503437dbf.mp4",
+    "file": "proof-mood-2.mp4",
+    "sha256": "fd29b9730f1b9351299c0077b96e2e260c4ba593db1553af1ee84a94efb4cb9b",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 688,
+          "height": 464
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 688,
+          "height": 464
+        }
+      ],
+      "format": {
+        "duration": "25.041667",
+        "size": "8061767"
+      }
+    }
+  },
+  {
+    "source_name": "grok-imagine-PROOFmp4.mp4",
+    "file": "proof-mood-3.mp4",
+    "sha256": "3d70e2061d4d9a9c7ddc54f59ced023c2fa52e3b1633251ddd74df113035a768",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 688,
+          "height": 464
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        },
+        {
+          "codec_name": "mjpeg",
+          "codec_type": "video",
+          "width": 688,
+          "height": 464
+        }
+      ],
+      "format": {
+        "duration": "15.041667",
+        "size": "3647164"
+      }
+    }
+  }
+]

@@ -1,0 +1,94 @@
+{
+  "checkedAt": "2026-09-14",
+  "scope": "HTTP HEAD availability and byte-size checks. This is not browser playback verification.",
+  "files": [
+    {
+      "file": "defog-daily-hero.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/defog-daily-hero-IjsqerywbI7llJRSWhPNm4jKaGDRXM.mp4",
+      "status": 200,
+      "bytes": 8578343,
+      "expectedBytes": 8578343,
+      "sizeMatches": true
+    },
+    {
+      "file": "ddd-r5-picture-sfx.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/ddd-r5-picture-sfx-OfwwZHVl1FOIkOtxUqumDH5COcchu8.mp4",
+      "status": 200,
+      "bytes": 13571878,
+      "expectedBytes": 13571878,
+      "sizeMatches": true
+    },
+    {
+      "file": "b2b-task-1.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-1-HU3DKVQK3QhdOSMLC9P54HZJRgA2UB.mp4",
+      "status": 200,
+      "bytes": 5535116,
+      "expectedBytes": 5535116,
+      "sizeMatches": true
+    },
+    {
+      "file": "b2b-task-2.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-2-DfL1j8HlpXY2Ln5GJVqv9jYXfYI0JC.mp4",
+      "status": 200,
+      "bytes": 6064040,
+      "expectedBytes": 6064040,
+      "sizeMatches": true
+    },
+    {
+      "file": "b2b-task-3.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-3-PF3jeazIrwqWCFPzqLOvWIkxeLLuNZ.mp4",
+      "status": 200,
+      "bytes": 6866043,
+      "expectedBytes": 6866043,
+      "sizeMatches": true
+    },
+    {
+      "file": "b2b-task-4.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-4-AL2LLwnsmYZ79DX3uu1rW98XphNV3v.mp4",
+      "status": 200,
+      "bytes": 4313802,
+      "expectedBytes": 4313802,
+      "sizeMatches": true
+    },
+    {
+      "file": "b2b-task-5.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-5-OctQkXLkA3h90N4YPzAhGmTzHID49W.mp4",
+      "status": 200,
+      "bytes": 5866375,
+      "expectedBytes": 5866375,
+      "sizeMatches": true
+    },
+    {
+      "file": "b2b-task-6.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-6-JmMz4VTcn1NVaDWwI9ZIXhBkRPnWVj.mp4",
+      "status": 200,
+      "bytes": 4677255,
+      "expectedBytes": 4677255,
+      "sizeMatches": true
+    },
+    {
+      "file": "proof-mood-1.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/proof-mood-1-ZiGjua05yrU7vNH8ycnffZyofwPyFS.mp4",
+      "status": 200,
+      "bytes": 8283626,
+      "expectedBytes": 8283626,
+      "sizeMatches": true
+    },
+    {
+      "file": "proof-mood-2.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/proof-mood-2-evDeYzqAY6cDv5WWsf25TDrfPHUqK8.mp4",
+      "status": 200,
+      "bytes": 8061767,
+      "expectedBytes": 8061767,
+      "sizeMatches": true
+    },
+    {
+      "file": "proof-mood-3.mp4",
+      "url": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/proof-mood-3-zopgW6xbklRD73Vc37IFquSrBNH5JB.mp4",
+      "status": 200,
+      "bytes": 3647164,
+      "expectedBytes": 3647164,
+      "sizeMatches": true
+    }
+  ]
+}

@@ -2,33 +2,22 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const hostname = request.headers.get('host') || '';
-  const pathname = request.nextUrl.pathname;
-
-  // BizBot stays off the public site until the product is ready.
-  if (pathname === '/bbm' || pathname.startsWith('/bbm/')) {
-    return NextResponse.redirect(new URL('/tbtx', request.url));
+  const path = request.nextUrl.pathname;
+  const businessHost = (request.headers.get('host') || '').includes('bizbuilders');
+  const pages: Record<string, string> = {
+    '/': businessHost ? 'bizbuilders.html' : 'index.html',
+    '/tbtx': 'index.html', '/index.html': 'index.html',
+    '/bbai': 'bizbuilders.html', '/bizbuilders.html': 'bizbuilders.html',
+    '/story': 'story.html', '/story.html': 'story.html', '/about': 'story.html',
+  };
+  if (path === '/bbm' || path.startsWith('/bbm/')) {
+    return NextResponse.redirect(new URL('/bizbuilders.html#build', request.url));
   }
-
-  // Only redirect from root — don't touch sub-routes or assets
-  if (pathname !== '/') return NextResponse.next();
-
-  if (hostname.includes('bizbuilders')) {
-    return NextResponse.redirect(new URL('/bbai', request.url));
-  }
-
-  if (hostname.includes('bizbotmrktng') || hostname.includes('bizbot')) {
-    return NextResponse.redirect(new URL('/tbtx', request.url));
-  }
-
-  if (hostname.includes('transformby10x')) {
-    return NextResponse.redirect(new URL('/tbtx', request.url));
-  }
-
-  // Default fallback — stay on ecosystem index
-  return NextResponse.next();
+  const page = pages[path];
+  return page
+    ? NextResponse.rewrite(new URL('/review/proof-momentum/' + page, request.url))
+    : NextResponse.next();
 }
-
 export const config = {
-  matcher: ['/', '/bbm', '/bbm/:path*'],
+  matcher: ['/', '/tbtx', '/index.html', '/bbai', '/bizbuilders.html', '/story', '/story.html', '/about', '/bbm', '/bbm/:path*'],
 };

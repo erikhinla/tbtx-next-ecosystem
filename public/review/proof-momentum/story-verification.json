@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    "silent default",
+    "portrait playback",
+    "sound opt-in and pause",
+    "manifesto chapters and transcript",
+    "reopen controls",
+    "all 58 deck pages",
+    "four original PDFs",
+    "zoom",
+    "390px and 320px overflow",
+    "reduced motion",
+    "five products and story links"
+  ],
+  "date": "2026-09-15T01:52:59.393Z"
+}

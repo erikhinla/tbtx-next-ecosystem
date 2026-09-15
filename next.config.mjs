@@ -3,6 +3,22 @@ const nextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  async rewrites() {
+    return [
+      { source: "/scrollcraft.css", destination: "/review/proof-momentum/scrollcraft.css" },
+      { source: "/experience.css", destination: "/review/proof-momentum/experience.css" },
+      { source: "/story.css", destination: "/review/proof-momentum/story.css" },
+      { source: "/media.js", destination: "/review/proof-momentum/media.js" },
+      { source: "/scrollcraft.js", destination: "/review/proof-momentum/scrollcraft.js" },
+      { source: "/questions.js", destination: "/review/proof-momentum/questions.js" },
+      { source: "/question-notes.js", destination: "/review/proof-momentum/question-notes.js" },
+      { source: "/experience.js", destination: "/review/proof-momentum/experience.js" },
+      { source: "/method.js", destination: "/review/proof-momentum/method.js" },
+      { source: "/ddd.js", destination: "/review/proof-momentum/ddd.js" },
+      { source: "/story.js", destination: "/review/proof-momentum/story.js" },
+      { source: "/assets/:path*", destination: "/review/proof-momentum/assets/:path*" },
+    ];
+  },
   async redirects() {
     return [
       { source: "/scan", destination: "/tbtx/scan", permanent: false },

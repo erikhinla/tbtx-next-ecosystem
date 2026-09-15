@@ -8,7 +8,7 @@ import type { Archetype } from "@/config/intakeQuestions";
 
 const archetypeMap: Record<Archetype, { name: string, status: string, fix: string, next: string }> = {
   toolOverload: {
-    name: "Tool Overload",
+    name: "Tool-related friction",
     status: "Fragmented",
     fix: "Consolidate tools and remove duplicate steps.",
     next: "Remove duplicate steps before adding automation."

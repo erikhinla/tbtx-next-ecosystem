@@ -1,0 +1,116 @@
+[
+  {
+    "file": "hero-site-827.jpg",
+    "source": "tbtx-next-ecosystem/public/media/hero-site-827.jpg",
+    "sha256": "3046b69f962943a387de46b705f9f3d620c3ce917a7beec5981a2f961afcaffb",
+    "treatment": "Original bytes copied without image editing"
+  },
+  {
+    "file": "door-b2c-827v2.jpg",
+    "source": "tbtx-next-ecosystem/public/media/door-b2c-827v2.jpg",
+    "sha256": "2a0ef027994bcb32f0e99a65bab4e62bec11cf1400f9c624018f08de83722e1d",
+    "treatment": "Original bytes copied without image editing"
+  },
+  {
+    "file": "door-b2b-827v2.jpg",
+    "source": "tbtx-next-ecosystem/public/media/door-b2b-827v2.jpg",
+    "sha256": "33060bec1be3bd74f51abaceecddd6ccba5637559a960e67500f22d2b6ebee9c",
+    "treatment": "Original bytes copied without image editing"
+  },
+  {
+    "file": "task-logos.jpg",
+    "source": "tbtx-next-ecosystem/public/media/task-logos.jpg",
+    "sha256": "ae9ae74498fe9e4400d6ec62bdfda3c628c811ba5e82aa9f075f9badbe993112",
+    "treatment": "Original bytes copied without image editing"
+  },
+  {
+    "file": "defog-daily-hero.mp4",
+    "source": "TBTX LAUNCH/_VIDEOS/defog-daily-hero.mp4",
+    "placement": "B2B / Momentum Map",
+    "approval": "Explicitly approved by Erik in this task on 14 September 2026",
+    "treatment": "Original film; no voice replacement or recut",
+    "duration_seconds": 14.668,
+    "sha256": "6878cda8a20657e12c8130d20e9ca5dd00d440b03b56ff5edc8b3567c36d1bf7"
+  },
+  {
+    "file": "ddd-r5-picture-sfx.mp4",
+    "source": "01_TBTX/CREATIVE_ASSETS/ddd-r5-picture-sfx.mp4",
+    "placement": "B2C / Scan and Digital De-Fog Daily",
+    "approval": "Explicitly approved by Erik in this task on 14 September 2026",
+    "treatment": "Original film; no voice replacement or recut",
+    "duration_seconds": 21.7,
+    "sha256": "2d58e3e893f598773e4f67ca2ebf507d7b338e2f80db6664efef60ac149a9cd0"
+  },
+  {
+    "file": "b2b-task-1.mp4",
+    "source": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_484d9640-c045-453e-b694-6b148bd2ff8f_generated_video.MP4",
+    "placement": "B2B / Checking the code",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "d3eabc9804789e9b1dbcf51c874da9c5882ecdc7f868b908ae259ef1fbd7c1f3",
+    "treatment": "Original film copied from the supplied local folder; sampled frames inspected. No recut or added audio."
+  },
+  {
+    "file": "b2b-task-2.mp4",
+    "source": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_1d1ef9b2-2aa7-4369-9038-17efbfb6d55f_generated_video.MP4",
+    "placement": "B2B / Rewriting the content strategy",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "e4c601c6e7fe15ab0a8d4f991d62afec123a5234f8aed470cfdaf5fff360fa2c",
+    "treatment": "Original film copied from the supplied local folder; sampled frames inspected. No recut or added audio."
+  },
+  {
+    "file": "b2b-task-3.mp4",
+    "source": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_3cfb4e13-97c5-4c23-80dd-6a52f3ffe203_generated_video.MP4",
+    "placement": "B2B / Reconciling conflicting outputs",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "6274ae874505b29ed1c9937c238edaba778a87b57b0b3e27539954357941de68",
+    "treatment": "Original film copied from the supplied local folder; sampled frames inspected. No recut or added audio."
+  },
+  {
+    "file": "b2b-task-4.mp4",
+    "source": "grok_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_22b738bd-ec69-459b-a971-471cc8139d59_generated_video.MP4",
+    "placement": "B2B / Choosing a logo",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "1c9a8bc048f98644abbb1aeff7f6c620767705ffba9e7864ba5aa72318606e11",
+    "treatment": "Original film copied from the supplied local folder; sampled frames inspected. No recut or added audio."
+  },
+  {
+    "file": "b2b-task-5.mp4",
+    "source": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_5bfb4442-8715-4243-9ec8-c33b91cd0cb9_generated_video.MP4",
+    "placement": "B2B / Finding the final summary",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "d1450ccf1d9ad9f7b10d11e69a9ded81355d8c26ddd4389bd0ffce30a55871b7",
+    "treatment": "Original film copied from the supplied local folder; sampled frames inspected. No recut or added audio."
+  },
+  {
+    "file": "b2b-task-6.mp4",
+    "source": "_users_553baf8c-5bb0-4028-af3b-3f8cf3cb60cd_generated_da6240f5-c90c-46f6-9088-e27daad87096_generated_video.MP4",
+    "placement": "B2B / Keeping the strategy in view",
+    "approval": "Explicitly selected by Erik on 14 September 2026 for B2B use and visual direction",
+    "sha256": "3a5fbb0784af2a39d0fa80f5190356127fe72f250a4ca725677ae897bba9c5c3",
+    "treatment": "Original film copied from the supplied local folder; sampled frames inspected. No recut or added audio."
+  },
+  {
+    "file": "proof-mood-1.mp4",
+    "source": "grok-video-6947b0b5-242e-46b8-919c-66d503437dbf (1).mp4",
+    "placement": "Optional PROOF concept cut",
+    "approval": "Erik selected mood and message first and explicitly accepted existing naming errors for this stage.",
+    "sha256": "9ae9a06218fa3c4efb48b54feada2a27c2f4cd814bae24c2be35c4fe91d3af0f",
+    "treatment": "Original film copied from the supplied Downloads folder. No recut, word replacement or added audio."
+  },
+  {
+    "file": "proof-mood-2.mp4",
+    "source": "grok-video-6947b0b5-242e-46b8-919c-66d503437dbf.mp4",
+    "placement": "Optional PROOF concept cut",
+    "approval": "Erik selected mood and message first and explicitly accepted existing naming errors for this stage.",
+    "sha256": "fd29b9730f1b9351299c0077b96e2e260c4ba593db1553af1ee84a94efb4cb9b",
+    "treatment": "Original film copied from the supplied Downloads folder. No recut, word replacement or added audio."
+  },
+  {
+    "file": "proof-mood-3.mp4",
+    "source": "grok-imagine-PROOFmp4.mp4",
+    "placement": "PROOF opening",
+    "approval": "Erik selected mood and message first and explicitly accepted existing naming errors for this stage.",
+    "sha256": "3d70e2061d4d9a9c7ddc54f59ced023c2fa52e3b1633251ddd74df113035a768",
+    "treatment": "Original film copied from the supplied Downloads folder. No recut, word replacement or added audio."
+  }
+]
