@@ -39,11 +39,3 @@ The Google screenshot shows program membership and a premium-tier badge dated Au
 BBM now shows five individual product previews: A.I.R. (Account Intelligence Report), Karma Kickstarter, Custom Reddit Playbook, RevAnew, and ArVA (Architected Voice Agent). CARE (Conversion Architecture Revenue Engine) is a soft method mention: Earn trust before the first sales call. Purchase and activation remain unconnected.
 
 Browser verification passed: portrait playback, silent default, explicit audio start and pause, manifesto navigation/reading/reopen, all 58 deck images, four original PDF destinations, zoom, 390px and 320px layouts, reduced motion, and both parent-page routes/product counts. Local review only; no push or deployment.
-
-## Main-site replacement, 2026-09-15
-
-Authorized by Erik: replace the main website after QC. Root and `/tbtx` now serve the revised experience; `/bbai` and `/bizbuilders.html` serve BizBuilders; `/story`, `/about`, and `/story.html` serve the founder gallery. Existing deeper routes remain available. Root asset rewrites preserve relative links and the original review URL.
-
-Local production build passed. The Vercel preview attempt was rejected because the TBTX-BBAI-FBP team has an overdue balance. Production has not been replaced. No DNS records were changed. Payment verification, account allocation, sponsor matching, BBM fulfillment, and the social publishing pipeline are not connected by this release.
-
-Production-server browser QC passed: root/business/story aliases, direct DDD, all 8 Scan and 15 Map answers through results, score disclosure, supplied Stripe destination, manifesto, deck reader, all 58 slide images and four PDFs, 320/390px overflow checks, and no browser exceptions. Evidence: `docs/PRODUCTION_QC_2026-09-15.json`. This is local production-server verification, not a live deployment claim.

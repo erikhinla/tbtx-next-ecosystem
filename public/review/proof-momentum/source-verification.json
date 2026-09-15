@@ -1,11 +1,9 @@
 {
-  "sourceCommit": "fcfca64096e815c630913a27801c8779bf6c4ffc",
-  "questionCount": 23,
-  "optionCount": 92,
-  "attainableTotalCases": 48,
-  "invalidInputsReturnNull": true,
-  "approvedFilmMapping": true,
-  "rejectedImagesExcluded": true,
-  "localReferencesExist": true,
-  "scope": "Source checks only. Browser playback of the newly added approved films was not rerun after the permission request was declined."
+  "checkedAt": "2026-09-14T23:27:49.560Z",
+  "sourceQuestionsUnchanged": true,
+  "questions": 23,
+  "options": 92,
+  "uniqueNeutralNotes": 23,
+  "questionsSha256": "ad698c9312972863439a4d0253690ca6c0c9b4d7e77eb00d8208cfd27305d3c0",
+  "privateCoefficientCalculatorRemovedFromServedReview": true
 }

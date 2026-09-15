@@ -1,0 +1,56 @@
+[
+  {
+    "file": "b2b-task-1-world.mp4",
+    "source": "b2b-task-1.mp4",
+    "sha256": "d62136918d794c052de84e24a700a12e7e283fbd48626ac543df1943693e4aab",
+    "bytes": 1975123,
+    "duration": "10.041667",
+    "audio": false,
+    "treatment": "Muted background derivative. Original gallery film is preserved."
+  },
+  {
+    "file": "b2b-task-2-world.mp4",
+    "source": "b2b-task-2.mp4",
+    "sha256": "756dca3cd0f4c2ae6240f59b4e184accafd9042e2c69a189805bac8fea4e91c0",
+    "bytes": 2460840,
+    "duration": "10.041667",
+    "audio": false,
+    "treatment": "Muted background derivative. Original gallery film is preserved."
+  },
+  {
+    "file": "b2b-task-4-world.mp4",
+    "source": "b2b-task-4.mp4",
+    "sha256": "507c41f76c1a4729669fc4e7fb1b2e4cd7ca837086106d987ce13338210abba0",
+    "bytes": 1540404,
+    "duration": "10.041667",
+    "audio": false,
+    "treatment": "Muted background derivative. Original gallery film is preserved."
+  },
+  {
+    "file": "b2b-task-5-world.mp4",
+    "source": "b2b-task-5.mp4",
+    "sha256": "9f554fdf40b90685ad23930e21b57120ff2b8566346bb8a5d834aef95c5de8cb",
+    "bytes": 2085382,
+    "duration": "10.041667",
+    "audio": false,
+    "treatment": "Muted background derivative. Original gallery film is preserved."
+  },
+  {
+    "file": "b2b-task-6-world.mp4",
+    "source": "b2b-task-6.mp4",
+    "sha256": "1c375f785081a5bc8ab55483b52e899d66e7d61b270f3f4e279edc8dc592708c",
+    "bytes": 1707481,
+    "duration": "10.041667",
+    "audio": false,
+    "treatment": "Muted background derivative. Original gallery film is preserved."
+  },
+  {
+    "file": "proof-world.mp4",
+    "source": "grok-imagine-PROOFmp4.mp4",
+    "sha256": "787247e66e8efd50100605cfcebcc1e3cf23a2a01328752572d66f8010dce46f",
+    "bytes": 917331,
+    "duration": "4.166667",
+    "audio": false,
+    "treatment": "Muted background derivative. Original gallery film is preserved."
+  }
+]

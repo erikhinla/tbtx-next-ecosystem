@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:4190",
+  "checks": [
+    "root and business aliases",
+    "direct DDD",
+    "8 and 15 answer flows",
+    "score disclosures",
+    "Stripe link",
+    "manifesto",
+    "gallery",
+    "58 slides",
+    "4 PDFs",
+    "320 and 390px overflow",
+    "no browser exceptions"
+  ]
+}
