@@ -3,20 +3,22 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,portrait=$('#portrait');
 const scenes=[
- ['The promise','AI created a job.','Nobody wanted it.'],
- ['The part between','Move the context. Chase the answer.','Check the output. Find the version. Reconnect the conversation.'],
- ['The person doing it','Part air traffic controller. Part librarian.','Occasionally, therapist for software.'],
- ['The lived experience','I’ve spent 20+ years getting work shipped.','Marketing operations. Project management. The people and handoffs in between.'],
- ['The turn','Now I’m building underneath it.','Three years learning and applying AI tools and systems. One year building this work.'],
- ['The foundation','Give the context somewhere to stay.','Give the next action an owner. Check what happened. Keep what helps.'],
- ['The reason','More room for what matters.','That’s what I’m here to build.']
+ ['The leftover job','AI created a job.','Nobody wanted it.'],
+ ['The gap','The output arrived.','The job didn\'t finish.'],
+ ['The work between','Move the context. Chase the answer.','Find the version. Hand it on.'],
+ ['What\'s missing','The world built the generator.','It didn\'t build the spine.'],
+ ['The crew','Twenty years of shipping work.','Three years building with AI on the crew.'],
+ ['The bridge','We find the fog. We give it a home.','PROOF. BizBuilders. Digital De-Fog Daily.'],
+ ['Momentum','More room for what matters.','We help bridge the gap. Then we keep it moving.']
 ];
 let chapter=0,playing=false,timer=null,trigger=null,readMode=false,audio=null,master=null,soundOn=false;
 const decks=[
  {title:'Architecting AI Momentum',count:15,file:'Architecting_AI_Momentum.pdf',note:'Working concept deck. Its model, pricing and outcome illustrations are not measured client results or a live offer.',notes:{5:'This slide shows a source-deck model. It is not the current Map scoring rule or a calibrated operational measurement.',11:'These are source-deck pricing concepts, not current offers or checkout prices.',13:'The supplied Google screenshot records program membership, not professional certification or endorsement.'}},
  {title:'FLOW Agent AS 2.0 · Operator Manual',count:13,file:'FLOW_AS_2.0_Operator_Manual.pdf',note:'Architecture archive. Agent assignments, model names and claims of live or autonomous operation are source-deck descriptions, not runtime verification.',notes:{}},
  {title:'Governed Execution',count:15,file:'Governed_Execution.pdf',note:'Working architecture deck. Original wording is preserved; current site copy uses PROOF Finder and Digital De-Fog Daily.',notes:{}},
- {title:'Governing AI Shadow Work',count:15,file:'Governing_AI_Shadow_Work.pdf',note:'Concept and research framing. Illustrations and diagnostic language are not a clinical diagnosis or measured client results.',notes:{12:'This slide records design principles from the deck; it does not describe a verified client result.'}}
+ {title:'Governing AI Shadow Work',count:15,file:'Governing_AI_Shadow_Work.pdf',note:'Concept and research framing. Illustrations and diagnostic language are not a clinical diagnosis or measured client results.',notes:{12:'This slide records design principles from the deck; it does not describe a verified client result.'}},
+ {title:'The Architecture of AI-Native Operations',count:13,file:'The_Architecture_of_AI_Native_Operations.pdf',note:'Working concept deck. Ecosystem Canon v2026.07. Sequence, offers and illustrations are source-deck descriptions, not measured client results or a live offer.',notes:{}},
+ {title:'Managing Digital Fog',count:15,file:'Managing_Digital_Fog.pdf',note:'Working concept deck. Diagnosis of digital fog and the leftover job. Illustrations are not measured client results or a live offer.',notes:{}}
 ];
 let deck=0,page=0;
 function background(){if(document.hidden||$$('dialog[open]').length||reduced)portrait.pause();else portrait.play().catch(()=>{});}

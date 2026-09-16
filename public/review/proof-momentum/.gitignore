@@ -2,3 +2,4 @@ assets/*.mp4
 assets/*.MP4
 !assets/*-world.mp4
 !assets/erik-portrait.mp4
+!assets/fog-story.mp4
