@@ -17,6 +17,9 @@ const nextConfig = {
       { source: "/ddd.js", destination: "/review/proof-momentum/ddd.js" },
       { source: "/story.js", destination: "/review/proof-momentum/story.js" },
       { source: "/story.css", destination: "/review/proof-momentum/story.css" },
+      { source: "/benefit-track.css", destination: "/review/proof-momentum/benefit-track.css" },
+      { source: "/benefit-track.js", destination: "/review/proof-momentum/benefit-track.js" },
+      { source: "/benefit-track.json", destination: "/review/proof-momentum/benefit-track.json" },
       { source: "/assets/:path*", destination: "/review/proof-momentum/assets/:path*" },
     ];
   },
