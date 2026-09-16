@@ -82,7 +82,7 @@ function changeWorld(name,light=.8,crop){
  }
  if(wanted===name){if(!reduced&&!document.hidden)videos[slot].play().catch(()=>{});syncBed(name);return;}
  wanted=name;const token=++version,old=videos[slot],next=videos[1-slot];old.muted=true;next.pause();next.classList.remove('visible');next.poster='assets/'+(name==='proof-world.mp4'?'proof-mood-3':name.replace('.mp4',''))+'.jpg';next.src=media(name);next.muted=true;next.loop=true;
- let shown=false;const show=()=>{if(token!==version||shown)return;shown=true;old.muted=true;next.muted=true;next.classList.add('visible');old.classList.remove('visible');slot=1-slot;if(!reduced&&!document.hidden)next.play().catch(()=>{});syncBed(name);setTimeout(()=>{if(old!==videos[slot]){old.pause();old.muted=true;}},850);};
+ let shown=false;const show=()=>{if(token!==version||shown)return;shown=true;old.muted=true;next.muted=true;next.classList.add('visible');old.classList.remove('visible');slot=1-slot;if(!reduced&&!document.hidden)next.play().catch(()=>{});syncBed(name);setTimeout(()=>{if(old!==videos[slot]){old.pause();old.removeAttribute('src');old.removeAttribute('poster');old.load();}},900);};
  next.addEventListener('loadeddata',show,{once:true});next.addEventListener('error',show,{once:true});next.load();
 }
 const acts=$$('[data-world]');let framePending=false;
@@ -120,11 +120,11 @@ function coverPage(on){
  });
 }
 function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.id,d=opened.find(x=>x.id===topId)||opened.at(-1);opened.forEach(x=>x.classList.toggle('behind-dialog',x!==d));if(!d){modalFilm=null;updateWorld();return;}const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=(d.id==='recognize'||d.id==='fog-def')?'32% 42%':d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
-function open(id,trigger=document.activeElement){const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
+function open(id,trigger=document.activeElement){if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
 $$('dialog').forEach(d=>{d.addEventListener('close',()=>{d.querySelectorAll('video').forEach(v=>v.pause());const entry=modalStack.findLast(x=>x.id===d.id);modalStack=modalStack.filter(x=>x.id!==d.id);if(!$$('dialog[open]').length){document.documentElement.style.overflow='';coverPage(false);entry?.trigger?.focus?.({preventScroll:true});}modalWorld();syncChrome(activeScene);});d.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close(d);});});
-document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){if(b.dataset.open==='gallery')chooseGallery(0);open(b.dataset.open,b);}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){open(b.dataset.open,b);}});
 document.addEventListener('click',e=>{const jump=e.target.closest('[data-close-go]');if(!jump)return;e.preventDefault();const target=jump.getAttribute('data-close-go')||jump.getAttribute('href');closeAll();if(target)go(target.startsWith('#')?target:'#'+target);});
 function go(id){$(id).scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});}
 const state={gate:false,lane:null,step:0,selections:[],personalSelections:null};
@@ -171,17 +171,27 @@ const hangRooms=[
  {q:'What is actually missing?',works:[{when:'Sept 2026',claim:'Where work gets a spine',title:'Architecting AI Momentum',cover:'assets/studio/0/cover.jpg',href:'/hang/momentum'},{when:'Canon v2026.07',claim:'From fog to governed execution',title:'The Architecture of AI-Native Operations',cover:'assets/studio/4/cover.jpg',href:'/hang/architecture'},{when:'Overview',claim:'PROOF, in three pages',title:'Proof Overview',cover:'assets/studio/6/cover.jpg',href:'/hang/overview'},{when:'Thesis',claim:'Your tools didn’t remove the work.',title:'Architecting Digital Order',cover:'assets/studio/8/cover.jpg',href:'/hang/order'},{when:'Architecture',claim:'Most systems generate. Few govern what happens next.',title:'AI Operational Architecture',cover:'assets/studio/7/cover.jpg',href:'/hang/ops'}]},
  {q:'How does the work actually get done?',works:[{when:'July 2026',claim:'The path to done',title:'Governed Execution',cover:'assets/studio/2/cover.jpg',href:'/hang/governed'},{when:'Process',claim:'How the work keeps moving',title:'The operator archive',cover:'assets/studio/1/cover.jpg',href:'/hang/operator'},{when:'Engineering',claim:'The path the work takes',title:'Engineering Operational Flow',cover:'assets/studio/10/cover.jpg',href:'/hang/flow'},{when:'Backbone',claim:'The spine under the work',title:'The Operating Backbone',cover:'assets/studio/11/cover.jpg',href:'/hang/backbone'}]}
 ];
-function hangCard(n){return `<a class="nudes-work is-flip" href="${n.href}"><span class="frame"><img src="${n.cover}" alt="${n.claim}"></span><span class="when">${n.when}</span><b>${n.claim}</b><small>${n.title}</small></a>`;}
-if($('#hang-studio')) $('#hang-studio').innerHTML=studioLead.map(hangCard).join('');
-if($('#hang-studio-more')) $('#hang-studio-more').innerHTML=studioMore.map(hangCard).join('');
-if($('#hang-rooms')) $('#hang-rooms').innerHTML=hangRooms.map(r=>`<section class="hang-room"><h3>${r.q}</h3><div class="nudes-hall">${r.works.map(hangCard).join('')}</div></section>`).join('');
-if($('#hang-more-line')) $('#hang-more-line').onclick=()=>{const more=$('#hang-studio-more');if(!more)return;more.hidden=!more.hidden;$('#hang-more-line').textContent=more.hidden?'Eight more, each with its own claim and its own page.':'The rest of the studio.';};
+function hangCard(n){return `<a class="nudes-work is-flip" href="${n.href}"><span class="frame"><img src="${n.cover}" alt="${n.claim}" loading="lazy" decoding="async" width="600" height="336"></span><span class="when">${n.when}</span><b>${n.claim}</b><small>${n.title}</small></a>`;}
+let hangBuilt=false;
+function buildHang(){
+ if(hangBuilt)return;hangBuilt=true;
+ if($('#hang-studio')) $('#hang-studio').innerHTML=studioLead.map(hangCard).join('');
+ if($('#hang-studio-more')) $('#hang-studio-more').innerHTML=studioMore.map(hangCard).join('');
+ if($('#hang-rooms')) $('#hang-rooms').innerHTML=hangRooms.map(r=>`<section class="hang-room"><h3>${r.q}</h3><div class="nudes-hall">${r.works.map(hangCard).join('')}</div></section>`).join('');
+ if($('#hang-more-line')) $('#hang-more-line').onclick=()=>{const more=$('#hang-studio-more');if(!more)return;more.hidden=!more.hidden;$('#hang-more-line').textContent=more.hidden?'Eight more, each with its own claim and its own page.':'The rest of the studio.';};
+}
 const galleryItems=[['The handoff','proof-mood-3.mp4','Where the context actually drops.'],['How PROOF finds the fog','proof-mood-2.mp4','The leftover job, on film.'],['PROOF / First cut','proof-mood-1.mp4','Before the method had a name.'],['Checking the code','b2b-task-1.mp4','Auditing code nobody on staff wrote.'],['Content strategy','b2b-task-2.mp4','Holding the story still.'],['Conflicting outputs','b2b-task-3.mp4','What two AI agents disagreeing looks like.'],['Choosing a logo','b2b-task-4.mp4','Picking a logo without a design team.'],['The final summary','b2b-task-5.mp4','What the work actually said.'],['Keeping strategy in view','b2b-task-6.mp4','The plan that has to stay in the room.'],['The Map','defog-daily-hero.mp4','Where the work comes back.'],['Digital De-Fog Daily','ddd-r5-picture-sfx.mp4','One surface. Twenty minutes.'],['The concept artwork',null,'Some labels predate Finder.'],['The origin lockup','ai-created-a-job.mp4','AI created a job. Nobody wanted it.'],['Desk fog','desk-fog-loop.mp4','The leftover job, looping.'],['Fog to architecture','proof-to-architecture.mp4','From fog to architecture.'],['Hidden repair','hidden-repair-load.mp4','The repair load nobody named.'],['BBAI momentum','bbai-momentum-loop.mp4','Where the fix lives.'],['Fog Lift Kit','fog-lift-kit.mp4','A kit that lifts the fog.'],['Computer explodes','computer-explodes.mp4','What happens when the glue snaps.'],['Digital Fog satire','satire-digital-fog.mp4','The fog, with the joke left in.']];
 $('#gallery-nav').innerHTML=galleryItems.map((a,i)=>`<button data-gallery="${i}">${a[0]}</button>`).join('');function chooseGallery(i){const item=galleryItems[i],v=$('#gallery-film');v.pause();$$('[data-gallery]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.gallery)===i)));v.hidden=!item[1];$('#gallery-art').hidden=!!item[1];if(item[1])v.src=media(item[1]);else v.removeAttribute('src');$('#gallery-caption').textContent=item[2];}
 $$('[data-gallery]').forEach(b=>b.onclick=()=>chooseGallery(Number(b.dataset.gallery)));$('#gallery-film').addEventListener('play',()=>videos.forEach(v=>v.pause()));$('#gallery-film').addEventListener('pause',()=>{if($('#gallery').open&&!document.hidden&&!reduced)videos[slot].play().catch(()=>{});});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)$$('video').forEach(v=>v.pause());else if(!reduced){if($('#world').dataset.scene!=='off'&&!($('#gallery').open&&!$('#gallery-film').paused))videos[slot].play().catch(()=>{});$$('.fog-stack video,.route-lane video').forEach(v=>v.play().catch(()=>{}));syncBed(wanted||activeScene?.dataset.world);}});
 if(reduced)$$('.fog-stack video,.route-lane video').forEach(v=>{v.pause();v.removeAttribute('autoplay');});
-$$('.route-lane video[data-film]').forEach(v=>{v.src=media(v.dataset.film);if(!reduced)v.play().catch(()=>{});});
+$$('.route-lane video[data-film]').forEach(v=>{
+ const arm=()=>{if(v.dataset.armed)return;v.dataset.armed='1';v.src=media(v.dataset.film);if(!reduced)v.play().catch(()=>{});};
+ if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(ents=>{if(ents.some(en=>en.isIntersecting)){arm();io.disconnect();}},{rootMargin:'240px'});
+  io.observe(v);
+ }else arm();
+});
 applySound();
 $('#sound-toggle')?.addEventListener('click',e=>{e.stopPropagation();setSound(!soundOn);});
 let tapX=0,tapY=0;

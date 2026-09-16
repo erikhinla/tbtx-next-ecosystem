@@ -27,6 +27,22 @@ const nextConfig = {
       { source: "/assets/:path*", destination: "/review/proof-momentum/assets/:path*" },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/review/proof-momentum/assets/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/assets/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/:file(media.js|scrollcraft.js|experience.js|method.js|ddd.js|questions.js|question-notes.js|benefit-track.js|story.js|scrollcraft.css|experience.css|arrows.css|benefit-track.css|story.css)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" }],
+      },
+    ];
+  },
   async redirects() {
     return [
       { source: "/scan", destination: "/tbtx/scan", permanent: false },
