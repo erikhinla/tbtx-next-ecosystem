@@ -14,13 +14,16 @@ function mount(file){
   const layer = document.querySelector('.benefit-track__line');
 
   rows.forEach((row) => {
+    if (row.headlineStatus === 'proposed') {
+      console.warn(`[benefit-track] headline "${row.id}" is proposed. ${row.headlineNote || ''}`);
+    }
     const cue = row.cue || (row.mode === 'lockup' ? row.line : '');
     if (cue) {
       document.querySelectorAll(`[data-track-line="${row.id}"]`).forEach((el) => {
         el.textContent = cue;
       });
     }
-    if (row.mode !== 'silent' && row.line) {
+    if (row.mode === 'free' && row.line) {
       const sec = document.querySelector(`[data-track="${row.id}"]`);
       if (sec && !sec.querySelector('.track-caption')) {
         const p = document.createElement('p');
@@ -42,7 +45,7 @@ function mount(file){
   let visible = false;
 
   const show = (row) => {
-    const play = row && row.mode !== 'silent' && row.line;
+    const play = row && row.mode === 'free' && row.line;
     layer.textContent = play ? row.line : '';
     layer.dataset.beat = play ? row.id : '';
     layer.classList.toggle('is-release', !!(row && row.release));
@@ -65,7 +68,7 @@ function mount(file){
       }
     });
     const row = winner ? byId.get(winner) : null;
-    const next = row && canRender(row) && row.mode !== 'silent' ? row.id : null;
+    const next = row && canRender(row) && row.mode === 'free' ? row.id : null;
     if (next === target) return;
     target = next;
     layer.classList.remove('is-visible');

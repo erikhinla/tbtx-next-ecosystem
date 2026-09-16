@@ -47,3 +47,19 @@ body{font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif}
   .bridge-lanes{gap:16px}
   .plaque b{font-size:19px}
 }
+
+.hang-hero{display:block;width:min(100%,44rem);margin:36px 0 48px;padding:1.7rem 1.5rem;border:1px solid rgba(176,141,79,.35);background:rgba(176,141,79,.05);text-align:left}
+.hang-hero small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b08d4f;margin:0 0 12px}
+.hang-hero b{display:block;font-family:Georgia,serif;font-size:clamp(28px,4.4vw,48px);line-height:1.08;letter-spacing:-.04em;font-weight:400;max-width:16ch}
+.hang-hero em{display:block;margin-top:12px;font-style:normal;font-size:14px;color:#b8c1af}
+.hang-sec{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b08d4f;margin:48px 0 20px;padding-bottom:10px;border-bottom:1px solid #ffffff18}
+.hang-more-line{font-size:14px;color:#b8c1af;margin:0 0 28px}
+.hang-room{margin:0 0 48px;padding-left:1.2rem;border-left:2px solid rgba(176,141,79,.4)}
+.hang-room h3{font-family:Georgia,serif;font-size:clamp(22px,2.6vw,34px);font-weight:400;letter-spacing:-.03em;margin:0 0 22px;max-width:22ch}
+.hang-studio{grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 6vw;margin-top:24px}
+.exhibit.is-flip .plaque b{font-size:clamp(18px,2vw,24px)}
+.exhibit.is-flip .plaque em{display:block;margin-top:6px;font-style:normal;font-size:13px;color:#8a9082}
+#hang-film{inset:0;border:0;width:100vw;height:100dvh;max-width:none;max-height:none;padding:28px 6vw;background:#0c0e0bf2;color:inherit}
+#hang-film header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+#hang-film-player{width:min(100%,1100px);max-height:78dvh;background:#000}
+@media(max-width:700px){.hang-studio{grid-template-columns:1fr}}

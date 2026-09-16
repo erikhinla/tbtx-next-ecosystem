@@ -73,8 +73,6 @@ h1,h2{font-weight:800;letter-spacing:-.02em;text-wrap:balance;text-transform:upp
   .forward-link{position:relative;left:auto;right:auto;bottom:auto;margin-top:28px}
   .daily{padding-bottom:36px;justify-content:flex-end}
   .daily-foot{margin-top:24px;gap:8px}
-  .daily-pay{gap:4px 22px}
-  .daily-pay a{font-size:18px}
   .world-shade{background:linear-gradient(to top,rgba(8,10,11,.9) 0%,rgba(8,10,11,.4) 36%,transparent 58%),linear-gradient(90deg,rgba(8,10,11,.55),transparent 62%)}
   .sheet h2{font-size:clamp(32px,9vw,56px);letter-spacing:-.03em}
   .cinema-intro h2{font-size:clamp(40px,11vw,72px)}
@@ -97,6 +95,16 @@ h1,h2{font-weight:800;letter-spacing:-.02em;text-wrap:balance;text-transform:upp
 .nudes:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0b0c0af5 0%,#0b0c0a8a 32%,#0b0c0ad4 78%,#0b0c0af8 100%);pointer-events:none}
 .nudes>*{position:relative}
 .nudes-lede{font-size:16px;max-width:42ch;color:#d8d4cc;margin:0 0 28px}
+.hang-hero{display:block;width:min(100%,42rem);margin:0 0 48px;padding:1.6rem 1.4rem;border:1px solid rgba(176,141,79,.35);background:rgba(176,141,79,.06);text-align:left;color:inherit}
+.hang-hero small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-daily);margin:0 0 12px}
+.hang-hero b{display:block;font-size:clamp(28px,4vw,44px);letter-spacing:-.04em;line-height:1.08;font-weight:800;max-width:16ch}
+.hang-hero em{display:block;margin-top:12px;font-style:normal;font-size:14px;color:#c8c3bd}
+.hang-sec{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b08d4f;margin:48px 0 20px;padding-bottom:10px;border-bottom:1px solid #ffffff22}
+.hang-more-line{font-size:14px;color:#c8c3bd;cursor:pointer;margin:8px 0 0}
+.hang-room{margin:0 0 40px;padding-left:1.1rem;border-left:2px solid rgba(176,141,79,.4)}
+.hang-room h3{font-size:clamp(20px,2.2vw,28px);letter-spacing:-.03em;margin:0 0 18px;font-weight:700;max-width:22ch}
+.nudes-work.is-flip b{font-size:clamp(18px,2vw,24px);font-weight:700}
+.nudes-work.is-flip small{color:#9a958c;font-size:13px}
 .nudes-sculpture{margin:0 0 48px;max-width:min(380px,46vw)}
 .nudes-sculpture img{width:100%;height:auto;display:block;filter:saturate(.72);box-shadow:0 28px 48px #000c}
 .nudes-sculpture figcaption{margin-top:12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b8b4ac}
@@ -222,8 +230,6 @@ body:not(.stood):not([data-page="business"]) #proof{display:none!important}
 .route-lane span{font-size:clamp(16px,1.5vw,20px);font-weight:600;margin-top:8px}
 .route-lane.lane-life:hover strong{color:var(--c-life)}
 .route-lane.lane-biz:hover strong{color:var(--c-biz)}
-body.stood:not(.lane-life):not(.lane-biz):not([data-page="business"]) #proof,
-body.stood:not(.lane-life):not(.lane-biz) #daily,
 body.lane-life:not([data-page="business"]) #proof,
 body.lane-biz #daily{display:none!important}
 @media(max-width:800px){
@@ -231,11 +237,17 @@ body.lane-biz #daily{display:none!important}
   .route-lane{min-height:38vh}
 }
 .daily-foot{margin-top:40px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-.family-line{font-size:clamp(17px,1.8vw,22px);font-weight:600;letter-spacing:-.02em;min-height:44px;text-transform:none;color:#f4eee5}
-.family-line:hover{color:var(--c-daily)}
-.daily-pay{display:flex;flex-wrap:wrap;gap:8px 28px}
-.daily-pay a{font-size:clamp(18px,2vw,24px);font-weight:600;letter-spacing:-.03em;padding:10px 0;min-height:44px;border-bottom:1px solid var(--c-daily);text-transform:none;color:#f4eee5}
-.daily-pay a:hover{color:var(--c-daily)}
+.gift-line{font-size:clamp(20px,2.2vw,28px);font-weight:600;letter-spacing:-.03em;max-width:22ch;margin:8px 0 18px;color:#f4eee5}
+.pass-sentence{font-size:clamp(16px,1.5vw,19px);max-width:34ch;margin:0 0 28px;color:#d8d4cc;font-weight:500}
+.pass-sentence a{color:#f4eee5;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.pass-sentence a:hover{color:var(--c-daily)}
+.pass-rails{margin-top:28px}
+.pass-rails[hidden],#reveal-pass[hidden]{display:none}
+.payment-codes{display:flex;flex-wrap:wrap;gap:24px;margin:24px 0}
+.payment-codes figure{margin:0;max-width:160px}
+.payment-codes img{width:160px;height:160px;object-fit:contain;background:#fff;border-radius:8px}
+.payment-codes figcaption{margin-top:8px;font-size:14px;opacity:.8}
+.payment-status{max-width:36ch!important;font-size:16px!important;opacity:.78}
 .daily-inside{margin-top:8px;font-size:15px;color:#c8c3bd}
 .daily-inside:hover{color:var(--c-daily)}
 @media(max-width:800px){
@@ -354,34 +366,46 @@ dialog.nudes{
   .chrome a.business-link{display:none!important}
   .chrome>div,.chrome-chapters{display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:12px!important;font-size:12px}
   .brand{font-size:22px;min-width:auto}
-  #sound-toggle{width:min(42vw,168px);height:min(32vh,168px)}
-  #sound-toggle i{width:22px;height:20px;margin:14px 16px}
+  #sound-toggle{width:96px;height:96px;min-width:96px;min-height:96px}
+  #sound-toggle i{width:20px;height:18px;margin:12px 14px}
   body:not(.stood):not([data-page="business"]) .chrome-chapters a[data-nav="proof"],
   body:not(.stood):not([data-page="business"]) .chrome-chapters a[data-nav="daily"]{display:none}
-  .arrival{padding-top:76px;padding-bottom:22px;overflow:hidden}
+  .arrival{padding-top:72px;padding-bottom:20px;overflow:hidden;justify-content:flex-start;align-items:flex-start}
   .arrival h1.job-lockup{
-    width:min(92vw,10ch);
-    max-width:10ch;
-    font-size:clamp(28px,8.4vw,44px);
-    line-height:.82;
-    letter-spacing:-.03em;
+    width:min(94vw,11ch);
+    max-width:11ch;
+    font-size:clamp(32px,10vw,52px);
+    line-height:.8;
+    letter-spacing:-.04em;
   }
-  .job-lockup .job-ai{font-size:clamp(88px,30vw,148px);letter-spacing:-.05em;line-height:.7}
-  .job-lockup .job-rest{max-width:none;white-space:nowrap;margin-top:.04em}
-  .job-lockup .punch{font-size:clamp(18px,5vw,24px);max-width:12ch;margin-top:.35em}
-  .gate-q{font-size:clamp(32px,9vw,52px)!important;letter-spacing:-.03em;line-height:.92;max-width:8ch}
-  .gate-q span:last-child{white-space:nowrap}
-  .gate-board{gap:10px}
-  .gate-board button{padding:16px 18px;min-height:56px;font-size:clamp(20px,5.6vw,28px)}
-  .gate-board .gate-up{font-size:clamp(24px,6.4vw,34px);padding:18px}
+  .job-lockup .job-ai{font-size:clamp(96px,34vw,168px);letter-spacing:-.07em;line-height:.68}
+  .job-lockup .job-rest{max-width:8ch;white-space:normal;margin-top:.06em}
+  .job-lockup .punch{font-size:clamp(20px,5.6vw,28px);max-width:12ch;margin-top:.4em}
+  .manifesto-film{padding:88px var(--gutter) 56px;justify-content:flex-start}
+  .manifesto-film h2{font-size:clamp(28px,8.4vw,40px)!important;max-width:12ch;margin:0 0 1.4rem;line-height:1.08}
+  .manifesto-cry{max-width:34rem}
+  .gate{grid-template-columns:1fr!important;gap:18px;padding:88px var(--gutter) 28px!important;align-content:start}
+  .gate-ask{min-height:0}
+  .gate-q{font-size:clamp(48px,14vw,72px)!important;letter-spacing:-.05em;line-height:.86;max-width:8ch}
+  .gate-q span{display:block;white-space:nowrap}
+  .gate-board{gap:8px;width:100%}
+  .gate-board button{padding:14px 16px;min-height:52px;font-size:clamp(20px,5.6vw,28px)}
+  .gate-board .gate-up{font-size:clamp(24px,6.6vw,36px);padding:16px}
+  .routes{padding-top:88px;padding-bottom:28px;gap:14px;justify-content:flex-start}
   .routes-head{font-size:clamp(26px,8vw,36px)!important;max-width:11ch;line-height:1.05}
   .routes-head span{white-space:nowrap;display:inline}
   .route-lanes{grid-template-columns:1fr!important;gap:10px;min-height:0;flex:0}
-  .route-lane{min-height:28vh;padding:18px 16px 16px}
-  .route-lane em,.route-lane .track-lockup__line{font-size:12px;white-space:nowrap;max-width:none}
+  .route-lane{min-height:30vh;padding:16px 16px 14px}
+  .route-lane em,.route-lane .track-lockup__line{font-size:12px;white-space:nowrap;max-width:none;overflow:visible}
   .route-lane strong{font-size:clamp(36px,12vw,56px);letter-spacing:-.03em}
+  .proof{padding-top:96px;padding-bottom:36px}
+  .proof-name h2{font-size:28vw;letter-spacing:-.06em}
+  .daily h2{font-size:clamp(52px,16vw,88px);max-width:8ch}
   .build-rail{display:grid!important;grid-template-columns:1fr!important;width:100%!important;max-width:none;gap:28px}
   .build-rail button{min-width:0!important;width:100%}
+  .nudes-hall{grid-template-columns:1fr;gap:32px}
+  .hang-hero b{font-size:clamp(26px,8vw,40px)}
+  .hang-room{padding-left:.85rem}
 }
 
 /* sound: corner symbol, wide hit, never a tab */
@@ -426,3 +450,13 @@ html.is-sheet #sound-toggle{display:none}
 
 
 
+
+.result-reass{max-width:36ch;margin:0 0 1.4rem}
+.result-ctas{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;margin:0 0 1.5rem}
+.result-ctas .action{margin-top:0}
+.result-math{border:0;padding:0;margin:0}
+.result-math>summary{font-size:15px;font-weight:400;color:#c8c3bd;border:0;width:fit-content}
+.result-formula{font-family:ui-monospace,Menlo,monospace;font-size:15px!important;color:#c8c3bd!important}
+.result-math .score-number{margin:.4rem 0 .2rem}
+
+#method-title{font-size:clamp(28px,4.2vw,52px);max-width:20ch;line-height:1.12;letter-spacing:-.035em;margin-bottom:28px}

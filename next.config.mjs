@@ -20,6 +20,10 @@ const nextConfig = {
       { source: "/benefit-track.css", destination: "/review/proof-momentum/benefit-track.css" },
       { source: "/benefit-track.js", destination: "/review/proof-momentum/benefit-track.js" },
       { source: "/benefit-track.json", destination: "/review/proof-momentum/benefit-track.json" },
+      { source: "/hang.html", destination: "/review/proof-momentum/hang.html" },
+      { source: "/hang", destination: "/review/proof-momentum/hang.html" },
+      { source: "/hang/:slug", destination: "/review/proof-momentum/story.html" },
+      { source: "/hang/assets/:path*", destination: "/review/proof-momentum/assets/:path*" },
       { source: "/assets/:path*", destination: "/review/proof-momentum/assets/:path*" },
     ];
   },
