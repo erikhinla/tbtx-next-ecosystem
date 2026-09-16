@@ -1,6 +1,6 @@
 {
   "$comment": "TBTX benefit track. The film says the feeling. Names wear a cue. Gate stays silent.",
-  "version": "2026.09.16c",
+  "version": "2026.09.16e",
   "status": "LIVE",
   "publishAllowed": true,
   "mode": "Brand System Mode",
@@ -22,7 +22,8 @@
       "cue": null,
       "register": "relief",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "locked"
     },
     {
       "id": "fog",
@@ -35,7 +36,9 @@
       "cue": null,
       "register": "dignity",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "proposed",
+      "headlineNote": "Replaces 'Familiar with Fog?'. Recognition, not invitation."
     },
     {
       "id": "gate",
@@ -48,7 +51,8 @@
       "cue": null,
       "register": "dignity",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "locked"
     },
     {
       "id": "fork",
@@ -74,7 +78,8 @@
       "cue": "8 answers. One spot.",
       "register": "relief",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "current"
     },
     {
       "id": "map",
@@ -87,7 +92,8 @@
       "cue": "15 answers. Where the work comes back.",
       "register": "leverage",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "current"
     },
     {
       "id": "ddd",
@@ -95,12 +101,13 @@
       "beat": "Digital De-Fog Daily",
       "headline": "Less to carry.",
       "name": "DDD",
-      "mode": "free",
-      "line": "I can put one thing down.",
+      "mode": "lockup",
+      "line": "20 minutes. One surface. A way back.",
       "cue": null,
       "register": "relief",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "current"
     },
     {
       "id": "proof",
@@ -108,12 +115,13 @@
       "beat": "PROOF",
       "headline": "Fog & Friction Forensics",
       "name": "PROOF",
-      "mode": "free",
-      "line": "I'm not arguing opinions. I have a place to act.",
-      "cue": "Math I can show.",
+      "mode": "lockup",
+      "line": "Math I can show.",
+      "cue": null,
       "register": "leverage",
       "release": false,
-      "publishAllowed": true
+      "publishAllowed": true,
+      "headlineStatus": "locked"
     },
     {
       "id": "build",

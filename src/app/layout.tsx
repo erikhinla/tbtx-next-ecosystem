@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Archivo_Black, DM_Sans, Outfit, JetBrains_Mono, Fraunces, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import "@/styles/benefit-track.css";
 import ScrollcraftGuard from "@/components/ScrollcraftGuard";
+import BenefitTrack from "@/components/BenefitTrack";
 
 const archivoBlack = Archivo_Black({ 
   weight: "400", 
@@ -51,6 +53,7 @@ export default function RootLayout({
       <body className={`${archivoBlack.variable} ${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${spaceGrotesk.variable} antialiased min-h-[100dvh] bg-[#0d1210] text-[#f2f1ea]`}>
         <ScrollcraftGuard />
         {children}
+        <BenefitTrack />
       </body>
     </html>
   );

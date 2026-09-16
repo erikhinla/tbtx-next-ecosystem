@@ -1,7 +1,7 @@
 /* Benefit track. Additive. One slot. Strings live in benefit-track.json. */
 :root{
-  --track-ink: var(--sc-ink, #f4eee5);
-  --track-release: var(--c-daily, #8ee8b5);
+  --track-ink: #F4F1EA;
+  --track-release: #2F9E6B;
   --track-scrim: 0 1px 24px rgba(13,15,18,.65);
   --track-safe-frame: 6vh;
   --track-lockup-clearance: 5.5rem;
