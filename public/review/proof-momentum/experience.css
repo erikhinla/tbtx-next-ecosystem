@@ -476,13 +476,24 @@ html,body{margin:0;background:#101111;color:#f4eee5}
 }
 .proof-bottom{position:relative}
 #recognition{
-  background:#101111;
-  overflow:hidden;
+  background:transparent;
+  overflow:visible;
 }
 #recognition .bill.manifesto-film{
-  background:#101111;
-  overflow:hidden;
+  background:transparent;
+  overflow:visible;
   min-height:100svh;
+}
+#world[data-scene="desk-fog-loop.mp4"]{
+  --crop:62% 40%;
+  background:#101111 url("assets/desk-fog-loop.jpg") 62% 40%/cover no-repeat;
+}
+#world[data-scene="desk-fog-loop.mp4"] video.visible{
+  opacity:1!important;
+  filter:saturate(1.05) brightness(1.22) contrast(1.06);
+}
+#world[data-scene="desk-fog-loop.mp4"] .world-shade{
+  background:linear-gradient(90deg,rgba(8,10,11,.58) 0%,rgba(8,10,11,.22) 38%,rgba(8,10,11,.05) 62%,transparent 100%);
 }
 .recog-line{
   margin:0 0 1.6rem;
