@@ -562,6 +562,25 @@ html,body{margin:0;background:#101111;color:#f4eee5}
   cursor:pointer;
 }
 .gate-board .gate-up:hover{cursor:pointer}
+.build-rail .build-closed{
+  margin:0;
+  padding:20px 0;
+  border:0;
+  background:none;
+  color:#6a6660;
+  cursor:default;
+  pointer-events:none;
+  min-width:0;
+}
+.build-rail .build-closed small,
+.build-rail .build-closed strong{
+  color:#6a6660;
+}
+.build-rail .build-closed:hover,
+.build-rail .build-closed:hover strong{
+  color:#6a6660;
+  transform:none;
+}
 body:not(.stood) #carry{display:none!important}
 .carry-beat{
   justify-content:center;
