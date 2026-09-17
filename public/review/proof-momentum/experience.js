@@ -81,7 +81,7 @@ function changeWorld(name,light=.8,crop){
   return;
  }
  if(wanted===name){if(!reduced&&!document.hidden)videos[slot].play().catch(()=>{});syncBed(name);return;}
- wanted=name;const token=++version,old=videos[slot],next=videos[1-slot];old.muted=true;next.pause();next.classList.remove('visible');next.poster='assets/'+(name==='proof-world.mp4'?'proof-mood-3':name.replace('.mp4',''))+'.jpg';next.src=media(name);next.muted=true;next.loop=true;
+ wanted=name;const token=++version,old=videos[slot],next=videos[1-slot];old.muted=true;next.pause();next.classList.remove('visible');next.poster='assets/'+(name==='proof-world.mp4'?'proof-mood-3':name==='manifesto-hall-loop.mp4'?'manifesto-hall-poster':name.replace('.mp4',''))+'.jpg';next.src=media(name);next.muted=true;next.loop=true;
  let shown=false;const show=()=>{if(token!==version||shown)return;shown=true;old.muted=true;next.muted=true;next.classList.add('visible');old.classList.remove('visible');slot=1-slot;if(!reduced&&!document.hidden)next.play().catch(()=>{});syncBed(name);setTimeout(()=>{if(old!==videos[slot]){old.pause();old.removeAttribute('src');old.removeAttribute('poster');old.load();}},900);};
  next.addEventListener('loadeddata',show,{once:true});next.addEventListener('error',show,{once:true});next.load();
 }
