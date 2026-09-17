@@ -1,12 +1,13 @@
 # FREEZE_LIST.md
 
 **Repo:** `erikhinla/tbtx-next-ecosystem`
-**Version:** 2026.09.17b
+**Version:** 2026.09.17c
 **Status:** ACTIVE. This file governs every change round until Erik bumps the version.
 **Verified against:** `https://transformby10x.ai` production, read live 2026-09-17.
 
-**Amended in b:** A2 fog row corrected to silent. D11 clarified. E9 added. No
-frozen item was unlocked. See the changelog at the foot of this file.
+**Amended in c:** one unlock, the manifesto ground in Section C, approved by
+Erik. Two open jobs in flight, tracked separately in Section H. See the
+changelog at the foot of this file.
 
 ---
 
@@ -208,9 +209,16 @@ against `/hang/fog`, that URL is frozen for good.
   hit area. Tapping the film itself toggles sound. The icon is the status, not
   the only control. The hit area does not cover Stand Up. Sound follows the film
   you are on. Two tracks never stack.
-- **The world layer.** The fog-desk loop runs behind the manifesto. The
-  manifesto copy sits on a left wash so it reads. Carbon behind the gate only.
-  Empty carbon behind the manifesto is a regression, not a fix.
+- **The world layer.** Carbon behind the gate only. Empty carbon behind the
+  manifesto is a regression, not a fix.
+- **The manifesto ground.** UNLOCKED by Erik 2026-09-17, superseding the
+  fog-desk loop. The new ground is `manifesto-hall-loop.mp4`, the hall walk cut
+  from his own manifesto film. Measured: copy column stays at luma 19 to 33 for
+  the full 11 seconds, which carries warm white body copy without a heavy wash.
+  No audio track. Poster frame `manifesto-hall-poster.jpg` for lazy load.
+  Refreezes once it is on the preview and Erik signs it off. Until then this is
+  the only item in C that may move, and an agent may not substitute a different
+  film for it.
 - **Film titles.** Cropped out. No burned-in type competing with live copy.
 - **Track transitions.** A cut, not a dissolve. Out over 300ms, then in over
   400ms. Never two lines on screen at once.
@@ -342,7 +350,47 @@ Then `main`, then the domain, then hard refresh once.
 
 ---
 
+## Section H. Jobs in flight
+
+Rule 3 says one job per round. Two are open. They stay on separate branches and
+they merge one at a time.
+
+**H1. E2, BizBot closed text.** Branch `freeze/e2-bbm-closed`, draft PR #23.
+Awaiting review. Not merged. Production still has the door.
+
+**H2. Manifesto ground.** Not started. Branch it separately. Do not fold it into
+H1, and do not merge them together. Assets are cut and ready:
+
+- `manifesto-hall-loop.mp4`, 1920x1080, 10.0s, no audio, 1.0MB. Cut from Erik's
+  own hallway render. Measured: copy column peaks at luma 51 and never once
+  crosses 55 across the full runtime, worst-case contrast 10.7:1 against warm
+  white, mean 14.1:1. Loop seam delta is 5.8 luma, soft enough to be invisible.
+- `manifesto-hall-poster.jpg`, 1920x1080 poster frame for lazy load.
+- `computer-explodes-clean.mp4`, 1920x1080, 23.4s, audio kept. Erik corrected
+  the mirroring at source. Watermark cropped out, 16:9 preserved by a slight
+  punch-in. This is a candidate for The hang. It is NOT a manifesto ground and
+  must not be placed behind body copy.
+
+Both films are 1080p, so the earlier softness concern is closed.
+
+---
+
 ## Changelog
+
+**2026.09.17c**
+
+- C: the manifesto ground unlocked and respecified. The fog-desk loop is retired
+  for that beat in favour of the hall walk from Erik's own manifesto film.
+  Unlock requested and approved by Erik, which is Section F working as intended.
+- Measured before accepting: the uploaded film's darker half holds for the first
+  11.5 seconds only. After that the stone computer takes the copy column from
+  luma 19 to 98, which is what made the manifesto hard to read.
+- Two defects found in the stone computer footage and fixed in the cut asset. It
+  was horizontally flipped, so its on-screen type read backwards, and it carried
+  a NotebookLM generator watermark in the corner. Neither may reach a public
+  surface. Erik re-rendered both films at 1080p and corrected the mirroring at
+  source the same day. The watermark is cropped out in the staged asset.
+- Section H added to track the two open jobs so they do not merge together.
 
 **2026.09.17b**
 
