@@ -108,7 +108,8 @@ function queueWorld(){if(!framePending){framePending=true;requestAnimationFrame(
 if(reduced)$$('[data-sc-act]').forEach(a=>a.setAttribute('data-sc-act','flow'));
 try{if(window.ScrollCraft&&$('#experience'))window.reviewScrollcraft=window.ScrollCraft.mount($('#experience'));}catch(err){}
 addEventListener('scroll',queueWorld,{passive:true});addEventListener('resize',queueWorld);updateWorld();
-const modalVideos={'method-dialog':'proof-mood-2.mp4','map-intro':'b2b-task-6-world.mp4','ddd-intro':'ddd-r5-picture-sfx.mp4','ddd':'ddd-r5-picture-sfx.mp4','ddd-method':'ddd-r5-picture-sfx.mp4','funding':'ddd-r5-picture-sfx.mp4','recognize':'b2b-task-2-world.mp4','stand-on':'b2b-task-6-world.mp4','fog-def':'b2b-task-2-world.mp4','trace':'b2b-task-1-world.mp4','blueprint':'proof-world.mp4','growth':'b2b-task-5-world.mp4','philosophy':'b2b-task-1-world.mp4','flow-engine':'b2b-task-1-world.mp4','about':'erik-portrait.mp4','gallery':'off'};
+// growth opener/RevAnew hero: hero-bbm-automating-at-scale.mp4. Source: "hero bbm.automating at scale with infro.mp4". Missing from assets/media/Blob. Do not use The_Execution_Gap as a stand-in.
+const modalVideos={'method-dialog':'proof-mood-2.mp4','map-intro':'b2b-task-6-world.mp4','ddd-intro':'ddd-r5-picture-sfx.mp4','ddd':'ddd-r5-picture-sfx.mp4','ddd-method':'ddd-r5-picture-sfx.mp4','funding':'ddd-r5-picture-sfx.mp4','recognize':'b2b-task-2-world.mp4','stand-on':'b2b-task-6-world.mp4','fog-def':'b2b-task-2-world.mp4','trace':'b2b-task-1-world.mp4','blueprint':'proof-world.mp4','growth':'hero-bbm-automating-at-scale.mp4','philosophy':'b2b-task-1-world.mp4','flow-engine':'b2b-task-1-world.mp4','about':'erik-portrait.mp4','gallery':'off'};
 let lastTrigger=null,modalStack=[];
 let lastScroll=0;
 function coverPage(on){
@@ -125,7 +126,7 @@ function coverPage(on){
  if(!on) requestAnimationFrame(()=>{window.scrollTo(0,lastScroll);requestAnimationFrame(()=>window.scrollTo(0,lastScroll));});
 }
 function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.id,d=opened.find(x=>x.id===topId)||opened.at(-1);opened.forEach(x=>x.classList.toggle('behind-dialog',x!==d));if(!d){modalFilm=null;updateWorld();return;}const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=(d.id==='recognize'||d.id==='fog-def')?'32% 42%':d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
-function open(id,trigger=document.activeElement){if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
+function open(id,trigger=document.activeElement){if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));if(id==='growth') armBbmHero();}
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
 $$('dialog').forEach(d=>{d.addEventListener('close',()=>{d.querySelectorAll('video').forEach(v=>v.pause());const entry=modalStack.findLast(x=>x.id===d.id);modalStack=modalStack.filter(x=>x.id!==d.id);if(!$$('dialog[open]').length){document.documentElement.style.overflow='';coverPage(false);entry?.trigger?.focus?.({preventScroll:true});}modalWorld();syncChrome(activeScene);});d.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close(d);});});
@@ -213,6 +214,21 @@ $$('.route-lane video[data-film]').forEach(v=>{
   io.observe(v);
  }else arm();
 });
+function armBbmHero(){
+ $$('#growth video[data-film]').forEach(v=>{
+  const frame=v.closest('.bbm-hero');
+  const on=v.closest('details')?.open;
+  if(!on){v.pause();return;}
+  if(!v.dataset.armed){
+   v.dataset.armed='1';
+   v.src=media(v.dataset.film);
+   v.addEventListener('error',()=>{if(frame)frame.hidden=true;},{once:true});
+  }
+  if(frame)frame.hidden=false;
+  if(!reduced) v.play().catch(()=>{});
+ });
+}
+document.addEventListener('toggle',e=>{if(e.target.closest?.('#growth .bbm-product')) armBbmHero();},true);
 applySound();
 $('#sound-toggle')?.addEventListener('click',e=>{e.stopPropagation();setSound(!soundOn);});
 let tapX=0,tapY=0;

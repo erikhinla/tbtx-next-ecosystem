@@ -718,3 +718,46 @@ body[data-page="business"] .chrome .hub-link{color:#f4eee5}
 @media(max-width:800px){
   body[data-page="business"] .chrome .hub-link{display:none}
 }
+
+/* BBM products panel: stacked, uneven on purpose. Not a three-card grid. */
+.bbm-panel h2{max-width:12ch}
+.bbm-products{margin:2.4rem 0 0;max-width:58rem}
+.bbm-product{border-top:1px solid #ffffff35;padding:0;margin:0}
+.bbm-product summary{
+  display:block;
+  cursor:pointer;
+  padding:1.4rem 0 1.2rem;
+  font-family:var(--sc-font-display);
+  font-weight:800;
+  letter-spacing:-.03em;
+  line-height:1.05;
+  text-transform:none;
+  transition:color .25s,transform .25s;
+}
+.bbm-product summary:hover{transform:translateX(5px);color:#afe8cb}
+.bbm-product[open] summary{color:#afe8cb}
+.bbm-product--lead summary{font-size:clamp(36px,5.4vw,72px)}
+.bbm-product--thin summary{font-size:clamp(24px,3.2vw,40px);max-width:16ch}
+.bbm-product h3{
+  font-size:clamp(26px,3.4vw,46px);
+  max-width:16ch;
+  text-transform:uppercase;
+  margin:1.2rem 0 1.4rem;
+}
+.bbm-product--thin h3{font-size:clamp(22px,2.8vw,34px);max-width:14ch}
+.bbm-product .bbm-runs{font-size:16px!important;color:#c8c3bd;max-width:48ch}
+.bbm-product .action{margin:1.6rem 0 2.2rem}
+.bbm-hero{
+  margin:0 0 1.6rem;
+  border:1px solid #ffffff30;
+  overflow:hidden;
+  max-width:52rem;
+}
+.bbm-hero video{display:block;width:100%;height:auto;max-height:52dvh;object-fit:cover;background:#080909}
+.bbm-hero[hidden]{display:none}
+.bbm-product--thin{max-width:42rem}
+@media(max-width:800px){
+  .bbm-product--lead summary{font-size:clamp(30px,9vw,48px)}
+  .bbm-product--thin summary{font-size:clamp(22px,6.4vw,32px)}
+  .bbm-hero video{max-height:40dvh}
+}
