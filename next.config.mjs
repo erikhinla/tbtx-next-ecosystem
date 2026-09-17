@@ -45,12 +45,12 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: "/scan", destination: "/tbtx/scan", permanent: false },
-      { source: "/map", destination: "/tbtx/map", permanent: false },
-      { source: "/diagnostic", destination: "/tbtx/map", permanent: false },
-      { source: "/tbtx/diagnostic", destination: "/tbtx/map", permanent: false },
-      { source: "/diagnostic/blueprint", destination: "/tbtx/blueprint", permanent: false },
-      { source: "/bbai/roadmap", destination: "/tbtx/map", permanent: false },
+      { source: "/tbtx/scan", destination: "/scan", permanent: false },
+      { source: "/tbtx/map", destination: "/map", permanent: false },
+      { source: "/diagnostic", destination: "/map", permanent: false },
+      { source: "/tbtx/diagnostic", destination: "/map", permanent: false },
+      { source: "/diagnostic/blueprint", destination: "/bbai", permanent: false },
+      { source: "/bbai/roadmap", destination: "/map", permanent: false },
       { source: "/bbai/flow-agent-as", destination: "/bbai", permanent: false },
       { source: "/bbai/context-architecture", destination: "/bbai", permanent: false },
       { source: "/scrollcraft-demo", destination: "/tbtx", permanent: false },

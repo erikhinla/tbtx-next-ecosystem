@@ -444,6 +444,155 @@ dialog.nudes{
 body.is-sheet #sound-toggle,
 html.is-sheet #sound-toggle{display:none}
 
+/* 2026-09-16 work order: gate, manifesto ground, type, chrome, full-bleed */
+html,body{margin:0;background:#101111;color:#f4eee5}
+#world{
+  position:fixed!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:100vw;
+  min-height:100dvh;
+  max-width:none!important;
+  transform:none!important;
+  z-index:0;
+}
+#world video{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  transform:none!important;
+}
+.chrome{pointer-events:none}
+.chrome a,.chrome button{pointer-events:auto}
+.business-page-link{
+  position:static!important;
+  top:auto!important;
+  left:auto!important;
+  z-index:auto;
+}
+.proof-bottom{position:relative}
+#recognition{
+  background:#101111;
+  overflow:hidden;
+}
+#recognition .bill.manifesto-film{
+  background:#101111;
+  overflow:hidden;
+  min-height:100svh;
+}
+.recog-line{
+  margin:0 0 1.6rem;
+  font-size:clamp(2.1rem,6.2vw,3.4rem);
+  font-weight:800;
+  line-height:1.06;
+  letter-spacing:-.04em;
+  max-width:12ch;
+  color:#f4eee5;
+  text-wrap:balance;
+  text-transform:none;
+}
+.manifesto-film h2{
+  font-size:clamp(1.2rem,2.2vw,1.55rem)!important;
+  font-weight:700;
+  max-width:18ch;
+  opacity:.86;
+}
+.manifesto-cry .peak.close{margin:3.25rem 0 0;max-width:18ch;padding-bottom:0}
+.manifesto-cry .peak.close span{display:inline;white-space:normal}
+.gate{
+  background:#101111!important;
+  overflow:hidden!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  justify-items:start;
+  align-content:center;
+  max-width:none;
+  gap:28px!important;
+}
+.gate-still{display:none!important}
+.gate:before{display:none}
+.gate-ask,.gate-board{
+  position:relative;
+  z-index:2;
+  justify-self:start;
+  width:min(100%,42rem);
+}
+.gate-board{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  padding-top:18px;
+  border-top:1px solid rgba(244,238,229,.2);
+  width:min(100%,28rem);
+}
+.gate-closed{
+  margin:0;
+  padding:4px 0;
+  border:0;
+  background:none;
+  color:#6a6660;
+  font-size:clamp(18px,2vw,24px);
+  font-weight:600;
+  letter-spacing:-.02em;
+  cursor:default;
+  pointer-events:none;
+  min-height:auto;
+  border-radius:0;
+  backdrop-filter:none;
+  text-transform:none;
+}
+.gate-board .gate-up{
+  margin-top:8px;
+  width:100%;
+  cursor:pointer;
+}
+.gate-board .gate-up:hover{cursor:pointer}
+body:not(.stood) #carry{display:none!important}
+.carry-beat{
+  justify-content:center;
+  background:#101111;
+  overflow:hidden;
+}
+.carry-line{
+  margin:0;
+  font-size:clamp(2rem,5.4vw,3.2rem);
+  font-weight:800;
+  letter-spacing:-.035em;
+  line-height:1.1;
+  max-width:14ch;
+  color:#f4eee5;
+  text-wrap:balance;
+  text-transform:none;
+}
+.route-lane:before{
+  background:linear-gradient(0deg,#101111f4 0%,#101111c4 46%,#10111188 100%);
+}
+.chrome.is-away .brand-home{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:none;
+}
+.chrome.is-away .brand-now{display:none!important}
+@media(max-width:800px){
+  .chrome.is-away .brand-home{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:none!important;
+  }
+  .chrome.is-away .brand-now{display:none!important}
+  .routes{padding-top:128px}
+  .recog-line{font-size:clamp(2rem,9vw,2.8rem);max-width:11ch}
+  .gate{padding-top:110px!important}
+  .gate-q{font-size:clamp(44px,13vw,68px)!important}
+}
+
+
 
 
 

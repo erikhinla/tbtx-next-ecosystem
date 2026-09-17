@@ -13,7 +13,7 @@ export default function StandGate({ children }: { children: ReactNode }) {
       setAllowed(true);
       return;
     }
-    router.replace("/tbtx#tbtx-stakes");
+    router.replace("/#gate");
   }, [router]);
 
   if (!allowed) return null;

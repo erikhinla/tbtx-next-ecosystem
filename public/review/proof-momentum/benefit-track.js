@@ -14,9 +14,6 @@ function mount(file){
   const layer = document.querySelector('.benefit-track__line');
 
   rows.forEach((row) => {
-    if (row.headlineStatus === 'proposed') {
-      console.warn(`[benefit-track] headline "${row.id}" is proposed. ${row.headlineNote || ''}`);
-    }
     const cue = row.cue || (row.mode === 'lockup' ? row.line : '');
     if (cue) {
       document.querySelectorAll(`[data-track-line="${row.id}"]`).forEach((el) => {
