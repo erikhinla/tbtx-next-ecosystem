@@ -134,9 +134,19 @@ document.addEventListener('click',e=>{const jump=e.target.closest('[data-close-g
 function go(id){const el=$(id);if(!el)return;el.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});}
 const state={gate:false,lane:null,step:0,selections:[],personalSelections:null};
 try{state.gate=sessionStorage.getItem('tbtx-entry')==='up';const p=JSON.parse(localStorage.getItem('tbtx-scan-v3'));if(p?.version==='site-20260914'&&score('personal',p.answers))state.personalSelections=p.answers;}catch{}
-function setStood(on){state.gate=!!on;document.body.classList.toggle('stood',state.gate);if(on)$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));try{sessionStorage.setItem('tbtx-entry',state.gate?'up':'');}catch{}}
-if(state.gate){document.body.classList.add('stood');$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));}
 const gateCopy={out:'Consume and be consumed by AI tools without learning them and get passed by those who did.',back:'Continue Managing Digital Fog as AI\'s assistant, always busy but not building something scalable that moves you.',up:'Prepare your life & business for leverage in the AI-Era. Stand up from the ground up.'};
+function paintGateOpen(){
+ const gateEl=$('#gate .gate')||$('#gate');
+ const up=$('[data-choice="up"]');
+ if(!gateEl||!up) return;
+ $$('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',String(x===up)));
+ const copy=$('#gate-copy');
+ if(copy) copy.textContent=gateCopy.up;
+ gateEl.classList.add('is-answered');
+ document.body.classList.remove('held');
+}
+function setStood(on){state.gate=!!on;document.body.classList.toggle('stood',state.gate);if(on)$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));try{sessionStorage.setItem('tbtx-entry',state.gate?'up':'');}catch{} if(on) paintGateOpen();}
+if(state.gate) setStood(true);
 $$('[data-choice]').forEach(b=>b.onclick=()=>{const choice=b.dataset.choice,gateEl=$('#gate .gate')||$('#gate');$$('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const copy=$('#gate-copy');if(copy)copy.textContent=gateCopy[choice]||'';gateEl.classList.add('is-answered');setStood(choice==='up');document.body.classList.toggle('held',choice!=='up');if(choice==='up'){document.body.classList.remove('held');const next=$('#carry')?'#carry':($('#routes')?'#routes':'#build');setTimeout(()=>go(next),1600);}});
 function score(lane,selections){const qs=window.REVIEW_QUESTIONS[lane];if(!qs||!Array.isArray(selections)||selections.length!==qs.length||qs.some((q,i)=>!Number.isInteger(selections[i])||!q.options[selections[i]]))return null;const values=qs.map((q,i)=>q.options[selections[i]].value),raw=values.reduce((a,b)=>a+b,0),max=qs.length*2,result=Math.round(100*raw/max);const band=lane==='personal'?(result<50?'Carrying it':'Clear enough'):result<25?'Fragmented':result<50?'Stalled':result<75?'Scaling':'Compounding';return{raw,max,result,band,values};}
 function setLane(lane){document.body.classList.toggle('lane-life',lane==='personal');document.body.classList.toggle('lane-biz',lane==='business');try{if(lane)sessionStorage.setItem('tbtx-lane',lane);}catch{}}
@@ -148,7 +158,7 @@ try{
  if(path==='/map'||path==='/bbai/map'||/\bstart=map\b/.test(location.search)){setStood(true);setLane('business');setTimeout(()=>start('business'),280);}
 }catch{}
 function start(lane){closeAll();const onBiz=document.body.dataset.page==='business';if(!state.gate&&!onBiz){if($('#gate'))go('#gate');return;}if(!state.gate)setStood(true);setLane(lane);state.lane=lane;state.step=0;const qs=window.REVIEW_QUESTIONS?.[lane];if(!qs){if(lane==='business')open('map-intro');return;}state.selections=Array(qs.length).fill(null);if(lane==='business')open('map-intro');else{renderQuestion();open('questionnaire');}}
-document.addEventListener('click',e=>{const a=e.target.closest('a[href="#proof"],a[href="#daily"]');if(!a)return;if(!state.gate){e.preventDefault();go('#gate');return;}setLane(a.getAttribute('href')==='#proof'?'business':'personal');},true);
+document.addEventListener('click',e=>{const a=e.target.closest('a[href="#proof"],a[href="#daily"],a[href="#build"]');if(!a)return;if(!state.gate){e.preventDefault();go('#gate');return;}setLane(a.getAttribute('href')==='#proof'?'business':'personal');},true);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-start]');if(!b)return;e.preventDefault();e.stopPropagation();start(b.dataset.start);});
 const beginMap=$('#begin-map');if(beginMap)beginMap.onclick=()=>{close('map-intro');renderQuestion();open('questionnaire');};
 function focusQuestion(){$('#question-title').focus({preventScroll:true});$('#questionnaire').scrollTop=0;}

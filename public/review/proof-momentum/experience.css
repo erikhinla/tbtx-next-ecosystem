@@ -713,3 +713,8 @@ body[data-page="business"] .chrome-chapters button[aria-current="true"]{
     padding-bottom:22px;
   }
 }
+
+body[data-page="business"] .chrome .hub-link{color:#f4eee5}
+@media(max-width:800px){
+  body[data-page="business"] .chrome .hub-link{display:none}
+}
