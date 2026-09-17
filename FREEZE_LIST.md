@@ -1,9 +1,12 @@
 # FREEZE_LIST.md
 
 **Repo:** `erikhinla/tbtx-next-ecosystem`
-**Version:** 2026.09.17a
+**Version:** 2026.09.17b
 **Status:** ACTIVE. This file governs every change round until Erik bumps the version.
 **Verified against:** `https://transformby10x.ai` production, read live 2026-09-17.
+
+**Amended in b:** A2 fog row corrected to silent. D11 clarified. E9 added. No
+frozen item was unlocked. See the changelog at the foot of this file.
 
 ---
 
@@ -58,7 +61,7 @@ beat.
 | Beat | Line | Mode |
 |---|---|---|
 | arrival | `There's a name for it.` | free |
-| fog | `I'm not crazy. This fog is real.` | free |
+| fog | `I'm not crazy. This fog is real.` | silent on track, primary in flow |
 | gate | (silent) | silent |
 | carry | `It was never ours to carry.` | free, post Stand Up |
 | fork | `Same leftover job. Two rooms.` | free |
@@ -69,6 +72,12 @@ beat.
 The gate stays silent. One beat with no subtitle is what makes the others land.
 
 Named beats wear their line in flow. They never repeat on the fixed layer.
+
+**On the fog beat.** The line is the manifesto primary and the fixed track is
+silent there. Do not promote it to a free track line. That would put the same
+sentence on the track and the page at the same moment, which is the exact
+collision this list exists to prevent. Correcting it would need an unlock, and
+the answer is no.
 
 ### A3. Manifesto
 
@@ -237,7 +246,11 @@ Each of these has already cost a round.
    device.
 10. Do not animate the type. No per-character reveals, no typewriter, no
     counters.
-11. Do not duplicate a frozen string. Import it.
+11. Do not duplicate a frozen string in source. One definition, in
+    `benefit-track.json`, imported everywhere it renders. Rendering a line in
+    flow under its name is correct and expected. This rule bans a second
+    hardcoded copy, not the in-flow lockup. Do not strip working markup to
+    satisfy it.
 12. Do not use em dashes or en dashes in any public string.
 13. Do not use the retired empty verbs. No Learn More, no Explore BBAI, no Book
     a Discovery Call as the primary relief CTA.
@@ -279,6 +292,13 @@ Not frozen. Named here so they do not get confused with drift.
 8. **Two token values.** `--track-ink` and `--track-release` were left as
    REPLACE pending canon hex values. Confirm they are set and not a second
    palette.
+9. **The Map intro screen.** `/map` opens on `15 answers. Reveal the limiting
+   factor. Take the first step the rest depends on.` The fork card says
+   `15 answers. Where the work comes back.` Two sentences for one instrument on
+   two surfaces. Not a drift, because neither was frozen, and correctly left
+   alone rather than guessed at. Decide whether the Map screen inherits the
+   fork line or keeps its own longer promise. Whichever survives, the other
+   surface follows and both freeze together.
 
 ---
 
@@ -319,6 +339,26 @@ Four minutes. Run it on the preview, not on production.
    track never collides with the campaign lockup.
 
 Then `main`, then the domain, then hard refresh once.
+
+---
+
+## Changelog
+
+**2026.09.17b**
+
+- A2: fog row was written as a free track line. Corrected to silent on the
+  track, primary in flow. Source was the live page read, where the line renders
+  inside the manifesto section. The data file is the authority and it says
+  silent. Not independently reverified, flagged here rather than claimed.
+- D11: was read as an instruction to strip in-flow markup. Rewritten to say
+  what it meant, one definition in JSON, imported everywhere it renders.
+- E9 added: the Map intro screen and the fork card carry different sentences.
+  Neither was frozen, so this is an open decision, not a regression.
+- No item was unlocked. A1 through A10, B and C stand unchanged.
+
+**2026.09.17a**
+
+- First freeze. Built from a live read of production, not from the build record.
 
 ---
 
