@@ -130,18 +130,19 @@ function changeWorld(name,light=.8,crop){
  next.playsInline=true;
  next.poster='assets/'+(name==='proof-world.mp4'?'proof-mood-3':name.replace('.mp4',''))+'.jpg';
  next.src=media(name);
+ let shown=false;
  const reveal=()=>{
-  if(token!==version)return;
+  if(token!==version||shown)return;
+  shown=true;
   videos.forEach(v=>{if(v!==next)hide(v);});
   show(next);
-  if(!reduced&&!document.hidden)next.play().catch(()=>{});
   syncBed(name);
   if(outgoing&&outgoing!==next) setTimeout(()=>{if(outgoing.dataset.file!==wanted){outgoing.pause();outgoing.removeAttribute('src');outgoing.removeAttribute('poster');delete outgoing.dataset.file;outgoing.load();}},900);
  };
- next.addEventListener('canplay',reveal,{once:true});
+ next.addEventListener('canplay',()=>{reveal();if(!reduced&&!document.hidden)next.play().catch(()=>{});},{once:true});
  next.addEventListener('error',reveal,{once:true});
- next.play().then(reveal).catch(()=>{});
  reveal();
+ if(!reduced&&!document.hidden) next.play().catch(()=>{});
 }
 const acts=$$('[data-world]');let framePending=false;
 function syncChrome(best){
@@ -177,8 +178,8 @@ function bindWorldScroll(){
  const add=el=>{if(!el||seen.has(el))return;seen.add(el);el.addEventListener('scroll',queueWorld,{passive:true});};
  add(window);add(document);add(document.scrollingElement);add(document.documentElement);add(document.body);add($('#experience'));
  addEventListener('resize',queueWorld);
- if('IntersectionObserver' in window){const io=new IntersectionObserver(()=>queueWorld(),{threshold:[0,.2,.4,.6,.8,1]});acts.forEach(a=>io.observe(a));}
- queueWorld();
+ if('IntersectionObserver' in window){const io=new IntersectionObserver(()=>queueWorld(),{threshold:[0,.25,.5,1],rootMargin:'0px'});acts.forEach(a=>io.observe(a));}
+ updateWorld();
 }
 if(reduced)$$('[data-sc-act]').forEach(a=>a.setAttribute('data-sc-act','flow'));
 try{if(window.ScrollCraft&&$('#experience'))window.reviewScrollcraft=window.ScrollCraft.mount($('#experience'));}catch(err){}
