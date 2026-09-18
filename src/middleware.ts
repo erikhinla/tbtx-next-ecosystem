@@ -5,12 +5,23 @@ const CANONICAL: Record<string, string> = {
   '/bizbuilders.html': '/bbai',
   '/bizbuilders': '/bbai',
   '/tbtx/bbai': '/bbai',
-  '/proof': '/bbai#proof',
-  '/proof.html': '/bbai#proof',
 };
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname.replace(/\/$/, '') || '/';
+
+  // Temporary until /proof is its own page. 302 so browsers do not cache the
+  // stand-in onto /bbai#proof.
+  if (path === '/proof' || path === '/proof.html') {
+    const res = NextResponse.redirect(new URL('/bbai#proof', request.url), 302);
+    res.headers.set('Cache-Control', 'no-store');
+    return res;
+  }
+
+  if (path === '/tbtx') {
+    return NextResponse.redirect(new URL('/', request.url), 301);
+  }
+
   const dest = CANONICAL[path];
   if (dest) {
     const url = new URL(dest, request.url);
@@ -20,7 +31,6 @@ export function middleware(request: NextRequest) {
   const businessHost = (request.headers.get('host') || '').includes('bizbuilders');
   const pages: Record<string, string> = {
     '/': businessHost ? 'bizbuilders.html' : 'index.html',
-    '/tbtx': 'index.html',
     '/index.html': 'index.html',
     '/scan': 'index.html',
     '/daily': 'index.html',
