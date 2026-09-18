@@ -620,3 +620,191 @@ body:not(.stood) #carry{display:none!important}
 .result-math .score-number{margin:.4rem 0 .2rem}
 
 #method-title{font-size:clamp(28px,4.2vw,52px);max-width:20ch;line-height:1.12;letter-spacing:-.035em;margin-bottom:28px}
+
+/* /bbai cold open. Business page only. Film stays visible. */
+body[data-page="business"] #recognition .bill.manifesto-film{
+  min-height:auto;
+  justify-content:flex-start;
+  padding-top:108px;
+  padding-bottom:16vh;
+  isolation:isolate;
+}
+body[data-page="business"] #recognition .bill.manifesto-film:before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:min(40rem, 78%);
+  pointer-events:none;
+  z-index:0;
+  background:linear-gradient(90deg, rgba(8,10,11,.82) 0%, rgba(8,10,11,.64) 46%, rgba(8,10,11,.28) 74%, transparent 100%);
+}
+body[data-page="business"] #recognition .bill.manifesto-film > *{
+  position:relative;
+  z-index:1;
+}
+body[data-page="business"] .manifesto-open{
+  min-height:calc(100svh - 108px);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding-top:clamp(10px, 5vh, 48px);
+  max-width:34rem;
+}
+body[data-page="business"] .manifesto-film h2{
+  font-size:clamp(2.6rem, 7.4vw, 4.5rem)!important;
+  font-weight:900;
+  line-height:.94;
+  letter-spacing:-.045em;
+  max-width:10ch;
+  margin:0 0 1.15rem;
+  opacity:1;
+  color:#f4eee5;
+  text-transform:none;
+}
+body[data-page="business"] .manifesto-open .peak{
+  margin:0;
+  font-size:clamp(1.2rem, 2.4vw, 1.7rem)!important;
+  font-weight:700;
+  line-height:1.18;
+  letter-spacing:-.02em;
+  max-width:22ch;
+  color:#f4eee5;
+  text-wrap:balance;
+}
+body[data-page="business"] .manifesto-cry{
+  max-width:34rem;
+  padding-top:2.5rem;
+}
+body[data-page="business"] .chrome{
+  background:linear-gradient(180deg, #101111f6 0%, #101111d8 40%, #10111188 68%, transparent 100%);
+  padding-bottom:32px;
+}
+body[data-page="business"] .chrome-chapters a,
+body[data-page="business"] .chrome-chapters button{
+  color:#f4eee5;
+  font-weight:700;
+  text-shadow:0 1px 10px #101111, 0 0 16px #101111f2;
+}
+body[data-page="business"] .chrome-chapters a[aria-current="true"],
+body[data-page="business"] .chrome-chapters button[aria-current="true"]{
+  color:#fff;
+}
+@media(max-width:800px){
+  body[data-page="business"] #recognition .bill.manifesto-film{
+    padding-top:96px;
+  }
+  body[data-page="business"] #recognition .bill.manifesto-film:before{
+    width:100%;
+    background:linear-gradient(90deg, rgba(8,10,11,.88) 0%, rgba(8,10,11,.72) 52%, rgba(8,10,11,.32) 78%, transparent 100%);
+  }
+  body[data-page="business"] .manifesto-open{
+    min-height:calc(100svh - 96px);
+    padding-top:clamp(8px, 3vh, 24px);
+  }
+  body[data-page="business"] .manifesto-film h2{
+    font-size:clamp(2.35rem, 11vw, 3.1rem)!important;
+    max-width:11ch;
+  }
+  body[data-page="business"] .manifesto-open .peak{
+    font-size:clamp(1.15rem, 4.6vw, 1.4rem)!important;
+    max-width:18ch;
+  }
+  body[data-page="business"] .chrome{
+    padding-bottom:22px;
+  }
+}
+
+body[data-page="business"] .chrome .hub-link{color:#f4eee5}
+
+/* PR25 r3: lane chrome, reserved brand, footer */
+:root{--chrome-h:4.85rem;--chrome-gap:16px}
+html{scroll-padding-top:var(--chrome-h)}
+body[data-page="business"] .chrome{
+  gap:var(--chrome-gap);
+  align-items:center;
+}
+body[data-page="business"] .brand{
+  flex:0 0 auto;
+  position:relative;
+  z-index:2;
+}
+body[data-page="business"] .chrome-chapters{
+  flex:1 1 auto;
+  min-width:0;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  row-gap:6px;
+}
+body[data-page="business"] .chrome-chapters.lane-arc{
+  gap:0 10px;
+  font-size:clamp(13px,2.6vw,16px);
+  letter-spacing:.06em;
+  text-transform:lowercase;
+}
+body[data-page="business"] .chrome-chapters.lane-arc button{
+  color:#f4eee5;
+  font-weight:700;
+  min-height:44px;
+  padding:0 4px;
+}
+body[data-page="business"] .arc-div{
+  opacity:.4;
+  pointer-events:none;
+  font-weight:500;
+}
+body[data-page="business"] .bill{
+  padding-top:calc(var(--chrome-h) + 1.1rem);
+}
+@media(min-width:792px){
+  body[data-page="business"]{
+    --brand-lane:5.75rem;
+  }
+  body[data-page="business"] .bill{
+    padding-left:calc(var(--gutter) + var(--brand-lane));
+  }
+}
+.site-foot{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:14px 28px;
+  padding:28px var(--gutter) 40px;
+  background:#101111;
+  color:#c8c3bd;
+  font-size:14px;
+}
+.site-foot a{color:#f4eee5;min-height:44px;display:inline-flex;align-items:center}
+.site-foot .foot-legal{margin:0;max-width:42ch;line-height:1.4}
+body.is-sheet .site-foot,html.is-sheet .site-foot{display:none}
+.lane-change{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:28px;
+  font-size:clamp(18px,2vw,28px);
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:#f4eee5;
+  min-height:48px;
+  border-bottom:1px solid rgba(244,238,229,.45);
+  padding:8px 0;
+  text-transform:none;
+}
+.lane-change:hover{color:#afe8cb}
+.twenty-min{
+  margin:0 0 10px;
+  font-size:clamp(16px,1.8vw,22px);
+  font-weight:700;
+  letter-spacing:-.02em;
+  color:#f4eee5;
+}
+body[data-page="business"] .manifesto-open .recog-line{
+  margin:1.2rem 0 0;
+  font-size:clamp(1.35rem,3.2vw,2rem);
+}
+@media(max-width:800px){
+  :root{--chrome-h:4.4rem;--chrome-gap:16px}
+  body[data-page="business"] .bill{padding-top:calc(var(--chrome-h) + .7rem)}
+}
