@@ -655,3 +655,61 @@ body:has(dialog[open]) .mark,
 body:has(dialog[open]) .site-menu,
 html.is-sheet .mark,
 html.is-sheet .site-menu{visibility:hidden}
+
+.gate-latch{
+  width:100%;
+  padding:24px 22px;
+  font-size:clamp(26px,3vw,42px);
+  font-weight:800;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  color:#8a8680;
+  background:rgba(16,17,17,.45);
+  border:1px solid rgba(244,238,229,.16);
+  cursor:default;
+}
+.gate-latch:hover,.gate-latch:focus-visible{
+  color:#8a8680;
+  background:rgba(16,17,17,.45);
+  transform:none;
+}
+.gate-latch[aria-pressed="true"]{color:#6f6b66}
+.infra{
+  position:fixed;top:16px;right:var(--gutter);z-index:60;
+  margin:0;padding:0;border:0;background:transparent;width:auto;
+}
+.infra-trace{
+  width:44px;height:44px;display:grid;place-items:center;cursor:pointer;
+  list-style:none;padding:0;min-height:44px;
+}
+.infra-trace::-webkit-details-marker,.infra-trace::marker{display:none;content:""}
+.infra-trace span{
+  display:block;width:2px;height:18px;background:#f4eee5;position:relative;
+}
+.infra-trace span:after{
+  content:"";position:absolute;left:7px;top:0;width:2px;height:18px;
+  background:#f4eee5;transform:scaleY(0);transform-origin:top;
+  transition:transform .28s ease;
+}
+.infra[open] .infra-trace span:after{transform:scaleY(1)}
+.infra nav{
+  display:flex;flex-direction:column;align-items:flex-end;gap:0;
+  margin:6px 0 0;padding:0;min-width:0;
+}
+.infra-word{
+  margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.18em;
+  color:#e8b68f;text-transform:uppercase;
+}
+.infra-lane,.infra-child,.infra-me{
+  font-size:14px;font-weight:700;color:#f4eee5;
+  min-height:40px;display:inline-flex;align-items:center;
+  background:none;border:0;padding:0;text-transform:none;
+}
+.infra-child{font-size:13px;font-weight:500;color:#c8c3bd;padding-right:0;min-height:34px}
+.infra [data-lane].is-dim{color:#6a6660}
+.infra-me{margin-top:8px}
+body:has(dialog[open]) .infra,
+html.is-sheet .infra{visibility:hidden}
+@media(max-width:390px){
+  .infra-lane,.infra-child,.infra-me{font-size:13px}
+}
