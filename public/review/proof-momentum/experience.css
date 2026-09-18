@@ -713,3 +713,147 @@ html.is-sheet .infra{visibility:hidden}
 @media(max-width:390px){
   .infra-lane,.infra-child,.infra-me{font-size:13px}
 }
+
+/* Gate overlay. World table: manifesto-hall-loop at light 1. Veil on the surface only. */
+#gate{
+  background:transparent;
+}
+#gate .bill.gate{
+  background:transparent!important;
+  display:flex!important;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  min-height:100svh;
+  padding:110px var(--gutter) 56px!important;
+  overflow:visible!important;
+  grid-template-columns:none!important;
+  gap:0!important;
+}
+#gate .gate:before,
+#gate .gate-still{display:none!important}
+#gate .gate-surface{
+  position:relative;
+  isolation:isolate;
+  width:min(36rem,42vw);
+  padding:1.75rem 1.6rem 1.5rem;
+  border:1px solid rgba(244,238,229,.28);
+  display:flex;
+  flex-direction:column;
+  gap:1.1rem;
+}
+#gate .gate-surface:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:rgba(16,17,17,.78);
+}
+#gate .gate-ask,
+#gate .gate-board{
+  position:relative;
+  z-index:1;
+  width:100%;
+  min-height:0;
+  justify-self:stretch;
+}
+#gate .gate-q,
+#gate .gate.is-answered .gate-q{
+  opacity:1!important;
+  font-size:clamp(2rem,4.2vw,3.4rem)!important;
+  max-width:8ch;
+  margin:0;
+}
+#gate .gate-copy{
+  position:static!important;
+  display:block;
+  height:auto!important;
+  max-width:34ch;
+  margin:.85rem 0 0;
+  font-size:clamp(1rem,1.4vw,1.2rem);
+  font-weight:600;
+  line-height:1.35;
+  color:#e8e2d8;
+  opacity:1;
+  overflow:visible;
+}
+#gate .gate-copy[hidden]{display:none!important}
+#gate .gate-board{
+  gap:8px;
+  padding-top:0;
+  border-top:0;
+  width:100%;
+}
+#gate .gate-board .gate-latch{
+  width:100%;
+  min-height:56px;
+  padding:14px 8px;
+  border:1px solid rgba(244,238,229,.14);
+  border-radius:0;
+  background:transparent;
+  color:#7a7670;
+  font-size:clamp(1.15rem,2vw,1.65rem);
+  font-weight:800;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  cursor:default;
+  backdrop-filter:none;
+  box-shadow:none;
+  transform:none;
+}
+#gate .gate-board .gate-latch:hover,
+#gate .gate-board .gate-latch:focus-visible{
+  color:#7a7670;
+  background:transparent;
+  transform:none;
+}
+#gate .gate-board .gate-latch[aria-pressed="true"]{
+  color:#6a6660;
+  border-color:rgba(244,238,229,.08);
+}
+#gate .gate-board .gate-up{
+  width:100%;
+  min-height:62px;
+  margin-top:4px;
+  padding:16px 8px;
+  border:1px solid rgba(244,238,229,.5);
+  border-radius:0;
+  background:rgba(244,238,229,.12);
+  color:#f7f4ef;
+  font-size:clamp(1.35rem,2.4vw,1.9rem);
+  font-weight:800;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  text-shadow:0 1px 12px rgba(0,0,0,.45);
+}
+#gate .gate-board .gate-up:hover,
+#gate .gate-board .gate-up[aria-pressed="true"]{
+  background:rgba(244,238,229,.2);
+  color:#fff;
+}
+@media(max-width:800px){
+  #gate .bill.gate{
+    justify-content:flex-end;
+    padding:22vh var(--gutter) 7vh!important;
+  }
+  #gate .gate-surface{
+    width:100%;
+    max-width:none;
+  }
+  #gate .gate-q,
+  #gate .gate.is-answered .gate-q{
+    font-size:clamp(1.85rem,10vw,2.6rem)!important;
+  }
+}
+@media(orientation:landscape) and (max-height:500px){
+  #gate .bill.gate{
+    justify-content:flex-start;
+    padding:64px var(--gutter) 20px!important;
+  }
+  #gate .gate-surface{padding:1rem 1.1rem .9rem;gap:.7rem}
+  #gate .gate-board .gate-latch,
+  #gate .gate-board .gate-up{min-height:44px;padding:8px}
+}
+
