@@ -140,7 +140,6 @@ function changeWorld(name,light=.8,crop){
  };
  next.addEventListener('canplay',reveal,{once:true});
  next.addEventListener('error',reveal,{once:true});
- next.load();
  next.play().then(reveal).catch(()=>{});
  reveal();
 }
