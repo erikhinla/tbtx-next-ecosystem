@@ -5,6 +5,30 @@ const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const local=location.protocol==='file:'||['localhost','127.0.0.1','[::1]'].includes(location.hostname);
 const media=name=>window.REVIEW_MEDIA?.[name]||('assets/'+name);
+
+function mountInfra(){
+ if($('.infra'))return;
+ const onBiz=document.body.dataset.page==='business';
+ const home=onBiz?'/':'#arrival';
+ const life=onBiz?'/#daily':'#daily';
+ const proof='#proof';
+ const mark=document.createElement('a');
+ mark.className='mark';mark.href=home;mark.textContent='TBTX';
+ const box=document.createElement('details');
+ box.className='infra';
+ box.innerHTML=`<summary class="infra-trace" aria-label="INFRA"><span></span></summary><nav aria-label="INFRA"><p class="infra-word">INFRA</p><a class="infra-lane" data-lane="life" href="${life}">Life</a><a class="infra-child" data-lane="life" href="${life}">De-Fog</a><a class="infra-lane" data-lane="biz" href="/bbai">Business</a><a class="infra-child" data-lane="biz" href="${proof}">PROOF</a><a class="infra-me" href="/story">Me</a></nav>`;
+ document.body.append(mark,box);
+ box.querySelectorAll('nav a').forEach(el=>el.addEventListener('click',()=>box.removeAttribute('open')));
+ markInfra();
+}
+function markInfra(){
+ const life=document.body.classList.contains('lane-life');
+ const biz=document.body.classList.contains('lane-biz');
+ document.querySelectorAll('.infra [data-lane]').forEach(el=>{
+  el.classList.toggle('is-dim',(life&&el.dataset.lane==='biz')||(biz&&el.dataset.lane==='life'));
+ });
+}
+
 const SOUND_FILM={
   'b2b-task-1-world.mp4':'b2b-task-1.mp4',
   'b2b-task-2-world.mp4':'b2b-task-2.mp4',
@@ -117,7 +141,7 @@ function coverPage(on){
  }else if(state.gate) document.body.classList.add('stood');
  document.documentElement.classList.toggle('is-sheet',on);
  document.body.classList.toggle('is-sheet',on);
- ['#experience','.chrome'].forEach(sel=>{
+ ['#experience','.chrome','.mark','.infra','.site-menu'].forEach(sel=>{
   const el=$(sel); if(!el) return;
   if(on){el.setAttribute('hidden','');el.setAttribute('inert','');el.style.setProperty('display','none','important');el.style.setProperty('visibility','hidden','important');}
   else{el.removeAttribute('hidden');el.removeAttribute('inert');el.style.removeProperty('display');el.style.removeProperty('visibility');}
@@ -128,7 +152,7 @@ function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.i
 function open(id,trigger=document.activeElement){if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
-$$('dialog').forEach(d=>{d.addEventListener('close',()=>{d.querySelectorAll('video').forEach(v=>v.pause());const entry=modalStack.findLast(x=>x.id===d.id);modalStack=modalStack.filter(x=>x.id!==d.id);if(!$$('dialog[open]').length){document.documentElement.style.overflow='';coverPage(false);entry?.trigger?.focus?.({preventScroll:true});}modalWorld();syncChrome(activeScene);});d.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close(d);});});
+function bindDialog(d){if(!d||d.dataset.bound)return;d.dataset.bound='1';d.addEventListener('close',()=>{d.querySelectorAll('video').forEach(v=>v.pause());const entry=modalStack.findLast(x=>x.id===d.id);modalStack=modalStack.filter(x=>x.id!==d.id);if(!$$('dialog[open]').length){document.documentElement.style.overflow='';coverPage(false);entry?.trigger?.focus?.({preventScroll:true});}modalWorld();syncChrome(activeScene);});d.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close(d);});}$$('dialog').forEach(bindDialog);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){open(b.dataset.open,b);}});
 document.addEventListener('click',e=>{const jump=e.target.closest('[data-close-go]');if(!jump)return;e.preventDefault();const target=jump.getAttribute('data-close-go')||jump.getAttribute('href');closeAll();if(target)go(target.startsWith('#')?target:'#'+target);});
 function go(id){const el=$(id);if(!el)return;el.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});}
@@ -139,7 +163,7 @@ if(state.gate){document.body.classList.add('stood');$$('[data-sc-in]').forEach(e
 const gateCopy={out:'Consume and be consumed by AI tools without learning them and get passed by those who did.',back:'Continue Managing Digital Fog as AI\'s assistant, always busy but not building something scalable that moves you.',up:'Prepare your life & business for leverage in the AI-Era. Stand up from the ground up.'};
 $$('[data-choice]').forEach(b=>b.onclick=()=>{const choice=b.dataset.choice,gateEl=$('#gate .gate')||$('#gate');$$('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const copy=$('#gate-copy');if(copy)copy.textContent=gateCopy[choice]||'';gateEl.classList.add('is-answered');setStood(choice==='up');document.body.classList.toggle('held',choice!=='up');if(choice==='up'){document.body.classList.remove('held');const next=$('#carry')?'#carry':($('#routes')?'#routes':'#build');setTimeout(()=>go(next),1600);}});
 function score(lane,selections){const qs=window.REVIEW_QUESTIONS[lane];if(!qs||!Array.isArray(selections)||selections.length!==qs.length||qs.some((q,i)=>!Number.isInteger(selections[i])||!q.options[selections[i]]))return null;const values=qs.map((q,i)=>q.options[selections[i]].value),raw=values.reduce((a,b)=>a+b,0),max=qs.length*2,result=Math.round(100*raw/max);const band=lane==='personal'?(result<50?'Carrying it':'Clear enough'):result<25?'Fragmented':result<50?'Stalled':result<75?'Scaling':'Compounding';return{raw,max,result,band,values};}
-function setLane(lane){document.body.classList.toggle('lane-life',lane==='personal');document.body.classList.toggle('lane-biz',lane==='business');try{if(lane)sessionStorage.setItem('tbtx-lane',lane);}catch{}}
+function setLane(lane){document.body.classList.toggle('lane-life',lane==='personal');document.body.classList.toggle('lane-biz',lane==='business');try{if(lane)sessionStorage.setItem('tbtx-lane',lane);}catch{}markInfra();}
 try{const lane=sessionStorage.getItem('tbtx-lane');if(lane==='personal'||lane==='business')setLane(lane);}catch{}
 if(document.body.dataset.page==='business') setLane('business');
 try{
@@ -210,11 +234,14 @@ document.addEventListener('pointerdown',e=>{tapX=e.clientX;tapY=e.clientY;},{pas
 document.addEventListener('pointerup',e=>{
  if(document.body.classList.contains('is-sheet'))return;
  if(Math.hypot(e.clientX-tapX,e.clientY-tapY)>14)return;
- const hit=e.target.closest('a,button,input,textarea,select,summary,label,dialog,.route-lane,.gate-board,.chrome,.sheet,.action,.text-action,.read-link,.family-line,.daily-pay,.method-launch');
+ const hit=e.target.closest('a,button,input,textarea,select,summary,label,dialog,.route-lane,.gate-board,.chrome,.site-menu,.sheet,.action,.text-action,.read-link,.family-line,.daily-pay,.method-launch,.mark');
  if(hit)return;
  setSound(!soundOn);
 });
 // Direction and color move with intent; pointer movement never shifts a click target.
+
+document.querySelectorAll('.site-menu nav a,.site-menu nav button').forEach(el=>el.addEventListener('click',()=>{const m=el.closest('.site-menu');if(m)m.removeAttribute('open');}));
 $$('.action,.route,.route-lane,.gate-choices button,.method-launch').forEach(b=>{b.addEventListener('pointermove',e=>{if(reduced||e.pointerType==='touch')return;const r=b.getBoundingClientRect();b.style.setProperty('--pointer',(e.clientX-r.left)/r.width);});b.addEventListener('pointerleave',()=>b.style.removeProperty('--pointer'));});
-window.TBTX={open,close,closeAll,startDDD,state,escape,media,score,chooseGallery};window.reviewScore=score;window.reviewState=state;
+mountInfra();
+window.TBTX={open,close,closeAll,startDDD,state,escape,media,score,chooseGallery,bindDialog};window.reviewScore=score;window.reviewState=state;
 })();
