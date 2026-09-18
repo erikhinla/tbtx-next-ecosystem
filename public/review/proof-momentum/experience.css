@@ -715,3 +715,96 @@ body[data-page="business"] .chrome-chapters button[aria-current="true"]{
 }
 
 body[data-page="business"] .chrome .hub-link{color:#f4eee5}
+
+/* PR25 r3: lane chrome, reserved brand, footer */
+:root{--chrome-h:4.85rem;--chrome-gap:16px}
+html{scroll-padding-top:var(--chrome-h)}
+body[data-page="business"] .chrome{
+  gap:var(--chrome-gap);
+  align-items:center;
+}
+body[data-page="business"] .brand{
+  flex:0 0 auto;
+  position:relative;
+  z-index:2;
+}
+body[data-page="business"] .chrome-chapters{
+  flex:1 1 auto;
+  min-width:0;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  row-gap:6px;
+}
+body[data-page="business"] .chrome-chapters.lane-arc{
+  gap:0 10px;
+  font-size:clamp(13px,2.6vw,16px);
+  letter-spacing:.06em;
+  text-transform:lowercase;
+}
+body[data-page="business"] .chrome-chapters.lane-arc button{
+  color:#f4eee5;
+  font-weight:700;
+  min-height:44px;
+  padding:0 4px;
+}
+body[data-page="business"] .arc-div{
+  opacity:.4;
+  pointer-events:none;
+  font-weight:500;
+}
+body[data-page="business"] .bill{
+  padding-top:calc(var(--chrome-h) + 1.1rem);
+}
+@media(min-width:792px){
+  body[data-page="business"]{
+    --brand-lane:5.75rem;
+  }
+  body[data-page="business"] .bill{
+    padding-left:calc(var(--gutter) + var(--brand-lane));
+  }
+}
+.site-foot{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:14px 28px;
+  padding:28px var(--gutter) 40px;
+  background:#101111;
+  color:#c8c3bd;
+  font-size:14px;
+}
+.site-foot a{color:#f4eee5;min-height:44px;display:inline-flex;align-items:center}
+.site-foot .foot-legal{margin:0;max-width:42ch;line-height:1.4}
+body.is-sheet .site-foot,html.is-sheet .site-foot{display:none}
+.lane-change{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:28px;
+  font-size:clamp(18px,2vw,28px);
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:#f4eee5;
+  min-height:48px;
+  border-bottom:1px solid rgba(244,238,229,.45);
+  padding:8px 0;
+  text-transform:none;
+}
+.lane-change:hover{color:#afe8cb}
+.twenty-min{
+  margin:0 0 10px;
+  font-size:clamp(16px,1.8vw,22px);
+  font-weight:700;
+  letter-spacing:-.02em;
+  color:#f4eee5;
+}
+body[data-page="business"] .manifesto-open .recog-line{
+  margin:1.2rem 0 0;
+  font-size:clamp(1.35rem,3.2vw,2rem);
+}
+@media(max-width:800px){
+  :root{--chrome-h:4.4rem;--chrome-gap:16px}
+  body[data-page="business"] .bill{padding-top:calc(var(--chrome-h) + .7rem)}
+}
