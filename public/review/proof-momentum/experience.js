@@ -13,13 +13,17 @@ function mountInfra(){
  const life=onBiz?'/#daily':'#daily';
  const proof='#proof';
  const mark=document.createElement('a');
- mark.className='mark';mark.href=home;mark.textContent='TBTX';
+ mark.className='mark';
+ mark.href=home;
+ mark.innerHTML='<span class="mark-back" aria-hidden="true">‹</span><span class="mark-here"></span>';
+ mark.setAttribute('aria-label','Back');
  const box=document.createElement('details');
  box.className='infra';
  box.innerHTML=`<summary class="infra-trace" aria-label="INFRA"><span></span></summary><nav aria-label="INFRA"><p class="infra-word">INFRA</p><a class="infra-lane" data-lane="life" href="${life}">Life</a><a class="infra-child" data-lane="life" href="${life}">De-Fog</a><a class="infra-lane" data-lane="biz" href="/bbai">Business</a><a class="infra-child" data-lane="biz" href="${proof}">PROOF</a><a class="infra-me" href="/story">Me</a></nav>`;
  document.body.append(mark,box);
  box.querySelectorAll('nav a').forEach(el=>el.addEventListener('click',()=>box.removeAttribute('open')));
  markInfra();
+ syncMark($('[data-world]'));
 }
 function markInfra(){
  const life=document.body.classList.contains('lane-life');
@@ -27,6 +31,18 @@ function markInfra(){
  document.querySelectorAll('.infra [data-lane]').forEach(el=>{
   el.classList.toggle('is-dim',(life&&el.dataset.lane==='biz')||(biz&&el.dataset.lane==='life'));
  });
+}
+function syncMark(best){
+ const mark=$('.mark');if(!mark)return;
+ const onBiz=document.body.dataset.page==='business';
+ const id=best?.id||(onBiz?'proof':'arrival');
+ const here={arrival:'',recognition:'Fog',gate:'Gate',carry:'',routes:'',proof:'PROOF',daily:'De-Fog',founder:'Me',build:'BBAI','how-i-build':'BBAI','business-close':'BBAI'}[id]||'';
+ const atHome=onBiz?id==='proof':id==='arrival';
+ mark.classList.toggle('is-home',atHome);
+ const label=mark.querySelector('.mark-here');
+ if(label) label.textContent=atHome?'':here;
+ mark.setAttribute('href',onBiz?'/bbai':'#arrival');
+ mark.setAttribute('aria-label',atHome?'Home':'Back'+(here?'. '+here:''));
 }
 
 const SOUND_FILM={
@@ -37,7 +53,7 @@ const SOUND_FILM={
   'b2b-task-6-world.mp4':'b2b-task-6.mp4',
   'proof-world.mp4':'proof-mood-3.mp4'
 };
-const videos=[$('#world-a'),$('#world-b')].filter(Boolean);videos.forEach(v=>{v.autoplay=!reduced;v.muted=true;v.playsInline=true;});let version=0,wanted='',activeScene=null,modalFilm=null,soundOn=false,bed=null;
+const videos=[$('#world-a'),$('#world-b')].filter(Boolean);videos.forEach(v=>{v.autoplay=!reduced;v.muted=true;v.playsInline=true;const file=(v.getAttribute('src')||'').split('/').pop();if(file)v.dataset.file=file;});let version=0,wanted='',activeScene=null,modalFilm=null,soundOn=false,bed=null;
 try{soundOn=sessionStorage.getItem('tbtx-sound')==='on';}catch{}
 function ensureBed(){
   if(bed)return bed;
@@ -167,6 +183,7 @@ function updateWorld(){
   if(score>bestScore){bestScore=score;best=act;}
  }
  activeScene=best;if(!modalFilm)changeWorld(best.dataset.world,Number(best.dataset.light),best.dataset.crop);
+ syncMark(best);
  document.body.classList.add('world-ready');
  syncChrome(best);
  document.body.classList.toggle('on-arrival',best?.id==='arrival');
@@ -183,9 +200,10 @@ function bindWorldScroll(){
  updateWorld();
 }
 if(reduced)$$('[data-sc-act]').forEach(a=>a.setAttribute('data-sc-act','flow'));
+if(acts[0]) changeWorld(acts[0].dataset.world,Number(acts[0].dataset.light),acts[0].dataset.crop);
 try{if(window.ScrollCraft&&$('#experience'))window.reviewScrollcraft=window.ScrollCraft.mount($('#experience'));}catch(err){}
 bindWorldScroll();
-const modalVideos={'method-dialog':'proof-mood-2.mp4','map-intro':'b2b-task-6-world.mp4','ddd-intro':'ddd-r5-picture-sfx.mp4','ddd':'ddd-r5-picture-sfx.mp4','ddd-method':'ddd-r5-picture-sfx.mp4','funding':'ddd-r5-picture-sfx.mp4','recognize':'b2b-task-2-world.mp4','stand-on':'b2b-task-6-world.mp4','fog-def':'b2b-task-2-world.mp4','trace':'b2b-task-1-world.mp4','blueprint':'proof-world.mp4','growth':'b2b-task-5-world.mp4','philosophy':'b2b-task-1-world.mp4','flow-engine':'b2b-task-1-world.mp4','about':'erik-portrait.mp4','gallery':'off'};
+const modalVideos={'method-dialog':'proof-mood-2.mp4','map-intro':'b2b-task-6-world.mp4','ddd-intro':'ddd-r5-picture-sfx.mp4','ddd':'ddd-r5-picture-sfx.mp4','ddd-method':'ddd-r5-picture-sfx.mp4','funding':'ddd-r5-picture-sfx.mp4','trace':'b2b-task-1-world.mp4','blueprint':'proof-world.mp4','growth':'b2b-task-5-world.mp4','philosophy':'b2b-task-1-world.mp4','flow-engine':'b2b-task-1-world.mp4','about':'erik-portrait.mp4','gallery':'off'};
 let lastTrigger=null,modalStack=[];
 let lastScroll=0;
 function coverPage(on){
@@ -201,7 +219,7 @@ function coverPage(on){
  });
  if(!on) requestAnimationFrame(()=>{window.scrollTo(0,lastScroll);requestAnimationFrame(()=>window.scrollTo(0,lastScroll));});
 }
-function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.id,d=opened.find(x=>x.id===topId)||opened.at(-1);opened.forEach(x=>x.classList.toggle('behind-dialog',x!==d));if(!d){modalFilm=null;updateWorld();return;}const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=(d.id==='recognize'||d.id==='fog-def')?'32% 42%':d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
+function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.id,d=opened.find(x=>x.id===topId)||opened.at(-1);opened.forEach(x=>x.classList.toggle('behind-dialog',x!==d));if(!d){modalFilm=null;updateWorld();return;}const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
 function open(id,trigger=document.activeElement){if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
@@ -234,7 +252,7 @@ function renderQuestion(){const qs=window.REVIEW_QUESTIONS[state.lane],q=qs[stat
  $$('input[name=answer]').forEach(el=>el.onchange=()=>{state.selections[state.step]=Number(el.value);$('#next').disabled=false;});$('#previous').onclick=()=>{if(state.step>0){state.step--;renderQuestion();focusQuestion();}};$('#next').onclick=()=>{if(state.selections[state.step]===null)return;if(state.step<qs.length-1){state.step++;renderQuestion();focusQuestion();}else renderResult();};}
 function pointLabel(n){return n===1?'1 point':n+' points';}
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
- $('#question-lane').textContent=state.lane==='business'?'PROOF / Starting point':'Digital Fog Scan / Starting point';$('#question-body').innerHTML=`<h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">${state.lane==='business'?'The answers point to a pattern. Then a task to follow.':'Nothing else needs sorting today.'}</p><div class="result-ctas"><button class="action" id="result-next">${state.lane==='business'?'Follow Trace':'Start DDD'} <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>Show the math</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>${state.lane==='business'?'Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.':'Carrying it 0-49 · Clear enough 50-100.'}</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button>`;
+ $('#question-lane').textContent=state.lane==='business'?'PROOF / Starting point':'Digital Fog Scan / Starting point';$('#question-body').innerHTML=`<h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">${state.lane==='business'?'The answers point to a pattern. Then a task to follow.':'Nothing else needs sorting today.'}</p><div class="result-ctas"><button class="action" id="result-next">${state.lane==='business'?'Follow Trace':'Start DDD'} <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>${state.lane==='business'?'Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.':'Carrying it 0-49 · Clear enough 50-100.'}</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button>`;
  $('#result-next').onclick=()=>{close('questionnaire');open(state.lane==='business'?'trace':'ddd-intro');};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};focusQuestion();}
 function startDDD(){closeAll();if(window.DDD?.hasDraft()){window.DDD.open();}else open('ddd-intro');}
 if($('#open-ddd'))$('#open-ddd').onclick=startDDD;if($('#ddd-method-start'))$('#ddd-method-start').onclick=startDDD;if($('#begin-ddd'))$('#begin-ddd').onclick=()=>{close('ddd-intro');window.DDD.open();};

@@ -863,4 +863,32 @@ body[data-page="business"] #world-a{opacity:.92}
 body.world-ready #world video:not(.visible){opacity:0!important}
 #world video.visible{opacity:var(--light,.84)!important;transition:none}
 
+/* G8 reserved copy + nav lane. Veil under copy only. No global dim. */
+:root{--nav-lane:64px}
+#world:after{
+  content:"";
+  position:absolute;inset:0 auto auto 0;width:100%;height:var(--nav-lane);
+  background:#101111;
+  z-index:3;pointer-events:none;
+}
+.world-shade{
+  background:
+    linear-gradient(90deg,#101111f2 0%,#101111c4 26%,#10111155 44%,transparent 62%),
+    linear-gradient(180deg,#101111 0%,#101111cc 8%,transparent 22%)!important;
+}
+.bill,.manifesto-film{
+  padding-top:calc(var(--nav-lane) + 36px)!important;
+}
+.mark{
+  position:fixed;top:12px;left:var(--gutter);z-index:60;
+  min-height:44px;display:inline-flex;align-items:center;gap:.45rem;
+  font-size:13px;font-weight:700;letter-spacing:.04em;color:#f4eee5;
+  text-transform:none;text-decoration:none;
+}
+.mark-back{font-size:22px;line-height:1;font-weight:400;transform:translateY(-1px)}
+.mark.is-home{visibility:hidden;pointer-events:none}
+.chrome,.site-menu,.gate-still,.fog-stack{display:none!important}
+.brand-now:after{content:none!important;mask:none!important;-webkit-mask:none!important}
+
+
 
