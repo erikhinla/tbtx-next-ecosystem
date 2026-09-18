@@ -857,3 +857,10 @@ html.is-sheet .infra{visibility:hidden}
   #gate .gate-board .gate-up{min-height:44px;padding:8px}
 }
 
+/* First paint: arrival poster is visible before JS assigns a src. */
+#world-a{opacity:.78}
+body[data-page="business"] #world-a{opacity:.92}
+body.world-ready #world video:not(.visible){opacity:0!important}
+#world video.visible{opacity:var(--light,.84)!important;transition:none}
+
+

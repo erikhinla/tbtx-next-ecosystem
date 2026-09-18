@@ -167,6 +167,7 @@ function updateWorld(){
   if(score>bestScore){bestScore=score;best=act;}
  }
  activeScene=best;if(!modalFilm)changeWorld(best.dataset.world,Number(best.dataset.light),best.dataset.crop);
+ document.body.classList.add('world-ready');
  syncChrome(best);
  document.body.classList.toggle('on-arrival',best?.id==='arrival');
  const arrival=$('#arrival');
