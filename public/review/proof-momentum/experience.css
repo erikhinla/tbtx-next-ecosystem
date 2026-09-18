@@ -484,16 +484,15 @@ html,body{margin:0;background:#101111;color:#f4eee5}
   overflow:visible;
   min-height:100svh;
 }
-#world[data-scene="desk-fog-loop.mp4"]{
-  --crop:62% 40%;
-  background:#101111 url("assets/desk-fog-loop.jpg") 62% 40%/cover no-repeat;
+#world[data-scene="manifesto-hall-loop.mp4"]{
+  background:#101111 url("assets/manifesto-hall-poster.jpg") 50% 50%/cover no-repeat;
 }
-#world[data-scene="desk-fog-loop.mp4"] video.visible{
+#world[data-scene="manifesto-hall-loop.mp4"] video.visible{
   opacity:1!important;
-  filter:saturate(1.05) brightness(1.22) contrast(1.06);
+  filter:none;
 }
-#world[data-scene="desk-fog-loop.mp4"] .world-shade{
-  background:linear-gradient(90deg,rgba(8,10,11,.58) 0%,rgba(8,10,11,.22) 38%,rgba(8,10,11,.05) 62%,transparent 100%);
+#world[data-scene="manifesto-hall-loop.mp4"] .world-shade{
+  background:linear-gradient(90deg,rgba(8,10,11,.22) 0%,rgba(8,10,11,.06) 34%,transparent 58%);
 }
 .recog-line{
   margin:0 0 1.6rem;
