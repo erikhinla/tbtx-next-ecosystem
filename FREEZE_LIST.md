@@ -66,7 +66,7 @@ beat.
 | gate | (silent) | silent |
 | carry | `It was never ours to carry.` | free, post Stand Up |
 | fork | `Same leftover job. Two rooms.` | free |
-| proof | `Math I can show.` | lockup, in flow |
+| proof | `(the dashboards kept the job.)` | lockup, in flow |
 | ddd | `20 minutes. One surface. A way back.` | lockup, in flow |
 | founder | `Back to the work that's mine.` | free, release |
 
@@ -129,9 +129,9 @@ lane. Do not reconcile them to a single number.
 ### A6. PROOF
 
 - `PROOF` / `Fog & Friction Forensics`
-- Track line: `Math I can show.` No BizBuilders clause appended.
+- Track line: `(the dashboards kept the job.)` No BizBuilders clause appended.
 - Primary CTA: `Map Business Momentum`
-- `Show the Math` stays the quiet secondary. The formula still prints.
+- `See the limits` opens the method. It does not promise a formula.
 - `Enter BizBuilders AI` sits in the CTA cluster, never across the wordmark.
 
 ### A7. DDD landing
@@ -340,7 +340,7 @@ Four minutes. Run it on the preview, not on production.
    else.
 6. **The route check.** `/proof`, `/bbai`, `/scan`, `/map`, `/hang`, and one
    nonsense path for the 404.
-7. **The CTA check.** Every `Map Business Momentum` opens the Map. `Show the Math` opens
+7. **The CTA check.** Every `Map Business Momentum` opens the Map. `See the limits` opens
    the method. `Start DDD` reaches the covered-month screen with no payment rail
    in sight.
 8. **The breakpoint check.** 390px, 768px, 1440px, and landscape phone. The

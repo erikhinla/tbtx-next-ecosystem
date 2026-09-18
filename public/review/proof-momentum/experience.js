@@ -210,11 +210,13 @@ document.addEventListener('pointerdown',e=>{tapX=e.clientX;tapY=e.clientY;},{pas
 document.addEventListener('pointerup',e=>{
  if(document.body.classList.contains('is-sheet'))return;
  if(Math.hypot(e.clientX-tapX,e.clientY-tapY)>14)return;
- const hit=e.target.closest('a,button,input,textarea,select,summary,label,dialog,.route-lane,.gate-board,.chrome,.sheet,.action,.text-action,.read-link,.family-line,.daily-pay,.method-launch');
+ const hit=e.target.closest('a,button,input,textarea,select,summary,label,dialog,.route-lane,.gate-board,.chrome,.site-menu,.sheet,.action,.text-action,.read-link,.family-line,.daily-pay,.method-launch,.mark');
  if(hit)return;
  setSound(!soundOn);
 });
 // Direction and color move with intent; pointer movement never shifts a click target.
+
+document.querySelectorAll('.site-menu nav a,.site-menu nav button').forEach(el=>el.addEventListener('click',()=>{const m=el.closest('.site-menu');if(m)m.removeAttribute('open');}));
 $$('.action,.route,.route-lane,.gate-choices button,.method-launch').forEach(b=>{b.addEventListener('pointermove',e=>{if(reduced||e.pointerType==='touch')return;const r=b.getBoundingClientRect();b.style.setProperty('--pointer',(e.clientX-r.left)/r.width);});b.addEventListener('pointerleave',()=>b.style.removeProperty('--pointer'));});
 window.TBTX={open,close,closeAll,startDDD,state,escape,media,score,chooseGallery};window.reviewScore=score;window.reviewState=state;
 })();

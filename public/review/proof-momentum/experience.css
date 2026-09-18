@@ -620,3 +620,38 @@ body:not(.stood) #carry{display:none!important}
 .result-math .score-number{margin:.4rem 0 .2rem}
 
 #method-title{font-size:clamp(28px,4.2vw,52px);max-width:20ch;line-height:1.12;letter-spacing:-.035em;margin-bottom:28px}
+
+/* Nav D: corner mark + one-word Menu. Not a bar. */
+.mark{
+  position:fixed;top:16px;left:var(--gutter);z-index:60;
+  font-size:22px;font-weight:900;letter-spacing:-.06em;color:#f4eee5;
+  min-height:44px;display:inline-flex;align-items:center;
+}
+.site-menu{
+  position:fixed;top:16px;right:var(--gutter);z-index:60;
+  margin:0;padding:0;border:0;background:transparent;width:auto;
+}
+.site-menu>summary{
+  font-size:14px;font-weight:600;color:#f4eee5;letter-spacing:0;
+  min-height:44px;display:inline-flex;align-items:center;cursor:pointer;
+  list-style:none;text-transform:none;
+}
+.site-menu>summary::-webkit-details-marker,.site-menu>summary::marker{display:none;content:""}
+.site-menu nav{
+  display:flex;flex-direction:column;align-items:flex-end;gap:0;
+  margin:4px 0 0;padding:0;min-width:0;
+}
+.site-menu nav a,.site-menu nav button{
+  font-size:14px;font-weight:600;color:#f4eee5;
+  min-height:44px;display:inline-flex;align-items:center;
+  background:none;border:0;padding:0;text-transform:none;
+}
+.beat-turn{
+  display:inline-flex;align-items:center;min-height:44px;margin-top:18px;
+  font-size:16px;font-weight:500;color:#c8c3bd;background:none;border:0;padding:0;
+  text-decoration:none;text-transform:none;
+}
+body:has(dialog[open]) .mark,
+body:has(dialog[open]) .site-menu,
+html.is-sheet .mark,
+html.is-sheet .site-menu{visibility:hidden}
