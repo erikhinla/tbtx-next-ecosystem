@@ -130,7 +130,7 @@ lane. Do not reconcile them to a single number.
 
 - `PROOF` / `Fog & Friction Forensics`
 - Track line: `Math I can show.` No BizBuilders clause appended.
-- Primary CTA: `Begin my Map`
+- Primary CTA: `Map Business Momentum`
 - `Show the Math` stays the quiet secondary. The formula still prints.
 - `Enter BizBuilders AI` sits in the CTA cluster, never across the wordmark.
 
@@ -340,7 +340,7 @@ Four minutes. Run it on the preview, not on production.
    else.
 6. **The route check.** `/proof`, `/bbai`, `/scan`, `/map`, `/hang`, and one
    nonsense path for the 404.
-7. **The CTA check.** Every `Begin my Map` opens the Map. `Show the Math` opens
+7. **The CTA check.** Every `Map Business Momentum` opens the Map. `Show the Math` opens
    the method. `Start DDD` reaches the covered-month screen with no payment rail
    in sight.
 8. **The breakpoint check.** 390px, 768px, 1440px, and landscape phone. The
