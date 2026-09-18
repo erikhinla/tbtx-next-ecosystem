@@ -620,3 +620,23 @@ body:not(.stood) #carry{display:none!important}
 .result-math .score-number{margin:.4rem 0 .2rem}
 
 #method-title{font-size:clamp(28px,4.2vw,52px);max-width:20ch;line-height:1.12;letter-spacing:-.035em;margin-bottom:28px}
+
+/* home copy: 20-Min on DDD, lane-change, footer */
+.site-foot{
+  position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:14px 28px;padding:28px var(--gutter) 40px;background:#101111;color:#c8c3bd;font-size:14px;
+}
+.site-foot a{color:#f4eee5;min-height:44px;display:inline-flex;align-items:center}
+.site-foot .foot-legal{margin:0;max-width:42ch;line-height:1.4}
+body.is-sheet .site-foot,html.is-sheet .site-foot{display:none}
+.lane-change{
+  display:inline-flex;align-items:center;gap:10px;margin-top:28px;
+  font-size:clamp(18px,2vw,28px);font-weight:700;letter-spacing:-.03em;
+  color:#f4eee5;min-height:48px;border-bottom:1px solid rgba(244,238,229,.45);
+  padding:8px 0;text-transform:none;
+}
+.lane-change:hover{color:#afe8cb}
+.twenty-min{
+  margin:0 0 10px;font-size:clamp(16px,1.8vw,22px);font-weight:700;
+  letter-spacing:-.02em;color:#f4eee5;
+}
