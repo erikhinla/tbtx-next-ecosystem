@@ -215,9 +215,9 @@ body:not(.stood):not([data-page="business"]) #proof{display:none!important}
 .name-stack li{font-size:clamp(22px,3vw,40px);font-weight:700;letter-spacing:-.04em;line-height:1.18}
 .promise-stack li{font-size:19px;padding:10px 0;border-bottom:1px solid #ffffff28;max-width:42ch;color:#e2dfda}
 .routes{justify-content:flex-start;gap:22px}
-.bill h2.routes-head{width:100%;max-width:14ch;margin:0;font-size:clamp(28px,4.4vw,56px);line-height:1.05;letter-spacing:-.04em;font-weight:800;text-transform:none}
+.bill h2.routes-head{width:100%;max-width:none;margin:0 0 18px;font-size:clamp(28px,4.4vw,56px);line-height:1.08;letter-spacing:-.01em;font-weight:800;text-transform:none}
 .routes-line{margin:8px 0 0;font-size:clamp(16px,1.8vw,22px);font-weight:500;letter-spacing:-.02em;color:#d8d4cc;max-width:22ch}
-.route-lane em,.route-lane .track-lockup__line{font-style:normal;font-size:clamp(14px,1.4vw,18px);font-weight:500;letter-spacing:-.01em;color:#d8d4cc;max-width:none;white-space:nowrap;overflow:visible}
+.route-lane em,.route-lane .track-lockup__line{font-style:normal;font-size:clamp(13px,1.35vw,17px);font-weight:500;letter-spacing:.14em;color:#d8d4cc;max-width:none;white-space:nowrap;overflow:visible}
 .daily-why{font-size:clamp(16px,1.7vw,22px);font-weight:500;letter-spacing:-.02em;color:#d8d4cc;margin:10px 0 0;max-width:22ch}
 .founder-usp{font-size:clamp(18px,2vw,28px);font-weight:600;letter-spacing:-.03em;max-width:16ch;margin:12px 0 28px;color:#f4eee5;line-height:1.2}
 .route-lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;flex:1;min-height:58vh}
@@ -226,7 +226,7 @@ body:not(.stood):not([data-page="business"]) #proof{display:none!important}
 .route-lane:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,#101111ee 0%,#10111155 42%,#10111122 100%)}
 .route-lane>*{position:relative;z-index:2}
 .route-lane small{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c8c3bd;font-weight:600}
-.route-lane strong{font-size:clamp(36px,5.2vw,76px);font-weight:800;letter-spacing:-.055em;line-height:.9;text-transform:uppercase}
+.route-lane strong{font-size:clamp(36px,5.2vw,76px);font-weight:800;letter-spacing:.04em;line-height:.95;text-transform:uppercase}
 .route-lane span{font-size:clamp(16px,1.5vw,20px);font-weight:600;margin-top:8px}
 .route-lane.lane-life:hover strong{color:var(--c-life)}
 .route-lane.lane-biz:hover strong{color:var(--c-biz)}
@@ -942,6 +942,20 @@ body:before{
     radial-gradient(120px 90px at 100% 100%,#101111 0%,#101111cc 40%,transparent 70%)!important;
 }
 .track-lockup__line:empty{display:none}
+
+/* Type: stop letters kissing. Lockup keeps its own squeeze. */
+#questionnaire h2,
+.sheet h2,
+.question-body h2{letter-spacing:0}
+.sheet p{letter-spacing:.01em}
+.hang-recap{margin:28px 0 40px;max-width:960px}
+.hang-film{display:block;width:100%;aspect-ratio:16/9;border:0;background:#101111}
+.hang-recap-note{margin:.75rem 0 0;font-size:14px;color:#c8c3bd}
+@media(max-width:800px){
+  .route-lane em{white-space:normal;letter-spacing:.08em;max-width:18ch}
+  .bill h2.routes-head{max-width:none;font-size:clamp(26px,8vw,36px)!important}
+}
+
 
 
 
