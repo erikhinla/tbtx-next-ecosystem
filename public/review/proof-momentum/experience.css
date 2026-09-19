@@ -937,6 +937,12 @@ body:before{
     linear-gradient(0deg,#101111ee 0%,#10111188 10%,transparent 24%),
     radial-gradient(120px 90px at 100% 100%,#101111 0%,#101111cc 40%,transparent 70%)!important;
 }
+#world[data-scene="defog-daily-hero.mp4"]{--crop:48% 40%}
+#world[data-scene="defog-daily-hero.mp4"] .world-shade{
+  background:
+    linear-gradient(90deg,#101111e8 0%,#10111188 30%,transparent 54%),
+    linear-gradient(0deg,#101111cc 0%,transparent 22%)!important;
+}
 .track-lockup__line:empty{display:none}
 
 /* Type: stop letters kissing. Lockup keeps its own squeeze. */
