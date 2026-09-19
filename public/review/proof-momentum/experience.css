@@ -787,51 +787,54 @@ html.is-sheet .infra{visibility:hidden}
 }
 #gate .gate-board .gate-latch{
   width:100%;
-  min-height:56px;
-  padding:14px 8px;
-  border:1px solid rgba(244,238,229,.14);
+  min-height:44px;
+  padding:10px 0;
+  border:0;
   border-radius:0;
-  background:transparent;
-  color:#7a7670;
-  font-size:clamp(1.15rem,2vw,1.65rem);
-  font-weight:800;
-  letter-spacing:-.04em;
-  text-transform:uppercase;
+  background:none;
+  color:#6a6660;
+  font-size:clamp(1.05rem,1.8vw,1.35rem);
+  font-weight:600;
+  letter-spacing:-.02em;
+  text-transform:none;
   cursor:default;
   backdrop-filter:none;
   box-shadow:none;
   transform:none;
+  text-align:left;
 }
 #gate .gate-board .gate-latch:hover,
 #gate .gate-board .gate-latch:focus-visible{
-  color:#7a7670;
-  background:transparent;
+  color:#6a6660;
+  background:none;
   transform:none;
 }
 #gate .gate-board .gate-latch[aria-pressed="true"]{
-  color:#6a6660;
-  border-color:rgba(244,238,229,.08);
+  color:#5a5650;
+  border:0;
 }
 #gate .gate-board .gate-up{
-  width:100%;
-  min-height:62px;
-  margin-top:4px;
-  padding:16px 8px;
-  border:1px solid rgba(244,238,229,.5);
+  width:auto;
+  min-height:56px;
+  margin-top:10px;
+  padding:14px 0;
+  border:0;
+  border-bottom:2px solid #b08d4f;
   border-radius:0;
-  background:rgba(244,238,229,.12);
-  color:#f7f4ef;
-  font-size:clamp(1.35rem,2.4vw,1.9rem);
+  background:none;
+  color:#e8b68f;
+  font-size:clamp(1.45rem,2.6vw,2rem);
   font-weight:800;
   letter-spacing:-.04em;
   text-transform:uppercase;
   cursor:pointer;
-  text-shadow:0 1px 12px rgba(0,0,0,.45);
+  text-shadow:none;
 }
 #gate .gate-board .gate-up:hover,
 #gate .gate-board .gate-up[aria-pressed="true"]{
-  background:rgba(244,238,229,.2);
-  color:#fff;
+  background:none;
+  color:#f4eee5;
+  border-bottom-color:#e8b68f;
 }
 @media(max-width:800px){
   #gate .bill.gate{
@@ -864,7 +867,14 @@ body.world-ready #world video:not(.visible){opacity:0!important}
 #world video.visible{opacity:var(--light,.84)!important;transition:none}
 
 /* G8 reserved copy + nav lane. Veil under copy only. No global dim. */
-:root{--nav-lane:64px}
+:root{--nav-lane:76px}
+body:before{
+  content:"";
+  position:fixed;top:0;left:0;right:0;
+  height:var(--nav-lane);
+  background:linear-gradient(#101111 62%,#101111d8 82%,transparent);
+  z-index:55;pointer-events:none;
+}
 #world:after{
   content:"";
   position:absolute;inset:0 auto auto 0;width:100%;height:var(--nav-lane);

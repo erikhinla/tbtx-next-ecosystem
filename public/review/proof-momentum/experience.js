@@ -36,13 +36,18 @@ function syncMark(best){
  const mark=$('.mark');if(!mark)return;
  const onBiz=document.body.dataset.page==='business';
  const id=best?.id||(onBiz?'proof':'arrival');
- const here={arrival:'',recognition:'Fog',gate:'Gate',carry:'',routes:'',proof:'PROOF',daily:'De-Fog',founder:'Me',build:'BBAI','how-i-build':'BBAI','business-close':'BBAI'}[id]||'';
+ const names={arrival:'',recognition:'Fog',gate:'Gate',carry:'',routes:'',proof:'PROOF',daily:'De-Fog',founder:'Me',build:'BBAI','how-i-build':'BBAI','business-close':'BBAI'};
+ const here=names[id]||'';
  const atHome=onBiz?id==='proof':id==='arrival';
+ const list=$$('[data-world]');
+ const i=list.findIndex(el=>el.id===id);
+ const prev=i>0?list[i-1]:null;
+ const back=prev?('#'+prev.id):(onBiz?'/bbai':'#arrival');
  mark.classList.toggle('is-home',atHome);
  const label=mark.querySelector('.mark-here');
  if(label) label.textContent=atHome?'':here;
- mark.setAttribute('href',onBiz?'/bbai':'#arrival');
- mark.setAttribute('aria-label',atHome?'Home':'Back'+(here?'. '+here:''));
+ mark.setAttribute('href',atHome?(onBiz?'/bbai':'#arrival'):back);
+ mark.setAttribute('aria-label',atHome?'Home':'Back to '+(names[prev?.id]||'the last beat'));
 }
 
 const SOUND_FILM={
