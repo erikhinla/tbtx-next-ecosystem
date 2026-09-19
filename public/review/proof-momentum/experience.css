@@ -155,7 +155,7 @@ body.on-arrival .brand-home{opacity:0;pointer-events:none;visibility:hidden}
 .manifesto-cry .peak.close span{display:block;white-space:nowrap}
 .manifesto-cry .beat{font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.5;font-weight:600;color:#f4eee5;margin:0 0 2.5rem;padding-left:1.1rem;border-left:2px solid #b08d4f;max-width:28ch}
 .manifesto-cry .beat span{display:block}
-.proof-kicker{font-size:clamp(18px,2.2vw,36px);margin:12px 0 0;letter-spacing:-.03em;font-weight:600;max-width:18ch}
+.proof-kicker{font-size:clamp(16px,1.7vw,28px);margin:12px 0 0;letter-spacing:-.03em;font-weight:600;max-width:none;white-space:nowrap}
 .gate{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(240px,.82fr)!important;grid-template-rows:auto;align-items:center;column-gap:clamp(24px,5vw,64px);padding:110px var(--gutter) 56px!important;overflow:hidden;position:relative}
 .gate-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;z-index:0;pointer-events:none;filter:saturate(.7) brightness(.55)}
 .gate:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#101111e8 0%,#10111188 42%,#10111122 72%),linear-gradient(0deg,#10111199,transparent 30%)}
@@ -918,6 +918,31 @@ body:before{
       linear-gradient(180deg,#101111 0%,#101111aa 10%,transparent 24%)!important;
   }
 }
+
+/* Punch-in: drop baked captions and the DDD corner mark. No new film. */
+#world[data-scene="b2b-task-6-world.mp4"]{--crop:50% 28%}
+#world[data-scene="b2b-task-6-world.mp4"] video{
+  transform:scale(1.2);
+  transform-origin:50% 22%;
+}
+#world[data-scene="b2b-task-6-world.mp4"] .world-shade{
+  background:
+    linear-gradient(90deg,#101111e6 0%,#10111177 26%,transparent 50%),
+    linear-gradient(0deg,#101111 0%,#101111f4 12%,transparent 26%)!important;
+}
+#world[data-scene="ddd-r5-picture-sfx.mp4"]{--crop:36% 34%}
+#world[data-scene="ddd-r5-picture-sfx.mp4"] video{
+  transform:scale(1.18);
+  transform-origin:32% 30%;
+}
+#world[data-scene="ddd-r5-picture-sfx.mp4"] .world-shade{
+  background:
+    linear-gradient(90deg,#101111e8 0%,#10111188 32%,transparent 58%),
+    linear-gradient(0deg,#101111ee 0%,#10111188 10%,transparent 24%),
+    radial-gradient(120px 90px at 100% 100%,#101111 0%,#101111cc 40%,transparent 70%)!important;
+}
+.track-lockup__line:empty{display:none}
+
 
 
 
