@@ -155,7 +155,7 @@ body.on-arrival .brand-home{opacity:0;pointer-events:none;visibility:hidden}
 .manifesto-cry .peak.close span{display:block;white-space:nowrap}
 .manifesto-cry .beat{font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.5;font-weight:600;color:#f4eee5;margin:0 0 2.5rem;padding-left:1.1rem;border-left:2px solid #b08d4f;max-width:28ch}
 .manifesto-cry .beat span{display:block}
-.proof-kicker{font-size:clamp(18px,2.2vw,36px);margin:12px 0 0;letter-spacing:-.03em;font-weight:600;max-width:18ch}
+.proof-kicker{font-size:clamp(16px,1.7vw,28px);margin:12px 0 0;letter-spacing:-.03em;font-weight:600;max-width:none;white-space:nowrap}
 .gate{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(240px,.82fr)!important;grid-template-rows:auto;align-items:center;column-gap:clamp(24px,5vw,64px);padding:110px var(--gutter) 56px!important;overflow:hidden;position:relative}
 .gate-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;z-index:0;pointer-events:none;filter:saturate(.7) brightness(.55)}
 .gate:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#101111e8 0%,#10111188 42%,#10111122 72%),linear-gradient(0deg,#10111199,transparent 30%)}
@@ -215,9 +215,9 @@ body:not(.stood):not([data-page="business"]) #proof{display:none!important}
 .name-stack li{font-size:clamp(22px,3vw,40px);font-weight:700;letter-spacing:-.04em;line-height:1.18}
 .promise-stack li{font-size:19px;padding:10px 0;border-bottom:1px solid #ffffff28;max-width:42ch;color:#e2dfda}
 .routes{justify-content:flex-start;gap:22px}
-.bill h2.routes-head{width:100%;max-width:18ch;margin:0;font-size:clamp(28px,4.4vw,56px);line-height:1.05;letter-spacing:-.04em;font-weight:800;text-transform:none}
+.bill h2.routes-head{width:100%;max-width:none;margin:0 0 18px;font-size:clamp(26px,3.8vw,48px);line-height:1.12;letter-spacing:0;font-weight:800;text-transform:none}
 .routes-line{margin:8px 0 0;font-size:clamp(16px,1.8vw,22px);font-weight:500;letter-spacing:-.02em;color:#d8d4cc;max-width:22ch}
-.route-lane em,.route-lane .track-lockup__line{font-style:normal;font-size:clamp(14px,1.4vw,18px);font-weight:500;letter-spacing:-.01em;color:#d8d4cc;max-width:none;white-space:nowrap;overflow:visible}
+.route-lane em,.route-lane .track-lockup__line{font-style:normal;font-size:clamp(13px,1.35vw,17px);font-weight:500;letter-spacing:.14em;color:#d8d4cc;max-width:none;white-space:nowrap;overflow:visible}
 .daily-why{font-size:clamp(16px,1.7vw,22px);font-weight:500;letter-spacing:-.02em;color:#d8d4cc;margin:10px 0 0;max-width:22ch}
 .founder-usp{font-size:clamp(18px,2vw,28px);font-weight:600;letter-spacing:-.03em;max-width:16ch;margin:12px 0 28px;color:#f4eee5;line-height:1.2}
 .route-lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;flex:1;min-height:58vh}
@@ -226,7 +226,7 @@ body:not(.stood):not([data-page="business"]) #proof{display:none!important}
 .route-lane:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,#101111ee 0%,#10111155 42%,#10111122 100%)}
 .route-lane>*{position:relative;z-index:2}
 .route-lane small{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c8c3bd;font-weight:600}
-.route-lane strong{font-size:clamp(36px,5.2vw,76px);font-weight:800;letter-spacing:-.055em;line-height:.9;text-transform:uppercase}
+.route-lane strong{font-size:clamp(36px,5.2vw,76px);font-weight:800;letter-spacing:.04em;line-height:.95;text-transform:uppercase}
 .route-lane span{font-size:clamp(16px,1.5vw,20px);font-weight:600;margin-top:8px}
 .route-lane.lane-life:hover strong{color:var(--c-life)}
 .route-lane.lane-biz:hover strong{color:var(--c-biz)}
@@ -620,3 +620,344 @@ body:not(.stood) #carry{display:none!important}
 .result-math .score-number{margin:.4rem 0 .2rem}
 
 #method-title{font-size:clamp(28px,4.2vw,52px);max-width:20ch;line-height:1.12;letter-spacing:-.035em;margin-bottom:28px}
+
+/* Nav D: corner mark + one-word Menu. Not a bar. */
+.mark{
+  position:fixed;top:16px;left:var(--gutter);z-index:60;
+  font-size:22px;font-weight:900;letter-spacing:-.06em;color:#f4eee5;
+  min-height:44px;display:inline-flex;align-items:center;
+}
+.site-menu{
+  position:fixed;top:16px;right:var(--gutter);z-index:60;
+  margin:0;padding:0;border:0;background:transparent;width:auto;
+}
+.site-menu>summary{
+  font-size:14px;font-weight:600;color:#f4eee5;letter-spacing:0;
+  min-height:44px;display:inline-flex;align-items:center;cursor:pointer;
+  list-style:none;text-transform:none;
+}
+.site-menu>summary::-webkit-details-marker,.site-menu>summary::marker{display:none;content:""}
+.site-menu nav{
+  display:flex;flex-direction:column;align-items:flex-end;gap:0;
+  margin:4px 0 0;padding:0;min-width:0;
+}
+.site-menu nav a,.site-menu nav button{
+  font-size:14px;font-weight:600;color:#f4eee5;
+  min-height:44px;display:inline-flex;align-items:center;
+  background:none;border:0;padding:0;text-transform:none;
+}
+.beat-turn{
+  display:inline-flex;align-items:center;min-height:44px;margin-top:18px;
+  font-size:16px;font-weight:500;color:#c8c3bd;background:none;border:0;padding:0;
+  text-decoration:none;text-transform:none;
+}
+body:has(dialog[open]) .mark,
+body:has(dialog[open]) .site-menu,
+html.is-sheet .mark,
+html.is-sheet .site-menu{visibility:hidden}
+
+.gate-latch{
+  width:100%;
+  padding:24px 22px;
+  font-size:clamp(26px,3vw,42px);
+  font-weight:800;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  color:#8a8680;
+  background:rgba(16,17,17,.45);
+  border:1px solid rgba(244,238,229,.16);
+  cursor:default;
+}
+.gate-latch:hover,.gate-latch:focus-visible{
+  color:#8a8680;
+  background:rgba(16,17,17,.45);
+  transform:none;
+}
+.gate-latch[aria-pressed="true"]{color:#6f6b66}
+.infra{
+  position:fixed;top:16px;right:var(--gutter);z-index:60;
+  margin:0;padding:0;border:0;background:transparent;width:auto;
+}
+.infra-trace{
+  width:44px;height:44px;display:grid;place-items:center;cursor:pointer;
+  list-style:none;padding:0;min-height:44px;
+}
+.infra-trace::-webkit-details-marker,.infra-trace::marker{display:none;content:""}
+.infra-trace span{
+  display:block;width:2px;height:18px;background:#f4eee5;position:relative;
+}
+.infra-trace span:after{
+  content:"";position:absolute;left:7px;top:0;width:2px;height:18px;
+  background:#f4eee5;transform:scaleY(0);transform-origin:top;
+  transition:transform .28s ease;
+}
+.infra[open] .infra-trace span:after{transform:scaleY(1)}
+.infra nav{
+  display:flex;flex-direction:column;align-items:flex-end;gap:0;
+  margin:6px 0 0;padding:0;min-width:0;
+}
+.infra-word{
+  margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.18em;
+  color:#e8b68f;text-transform:uppercase;
+}
+.infra-lane,.infra-child,.infra-me{
+  font-size:14px;font-weight:700;color:#f4eee5;
+  min-height:40px;display:inline-flex;align-items:center;
+  background:none;border:0;padding:0;text-transform:none;
+}
+.infra-child{font-size:13px;font-weight:500;color:#c8c3bd;padding-right:0;min-height:34px}
+.infra [data-lane].is-dim{color:#6a6660}
+.infra-me{margin-top:8px}
+body:has(dialog[open]) .infra,
+html.is-sheet .infra{visibility:hidden}
+@media(max-width:390px){
+  .infra-lane,.infra-child,.infra-me{font-size:13px}
+}
+
+/* Gate overlay. World table: manifesto-hall-loop at light 1. Veil on the surface only. */
+#gate{
+  background:transparent;
+}
+#gate .bill.gate{
+  background:transparent!important;
+  display:flex!important;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  min-height:100svh;
+  padding:110px var(--gutter) 56px!important;
+  overflow:visible!important;
+  grid-template-columns:none!important;
+  gap:0!important;
+}
+#gate .gate:before,
+#gate .gate-still{display:none!important}
+#gate .gate-surface{
+  position:relative;
+  isolation:isolate;
+  width:min(36rem,42vw);
+  padding:1.75rem 1.6rem 1.5rem;
+  border:1px solid rgba(244,238,229,.28);
+  display:flex;
+  flex-direction:column;
+  gap:1.1rem;
+}
+#gate .gate-surface:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:rgba(16,17,17,.78);
+}
+#gate .gate-ask,
+#gate .gate-board{
+  position:relative;
+  z-index:1;
+  width:100%;
+  min-height:0;
+  justify-self:stretch;
+}
+#gate .gate-q,
+#gate .gate.is-answered .gate-q{
+  opacity:1!important;
+  font-size:clamp(2rem,4.2vw,3.4rem)!important;
+  max-width:8ch;
+  margin:0;
+}
+#gate .gate-copy{
+  position:static!important;
+  display:block;
+  height:auto!important;
+  max-width:34ch;
+  margin:.85rem 0 0;
+  font-size:clamp(1rem,1.4vw,1.2rem);
+  font-weight:600;
+  line-height:1.35;
+  color:#e8e2d8;
+  opacity:1;
+  overflow:visible;
+}
+#gate .gate-copy[hidden]{display:none!important}
+#gate .gate-board{
+  gap:8px;
+  padding-top:0;
+  border-top:0;
+  width:100%;
+}
+#gate .gate-board .gate-latch,
+#gate .gate-board .gate-up{
+  justify-content:flex-start;
+  text-align:left;
+  align-items:flex-start;
+}
+#gate .gate-board .gate-latch{
+  width:100%;
+  min-height:44px;
+  padding:10px 0;
+  border:0;
+  border-radius:0;
+  background:none;
+  color:#6a6660;
+  font-size:clamp(1.05rem,1.8vw,1.35rem);
+  font-weight:600;
+  letter-spacing:-.02em;
+  text-transform:none;
+  cursor:default;
+  backdrop-filter:none;
+  box-shadow:none;
+  transform:none;
+  text-align:left;
+}
+#gate .gate-board .gate-latch:hover,
+#gate .gate-board .gate-latch:focus-visible{
+  color:#6a6660;
+  background:none;
+  transform:none;
+}
+#gate .gate-board .gate-latch[aria-pressed="true"]{
+  color:#5a5650;
+  border:0;
+}
+#gate .gate-board .gate-up{
+  width:auto;
+  min-height:56px;
+  margin-top:10px;
+  padding:14px 0;
+  border:0;
+  border-bottom:2px solid #b08d4f;
+  border-radius:0;
+  background:none;
+  color:#e8b68f;
+  font-size:clamp(1.45rem,2.6vw,2rem);
+  font-weight:800;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  text-shadow:none;
+}
+#gate .gate-board .gate-up:hover,
+#gate .gate-board .gate-up[aria-pressed="true"]{
+  background:none;
+  color:#f4eee5;
+  border-bottom-color:#e8b68f;
+}
+@media(max-width:800px){
+  #gate .bill.gate{
+    justify-content:flex-end;
+    padding:22vh var(--gutter) 7vh!important;
+  }
+  #gate .gate-surface{
+    width:100%;
+    max-width:none;
+  }
+  #gate .gate-q,
+  #gate .gate.is-answered .gate-q{
+    font-size:clamp(1.85rem,10vw,2.6rem)!important;
+  }
+}
+@media(orientation:landscape) and (max-height:500px){
+  #gate .bill.gate{
+    justify-content:flex-start;
+    padding:64px var(--gutter) 20px!important;
+  }
+  #gate .gate-surface{padding:1rem 1.1rem .9rem;gap:.7rem}
+  #gate .gate-board .gate-latch,
+  #gate .gate-board .gate-up{min-height:44px;padding:8px}
+}
+
+/* First paint: arrival poster is visible before JS assigns a src. */
+#world #world-a{opacity:var(--light,.78)}
+body[data-page="business"] #world #world-a{opacity:var(--light,.92)}
+body.world-ready #world video:not(.visible){opacity:0!important}
+#world video.visible{opacity:var(--light,.84)!important;transition:none}
+
+/* G8 reserved copy + nav lane. Veil under copy only. No global dim. */
+:root{--nav-lane:76px}
+body:before{
+  content:"";
+  position:fixed;top:0;left:0;right:0;
+  height:var(--nav-lane);
+  background:#101111;
+  z-index:55;pointer-events:none;
+}
+#world:after{
+  content:"";
+  position:absolute;inset:0 auto auto 0;width:100%;height:var(--nav-lane);
+  background:#101111;
+  z-index:3;pointer-events:none;
+}
+.world-shade{
+  background:
+    linear-gradient(90deg,#101111f2 0%,#101111c4 26%,#10111155 44%,transparent 62%),
+    linear-gradient(180deg,#101111 0%,#101111cc 8%,transparent 22%)!important;
+}
+.bill,.manifesto-film{
+  padding-top:calc(var(--nav-lane) + 36px)!important;
+}
+.mark{
+  position:fixed;top:12px;left:var(--gutter);z-index:60;
+  min-height:44px;display:inline-flex;align-items:center;gap:.45rem;
+  font-size:13px;font-weight:700;letter-spacing:.04em;color:#f4eee5;
+  text-transform:none;text-decoration:none;
+}
+.mark-back{font-size:22px;line-height:1;font-weight:400;transform:translateY(-1px)}
+.mark.is-home{display:none!important;visibility:hidden;pointer-events:none}
+.chrome,.site-menu,.gate-still,.fog-stack{display:none!important}
+.brand-now:after{content:none!important;mask:none!important;-webkit-mask:none!important}
+
+@media(max-width:800px){
+  #world[data-scene="b2b-task-2-world.mp4"] .world-shade{
+    background:
+      linear-gradient(90deg,#101111f6 0%,#101111e0 48%,#10111188 68%,transparent 88%),
+      linear-gradient(180deg,#101111 0%,#101111cc 14%,transparent 32%)!important;
+  }
+  #world[data-scene="manifesto-hall-loop.mp4"] .world-shade{
+    background:
+      linear-gradient(90deg,#101111f2 0%,#101111c8 38%,#10111166 58%,transparent 78%),
+      linear-gradient(180deg,#101111 0%,#101111aa 10%,transparent 24%)!important;
+  }
+}
+
+/* Punch-in: drop baked captions and the DDD corner mark. No new film. */
+#world[data-scene="b2b-task-6-world.mp4"]{--crop:50% 28%}
+#world[data-scene="b2b-task-6-world.mp4"] video{
+  transform:scale(1.2);
+  transform-origin:50% 22%;
+}
+#world[data-scene="b2b-task-6-world.mp4"] .world-shade{
+  background:
+    linear-gradient(90deg,#101111e6 0%,#10111177 26%,transparent 50%),
+    linear-gradient(0deg,#101111 0%,#101111f4 12%,transparent 26%)!important;
+}
+#world[data-scene="ddd-r5-picture-sfx.mp4"]{--crop:36% 34%}
+#world[data-scene="ddd-r5-picture-sfx.mp4"] video{
+  transform:scale(1.18);
+  transform-origin:32% 30%;
+}
+#world[data-scene="ddd-r5-picture-sfx.mp4"] .world-shade{
+  background:
+    linear-gradient(90deg,#101111e8 0%,#10111188 32%,transparent 58%),
+    linear-gradient(0deg,#101111ee 0%,#10111188 10%,transparent 24%),
+    radial-gradient(120px 90px at 100% 100%,#101111 0%,#101111cc 40%,transparent 70%)!important;
+}
+.track-lockup__line:empty{display:none}
+
+/* Type: stop letters kissing. Lockup keeps its own squeeze. */
+#questionnaire h2,
+.sheet h2,
+.question-body h2{letter-spacing:0}
+.sheet p{letter-spacing:.01em}
+.hang-recap{margin:28px 0 40px;max-width:960px}
+.hang-film{display:block;width:100%;aspect-ratio:16/9;border:0;background:#101111}
+.hang-recap-note{margin:.75rem 0 0;font-size:14px;color:#c8c3bd}
+@media(max-width:800px){
+  .route-lane em{white-space:normal;letter-spacing:.08em;max-width:18ch}
+  .bill h2.routes-head{max-width:none;font-size:clamp(26px,8vw,36px)!important}
+}
+
+
+
+
+
+
