@@ -785,6 +785,12 @@ html.is-sheet .infra{visibility:hidden}
   border-top:0;
   width:100%;
 }
+#gate .gate-board .gate-latch,
+#gate .gate-board .gate-up{
+  justify-content:flex-start;
+  text-align:left;
+  align-items:flex-start;
+}
 #gate .gate-board .gate-latch{
   width:100%;
   min-height:44px;
@@ -872,7 +878,7 @@ body:before{
   content:"";
   position:fixed;top:0;left:0;right:0;
   height:var(--nav-lane);
-  background:linear-gradient(#101111 62%,#101111d8 82%,transparent);
+  background:#101111;
   z-index:55;pointer-events:none;
 }
 #world:after{
@@ -896,9 +902,23 @@ body:before{
   text-transform:none;text-decoration:none;
 }
 .mark-back{font-size:22px;line-height:1;font-weight:400;transform:translateY(-1px)}
-.mark.is-home{visibility:hidden;pointer-events:none}
+.mark.is-home{display:none!important;visibility:hidden;pointer-events:none}
 .chrome,.site-menu,.gate-still,.fog-stack{display:none!important}
 .brand-now:after{content:none!important;mask:none!important;-webkit-mask:none!important}
+
+@media(max-width:800px){
+  #world[data-scene="b2b-task-2-world.mp4"] .world-shade{
+    background:
+      linear-gradient(90deg,#101111f6 0%,#101111e0 48%,#10111188 68%,transparent 88%),
+      linear-gradient(180deg,#101111 0%,#101111cc 14%,transparent 32%)!important;
+  }
+  #world[data-scene="manifesto-hall-loop.mp4"] .world-shade{
+    background:
+      linear-gradient(90deg,#101111f2 0%,#101111c8 38%,#10111166 58%,transparent 78%),
+      linear-gradient(180deg,#101111 0%,#101111aa 10%,transparent 24%)!important;
+  }
+}
+
 
 
 
