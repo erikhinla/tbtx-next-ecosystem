@@ -956,6 +956,54 @@ body:before{
   .bill h2.routes-head{max-width:none;font-size:clamp(26px,8vw,36px)!important}
 }
 
+/* PROOF hero: specimen on the film. Map is primary. Limits are quiet. Sigma gone. */
+.bill.proof{position:relative}
+.proof-specimen{
+  position:absolute;
+  right:var(--gutter);
+  top:calc(var(--nav-lane) + 20px);
+  z-index:2;
+  margin:0;
+  max-width:22ch;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  line-height:1.4;
+  text-transform:uppercase;
+  text-align:right;
+  color:rgba(244,238,229,.78);
+  pointer-events:none;
+}
+.proof-bottom{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  gap:18px 36px;
+}
+.proof-bottom .action{font-size:clamp(18px,1.7vw,26px)}
+.method-secondary{
+  font-size:clamp(14px,1.25vw,16px)!important;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:#c8c3bd;
+  text-underline-offset:6px;
+}
+.method-secondary .arr{width:.7em;height:.7em}
+.method-glyph{display:none!important}
+@media(max-width:800px){
+  .proof-specimen{left:var(--gutter);right:auto;text-align:left;top:calc(var(--nav-lane) + 12px);max-width:24ch}
+}
+
+/* Question type B (preview only until Erik picks). Default stays Arial Black. */
+html.q-text #questionnaire h2{
+  font-family:var(--sc-font-text);
+  font-weight:700;
+  letter-spacing:.02em;
+  line-height:1.22;
+  text-transform:none;
+}
+
+
 
 
 
