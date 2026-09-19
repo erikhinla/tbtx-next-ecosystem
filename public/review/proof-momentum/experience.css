@@ -989,6 +989,17 @@ body:before{
 @media(max-width:800px){
   .proof-specimen{left:var(--gutter);right:auto;text-align:left;top:calc(var(--nav-lane) + 12px);max-width:24ch}
 }
+.readout h2{font-size:clamp(36px,5.2vw,72px)!important;max-width:12ch;letter-spacing:0!important;line-height:1.02;margin-bottom:22px}
+.readout .said{max-width:58ch;font-size:clamp(17px,1.55vw,21px);line-height:1.5;margin:0 0 1rem}
+.readout .said b{font-weight:700;color:var(--sc-accent)}
+.readout .ev{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#c8c3bd;margin:0 0 1.4rem}
+.trace-step{border-left:2px solid var(--sc-accent);padding:2px 0 2px 1.1rem;margin:1.15rem 0;max-width:54ch}
+.trace-step b{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sc-accent);margin-bottom:.35rem;font-weight:700}
+.trace-step p{margin:0;font-size:18px!important;line-height:1.45;max-width:52ch}
+.readout-close{font-size:16px!important;color:#c8c3bd!important;max-width:36ch;margin:1.6rem 0 1.3rem!important}
+.readout .result-ctas{margin-top:.2rem}
+.readout .result-math{margin-top:1.6rem}
+
 
 
 

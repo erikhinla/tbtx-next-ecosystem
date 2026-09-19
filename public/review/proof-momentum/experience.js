@@ -256,9 +256,66 @@ function renderQuestion(){const qs=window.REVIEW_QUESTIONS[state.lane],q=qs[stat
  $('#question-body').innerHTML=`<div class="question-progress" aria-hidden="true"><span style="width:${100*state.step/qs.length}%"></span></div><h2 id="question-title" tabindex="-1">${escape(q.text)}</h2><div class="answer-options" role="radiogroup" aria-labelledby="question-title">${q.options.map((o,i)=>`<label class="answer-option"><input type="radio" name="answer" value="${i}" ${i===selected?'checked':''}><span>${escape(o.text)}</span></label>`).join('')}</div><details class="question-insight"><summary aria-label="Why this question?">Y?</summary><p>${escape(window.QUESTION_NOTES[state.lane][q.id])}</p></details><div class="q-nav"><button id="previous" ${state.step===0?'disabled':''}>Back</button><button id="next" class="action" ${selected===null?'disabled':''}>${state.step===qs.length-1?'See the starting point':'Next'} <span class="arr" aria-hidden="true"></span></button></div>`;
  $$('input[name=answer]').forEach(el=>el.onchange=()=>{state.selections[state.step]=Number(el.value);$('#next').disabled=false;});$('#previous').onclick=()=>{if(state.step>0){state.step--;renderQuestion();focusQuestion();}};$('#next').onclick=()=>{if(state.selections[state.step]===null)return;if(state.step<qs.length-1){state.step++;renderQuestion();focusQuestion();}else renderResult();};}
 function pointLabel(n){return n===1?'1 point':n+' points';}
+const READOUT={
+ Fragmented:{
+  pattern:'Nobody is holding the thread. Work starts in several places and does not come back as a record.',
+  pressure:'You are reconstructing the business every morning from memory and inboxes.',
+  repair:'Asking whoever was last in the thread. That person is the system.'
+ },
+ Stalled:{
+  pattern:'Context does not survive the handoff. Tools multiply the same gap. The work comes back to a person.',
+  pressure:'Someone on your crew is the filing system. When they are in the room, it looks like a process. When they are not, it stops looking like one.',
+  repair:'Reconstructing what the last person knew, from the thread, from the deck, from memory. That repair is the leftover job. It is not on the org chart.'
+ },
+ Scaling:{
+  pattern:'There is a way of working, and it is not the same way twice. Tools and people both have a version.',
+  pressure:'You spend the extra capacity keeping the versions from colliding.',
+  repair:'Translating between the system you meant and the one people actually use.'
+ },
+ Compounding:{
+  pattern:'The answers describe a spine. Work has a place to sit.',
+  pressure:'The leftover job is smaller. It is not gone. Oversight still has to be a person.',
+  repair:'Checking that the rule still matches the work. That is the remaining human step.'
+ }
+};
+function sayBusiness(qs,sel){
+ const frames={
+  1:t=>`You said work loses momentum <b>${t}</b>.`,
+  2:t=>`You said the next task is <b>${t}</b>.`,
+  3:t=>`You keep what you know <b>${t.toLowerCase()}</b>.`,
+  4:t=>`You run <b>${t.toLowerCase()}</b>.`,
+  5:t=>`When a project ends, <b>${t.toLowerCase()}</b>.`,
+  6:t=>`Missed leads: <b>${t.toLowerCase()}</b>.`,
+  7:t=>`Ownership is <b>${t.toLowerCase()}</b>.`,
+  8:t=>`AI fits as <b>${t.toLowerCase()}</b>.`,
+  9:t=>`Under pressure you decide by <b>${t.toLowerCase()}</b>.`,
+  10:t=>`Revenue still depends on memory: <b>${t.toLowerCase()}</b>.`,
+  11:t=>`Work that is already done: <b>${t.toLowerCase()}</b>.`,
+  12:t=>`When a key person is out, <b>${t.toLowerCase()}</b>.`,
+  13:t=>`The pipeline is <b>${t.toLowerCase()}</b>.`,
+  14:t=>`Improvement happens <b>${t.toLowerCase()}</b>.`,
+  15:t=>`You said the word for how work runs is <b>${t}</b>.`
+ };
+ return qs.map((q,i)=>{
+  const raw=q.options[sel[i]].text.replace(/^We /,'').replace(/^It /,'').replace(/\.$/,'');
+  return (frames[q.id]||(t=>`You said <b>${t}</b>.`))(escape(raw));
+ }).join(' ');
+}
+function renderReadout(r,qs){
+ const voice=READOUT[r.band]||READOUT.Stalled;
+ const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
+ return `<div class="readout"><h2 id="question-title" tabindex="-1">Why you got this</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action" id="result-next">What follows <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+}
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
- $('#question-lane').textContent=state.lane==='business'?'Friction Trace / Starting point':'Digital Fog Scan / Starting point';$('#question-body').innerHTML=`<h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">${state.lane==='business'?'The answers name a pattern. They are not the fix.':'Nothing else needs sorting today.'}</p><div class="result-ctas"><button class="action" id="result-next">${state.lane==='business'?'What follows':'Start DDD'} <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>${state.lane==='business'?'Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.':'Carrying it 0-49 · Clear enough 50-100.'}</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button>`;
+ if(state.lane==='business'){
+  $('#question-lane').textContent='Friction Trace / Why you got this';
+  $('#question-body').innerHTML=renderReadout(r,qs);
+ }else{
+  $('#question-lane').textContent='Digital Fog Scan / Starting point';
+  $('#question-body').innerHTML=`<h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">Nothing else needs sorting today.</p><div class="result-ctas"><button class="action" id="result-next">Start DDD <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button>`;
+ }
  $('#result-next').onclick=()=>{close('questionnaire');open(state.lane==='business'?'trace':'ddd-intro');};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};focusQuestion();}
+
 function startDDD(){closeAll();if(window.DDD?.hasDraft()){window.DDD.open();}else open('ddd-intro');}
 if($('#open-ddd'))$('#open-ddd').onclick=startDDD;if($('#ddd-method-start'))$('#ddd-method-start').onclick=startDDD;if($('#begin-ddd'))$('#begin-ddd').onclick=()=>{close('ddd-intro');window.DDD.open();};
 const studioLead=[
