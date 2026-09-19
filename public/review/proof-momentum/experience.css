@@ -920,11 +920,7 @@ body:before{
 }
 
 /* Punch-in: drop baked captions and the DDD corner mark. No new film. */
-#world[data-scene="b2b-task-6-world.mp4"]{--crop:50% 28%}
-#world[data-scene="b2b-task-6-world.mp4"] video{
-  transform:scale(1.2);
-  transform-origin:50% 22%;
-}
+#world[data-scene="b2b-task-6-world.mp4"]{--crop:50% 42%}
 #world[data-scene="b2b-task-6-world.mp4"] .world-shade{
   background:
     linear-gradient(90deg,#101111e6 0%,#10111177 26%,transparent 50%),
@@ -994,14 +990,7 @@ body:before{
   .proof-specimen{left:var(--gutter);right:auto;text-align:left;top:calc(var(--nav-lane) + 12px);max-width:24ch}
 }
 
-/* Question type B (preview only until Erik picks). Default stays Arial Black. */
-html.q-text #questionnaire h2{
-  font-family:var(--sc-font-text);
-  font-weight:700;
-  letter-spacing:.02em;
-  line-height:1.22;
-  text-transform:none;
-}
+
 
 
 
