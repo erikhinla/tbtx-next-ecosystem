@@ -404,6 +404,18 @@ function buildHang(){
  if($('#hang-rooms')) $('#hang-rooms').innerHTML=hangRooms.map(r=>`<section class="hang-room"><h3>${r.q}</h3><div class="nudes-hall">${r.works.map(hangCard).join('')}</div></section>`).join('');
  if($('#hang-more-line')) $('#hang-more-line').onclick=()=>{const more=$('#hang-studio-more');if(!more)return;more.hidden=!more.hidden;$('#hang-more-line').textContent=more.hidden?'Eight more, each with its own claim and its own page.':'The rest of the studio.';};
 }
+document.addEventListener('click',e=>{
+ const door=e.target.closest('[data-yt]');
+ if(!door||door.dataset.ready)return;
+ door.dataset.ready='1';
+ const frame=document.createElement('iframe');
+ frame.className='hang-film';
+ frame.title='TBTX, BBAI, BBM — the ecosystem in one sitting';
+ frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+ frame.allowFullscreen=true;
+ frame.src='https://www.youtube-nocookie.com/embed/'+door.dataset.yt+'?autoplay=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&color=white&fs=1';
+ door.replaceWith(frame);
+});
 const galleryItems=[['The handoff','proof-mood-3.mp4','Where the context actually drops.'],['How PROOF finds the fog','proof-mood-2.mp4','The leftover job, on film.'],['PROOF / First cut','proof-mood-1.mp4','Before the method had a name.'],['Checking the code','b2b-task-1.mp4','Auditing code nobody on staff wrote.'],['Content strategy','b2b-task-2.mp4','Holding the story still.'],['Conflicting outputs','b2b-task-3.mp4','What two AI agents disagreeing looks like.'],['Choosing a logo','b2b-task-4.mp4','Picking a logo without a design team.'],['The final summary','b2b-task-5.mp4','What the work actually said.'],['Keeping strategy in view','b2b-task-6.mp4','The plan that has to stay in the room.'],['The Map','b2b-task-6-world.mp4','Where the work comes back.'],['Digital De-Fog Daily','defog-daily-hero.mp4','The fog leaves. Twenty minutes.'],['The concept artwork',null,'Some labels predate Finder.'],['The origin lockup','ai-created-a-job.mp4','AI created a job. Nobody wanted it.'],['Desk fog','desk-fog-loop.mp4','The leftover job, looping.'],['Fog to architecture','proof-to-architecture.mp4','From fog to architecture.'],['Hidden repair','hidden-repair-load.mp4','The repair load nobody named.'],['BBAI momentum','bbai-momentum-loop.mp4','Where the fix lives.'],['Fog Lift Kit','fog-lift-kit.mp4','A kit that lifts the fog.'],['Computer explodes','computer-explodes.mp4','What happens when the glue snaps.'],['Digital Fog satire','satire-digital-fog.mp4','The fog, with the joke left in.']];
 $('#gallery-nav') && ($('#gallery-nav').innerHTML=galleryItems.map((a,i)=>`<button data-gallery="${i}">${a[0]}</button>`).join(''));function chooseGallery(i){const item=galleryItems[i],v=$('#gallery-film');if(!v)return;v.pause();$$('[data-gallery]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.gallery)===i)));v.hidden=!item[1];const art=$('#gallery-art');if(art)art.hidden=!!item[1];if(item[1])v.src=media(item[1]);else v.removeAttribute('src');const cap=$('#gallery-caption');if(cap)cap.textContent=item[2];}
 $$('[data-gallery]').forEach(b=>b.onclick=()=>chooseGallery(Number(b.dataset.gallery)));$('#gallery-film').addEventListener('play',()=>videos.forEach(v=>v.pause()));$('#gallery-film').addEventListener('pause',()=>{if($('#gallery').open&&!document.hidden&&!reduced)liveWorld()?.play().catch(()=>{});});
