@@ -19,9 +19,9 @@ function mountInfra(){
  mark.setAttribute('aria-label','Back');
  const box=document.createElement('details');
  box.className='infra';
- box.innerHTML=`<summary class="infra-trace" aria-label="INFRA"><span></span></summary><nav aria-label="INFRA"><p class="infra-word">INFRA</p><a class="infra-lane" data-lane="life" href="${life}">Life</a><a class="infra-child" data-lane="life" href="${life}">De-Fog</a><a class="infra-lane" data-lane="biz" href="/bbai">Business</a><a class="infra-child" data-lane="biz" href="${proof}">PROOF</a><a class="infra-me" href="/story">Me</a></nav>`;
+ box.innerHTML=`<summary class="infra-trace" aria-label="INFRA"><span></span></summary><nav aria-label="INFRA"><p class="infra-word">INFRA</p><a class="infra-lane" data-lane="life" href="${life}">Life</a><a class="infra-child" data-lane="life" href="${life}">De-Fog</a><a class="infra-lane" data-lane="biz" href="/bbai">Business</a><a class="infra-child" data-lane="biz" href="${proof}">PROOF</a><a class="infra-me" href="/story">Me</a><button type="button" class="infra-child infra-hang" data-open="gallery">The hang</button></nav>`;
  document.body.append(mark,box);
- box.querySelectorAll('nav a').forEach(el=>el.addEventListener('click',()=>box.removeAttribute('open')));
+ box.querySelectorAll('nav a, nav button').forEach(el=>el.addEventListener('click',()=>box.removeAttribute('open')));
  markInfra();
  syncMark($('[data-world]'));
 }
@@ -29,8 +29,17 @@ function markInfra(){
  const life=document.body.classList.contains('lane-life');
  const biz=document.body.classList.contains('lane-biz');
  document.querySelectorAll('.infra [data-lane]').forEach(el=>{
-  el.classList.toggle('is-dim',(life&&el.dataset.lane==='biz')||(biz&&el.dataset.lane==='life'));
+  const here=(life&&el.dataset.lane==='life')||(biz&&el.dataset.lane==='biz');
+  const dim=(life&&el.dataset.lane==='biz')||(biz&&el.dataset.lane==='life');
+  el.classList.toggle('is-here',here);
+  el.classList.toggle('is-dim',dim);
  });
+ const me=document.querySelector('.infra-me');
+ if(me){
+  const onMe=/^\/story$/.test(location.pathname.replace(/\/$/,''));
+  me.classList.toggle('is-here',onMe);
+  me.classList.toggle('is-dim',!onMe&&(life||biz));
+ }
 }
 function syncMark(best){
  const mark=$('.mark');if(!mark)return;
@@ -306,21 +315,54 @@ function sayBusiness(qs,sel){
   return (frames[q.id]||(t=>`You said <b>${t}</b>.`))(escape(raw));
  }).join(' ');
 }
+function sayPersonal(qs,sel){
+ const frames={
+  1:t=>`When you sit down, <b>${t.toLowerCase()}</b>.`,
+  2:t=>`You search for something you saved <b>${t.toLowerCase()}</b>.`,
+  3:t=>`By evening it feels <b>${t.toLowerCase()}</b>.`,
+  4:t=>`Unfinished loops: <b>${t.toLowerCase()}</b>.`,
+  5:t=>`When a tool produces something, <b>${t.toLowerCase()}</b>.`,
+  6:t=>`A week without the phone: <b>${t.toLowerCase()}</b>.`,
+  7:t=>`The morning usually goes to <b>${t.toLowerCase()}</b>.`,
+  8:t=>`If it worked, you would feel <b>${t.toLowerCase()}</b>.`
+ };
+ return qs.map((q,i)=>{
+  const raw=q.options[sel[i]].text.replace(/^I /,'').replace(/\.$/,'');
+  return (frames[q.id]||(t=>`You said <b>${t}</b>.`))(escape(raw));
+ }).join(' ');
+}
+const SCANOUT={
+ 'Carrying it':{
+  pattern:'The day does not sit down as one thing. What you meant to do waits while you hunt, rewrite, and hold unfinished loops in your head.',
+  pressure:'You are the filing system. If the phone went down, the map would go with it.',
+  repair:'Picking one surface and making one thing findable. That is the stall spot. It is not the whole day.'
+ },
+ 'Clear enough':{
+  pattern:'You can put a hand on the thing. The leftover work still exists, and it has a place.',
+  pressure:'The leftover job is smaller. It is not gone.',
+  repair:'Twenty minutes on one surface. Keep it that small so it stays a daily, not a project.'
+ }
+};
+function renderScan(r,qs){
+ const voice=SCANOUT[r.band]||SCANOUT['Carrying it'];
+ const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
+ return `<div class="readout scan-handoff"><h2 id="question-title" tabindex="-1">The stall spot</h2><p class="said">${sayPersonal(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p>${math}<div class="result-ctas"><button class="action lane-life" id="result-next">Start Digital De-Fog Daily <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+}
 function renderReadout(r,qs){
  const voice=READOUT[r.band]||READOUT.Stalled;
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
- return `<div class="readout"><h2 id="question-title" tabindex="-1">Why you got this</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action" id="result-next">What follows <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+ return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action" id="result-next">What follows <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
  state.showingResult=true;
  if(state.lane==='business'){
   $('#questionnaire')?.classList.remove('is-handoff');
-  $('#question-lane').textContent='Friction Trace / Why you got this';
+  $('#question-lane').textContent='Friction Trace / The pattern';
   $('#question-body').innerHTML=renderReadout(r,qs);
  }else{
   $('#questionnaire')?.classList.add('is-handoff');
-  $('#question-lane').textContent='Digital Fog Scan / Your stall spot';
-  $('#question-body').innerHTML=`<div class="scan-handoff"><h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">The stall spot is named. Twenty minutes. One surface.</p><div class="result-ctas"><button class="action" id="result-next">Start Digital De-Fog Daily <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+  $('#question-lane').textContent='Digital Fog Scan / The stall spot';
+  $('#question-body').innerHTML=renderScan(r,qs);
  }
  $('#result-next').onclick=()=>{close('questionnaire');if(state.lane==='business')open('trace');else window.DDD.open();};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};modalWorld();focusQuestion();}
 

@@ -25,7 +25,7 @@ body:has(#gallery[open]) #world{opacity:0}
 
 /* type + mobile tighten */
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-:root{--sc-font-display:"Instrument Sans","Helvetica Neue",Arial,sans-serif;--c-life:#c4a0ff;--c-biz:#7eb6ff;--c-daily:#8ee8b5}
+:root{--sc-font-display:"Instrument Sans","Helvetica Neue",Arial,sans-serif;--c-life:#c4a0ff;--c-biz:#e8b68f;--c-daily:#c4a0ff}
 h1,h2{font-weight:800;letter-spacing:-.02em;text-wrap:balance;text-transform:uppercase}
 .punch,.proof-name p,.product-name,.offer,.route span,.build-rail small,.build-rail button>span,.action,.text-action,.forward-link,.chrome,.sheet p,.sheet header,.sheet summary,.sheet .action,.method-launch,.business-page-link{text-transform:none}
 .route,.build-rail strong,.gate-choices button,.sheet h2,.cinema-intro h2{text-transform:uppercase}
@@ -41,6 +41,8 @@ h1,h2{font-weight:800;letter-spacing:-.02em;text-wrap:balance;text-transform:upp
 .lane-life{--cta:var(--c-life)}
 .lane-biz{--cta:var(--c-biz)}
 .lane-daily{--cta:var(--c-daily)}
+body.lane-life .action,body.lane-life .sheet .action{--cta:var(--c-life)}
+body.lane-biz .action,body.lane-biz .sheet .action{--cta:var(--c-biz)}
 #founder .action{--cta:var(--c-life)}
 #proof .action{--cta:var(--c-biz)}
 #daily .action{--cta:var(--c-daily)}
@@ -568,6 +570,7 @@ body:not(.stood) #carry{display:none!important}
   background:#101111;
   overflow:hidden;
 }
+.carry-next{margin-top:18px;max-width:16ch;font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#f4eee5}
 .carry-line{
   margin:0;
   font-size:clamp(2rem,5.4vw,3.2rem);
@@ -707,7 +710,10 @@ html.is-sheet .site-menu{visibility:hidden}
 }
 .infra-child{font-size:13px;font-weight:500;color:#c8c3bd;padding-right:0;min-height:34px}
 .infra [data-lane].is-dim{color:#6a6660}
-.infra-me{margin-top:8px}
+.infra-me{margin-top:8px;color:#c8c3bd}
+.infra-me.is-here{color:#f4eee5}
+.infra [data-lane].is-here{color:#f4eee5}
+.infra-hang{display:block;width:100%;text-align:right;background:none;border:0;cursor:pointer;color:#c8c3bd}
 body:has(dialog[open]) .infra,
 html.is-sheet .infra{visibility:hidden}
 @media(max-width:390px){
@@ -822,16 +828,16 @@ html.is-sheet .infra{visibility:hidden}
 #gate .gate-board .gate-up{
   width:auto;
   min-height:56px;
-  margin-top:10px;
-  padding:14px 0;
+  margin-top:14px;
+  padding:14px 0 12px;
   border:0;
-  border-bottom:2px solid #b08d4f;
+  border-bottom:3px solid #e8b68f;
   border-radius:0;
   background:none;
   color:#e8b68f;
-  font-size:clamp(1.45rem,2.6vw,2rem);
-  font-weight:800;
-  letter-spacing:-.04em;
+  font-size:clamp(1.65rem,3vw,2.35rem);
+  font-weight:900;
+  letter-spacing:-.045em;
   text-transform:uppercase;
   cursor:pointer;
   text-shadow:none;
@@ -978,11 +984,16 @@ body:before{
 }
 .proof-bottom{
   display:flex;
-  flex-wrap:wrap;
-  align-items:flex-end;
-  gap:18px 28px;
+  flex-direction:column;
+  flex-wrap:nowrap;
+  align-items:flex-start;
+  gap:10px;
 }
+.proof-bottom .action{font-size:clamp(18px,1.7vw,26px)}
 .bill.proof .beat-turn{display:block;width:fit-content;margin-top:22px}
+.cinema-intro .actions,.map-intro .actions,#map-intro .actions{
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+}
 .proof-bottom .action{font-size:clamp(18px,1.7vw,26px)}
 .method-secondary{
   font-size:clamp(16px,1.4vw,18px)!important;
