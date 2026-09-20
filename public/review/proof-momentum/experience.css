@@ -25,7 +25,7 @@ body:has(#gallery[open]) #world{opacity:0}
 
 /* type + mobile tighten */
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-:root{--sc-font-display:"Instrument Sans","Helvetica Neue",Arial,sans-serif;--c-life:#c4a0ff;--c-biz:#e8b68f;--c-daily:#c4a0ff}
+:root{--sc-font-display:"Instrument Sans","Helvetica Neue",Arial,sans-serif;--c-life:#c4a0ff;--c-biz:#7eb6ff;--c-daily:#c4a0ff}
 h1,h2{font-weight:800;letter-spacing:-.02em;text-wrap:balance;text-transform:uppercase}
 .punch,.proof-name p,.product-name,.offer,.route span,.build-rail small,.build-rail button>span,.action,.text-action,.forward-link,.chrome,.sheet p,.sheet header,.sheet summary,.sheet .action,.method-launch,.business-page-link{text-transform:none}
 .route,.build-rail strong,.gate-choices button,.sheet h2,.cinema-intro h2{text-transform:uppercase}
