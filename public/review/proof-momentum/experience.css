@@ -570,7 +570,7 @@ body:not(.stood) #carry{display:none!important}
   background:#101111;
   overflow:hidden;
 }
-.carry-next{margin-top:18px;max-width:16ch;font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#f4eee5}
+.carry-next{margin-top:18px;max-width:28ch;font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#f4eee5}
 .carry-line{
   margin:0;
   font-size:clamp(2rem,5.4vw,3.2rem);
