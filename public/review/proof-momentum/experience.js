@@ -208,7 +208,7 @@ if(reduced)$$('[data-sc-act]').forEach(a=>a.setAttribute('data-sc-act','flow'));
 if(acts[0]) changeWorld(acts[0].dataset.world,Number(acts[0].dataset.light),acts[0].dataset.crop);
 try{if(window.ScrollCraft&&$('#experience'))window.reviewScrollcraft=window.ScrollCraft.mount($('#experience'));}catch(err){}
 bindWorldScroll();
-const modalVideos={'method-dialog':'proof-mood-2.mp4','map-intro':'b2b-task-6-world.mp4','ddd-intro':'defog-daily-hero.mp4','ddd':'defog-daily-hero.mp4','ddd-method':'defog-daily-hero.mp4','funding':'defog-daily-hero.mp4','trace':'b2b-task-1-world.mp4','blueprint':'proof-world.mp4','growth':'b2b-task-5-world.mp4','philosophy':'b2b-task-1-world.mp4','flow-engine':'b2b-task-1-world.mp4','about':'erik-portrait.mp4','gallery':'off'};
+const modalVideos={'method-dialog':'proof-mood-2.mp4','map-intro':'b2b-task-6-world.mp4','ddd-intro':'off','ddd':'off','ddd-method':'off','funding':'off','trace':'b2b-task-1-world.mp4','blueprint':'proof-world.mp4','growth':'b2b-task-5-world.mp4','philosophy':'b2b-task-1-world.mp4','flow-engine':'b2b-task-1-world.mp4','about':'erik-portrait.mp4','gallery':'off'};
 let lastTrigger=null,modalStack=[];
 let lastScroll=0;
 function coverPage(on){
@@ -224,7 +224,12 @@ function coverPage(on){
  });
  if(!on) requestAnimationFrame(()=>{window.scrollTo(0,lastScroll);requestAnimationFrame(()=>window.scrollTo(0,lastScroll));});
 }
-function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.id,d=opened.find(x=>x.id===topId)||opened.at(-1);opened.forEach(x=>x.classList.toggle('behind-dialog',x!==d));if(!d){modalFilm=null;updateWorld();return;}const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
+function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.id,d=opened.find(x=>x.id===topId)||opened.at(-1);opened.forEach(x=>x.classList.toggle('behind-dialog',x!==d));if(!d){modalFilm=null;updateWorld();return;}
+ if(d.id==='questionnaire'&&state.lane==='personal'){
+  if(state.showingResult){modalFilm='defog-daily-hero.mp4';changeWorld(modalFilm,.92);return;}
+  modalFilm='ddd-r5-picture-sfx.mp4';changeWorld(modalFilm,.48);return;
+ }
+ const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
 function open(id,trigger=document.activeElement){if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
@@ -232,7 +237,7 @@ function bindDialog(d){if(!d||d.dataset.bound)return;d.dataset.bound='1';d.addEv
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){open(b.dataset.open,b);}});
 document.addEventListener('click',e=>{const jump=e.target.closest('[data-close-go]');if(!jump)return;e.preventDefault();const target=jump.getAttribute('data-close-go')||jump.getAttribute('href');closeAll();if(target)go(target.startsWith('#')?target:'#'+target);});
 function go(id){const el=$(id);if(!el)return;el.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});}
-const state={gate:false,lane:null,step:0,selections:[],personalSelections:null};
+const state={gate:false,lane:null,step:0,selections:[],personalSelections:null,showingResult:false};
 try{state.gate=sessionStorage.getItem('tbtx-entry')==='up';const p=JSON.parse(localStorage.getItem('tbtx-scan-v3'));if(p?.version==='site-20260914'&&score('personal',p.answers))state.personalSelections=p.answers;}catch{}
 function setStood(on){state.gate=!!on;document.body.classList.toggle('stood',state.gate);if(on)$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));try{sessionStorage.setItem('tbtx-entry',state.gate?'up':'');}catch{}}
 if(state.gate){document.body.classList.add('stood');$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));}
@@ -252,9 +257,9 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href="#proof"]
 document.addEventListener('click',e=>{const b=e.target.closest('[data-start]');if(!b)return;e.preventDefault();e.stopPropagation();start(b.dataset.start);});
 const beginMap=$('#begin-map');if(beginMap)beginMap.onclick=()=>{close('map-intro');renderQuestion();open('questionnaire');};
 function focusQuestion(){$('#question-title').focus({preventScroll:true});$('#questionnaire').scrollTop=0;}
-function renderQuestion(){const qs=window.REVIEW_QUESTIONS[state.lane],q=qs[state.step],selected=state.selections[state.step];$('#question-lane').textContent=(state.lane==='business'?'Friction Trace':'Digital Fog Scan')+' · '+(state.step+1)+' / '+qs.length;
+function renderQuestion(){const qs=window.REVIEW_QUESTIONS[state.lane],q=qs[state.step],selected=state.selections[state.step];state.showingResult=false;$('#questionnaire')?.classList.remove('is-handoff');$('#question-lane').textContent=(state.lane==='business'?'Friction Trace':'Digital Fog Scan')+' · '+(state.step+1)+' / '+qs.length;
  $('#question-body').innerHTML=`<div class="question-progress" aria-hidden="true"><span style="width:${100*state.step/qs.length}%"></span></div><h2 id="question-title" tabindex="-1">${escape(q.text)}</h2><div class="answer-options" role="radiogroup" aria-labelledby="question-title">${q.options.map((o,i)=>`<label class="answer-option"><input type="radio" name="answer" value="${i}" ${i===selected?'checked':''}><span>${escape(o.text)}</span></label>`).join('')}</div><details class="question-insight"><summary aria-label="Why this question?">Y?</summary><p>${escape(window.QUESTION_NOTES[state.lane][q.id])}</p></details><div class="q-nav"><button id="previous" ${state.step===0?'disabled':''}>Back</button><button id="next" class="action" ${selected===null?'disabled':''}>${state.step===qs.length-1?'See the starting point':'Next'} <span class="arr" aria-hidden="true"></span></button></div>`;
- $$('input[name=answer]').forEach(el=>el.onchange=()=>{state.selections[state.step]=Number(el.value);$('#next').disabled=false;});$('#previous').onclick=()=>{if(state.step>0){state.step--;renderQuestion();focusQuestion();}};$('#next').onclick=()=>{if(state.selections[state.step]===null)return;if(state.step<qs.length-1){state.step++;renderQuestion();focusQuestion();}else renderResult();};}
+ $$('input[name=answer]').forEach(el=>el.onchange=()=>{state.selections[state.step]=Number(el.value);$('#next').disabled=false;});$('#previous').onclick=()=>{if(state.step>0){state.step--;renderQuestion();focusQuestion();}};$('#next').onclick=()=>{if(state.selections[state.step]===null)return;if(state.step<qs.length-1){state.step++;renderQuestion();focusQuestion();}else renderResult();};modalWorld();}
 function pointLabel(n){return n===1?'1 point':n+' points';}
 const READOUT={
  Fragmented:{
@@ -307,14 +312,17 @@ function renderReadout(r,qs){
  return `<div class="readout"><h2 id="question-title" tabindex="-1">Why you got this</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action" id="result-next">What follows <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
+ state.showingResult=true;
  if(state.lane==='business'){
+  $('#questionnaire')?.classList.remove('is-handoff');
   $('#question-lane').textContent='Friction Trace / Why you got this';
   $('#question-body').innerHTML=renderReadout(r,qs);
  }else{
-  $('#question-lane').textContent='Digital Fog Scan / Starting point';
-  $('#question-body').innerHTML=`<h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">Nothing else needs sorting today.</p><div class="result-ctas"><button class="action" id="result-next">Start DDD <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button>`;
+  $('#questionnaire')?.classList.add('is-handoff');
+  $('#question-lane').textContent='Digital Fog Scan / Your stall spot';
+  $('#question-body').innerHTML=`<div class="scan-handoff"><h2 id="question-title" tabindex="-1">${r.band}.</h2><p class="result-reass">The stall spot is named. Twenty minutes. One surface.</p><div class="result-ctas"><button class="action" id="result-next">Start Digital De-Fog Daily <span class="arr" aria-hidden="true"></span></button></div><details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
  }
- $('#result-next').onclick=()=>{close('questionnaire');open(state.lane==='business'?'trace':'ddd-intro');};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};focusQuestion();}
+ $('#result-next').onclick=()=>{close('questionnaire');if(state.lane==='business')open('trace');else window.DDD.open();};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};modalWorld();focusQuestion();}
 
 function startDDD(){closeAll();if(window.DDD?.hasDraft()){window.DDD.open();}else open('ddd-intro');}
 if($('#open-ddd'))$('#open-ddd').onclick=startDDD;if($('#ddd-method-start'))$('#ddd-method-start').onclick=startDDD;if($('#begin-ddd'))$('#begin-ddd').onclick=()=>{close('ddd-intro');window.DDD.open();};

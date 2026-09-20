@@ -9,10 +9,9 @@ function paintCta(){
     el.insertBefore(document.createTextNode(CTA.map+(arr?' ':'')), arr||null);
   });
   document.querySelectorAll('[data-cta="method"]').forEach(el=>{
-    const host=el.querySelector('span:not(.method-glyph)')||el;
-    host.childNodes.forEach(n=>{if(n.nodeType===3)n.remove();});
-    const arr=host.querySelector('.arr');
-    host.insertBefore(document.createTextNode(CTA.method+(arr?' ':'')), arr||null);
+    const arr=el.querySelector('.arr');
+    el.childNodes.forEach(n=>{if(n.nodeType===3)n.remove();});
+    el.insertBefore(document.createTextNode(CTA.method+(arr?' ':'')), arr||null);
   });
 }
 function mountMethod(){
