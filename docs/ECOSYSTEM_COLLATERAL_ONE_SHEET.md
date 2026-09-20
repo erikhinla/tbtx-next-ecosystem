@@ -50,7 +50,7 @@ Digital Fog → Context Architecture → WIN → FLOW Agent AS → BizBuilders A
 - Operator-built using the system itself.
 
 ## Contact / Intake
-intake@bizbuilders.ai  
+erik@transformby10x.ai  
 Submit Context Architecture Assessment for routing (not a sales call).
 
 © 2026 TransformBy10X. Every asset connects to funnel, offer, or revenue path.

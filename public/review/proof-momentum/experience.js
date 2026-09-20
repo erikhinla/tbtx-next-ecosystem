@@ -391,9 +391,9 @@ if(walkForm) walkForm.addEventListener('submit',e=>{
  const request={name,email,company,when,agenda:proofAgenda(),at:new Date().toISOString()};
  try{localStorage.setItem('tbtx-walk',JSON.stringify(request));}catch{}
  const body=['Walk this PROOF with me.',`Name: ${name}`,`Email: ${email}`,company?`Company: ${company}`:'',`When: ${when}`,'',request.agenda].filter(Boolean).join('\n');
- const mailto='mailto:erik@bizbuilders.ai?subject='+encodeURIComponent('Walk this PROOF · '+name)+'&body='+encodeURIComponent(body);
+ const mailto='mailto:erik@transformby10x.ai?subject='+encodeURIComponent('Walk this PROOF · '+name)+'&body='+encodeURIComponent(body);
  const note=$('#walk-note');
- if(note) note.textContent='Your mail app should open with the agenda attached. If it doesn’t, write erik@bizbuilders.ai and say you want to walk the PROOF.';
+ if(note) note.textContent='Your mail app should open with the agenda attached. If it doesn’t, write erik@transformby10x.ai and say you want to walk the PROOF.';
  walkForm.hidden=true;
  window.location.href=mailto;
 });
