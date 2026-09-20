@@ -713,7 +713,7 @@ html.is-sheet .site-menu{visibility:hidden}
 .infra-me{margin-top:8px;color:#c8c3bd}
 .infra-me.is-here{color:#f4eee5}
 .infra [data-lane].is-here{color:#f4eee5}
-.infra-hang{display:block;width:100%;text-align:right;background:none;border:0;cursor:pointer;color:#c8c3bd}
+.infra-hang{display:inline-flex;width:auto;text-align:right;background:none;border:0;cursor:pointer;color:#c8c3bd}
 body:has(dialog[open]) .infra,
 html.is-sheet .infra{visibility:hidden}
 @media(max-width:390px){

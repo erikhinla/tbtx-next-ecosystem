@@ -7,11 +7,15 @@ const local=location.protocol==='file:'||['localhost','127.0.0.1','[::1]'].inclu
 const media=name=>window.REVIEW_MEDIA?.[name]||('assets/'+name);
 
 function mountInfra(){
- if($('.infra'))return;
+ const stale=$('.infra');
+ if(stale && stale.querySelector('.infra-hang'))return;
+ stale?.remove();
+ $('.mark')?.remove();
  const onBiz=document.body.dataset.page==='business';
  const home=onBiz?'/':'#arrival';
  const life=onBiz?'/#daily':'#daily';
  const proof='#proof';
+ const me=onBiz?'/#founder':'#founder';
  const mark=document.createElement('a');
  mark.className='mark';
  mark.href=home;
@@ -19,9 +23,9 @@ function mountInfra(){
  mark.setAttribute('aria-label','Back');
  const box=document.createElement('details');
  box.className='infra';
- box.innerHTML=`<summary class="infra-trace" aria-label="INFRA"><span></span></summary><nav aria-label="INFRA"><p class="infra-word">INFRA</p><a class="infra-lane" data-lane="life" href="${life}">Life</a><a class="infra-child" data-lane="life" href="${life}">De-Fog</a><a class="infra-lane" data-lane="biz" href="/bbai">Business</a><a class="infra-child" data-lane="biz" href="${proof}">PROOF</a><a class="infra-me" href="/story">Me</a><button type="button" class="infra-child infra-hang" data-open="gallery">The hang</button></nav>`;
+ box.innerHTML=`<summary class="infra-trace" aria-label="INFRA"><span></span></summary><nav aria-label="INFRA"><p class="infra-word">INFRA</p><a class="infra-lane" data-lane="life" href="${life}">Life</a><a class="infra-child" data-lane="life" href="${life}">De-Fog</a><a class="infra-lane" data-lane="biz" href="/bbai">Business</a><a class="infra-child" data-lane="biz" href="${proof}">PROOF</a><a class="infra-me" href="${me}">Me</a><a class="infra-child infra-hang" href="#gallery" data-open="gallery">The hang</a></nav>`;
  document.body.append(mark,box);
- box.querySelectorAll('nav a, nav button').forEach(el=>el.addEventListener('click',()=>box.removeAttribute('open')));
+ box.querySelectorAll('nav a').forEach(el=>el.addEventListener('click',()=>box.removeAttribute('open')));
  markInfra();
  syncMark($('[data-world]'));
 }
@@ -36,10 +40,12 @@ function markInfra(){
  });
  const me=document.querySelector('.infra-me');
  if(me){
-  const onMe=/^\/story$/.test(location.pathname.replace(/\/$/,''));
+  const onMe=['founder','about'].includes(($('[data-world].is-in')||{}).id)||!!document.getElementById('gallery')?.open;
   me.classList.toggle('is-here',onMe);
   me.classList.toggle('is-dim',!onMe&&(life||biz));
  }
+ const hang=document.querySelector('.infra-hang');
+ if(hang) hang.classList.toggle('is-here',!!document.getElementById('gallery')?.open);
 }
 function syncMark(best){
  const mark=$('.mark');if(!mark)return;
@@ -243,7 +249,7 @@ function open(id,trigger=document.activeElement){if(!document.documentElement.cl
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
 function bindDialog(d){if(!d||d.dataset.bound)return;d.dataset.bound='1';d.addEventListener('close',()=>{d.querySelectorAll('video').forEach(v=>v.pause());const entry=modalStack.findLast(x=>x.id===d.id);modalStack=modalStack.filter(x=>x.id!==d.id);if(!$$('dialog[open]').length){document.documentElement.style.overflow='';coverPage(false);entry?.trigger?.focus?.({preventScroll:true});}modalWorld();syncChrome(activeScene);});d.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close(d);});}$$('dialog').forEach(bindDialog);
-document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){open(b.dataset.open,b);}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){e.preventDefault();open(b.dataset.open,b);}});
 document.addEventListener('click',e=>{const jump=e.target.closest('[data-close-go]');if(!jump)return;e.preventDefault();const target=jump.getAttribute('data-close-go')||jump.getAttribute('href');closeAll();if(target)go(target.startsWith('#')?target:'#'+target);});
 function go(id){const el=$(id);if(!el)return;el.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});}
 const state={gate:false,lane:null,step:0,selections:[],personalSelections:null,showingResult:false};
