@@ -1,6 +1,6 @@
 (() => {
 'use strict';const $=s=>document.querySelector(s);
-const CTA={map:'Map Business Momentum',method:'See the limits'};
+const CTA={map:'Trace Business Friction',method:'See the limits'};
 window.TBTX_CTA=CTA;
 function paintCta(){
   document.querySelectorAll('[data-cta="map"]').forEach(el=>{

@@ -980,8 +980,9 @@ body:before{
   display:flex;
   flex-wrap:wrap;
   align-items:flex-end;
-  gap:18px 36px;
+  gap:18px 28px;
 }
+.bill.proof .beat-turn{display:block;width:fit-content;margin-top:22px}
 .proof-bottom .action{font-size:clamp(18px,1.7vw,26px)}
 .method-secondary{
   font-size:clamp(16px,1.4vw,18px)!important;
