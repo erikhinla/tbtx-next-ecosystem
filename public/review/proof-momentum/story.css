@@ -21,6 +21,13 @@ body{font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif}
 .bridge{background:linear-gradient(90deg,#0c0d0bf5,#0c0d0b88 72%,#0c0d0b22);padding:110px 8vw 70px 6vw;justify-content:flex-start;min-height:100dvh;height:auto}
 .bridge h2{max-width:16ch;font-size:clamp(1.7rem,4.2vw,2.6rem);margin:10px 0 1.6rem;line-height:1.14;letter-spacing:-.02em;text-transform:none}
 .closing h2{max-width:16ch;font-size:clamp(1.7rem,4.2vw,2.6rem);line-height:1.14;letter-spacing:-.02em;margin:10px 0 1.4rem}
+.closing{min-height:100dvh;height:auto;justify-content:flex-start;padding-top:120px;padding-bottom:80px}
+.field-notes{list-style:none;margin:2rem 0 2.5rem;padding:0;max-width:38rem;width:100%}
+.field-notes li{margin:0 0 2rem;padding:0 0 2rem;border-bottom:1px solid rgba(243,241,232,.12)}
+.field-notes li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.field-notes time{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8ee8b5;margin:0 0 8px}
+.field-notes h3{margin:0 0 10px;font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-.03em;font-weight:700;max-width:22ch}
+.field-notes p{margin:0;font-size:1rem;line-height:1.7;color:rgba(243,241,232,.86);max-width:34rem}
 .bridge-copy{max-width:34rem;margin:0 0 1.75rem}
 .bridge-copy p{font-size:clamp(1rem,1.35vw,1.125rem);line-height:1.72;color:rgba(243,241,232,.88);margin:0 0 1.75rem}
 .bridge-copy .triad{font-weight:600;color:#f4eee5;padding-left:1.1rem;border-left:2px solid #b08d4f;line-height:1.55;max-width:28ch}
