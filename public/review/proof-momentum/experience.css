@@ -959,6 +959,13 @@ body:before{
 .hang-recap{margin:28px 0 40px;max-width:960px}
 .hang-film{display:block;width:100%;aspect-ratio:16/9;border:0;background:#101111}
 .hang-recap-note{margin:.75rem 0 0;font-size:14px;color:#c8c3bd}
+.hang-pass{margin:32px 0 8px;max-width:42ch}
+.hang-pass p{margin:0 0 12px;font-size:18px;color:#e2dfda}
+.bill h1,.bill h2,.carry-line,.carry-next,.routes-head,.said,.gift-line,.readout-close,.result-reass,.proof-kicker{
+  text-wrap:pretty;
+  text-wrap:balance;
+}
+.proof-kicker{white-space:nowrap}
 @media(max-width:800px){
   .route-lane em{white-space:normal;letter-spacing:.08em;max-width:18ch}
   .bill h2.routes-head{max-width:none;font-size:clamp(26px,8vw,36px)!important}
