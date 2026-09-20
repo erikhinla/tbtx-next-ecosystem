@@ -357,9 +357,10 @@ function renderScan(r,qs){
 function renderReadout(r,qs){
  const voice=READOUT[r.band]||READOUT.Stalled;
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
- return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action" id="result-next">What follows <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+ return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p><p class="ev">Inferred from the pattern those answers form. Not measured.</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p><p class="ev">Inferred. The likely load if nothing changes.</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p><p class="ev">Inferred. A place to look, not a prescription.</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action lane-biz" id="result-next">Walk this with me <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
+ if(state.lane==='business'){try{localStorage.setItem('tbtx-trace-v1',JSON.stringify({answers:[...state.selections],band:r.band,result:r.result}));}catch{}}
  state.showingResult=true;
  if(state.lane==='business'){
   $('#questionnaire')?.classList.remove('is-handoff');
@@ -371,6 +372,31 @@ function renderResult(){const r=score(state.lane,state.selections);if(!r)return;
   $('#question-body').innerHTML=renderScan(r,qs);
  }
  $('#result-next').onclick=()=>{close('questionnaire');if(state.lane==='business')open('trace');else window.DDD.open();};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};modalWorld();focusQuestion();}
+function proofAgenda(){
+ const r=score('business',state.selections);if(!r)return '';
+ const qs=window.REVIEW_QUESTIONS.business||[];
+ const voice=READOUT[r.band]||{};
+ return ['PROOF walk request',`Band: ${r.band} (${r.result})`,voice.pattern||'','',
+  ...qs.map((q,i)=>`${q.id}. ${q.text}\n   ${(q.options[state.selections[i]]||{}).text||''}`)
+ ].join('\n');
+}
+const walkForm=$('#walk-form');
+if(walkForm) walkForm.addEventListener('submit',e=>{
+ e.preventDefault();
+ const data=new FormData(walkForm);
+ const name=String(data.get('name')||'').trim();
+ const email=String(data.get('email')||'').trim();
+ const company=String(data.get('company')||'').trim();
+ const when=String(data.get('when')||'').trim();
+ const request={name,email,company,when,agenda:proofAgenda(),at:new Date().toISOString()};
+ try{localStorage.setItem('tbtx-walk',JSON.stringify(request));}catch{}
+ const body=['Walk this PROOF with me.',`Name: ${name}`,`Email: ${email}`,company?`Company: ${company}`:'',`When: ${when}`,'',request.agenda].filter(Boolean).join('\n');
+ const mailto='mailto:erik@bizbuilders.ai?subject='+encodeURIComponent('Walk this PROOF · '+name)+'&body='+encodeURIComponent(body);
+ const note=$('#walk-note');
+ if(note) note.textContent='Your mail app should open with the agenda attached. If it doesn’t, write erik@bizbuilders.ai and say you want to walk the PROOF.';
+ walkForm.hidden=true;
+ window.location.href=mailto;
+});
 
 function startDDD(){closeAll();if(window.DDD?.hasDraft()){window.DDD.open();}else open('ddd-intro');}
 if($('#open-ddd'))$('#open-ddd').onclick=startDDD;if($('#ddd-method-start'))$('#ddd-method-start').onclick=startDDD;if($('#begin-ddd'))$('#begin-ddd').onclick=()=>{close('ddd-intro');window.DDD.open();};

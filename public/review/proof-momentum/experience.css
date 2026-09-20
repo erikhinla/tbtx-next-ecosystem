@@ -957,7 +957,11 @@ body:before{
 .question-body h2{letter-spacing:0}
 .sheet p{letter-spacing:.01em}
 .hang-recap{margin:28px 0 40px;max-width:960px}
-.hang-film{display:block;width:100%;height:100%;border:0;background:#101111;pointer-events:none}
+.walk-form{display:grid;gap:14px;margin:1.4rem 0 1rem;max-width:22rem}
+.walk-form label{display:grid;gap:6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b6b0a8}
+.walk-form input,.walk-form select{font:inherit;text-transform:none;letter-spacing:0;color:#f4eee5;background:#161616;border:1px solid rgba(244,238,229,.22);padding:10px 12px;min-height:44px}
+.walk-form .action{margin-top:6px;justify-self:start}
+.walk-note{font-size:.95rem;color:#c8c2ba;max-width:34rem}
 .hang-film-crop{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#101111}
 .hang-film-crop .hang-film{position:absolute;left:50%;top:50%;width:115%;height:115%;transform:translate(-50%,-50%);border:0}
 .hang-film-door{position:relative;display:block;width:100%;padding:0;border:0;background:#101111;cursor:pointer;aspect-ratio:16/9;overflow:hidden}
