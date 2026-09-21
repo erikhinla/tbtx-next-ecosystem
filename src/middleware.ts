@@ -42,6 +42,8 @@ export function middleware(request: NextRequest) {
     '/about': 'story.html',
     '/hang': 'hang.html',
     '/hang.html': 'hang.html',
+    '/specimen': 'specimen.html',
+    '/specimen.html': 'specimen.html',
   };
   if (path === '/bbm' || path.startsWith('/bbm/')) {
     return NextResponse.redirect(new URL('/bbai', request.url), 301);
@@ -85,6 +87,8 @@ export const config = {
     '/hang',
     '/hang.html',
     '/hang/:path*',
+    '/specimen',
+    '/specimen.html',
     '/bbm',
     '/bbm/:path*',
   ],

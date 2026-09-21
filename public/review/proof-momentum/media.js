@@ -1,5 +1,4 @@
 window.REVIEW_MEDIA = {
-  "defog-daily-hero.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/defog-daily-hero-IjsqerywbI7llJRSWhPNm4jKaGDRXM.mp4",
   "ddd-r5-picture-sfx.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/ddd-r5-picture-sfx-OfwwZHVl1FOIkOtxUqumDH5COcchu8.mp4",
   "b2b-task-1.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-1-HU3DKVQK3QhdOSMLC9P54HZJRgA2UB.mp4",
   "b2b-task-2.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-2-DfL1j8HlpXY2Ln5GJVqv9jYXfYI0JC.mp4",
