@@ -108,5 +108,20 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){setPlaying
 if(!reduced){const wall=$('#wall');wall.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=wall.getBoundingClientRect();wall.style.setProperty('--light-x',100*(e.clientX-r.left)/r.width+'%');wall.style.setProperty('--light-y',100*(e.clientY-r.top)/r.height+'%');});}
 background();
 // Expose only compact playback state for local verification; no personal session data.
+document.addEventListener('click',e=>{
+ const door=e.target.closest('[data-yt]');
+ if(!door||door.dataset.ready)return;
+ door.dataset.ready='1';
+ const crop=document.createElement('div');
+ crop.className='hang-film-crop';
+ const frame=document.createElement('iframe');
+ frame.className='hang-film';
+ frame.title='The Storm. To all creative youth, from me, to you.';
+ frame.allow='autoplay; encrypted-media; picture-in-picture';
+ frame.referrerPolicy='strict-origin-when-cross-origin';
+ frame.src='https://www.youtube-nocookie.com/embed/'+door.dataset.yt+'?autoplay=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&fs=0&disablekb=1&cc_load_policy=0';
+ crop.appendChild(frame);
+ door.replaceWith(crop);
+});
 window.STUDIO={state:()=>({chapter,playing,soundOn,deck,page,reduced})};
 })();

@@ -30,7 +30,12 @@ body{font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif}
 .storm-plate .chapter{letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:#e4c48a;margin-bottom:1.2rem}
 #notes .storm-plate h2{font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;font-weight:400;font-size:clamp(4.2rem,14vw,9rem);letter-spacing:-.045em;line-height:.9;margin:0;max-width:none;text-transform:none;font-style:italic;color:#f7f0e2}
 .storm-for{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(1.15rem,2.2vw,1.55rem);margin:1.1rem 0 0;color:#f0e6d2}
-.storm-for:before,.storm-for:after{content:"";display:block;width:48px;height:1px;background:rgba(228,196,138,.7);margin:18px auto}
+.storm-love{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:clamp(1rem,1.6vw,1.2rem);margin:.4rem 0 1.6rem;color:#f0e6d2;max-width:28ch}
+.storm-film{position:relative;display:block;width:min(42rem,92vw);margin:1.4rem auto 0;padding:0;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#101111}
+.storm-film img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9)}
+.storm-film .hang-play,.hang-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(246,241,230,.7);padding:.55rem 1.1rem;letter-spacing:.16em;text-transform:uppercase;font-size:12px;color:#f6f1e6;background:rgba(8,10,12,.45)}
+.hang-film-crop{position:relative;width:min(42rem,92vw);margin:1.4rem auto 0;aspect-ratio:16/9;overflow:hidden;background:#101111}
+.hang-film-crop .hang-film{position:absolute;left:50%;top:50%;width:115%;height:115%;transform:translate(-50%,-50%);border:0;pointer-events:none}
 .storm-essay{position:relative;z-index:1;width:min(42rem,92vw);margin:0 auto;padding:8vh 0 22vh;color:#f6f1e6;text-align:center;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 .storm-essay p{font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;font-weight:400;font-size:clamp(1.08rem,1.35vw,1.28rem);line-height:1.72;margin:0 0 1.45rem;text-wrap:pretty}
 .storm-essay > p:first-of-type::first-letter{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:3.6em;float:left;line-height:.72;padding:.12em .1em 0 0;color:#e8d4a4}
