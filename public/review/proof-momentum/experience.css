@@ -1071,3 +1071,18 @@ body:before{
 .proof-bottom .action{font-size:clamp(28px,3vw,44px);font-weight:700;letter-spacing:-.03em;gap:16px}
 .proof-bottom .action>.arr{width:56px;height:56px;font-size:28px}
 .proof-bottom .method-secondary{margin-top:4.5rem;font-size:16px!important;font-weight:600}
+
+/* Manifesto reads on a phone. The film stays. The column does not. */
+#recognition .bill.manifesto-film{position:relative}
+#recognition .bill.manifesto-film:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(6,7,8,.9) 0%,rgba(6,7,8,.68) 48%,rgba(6,7,8,.16) 74%,transparent 100%)}
+.manifesto-cry{position:relative;z-index:1}
+.manifesto-cry p{font-size:clamp(1.22rem,4.6vw,1.5rem)!important;line-height:1.42;font-weight:650;color:#f6f1e8;text-shadow:0 1px 12px rgba(0,0,0,.55);margin:0 0 1.05rem}
+.manifesto-cry .peak{font-size:clamp(1.85rem,6.4vw,2.55rem)!important;max-width:18ch;color:#fff;margin:0 0 1.35rem}
+.manifesto-cry p.closer{font-size:clamp(1.35rem,4.8vw,1.7rem)!important;font-weight:800;color:#fff}
+#map-intro .actions,.cinema-intro .actions{gap:2.6rem}
+#map-intro .method-secondary{margin-top:.4rem}
+@media(max-width:800px){
+  #recognition .bill.manifesto-film:before{background:linear-gradient(180deg,rgba(6,7,8,.35) 0%,rgba(6,7,8,.82) 22%,rgba(6,7,8,.88) 100%)}
+  .manifesto-cry p{font-size:1.28rem!important}
+  .manifesto-film{padding-top:96px}
+}
