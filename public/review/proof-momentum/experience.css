@@ -1065,3 +1065,9 @@ body:before{
 #gate .gate-board .gate-up{white-space:nowrap}
 
 .manifesto-cry p.closer{margin:2.75rem 0 0;max-width:34rem;font-size:clamp(1.2rem,2.1vw,1.55rem);font-weight:700;line-height:1.3;letter-spacing:0;text-wrap:pretty;color:#f4eee5}
+
+/* PROOF hero: the trace is the loud object. Limits sit below it. */
+.proof-bottom{gap:0}
+.proof-bottom .action{font-size:clamp(28px,3vw,44px);font-weight:700;letter-spacing:-.03em;gap:16px}
+.proof-bottom .action>.arr{width:56px;height:56px;font-size:28px}
+.proof-bottom .method-secondary{margin-top:4.5rem;font-size:16px!important;font-weight:600}
