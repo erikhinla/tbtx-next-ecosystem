@@ -256,8 +256,8 @@ const state={gate:false,lane:null,step:0,selections:[],personalSelections:null,s
 try{state.gate=sessionStorage.getItem('tbtx-entry')==='up';const p=JSON.parse(localStorage.getItem('tbtx-scan-v3'));if(p?.version==='site-20260914'&&score('personal',p.answers))state.personalSelections=p.answers;}catch{}
 function setStood(on){state.gate=!!on;document.body.classList.toggle('stood',state.gate);if(on)$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));try{sessionStorage.setItem('tbtx-entry',state.gate?'up':'');}catch{}}
 if(state.gate){document.body.classList.add('stood');$$('[data-sc-in]').forEach(el=>el.classList.add('sc-in'));}
-const gateCopy={out:'Consume and be consumed by AI tools without learning them and get passed by those who did.',back:'Continue Managing Digital Fog as AI\'s assistant, always busy but not building something scalable that moves you.',up:'It was never ours to carry. Two doors. Find the stall, or find the friction.'};
-$$('[data-choice]').forEach(b=>b.onclick=()=>{const choice=b.dataset.choice,gateEl=$('#gate .gate')||$('#gate');$$('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const copy=$('#gate-copy');if(copy){copy.hidden=false;copy.innerHTML=choice==='up'?'It was never ours to carry.<br>Two doors. Find the stall, or find the&nbsp;friction.':(gateCopy[choice]||'');}gateEl.classList.add('is-answered');setStood(choice==='up');document.body.classList.toggle('held',choice!=='up');if(choice==='up'){document.body.classList.remove('held');const next=$('#carry')?'#carry':($('#routes')?'#routes':'#build');setTimeout(()=>go(next),1600);}});
+const gateCopy={out:'Consume and be consumed by AI tools without learning them and get passed by those who did.',back:'Continue Managing Digital Fog as AI\'s assistant, always busy but not building something scalable that moves you.',up:'It was never ours to carry. Fifteen questions. See where it shows up.'};
+$$('[data-choice]').forEach(b=>b.onclick=()=>{const choice=b.dataset.choice,gateEl=$('#gate .gate')||$('#gate');$$('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const copy=$('#gate-copy');if(copy){copy.hidden=false;copy.innerHTML=choice==='up'?'It was never ours to carry.<br>Fifteen questions. See where it shows up.':(gateCopy[choice]||'');}gateEl.classList.add('is-answered');setStood(choice==='up');document.body.classList.toggle('held',choice!=='up');if(choice==='up'){document.body.classList.remove('held');const next=$('#carry')?'#carry':($('#routes')?'#routes':'#build');setTimeout(()=>go(next),1600);}});
 function score(lane,selections){const qs=window.REVIEW_QUESTIONS[lane];if(!qs||!Array.isArray(selections)||selections.length!==qs.length||qs.some((q,i)=>!Number.isInteger(selections[i])||!q.options[selections[i]]))return null;const values=qs.map((q,i)=>q.options[selections[i]].value),raw=values.reduce((a,b)=>a+b,0),max=qs.length*2,result=Math.round(100*raw/max);const band=lane==='personal'?(result<50?'Carrying it':'Clear enough'):result<25?'Fragmented':result<50?'Stalled':result<75?'Scaling':'Compounding';return{raw,max,result,band,values};}
 function setLane(lane){document.body.classList.toggle('lane-life',lane==='personal');document.body.classList.toggle('lane-biz',lane==='business');try{if(lane)sessionStorage.setItem('tbtx-lane',lane);}catch{}markInfra();}
 try{const lane=sessionStorage.getItem('tbtx-lane');if(lane==='personal'||lane==='business')setLane(lane);}catch{}
@@ -341,7 +341,7 @@ const SCANOUT={
  'Carrying it':{
   pattern:'The day does not sit down as one thing. What you meant to do waits while you hunt, rewrite, and hold unfinished loops in your head.',
   pressure:'You are the filing system. If the phone went down, the map would go with it.',
-  repair:'Picking one surface and making one thing findable. That is the stall spot. It is not the whole day.'
+  repair:'Picking one surface and making one thing findable. That is where it shows up. It is not the whole day.'
  },
  'Clear enough':{
   pattern:'You can put a hand on the thing. The leftover work still exists, and it has a place.',
@@ -352,7 +352,7 @@ const SCANOUT={
 function renderScan(r,qs){
  const voice=SCANOUT[r.band]||SCANOUT['Carrying it'];
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
- return `<div class="readout scan-handoff"><h2 id="question-title" tabindex="-1">The stall spot</h2><p class="said">${sayPersonal(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p>${math}<div class="result-ctas"><button class="action lane-life" id="result-next">Start Digital De-Fog Daily <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+ return `<div class="readout scan-handoff"><h2 id="question-title" tabindex="-1">Where it shows up</h2><p class="said">${sayPersonal(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p>${math}<div class="result-ctas"><button class="action lane-life" id="result-next">Start Digital De-Fog Daily <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderReadout(r,qs){
  const voice=READOUT[r.band]||READOUT.Stalled;
@@ -368,7 +368,7 @@ function renderResult(){const r=score(state.lane,state.selections);if(!r)return;
   $('#question-body').innerHTML=renderReadout(r,qs);
  }else{
   $('#questionnaire')?.classList.add('is-handoff');
-  $('#question-lane').textContent='Digital Fog Scan / The stall spot';
+  $('#question-lane').textContent='Digital Fog Scan / Where it shows up';
   $('#question-body').innerHTML=renderScan(r,qs);
  }
  $('#result-next').onclick=()=>{close('questionnaire');if(state.lane==='business')open('trace');else window.DDD.open();};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};modalWorld();focusQuestion();}
