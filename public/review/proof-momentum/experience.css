@@ -1086,3 +1086,10 @@ body:before{
   .manifesto-cry p{font-size:1.28rem!important}
   .manifesto-film{padding-top:96px}
 }
+
+/* PROOF film keeps every person in frame and scales to the screen. */
+#world[data-scene="proof-fit.mp4"]{background:#101111}
+#world[data-scene="proof-fit.mp4"] video{
+  object-fit:contain!important;
+  object-position:center center!important;
+}
