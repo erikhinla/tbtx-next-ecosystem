@@ -189,12 +189,10 @@ function syncChrome(best){
 }
 function updateWorld(){
  framePending=false;if(!acts.length)return;
- const mid=innerHeight*.45;let best=acts[0],bestScore=-Infinity;
+ const line=innerHeight*0.46;let best=acts[0];
  for(const act of acts){
   const r=act.getBoundingClientRect();if(r.height<=0)continue;
-  const vis=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);if(vis<=0)continue;
-  const score=vis-Math.abs((r.top+r.bottom)/2-mid)*.25;
-  if(score>bestScore){bestScore=score;best=act;}
+  if(r.top<line)best=act;
  }
  activeScene=best;if(!modalFilm)changeWorld(best.dataset.world,Number(best.dataset.light),best.dataset.crop);
  syncMark(best);
