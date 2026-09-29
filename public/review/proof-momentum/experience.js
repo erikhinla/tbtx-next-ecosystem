@@ -234,7 +234,7 @@ function modalWorld(){const opened=$$('dialog[open]'),topId=modalStack.at(-1)?.i
   modalFilm='ddd-r5-picture-sfx.mp4';changeWorld(modalFilm,.48);return;
  }
  const film=modalVideos[d.id];if(film==='off'){modalFilm='off';changeWorld('off',0);return;}modalFilm=film||activeScene?.dataset.world||null;if(!modalFilm){updateWorld();return;}const bright=['map-intro','ddd-intro'].includes(d.id)?.88:.58;const crop=d.id==='about'?'50% 18%':undefined;changeWorld(modalFilm,bright,crop);}
-function open(id,trigger=document.activeElement){if(id==='trace'&&!state.traceDone){beginTrace();return;}if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
+function open(id,trigger=document.activeElement){if(id==='trace'&&!state.traceDone){beginTrace();return;}if(!document.documentElement.classList.contains('is-sheet')) lastScroll=window.scrollY||document.documentElement.scrollTop||0;if(id==='gallery')buildHang();if(id==='trace')loadWalkSlots();const d=$('#'+id);if(!d)return;lastTrigger=trigger;if(!d.open){modalStack.push({id,trigger});d.classList.remove('behind-dialog');try{d.showModal();}catch{d.setAttribute('open','');}}coverPage(true);document.documentElement.style.overflow='hidden';modalWorld();d.scrollTop=0;requestAnimationFrame(()=>d.querySelector('h2')?.focus({preventScroll:true}));}
 function close(d){(typeof d==='string'?$('#'+d):d)?.close();}
 function closeAll(){for(const d of $$('dialog[open]'))d.close();modalStack=[];}
 function bindDialog(d){if(!d||d.dataset.bound)return;d.dataset.bound='1';d.addEventListener('close',()=>{d.querySelectorAll('video').forEach(v=>v.pause());const entry=modalStack.findLast(x=>x.id===d.id);modalStack=modalStack.filter(x=>x.id!==d.id);if(!$$('dialog[open]').length){document.documentElement.style.overflow='';coverPage(false);entry?.trigger?.focus?.({preventScroll:true});}modalWorld();syncChrome(activeScene);});d.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close(d);});}$$('dialog').forEach(bindDialog);
@@ -347,7 +347,7 @@ function renderScan(r,qs){
 function renderReadout(r,qs){
  const voice=READOUT[r.band]||READOUT.Stalled;
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
- return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p><p class="ev">Inferred from the pattern those answers form. Not measured.</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p><p class="ev">Inferred. The likely load if nothing changes.</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p><p class="ev">Inferred. A place to look, not a prescription.</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action lane-biz" id="result-next">Walk this with me <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+ return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><p class="said">${sayBusiness(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p><p class="ev">Inferred from the pattern those answers form. Not measured.</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p><p class="ev">Inferred. The likely load if nothing changes.</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p><p class="ev">Inferred. A place to look, not a prescription.</p></div><p class="readout-close">This is what you reported, not what we measured.</p><div class="result-ctas"><button class="action lane-biz" id="result-next">Pick a time <span class="arr" aria-hidden="true"></span></button></div>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;if(state.lane==='business')state.traceDone=true;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
  if(state.lane==='business'){try{localStorage.setItem('tbtx-trace-v1',JSON.stringify({answers:[...state.selections],band:r.band,result:r.result}));}catch{}}
@@ -371,21 +371,57 @@ function proofAgenda(){
  ].join('\n');
 }
 const walkForm=$('#walk-form');
-if(walkForm) walkForm.addEventListener('submit',e=>{
+let walkStart='';
+function loadWalkSlots(){
+ const box=$('#walk-slots');
+ const note=$('#walk-note');
+ if(!box)return;
+ walkStart='';
+ if(walkForm)walkForm.hidden=true;
+ if(note)note.textContent='This books the meeting. It does not book the work.';
+ box.innerHTML='<p class="walk-note">Checking openings.</p>';
+ fetch('/api/proof-time',{cache:'no-store'}).then(r=>r.json()).then(data=>{
+  if(!data.ok||!data.slots?.length){box.innerHTML='<p class="walk-note">No opening in the next three weeks. Write erik@transformby10x.ai.</p>';return;}
+  const groups=[];
+  data.slots.forEach(slot=>{
+   let group=groups.find(item=>item.day===slot.day);
+   if(!group){group={day:slot.day,slots:[]};groups.push(group);}
+   group.slots.push(slot);
+  });
+  box.innerHTML=groups.map(group=>`<div class="walk-day"><b>${escape(group.day)}</b><div class="walk-times">${group.slots.map(slot=>`<button type="button" data-start="${escape(slot.start)}">${escape(slot.time)}</button>`).join('')}</div></div>`).join('');
+  box.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+   walkStart=btn.getAttribute('data-start')||'';
+   box.querySelectorAll('button').forEach(other=>other.setAttribute('aria-pressed',other===btn?'true':'false'));
+   const picked=$('#walk-picked');
+   const day=btn.closest('.walk-day')?.querySelector('b')?.textContent||'';
+   if(picked)picked.textContent=day+' · '+btn.textContent;
+   if(walkForm){walkForm.hidden=false;walkForm.querySelector('input[name="name"]')?.focus();}
+  }));
+ }).catch(()=>{box.innerHTML='<p class="walk-note">The calendar did not answer. Try again.</p>';});
+}
+if(walkForm) walkForm.addEventListener('submit',async e=>{
  e.preventDefault();
+ if(!walkStart)return;
  const data=new FormData(walkForm);
  const name=String(data.get('name')||'').trim();
  const email=String(data.get('email')||'').trim();
  const company=String(data.get('company')||'').trim();
- const when=String(data.get('when')||'').trim();
- const request={name,email,company,when,agenda:proofAgenda(),at:new Date().toISOString()};
- try{localStorage.setItem('tbtx-walk',JSON.stringify(request));}catch{}
- const body=['Walk this PROOF with me.',`Name: ${name}`,`Email: ${email}`,company?`Company: ${company}`:'',`When: ${when}`,'',request.agenda].filter(Boolean).join('\n');
- const mailto='mailto:erik@transformby10x.ai?subject='+encodeURIComponent('Walk this PROOF · '+name)+'&body='+encodeURIComponent(body);
+ const button=walkForm.querySelector('button');
+ if(button)button.disabled=true;
  const note=$('#walk-note');
- if(note) note.textContent='Your mail app should open with the agenda attached.';
- walkForm.hidden=true;
- window.location.href=mailto;
+ try{
+  const res=await fetch('/api/proof-time',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({start:walkStart,name,email,company,trace:proofAgenda()})});
+  const body=await res.json().catch(()=>({}));
+  if(res.status===409){if(note)note.textContent='That time was just taken.';if(button)button.disabled=false;loadWalkSlots();return;}
+  if(!res.ok||!body.ok){if(note)note.textContent='The time did not book. Try another opening.';if(button)button.disabled=false;return;}
+  walkForm.hidden=true;
+  const box=$('#walk-slots');
+  if(box)box.innerHTML='';
+  if(note)note.textContent='Booked. '+(body.when||'The hour is set.')+' The invite is in your mail. The Trace is on it.';
+ }catch{
+  if(note)note.textContent='The time did not book. Try again.';
+  if(button)button.disabled=false;
+ }
 });
 
 function startDDD(){closeAll();if(window.DDD?.hasDraft()){window.DDD.open();}else open('ddd-intro');}

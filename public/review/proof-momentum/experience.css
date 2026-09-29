@@ -958,9 +958,18 @@ body:before{
 .sheet p{letter-spacing:.01em}
 .hang-recap{margin:28px 0 40px;max-width:960px}
 .walk-form{display:grid;gap:14px;margin:1.4rem 0 1rem;max-width:22rem}
+.walk-form[hidden]{display:none}
 .walk-form label{display:grid;gap:6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b6b0a8}
-.walk-form input,.walk-form select{font:inherit;text-transform:none;letter-spacing:0;color:#f4eee5;background:#161616;border:1px solid rgba(244,238,229,.22);padding:10px 12px;min-height:44px}
+.walk-form input,.walk-form select{font:inherit;font-size:16px;text-transform:none;letter-spacing:0;color:#f4eee5;background:#161616;border:1px solid rgba(244,238,229,.22);padding:10px 12px;min-height:44px}
 .walk-form .action{margin-top:6px;justify-self:start}
+.walk-form .action:disabled{opacity:.55}
+.walk-picked{margin:0 0 4px;text-transform:none;letter-spacing:0;color:#f4eee5}
+.walk-slots{display:grid;gap:18px;margin:8px 0 4px}
+.walk-day{display:grid;gap:8px}
+.walk-day>b{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#b6b0a8;font-weight:600}
+.walk-times{display:flex;flex-wrap:wrap;gap:8px}
+.walk-times button{min-height:44px;min-width:96px;padding:8px 12px;border:1px solid rgba(244,238,229,.28);background:#161616;color:#f4eee5;font:inherit;font-size:16px}
+.walk-times button[aria-pressed="true"]{background:#e8b68f;color:#101111;border-color:#e8b68f}
 .walk-note{font-size:.95rem;color:#c8c2ba;max-width:34rem}
 .hang-film-crop{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#101111}
 .hang-film-crop .hang-film{position:absolute;left:50%;top:50%;width:115%;height:115%;transform:translate(-50%,-50%);border:0}
