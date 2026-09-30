@@ -389,13 +389,15 @@ function loadWalkSlots(){
    group.slots.push(slot);
   });
   box.innerHTML=groups.map(group=>`<div class="walk-day"><b>${escape(group.day)}</b><div class="walk-times">${group.slots.map(slot=>`<button type="button" data-start="${escape(slot.start)}">${escape(slot.time)}</button>`).join('')}</div></div>`).join('');
-  box.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+  box.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',e=>{
+   e.preventDefault();
+   e.stopPropagation();
    walkStart=btn.getAttribute('data-start')||'';
    box.querySelectorAll('button').forEach(other=>other.setAttribute('aria-pressed',other===btn?'true':'false'));
    const picked=$('#walk-picked');
    const day=btn.closest('.walk-day')?.querySelector('b')?.textContent||'';
    if(picked)picked.textContent=day+' · '+btn.textContent;
-   if(walkForm){walkForm.hidden=false;walkForm.querySelector('input[name="name"]')?.focus();}
+   if(walkForm){walkForm.hidden=false;walkForm.scrollIntoView({block:'nearest'});walkForm.querySelector('input[name="name"]')?.focus({preventScroll:true});}
   }));
  }).catch(()=>{box.innerHTML='<p class="walk-note">The calendar did not answer. Try again.</p>';});
 }
