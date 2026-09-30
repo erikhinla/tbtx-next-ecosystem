@@ -5,7 +5,6 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const CAL = "erikhbush@gmail.com";
-const HOST = "erik@transformby10x.ai";
 const TZ = "America/Puerto_Rico";
 const OFFSET = "-04:00";
 const AGENDA =
@@ -180,11 +179,22 @@ export async function POST(request: Request) {
     const slots = openings(await busy(token, from, to));
     const slot = slots.find((item) => item.start === start);
     if (!slot) return NextResponse.json({ ok: false, taken: true }, { status: 409 });
-    const attendees = [{ email }];
-    if (email !== HOST) attendees.push({ email: HOST });
-    const description = [`Agenda`, AGENDA, ``, `Forty-five minutes.`, ``, trace].join("\n");
+    const description = [
+      name,
+      email,
+      company,
+      ``,
+      `Agenda`,
+      AGENDA,
+      ``,
+      `Forty-five minutes. The place is added on the invite.`,
+      ``,
+      trace,
+    ]
+      .filter((line) => line !== "")
+      .join("\n");
     const res = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?sendUpdates=all`,
+      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?sendUpdates=none`,
       {
         method: "POST",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
@@ -193,7 +203,6 @@ export async function POST(request: Request) {
           description,
           start: { dateTime: slot.start, timeZone: TZ },
           end: { dateTime: slot.end, timeZone: TZ },
-          attendees,
         }),
       }
     );

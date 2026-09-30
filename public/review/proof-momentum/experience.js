@@ -419,7 +419,7 @@ if(walkForm) walkForm.addEventListener('submit',async e=>{
   walkForm.hidden=true;
   const box=$('#walk-slots');
   if(box)box.innerHTML='';
-  if(note)note.textContent='Booked. '+(body.when||'The hour is set.')+' The invite is in your mail. The Trace is on it.';
+  if(note)note.textContent='Booked. '+(body.when||'The hour is set.')+' Erik has the hour and the Trace. The invite comes from him.';
  }catch{
   if(note)note.textContent='The time did not book. Try again.';
   if(button)button.disabled=false;
