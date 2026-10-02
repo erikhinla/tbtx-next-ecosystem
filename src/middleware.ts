@@ -10,14 +10,6 @@ const CANONICAL: Record<string, string> = {
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname.replace(/\/$/, '') || '/';
 
-  // Temporary until /proof is its own page. 302 so browsers do not cache the
-  // stand-in onto /bbai#proof.
-  if (path === '/proof' || path === '/proof.html') {
-    const res = NextResponse.redirect(new URL('/bbai#proof', request.url), 302);
-    res.headers.set('Cache-Control', 'no-store');
-    return res;
-  }
-
   if (path === '/tbtx') {
     return NextResponse.redirect(new URL('/', request.url), 301);
   }
@@ -35,6 +27,8 @@ export function middleware(request: NextRequest) {
     '/scan': 'index.html',
     '/daily': 'index.html',
     '/bbai': 'bizbuilders.html',
+    '/proof': 'proof.html',
+    '/proof.html': 'proof.html',
     '/map': 'bizbuilders.html',
     '/trace.html': 'bizbuilders.html',
     '/story': 'story.html',
