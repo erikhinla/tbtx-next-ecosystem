@@ -1,4 +1,12 @@
 window.REVIEW_MEDIA = {
+  "fog-lift-kit.mp4": "assets/fog-lift-kit.mp4?v=c",
+  "bbai-momentum-loop.mp4": "assets/bbai-momentum-loop.mp4?v=c",
+  "computer-explodes.mp4": "assets/computer-explodes.mp4?v=c",
+  "proof-to-architecture.mp4": "assets/proof-to-architecture.mp4?v=c",
+  "hidden-repair-load.mp4": "assets/hidden-repair-load.mp4?v=c",
+  "managing-digital-fog.mp4": "assets/managing-digital-fog.mp4?v=c",
+  "fog-story.mp4": "assets/fog-story.mp4?v=c",
+  "satire-digital-fog.mp4": "assets/satire-digital-fog.mp4?v=c",
   "ddd-r5-picture-sfx.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/ddd-r5-picture-sfx-OfwwZHVl1FOIkOtxUqumDH5COcchu8.mp4",
   "b2b-task-1.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-1-HU3DKVQK3QhdOSMLC9P54HZJRgA2UB.mp4",
   "b2b-task-2.mp4": "https://9s35ujeqbjjbd1bt.public.blob.vercel-storage.com/media/review-20260914/b2b-task-2-DfL1j8HlpXY2Ln5GJVqv9jYXfYI0JC.mp4",

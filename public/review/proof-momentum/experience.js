@@ -156,7 +156,7 @@ function changeWorld(name,light=.8,crop){
  next.setAttribute('preload','auto');
  next.muted=true;next.defaultMuted=true;next.setAttribute('muted','');next.loop=true;next.playsInline=true;next.setAttribute('playsinline','');next.setAttribute('webkit-playsinline','');
  next.poster='assets/'+(name==='proof-world.mp4'?'proof-mood-3':name.replace('.mp4',''))+'.jpg';
- next.src=media(name)+((name==='b2c-hero.mp4'||name==='defog-daily-hero.mp4')?'?v=a':(name==='proof-film.mp4'?'?v=b4':''));
+ next.src=media(name)+(name==='b2c-hero.mp4'?'?v=a':(name==='defog-daily-hero.mp4'?'?v=c':(name==='proof-film.mp4'?'?v=b4':'')));
  let shown=false;
  const reveal=()=>{
   if(token!==version||shown)return;
