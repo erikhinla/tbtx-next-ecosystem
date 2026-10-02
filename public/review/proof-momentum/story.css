@@ -48,6 +48,7 @@ body{font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif}
 .field-notes time{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8ee8b5;margin:0 0 8px}
 .field-notes h3{margin:0 0 10px;font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-.03em;font-weight:700;max-width:22ch}
 .field-notes p{margin:0;font-size:1rem;line-height:1.7;color:rgba(243,241,232,.86);max-width:34rem}
+.field-notes p + p{margin-top:1rem}
 @media(max-width:700px){
   .storm-plate{padding:18vh 7vw 10vh}
   #notes .storm-plate h2{font-size:clamp(3.4rem,22vw,5.2rem)}

@@ -156,7 +156,7 @@ function changeWorld(name,light=.8,crop){
  next.setAttribute('preload','auto');
  next.muted=true;next.defaultMuted=true;next.setAttribute('muted','');next.loop=true;next.playsInline=true;next.setAttribute('playsinline','');next.setAttribute('webkit-playsinline','');
  next.poster='assets/'+(name==='proof-world.mp4'?'proof-mood-3':name.replace('.mp4',''))+'.jpg';
- next.src=media(name)+((name==='b2c-hero.mp4'||name==='defog-daily-hero.mp4')?'?v=a':(name==='proof-film.mp4'?'?v=b3':''));
+ next.src=media(name)+((name==='b2c-hero.mp4'||name==='defog-daily-hero.mp4')?'?v=a':(name==='proof-film.mp4'?'?v=b4':''));
  let shown=false;
  const reveal=()=>{
   if(token!==version||shown)return;
@@ -478,7 +478,7 @@ $('#gallery-nav') && ($('#gallery-nav').innerHTML=galleryItems.map((a,i)=>`<butt
 $$('[data-gallery]').forEach(b=>b.onclick=()=>chooseGallery(Number(b.dataset.gallery)));$('#gallery-film').addEventListener('play',()=>videos.forEach(v=>v.pause()));$('#gallery-film').addEventListener('pause',()=>{if($('#gallery').open&&!document.hidden&&!reduced)liveWorld()?.play().catch(()=>{});});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)$$('video').forEach(v=>v.pause());else if($('#world').dataset.scene!=='off'&&!($('#gallery').open&&!$('#gallery-film').paused)){ensurePlay(liveWorld());$$('.fog-stack video,.route-lane video').forEach(ensurePlay);syncBed(wanted||activeScene?.dataset.world);}});
 $$('.route-lane video[data-film]').forEach(v=>{
- const arm=()=>{if(v.dataset.armed)return;v.dataset.armed='1';v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.src=media(v.dataset.film)+(v.dataset.film==='proof-film.mp4'?'?v=b3':'');ensurePlay(v);};
+ const arm=()=>{if(v.dataset.armed)return;v.dataset.armed='1';v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.src=media(v.dataset.film)+(v.dataset.film==='proof-film.mp4'?'?v=b4':'');ensurePlay(v);};
  if('IntersectionObserver' in window){
   const io=new IntersectionObserver(ents=>{if(ents.some(en=>en.isIntersecting)){arm();io.disconnect();}},{rootMargin:'240px'});
   io.observe(v);
