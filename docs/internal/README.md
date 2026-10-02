@@ -6,7 +6,8 @@ Use these documents for current launch design and asset decisions:
 
 1. `VISUAL_SYSTEM_2026-08-31.md` - brand worlds, color, typography, motion, composition, customer journey, and ship gate.
 2. `ASSET_ROUTE_MAP_2026-08-31.md` - current production assets, destinations, lane rules, and file handling.
-3. `../../output/pdf/TBTX_BBAI_VISUAL_SYSTEM_2026-08-31.pdf` - visual presentation of the same system.
+3. `SIGNED_DROPS.md` - engagement method: three boxes, signed drops, steps not clocks. Hand to an agent as a skill; hand the milestone list to a client as the scope.
+
 
 ## Authority rule
 
