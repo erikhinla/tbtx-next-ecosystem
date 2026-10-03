@@ -1,0 +1,14 @@
+{
+  "posts": [
+    { "id": "tbtx-fog-quote", "brand": "tbtx", "template": "quote", "fields": { "quote": "AI created a job. Nobody wanted. You don't need more AI. Clear the fog.", "author": "Erik H. Bush", "role": "Founder, TransformBy10X" } },
+    { "id": "tbtx-scan-offer", "brand": "tbtx", "template": "offer", "fields": { "kicker": "Free diagnostic", "headline": "Find the fog in your operation.", "body": "A short scan that shows where AI is adding work instead of removing it.", "cta": "Take the scan", "url": "transformby10x.ai/scan" } },
+    { "id": "tbtx-launch", "brand": "tbtx", "template": "announcement", "platforms": ["linkedin", "x", "facebook", "instagram-square"], "fields": { "kicker": "Now live", "headline": "The TransformBy10X ecosystem is open.", "body": "Diagnosis, architecture and governed execution for teams that want results from AI, not more noise." } },
+    { "id": "bbai-gaps-stat", "brand": "bbai", "template": "stat", "fields": { "kicker": "Operating reality", "stat": "10X", "label": "More leverage when the foundation is built before the tools.", "source": "BizBuilders AI field work" } },
+    { "id": "bbai-tip-01", "brand": "bbai", "template": "tip", "fields": { "series": "Infrastructure first", "index": "1", "total": "3", "title": "Map every handoff before you automate.", "body": "AI didn't remove the work. It moved it into the gaps. Find the gaps first and the tools start paying for themselves." } },
+    { "id": "bbai-tip-02", "brand": "bbai", "template": "tip", "fields": { "series": "Infrastructure first", "index": "2", "total": "3", "title": "Give every workflow a single owner.", "body": "Shared ownership is no ownership. One accountable person per process keeps automation governed and measurable." } },
+    { "id": "bbai-quote", "brand": "bbai", "template": "quote", "fields": { "quote": "Infrastructure before acceleration.", "author": "BizBuilders AI", "role": "Operating principle" } },
+    { "id": "bbm-offer", "brand": "bbm", "template": "offer", "fields": { "kicker": "BizBot Mrktng", "headline": "Marketing that runs while you build.", "body": "Content, scheduling and follow up handled by governed AI workflows, reviewed by people.", "cta": "See how it works", "url": "transformby10x.ai" } },
+    { "id": "bbm-tip", "brand": "bbm", "template": "tip", "fields": { "series": "Growth playbook", "index": "1", "total": "4", "title": "Publish one pillar, repurpose it six ways.", "body": "One strong idea, formatted for every platform, beats six weak posts written from scratch." } },
+    { "id": "bbm-stat", "brand": "bbm", "template": "stat", "fields": { "kicker": "Consistency wins", "stat": "6", "label": "Platforms covered from a single approved message.", "source": "" } }
+  ]
+}
