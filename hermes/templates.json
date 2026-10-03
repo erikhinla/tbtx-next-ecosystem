@@ -30,7 +30,7 @@
     "bbai": {
       "name": "BizBuilders AI",
       "short": "BBAI",
-      "handle": "@bizbuildersai",
+      "handle": "",
       "url": "transformby10x.ai/bbai",
       "logo": null,
       "colors": {
@@ -52,7 +52,7 @@
     "bbm": {
       "name": "BizBot Mrktng",
       "short": "BBM",
-      "handle": "@bizbotmrktng",
+      "handle": "",
       "url": "transformby10x.ai",
       "logo": null,
       "colors": {
