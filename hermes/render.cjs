@@ -46,7 +46,7 @@ function warn(msg) { console.warn(`[render] warning: ${msg}`); }
 function pick(selector, available, kind) {
   if (!selector || selector === 'all') return available.slice();
   const wanted = String(selector).split(',').map((s) => s.trim()).filter(Boolean);
-  for (const w of wanted) if (!available.includes(w)) fail(`Unknown ${kind} \"${w}\". Available: ${available.join(', ')}`);
+  for (const w of wanted) if (!available.includes(w)) fail(`Unknown ${kind} "${w}". Available: ${available.join(', ')}`);
   return wanted;
 }
 
@@ -55,7 +55,7 @@ function readJson(file) {
 }
 
 function esc(s) {
-  return String(s == null ? '' : s).replace(/[&<>\"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' }[c]));
+  return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'post'; }
@@ -82,7 +82,7 @@ function loadItems(opts, cfg) {
     const abs = path.resolve(process.cwd(), dataFile);
     const data = readJson(abs);
     const posts = Array.isArray(data) ? data : data.posts;
-    if (!Array.isArray(posts)) fail(`${dataFile} must be an array or an object with a \"posts\" array`);
+    if (!Array.isArray(posts)) fail(`${dataFile} must be an array or an object with a "posts" array`);
     return { source: path.relative(ROOT, abs), items: posts };
   }
   const items = [];
@@ -96,16 +96,16 @@ function loadItems(opts, cfg) {
 
 function validate(item, idx, cfg) {
   const where = `post #${idx + 1}${item.id ? ` (${item.id})` : ''}`;
-  if (!cfg.brands[item.brand]) { warn(`${where}: unknown brand \"${item.brand}\", skipped`); return null; }
+  if (!cfg.brands[item.brand]) { warn(`${where}: unknown brand "${item.brand}", skipped`); return null; }
   const tpl = cfg.templates[item.template];
-  if (!tpl) { warn(`${where}: unknown template \"${item.template}\", skipped`); return null; }
+  if (!tpl) { warn(`${where}: unknown template "${item.template}", skipped`); return null; }
   const fields = { ...(item.fields || {}) };
   for (const [name, spec] of Object.entries(tpl.fields)) {
     const val = fields[name];
-    if (spec.required && (val == null || String(val).trim() === '')) { warn(`${where}: missing required field \"${name}\", skipped`); return null; }
-    if (val != null && spec.maxChars && String(val).length > spec.maxChars) warn(`${where}: \"${name}\" is ${String(val).length} chars (max ${spec.maxChars}); text will be shrunk to fit`);
+    if (spec.required && (val == null || String(val).trim() === '')) { warn(`${where}: missing required field "${name}", skipped`); return null; }
+    if (val != null && spec.maxChars && String(val).length > spec.maxChars) warn(`${where}: "${name}" is ${String(val).length} chars (max ${spec.maxChars}); text will be shrunk to fit`);
   }
-  if (item.platforms != null && !Array.isArray(item.platforms)) { warn(`${where}: \"platforms\" must be an array, ignored`); delete item.platforms; }
+  if (item.platforms != null && !Array.isArray(item.platforms)) { warn(`${where}: "platforms" must be an array, ignored`); delete item.platforms; }
   return { id: slug(item.id || `${item.brand}-${item.template}-${idx + 1}`), brand: item.brand, template: item.template, platforms: item.platforms || null, fields };
 }
 
@@ -114,29 +114,29 @@ function validate(item, idx, cfg) {
 function templateBody(template, f, brand) {
   switch (template) {
     case 'quote':
-      return `<div class=\"mark\">&ldquo;</div>
-<p class=\"quote fit-text\">${esc(f.quote)}</p>
-${f.author ? `<p class=\"byline\"><b>${esc(f.author)}</b>${f.role ? `<span>${esc(f.role)}</span>` : ''}</p>` : ''}`;
+      return `<div class="mark">&ldquo;</div>
+<p class="quote fit-text">${esc(f.quote)}</p>
+${f.author ? `<p class="byline"><b>${esc(f.author)}</b>${f.role ? `<span>${esc(f.role)}</span>` : ''}</p>` : ''}`;
     case 'stat':
-      return `${f.kicker ? `<p class=\"kicker\">${esc(f.kicker)}</p>` : ''}
-<p class=\"stat\">${esc(f.stat)}</p>
-<p class=\"statlabel fit-text\">${esc(f.label)}</p>
-${f.source ? `<p class=\"source\">${esc(f.source)}</p>` : ''}`;
+      return `${f.kicker ? `<p class="kicker">${esc(f.kicker)}</p>` : ''}
+<p class="stat">${esc(f.stat)}</p>
+<p class="statlabel fit-text">${esc(f.label)}</p>
+${f.source ? `<p class="source">${esc(f.source)}</p>` : ''}`;
     case 'tip':
-      return `<p class=\"kicker\">${esc(f.series || 'Field note')}${f.index ? `<span class=\"count\">${esc(f.index)}${f.total ? ` / ${esc(f.total)}` : ''}</span>` : ''}</p>
-<h1 class=\"title fit-text\">${esc(f.title)}</h1>
-<p class=\"body\">${esc(f.body)}</p>`;
+      return `<p class="kicker">${esc(f.series || 'Field note')}${f.index ? `<span class="count">${esc(f.index)}${f.total ? ` / ${esc(f.total)}` : ''}</span>` : ''}</p>
+<h1 class="title fit-text">${esc(f.title)}</h1>
+<p class="body">${esc(f.body)}</p>`;
     case 'offer':
-      return `${f.kicker ? `<p class=\"kicker\">${esc(f.kicker)}</p>` : ''}
-<h1 class=\"headline fit-text\">${esc(f.headline)}</h1>
-${f.body ? `<p class=\"body\">${esc(f.body)}</p>` : ''}
-<div class=\"ctarow\"><span class=\"cta\">${esc(f.cta)} &rarr;</span>${f.url ? `<span class=\"url\">${esc(f.url)}</span>` : ''}</div>`;
+      return `${f.kicker ? `<p class="kicker">${esc(f.kicker)}</p>` : ''}
+<h1 class="headline fit-text">${esc(f.headline)}</h1>
+${f.body ? `<p class="body">${esc(f.body)}</p>` : ''}
+<div class="ctarow"><span class="cta">${esc(f.cta)} &rarr;</span>${f.url ? `<span class="url">${esc(f.url)}</span>` : ''}</div>`;
     case 'announcement':
-      return `<p class=\"kicker\"><span class=\"dot\"></span>${esc(f.kicker || 'Announcement')}${f.date ? `<span class=\"count\">${esc(f.date)}</span>` : ''}</p>
-<h1 class=\"headline fit-text\">${esc(f.headline)}</h1>
-${f.body ? `<p class=\"body\">${esc(f.body)}</p>` : ''}`;
+      return `<p class="kicker"><span class="dot"></span>${esc(f.kicker || 'Announcement')}${f.date ? `<span class="count">${esc(f.date)}</span>` : ''}</p>
+<h1 class="headline fit-text">${esc(f.headline)}</h1>
+${f.body ? `<p class="body">${esc(f.body)}</p>` : ''}`;
     default:
-      throw new Error(`No layout for template \"${template}\"`);
+      throw new Error(`No layout for template "${template}"`);
   }
 }
 
@@ -150,12 +150,12 @@ function buildHtml({ cfg, brandKey, platformKey, item, offline }) {
   const layout = ratio > 1.2 ? 'wide' : ratio < 0.8 ? 'tall' : 'square';
   const u = Math.min(W, H) / 100; // 1 unit = 1% of the short side, in px
   const logo = logoDataUri(b.logo);
-  const wordmark = logo ? `<img class=\"logo\" src=\"${logo}\" alt=\"${esc(b.name)}\">` : `<span class=\"wm\"><b>${esc(b.short)}</b><span>${esc(b.name)}</span></span>`;
-  const fontLink = offline || !cfg.fonts || !cfg.fonts.googleCss ? '' : `<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link rel=\"stylesheet\" href=\"${esc(cfg.fonts.googleCss)}\">`;
+  const wordmark = logo ? `<img class="logo" src="${logo}" alt="${esc(b.name)}">` : `<span class="wm"><b>${esc(b.short)}</b><span>${esc(b.name)}</span></span>`;
+  const fontLink = offline || !cfg.fonts || !cfg.fonts.googleCss ? '' : `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${esc(cfg.fonts.googleCss)}">`;
   const pad = layout === 'tall' ? 8 : layout === 'wide' ? 6 : 7;
 
-  return `<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">
-<meta name=\"viewport\" content=\"width=${W}, height=${H}\">
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=${W}, height=${H}">
 <title>${esc(`${b.short} ${item.template} ${platformKey}`)}</title>
 ${fontLink}
 <style>
@@ -164,8 +164,8 @@ html,body{width:${W}px;height:${H}px;overflow:hidden;background:${c.bg}}
 :root{--u:${u}px;--fit:1;--bg:${c.bg};--deep:${c.bgDeep};--text:${c.text};--muted:${c.muted};--accent:${c.accent};--line:${c.line}}
 .card{position:relative;width:${W}px;height:${H}px;display:flex;flex-direction:column;padding:calc(var(--u)*${pad});color:var(--text);font-family:${fo.body};
  background:radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent) 0%, transparent 55%),linear-gradient(160deg,var(--bg) 0%,var(--deep) 100%);overflow:hidden}
-.card::before{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px calc(var(--u)*12.5));opacity:.18;pointer-events:none}
-.card::after{content:\"\";position:absolute;left:calc(var(--u)*${pad});right:calc(var(--u)*${pad});top:calc(var(--u)*${pad} + var(--u)*9);height:1px;background:var(--line)}
+.card::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px calc(var(--u)*12.5));opacity:.18;pointer-events:none}
+.card::after{content:"";position:absolute;left:calc(var(--u)*${pad});right:calc(var(--u)*${pad});top:calc(var(--u)*${pad} + var(--u)*9);height:1px;background:var(--line)}
 header,footer{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*3);font-family:${fo.mono};font-size:calc(var(--u)*2.2);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 header{height:calc(var(--u)*6)}
 .wm{display:flex;align-items:baseline;gap:calc(var(--u)*1.6)}
@@ -195,10 +195,10 @@ footer .handle{color:var(--text)}
 .cta{display:inline-block;padding:calc(var(--u)*2*var(--fit)) calc(var(--u)*3.4*var(--fit));background:var(--accent);color:var(--deep);font-family:${fo.mono};font-weight:700;font-size:calc(var(--u)*2.6*var(--fit));letter-spacing:.12em;text-transform:uppercase}
 .url{font-family:${fo.mono};font-size:calc(var(--u)*2.4*var(--fit));letter-spacing:.08em;color:var(--text);border-bottom:1px solid var(--accent);padding-bottom:calc(var(--u)*.4)}
 </style></head>
-<body><div class=\"card t-${esc(item.template)} l-${layout}\" data-brand=\"${esc(brandKey)}\" data-platform=\"${esc(platformKey)}\">
-<header>${wordmark}<span class=\"tag\">${esc(cfg.templates[item.template].label)}</span></header>
+<body><div class="card t-${esc(item.template)} l-${layout}" data-brand="${esc(brandKey)}" data-platform="${esc(platformKey)}">
+<header>${wordmark}<span class="tag">${esc(cfg.templates[item.template].label)}</span></header>
 <main>${templateBody(item.template, item.fields, b)}</main>
-<footer>${b.handle ? `<span class=\"handle\">${esc(b.handle)}</span>` : ''}<span>${esc(b.url)}</span></footer>
+<footer>${b.handle ? `<span class="handle">${esc(b.handle)}</span>` : ''}<span>${esc(b.url)}</span></footer>
 </div>
 <script>
 window.__fit = function () {
@@ -287,7 +287,7 @@ async function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.help) { printHelp(); return; }
   const cfg = readJson(path.resolve(process.cwd(), opts.config));
-  for (const k of ['brands', 'platforms', 'templates']) if (!cfg[k] || typeof cfg[k] !== 'object') fail(`templates.json is missing \"${k}\"`);
+  for (const k of ['brands', 'platforms', 'templates']) if (!cfg[k] || typeof cfg[k] !== 'object') fail(`templates.json is missing "${k}"`);
 
   const brands = pick(opts.brand, Object.keys(cfg.brands), 'brand');
   const platforms = pick(opts.platform, Object.keys(cfg.platforms), 'platform');
@@ -302,7 +302,7 @@ async function main() {
     for (const platformKey of platforms) {
       if (item.platforms && !item.platforms.includes(platformKey)) continue;
       const key = `${item.brand}/${platformKey}/${item.id}`;
-      if (seen.has(key)) { warn(`duplicate id \"${item.id}\" for ${item.brand}/${platformKey}, skipped`); continue; }
+      if (seen.has(key)) { warn(`duplicate id "${item.id}" for ${item.brand}/${platformKey}, skipped`); continue; }
       seen.add(key);
       jobs.push({ item, platformKey });
     }
