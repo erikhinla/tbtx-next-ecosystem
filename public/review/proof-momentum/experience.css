@@ -1102,3 +1102,5 @@ body:before{
   object-fit:contain!important;
   object-position:center center!important;
 }
+
+.bill h2.routes-head span{white-space:normal;display:block}
