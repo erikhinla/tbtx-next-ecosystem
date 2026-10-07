@@ -258,7 +258,7 @@ try{
  if(path==='/map'||path==='/bbai/map'||/\bstart=map\b/.test(location.search)){setStood(true);setLane('business');setTimeout(()=>start('business'),280);}
 }catch{}
 function start(lane){closeAll();if(lane==='business'){beginTrace();return;}const onBiz=document.body.dataset.page==='business';if(!state.gate&&!onBiz){if($('#gate'))go('#gate');return;}if(!state.gate)setStood(true);setLane(lane);state.lane=lane;state.step=0;const qs=window.REVIEW_QUESTIONS?.[lane];if(!qs)return;state.selections=Array(qs.length).fill(null);renderQuestion();open('questionnaire');}
-document.addEventListener('click',e=>{const a=e.target.closest('a[href="#proof"],a[href="#daily"]');if(!a)return;if(!state.gate){e.preventDefault();go('#gate');return;}setLane(a.getAttribute('href')==='#proof'?'business':'personal');},true);
+document.addEventListener('click',e=>{const a=e.target.closest('a[href="#proof"],a[href="#daily"]');if(!a)return;if(!state.gate&&$('#gate')){e.preventDefault();go('#gate');return;}setLane(a.getAttribute('href')==='#proof'?'business':'personal');},true);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-start]');if(!b)return;e.preventDefault();e.stopPropagation();start(b.dataset.start);});
 const beginMap=$('#begin-map');if(beginMap)beginMap.onclick=()=>{close('map-intro');renderQuestion();open('questionnaire');};
 function focusQuestion(){$('#question-title').focus({preventScroll:true});$('#questionnaire').scrollTop=0;}
