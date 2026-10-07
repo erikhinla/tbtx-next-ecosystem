@@ -147,12 +147,12 @@ def main():
         when = t.strftime("%Y-%m-%dT%H:%M:%S.000Z")
         first = p["text"].split("\n")[0][:60]
         tag = "already created" if p["key"] in state["posts"] else ""
-        print(f'{when}  {p["channel"]:11} {p["media"]:32} {first} {tag}', flush=True)
+        print(f'{when}  {p["channel"]:11} {p["media"].rsplit("/", 1)[1]:32} {first} {tag}', flush=True)
         if not go or p["key"] in state["posts"]:
             continue
         integ = ch[p["channel"]]
         try:
-            media = upload(m["media_base"] + p["media"], state["media"])
+            media = upload(p["media"], state["media"])
             settings = {"__type": integ["identifier"], **DEFAULTS.get(integ["identifier"], {}), **p["settings"]}
             body = {"type": "schedule", "date": when, "shortLink": False, "tags": [],
                     "posts": [{"integration": {"id": integ["id"]},
