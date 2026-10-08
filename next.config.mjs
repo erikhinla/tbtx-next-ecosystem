@@ -45,6 +45,12 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // PROOF instrument. Temporary until the instrument serves under this path via a rewrite.
+      {
+        source: "/proof/screen",
+        destination: "https://flow-visualizer-telemetry.vercel.app/",
+        permanent: false,
+      },
       { source: "/tbtx/scan", destination: "/scan", permanent: false },
       { source: "/tbtx/map", destination: "/map", permanent: false },
       { source: "/diagnostic", destination: "/map", permanent: false },
