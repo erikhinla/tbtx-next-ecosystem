@@ -986,7 +986,7 @@ body:before{
 }
 .proof-kicker{white-space:nowrap}
 @media(max-width:800px){
-  .route-lane em{white-space:normal;letter-spacing:.08em;max-width:18ch}
+  .route-lane em{white-space:nowrap;letter-spacing:.06em;max-width:none;font-size:clamp(12px,4vw,16px)}
   .bill h2.routes-head{max-width:none;font-size:clamp(26px,8vw,36px)!important}
 }
 
