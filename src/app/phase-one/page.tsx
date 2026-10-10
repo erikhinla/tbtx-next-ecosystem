@@ -32,21 +32,33 @@ function PhaseOneForm() {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/submit', {
+      const response = await fetch('https://formsubmit.co/ajax/erikhbush@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
         body: JSON.stringify({
           archetype,
           email,
           phase: 1,
           timestamp: new Date().toISOString(),
           payment_status: 'unpaid',
+          _subject: 'Phase 1 request',
+          _replyto: email,
+          _cc: 'erik@transformby10x.ai',
+          _captcha: 'false',
+          _template: 'table',
         }),
       });
       const data = await response.json().catch(() => ({}));
-      if (data.success) setState('sent');
-      else if (data.activation) setState('activate');
-      else if (data.limited) setState('wait');
+      const message = typeof data?.message === 'string' ? data.message : '';
+      const activation = /activat/i.test(message);
+      const limited = response.status === 429 || /rate limit/i.test(message);
+      const sent = response.ok && data?.success !== false && data?.success !== 'false' && !activation;
+      if (sent) setState('sent');
+      else if (activation) setState('activate');
+      else if (limited) setState('wait');
       else setState('failed');
     } catch {
       setState('failed');
