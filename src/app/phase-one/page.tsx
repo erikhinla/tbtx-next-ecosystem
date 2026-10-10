@@ -1,7 +1,8 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 const ARCHETYPES = [
   { value: 'fragmentedWorkflow', label: 'Fragmented Workflow' },
@@ -10,9 +11,36 @@ const ARCHETYPES = [
   { value: 'executionStall', label: 'Execution Stall' },
 ] as const;
 
-const AIR_CHECKOUT = 'https://buy.stripe.com/aFa28qbIFedc90D5sd08g01';
+const STEPS = [
+  'Consolidate core tools.',
+  'Set up system architecture.',
+  'Implement workflows.',
+  'Connect data sources.',
+];
+
+const FALLBACK_OFFERS = [
+  {
+    id: 'air',
+    name: 'Account Intelligence Report',
+    price: '$143.82 CAD',
+    cadence: 'One time',
+    url: 'https://buy.stripe.com/aFa28qbIFedc90D5sd08g01',
+    statement: 'TRANSFORMBY10X.AI',
+    note: 'Does not mark Phase 1 paid.',
+  },
+  {
+    id: 'ddd',
+    name: 'Digital De-Fog Daily',
+    price: '$7.77 USD',
+    cadence: 'One time · 30 days',
+    url: 'https://buy.stripe.com/dRm3cw1CDg4D7UR9VI8og01',
+    statement: 'transformby10x.ai',
+    note: 'One focus, a few decisions, one action, and a place to pick it up again.',
+  },
+];
 
 type ArchetypeValue = (typeof ARCHETYPES)[number]['value'];
+type Offer = (typeof FALLBACK_OFFERS)[number];
 
 function isArchetype(value: string | null): value is ArchetypeValue {
   return ARCHETYPES.some((item) => item.value === value);
@@ -25,12 +53,18 @@ function PhaseOneForm() {
   const [archetype, setArchetype] = useState<ArchetypeValue>(
     isArchetype(incoming) ? incoming : 'fragmentedWorkflow',
   );
+  const [offers, setOffers] = useState<Offer[]>(FALLBACK_OFFERS);
   const [state, setState] = useState<'form' | 'sent' | 'activate' | 'wait' | 'failed'>('form');
   const [loading, setLoading] = useState(false);
 
-  const checkoutHref = email
-    ? `${AIR_CHECKOUT}?prefilled_email=${encodeURIComponent(email)}`
-    : AIR_CHECKOUT;
+  useEffect(() => {
+    fetch('/api/offers')
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data?.offers) && data.offers.length > 0) setOffers(data.offers);
+      })
+      .catch(() => undefined);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,81 +108,112 @@ function PhaseOneForm() {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col items-center justify-center p-8">
-      <div className="max-w-xl w-full">
-        <h1 className="text-3xl font-bold mb-4">YOUR PROGRESS ISN'T SLOW</h1>
-        <h2 className="text-2xl font-bold mb-4">YOUR SYSTEM IS UNCLEAR</h2>
-        <p className="mb-2">COMPILE COMPLETE</p>
-        <p className="mb-8">Your system is mapped. Your bottleneck is identified. Your blueprint is ready.</p>
+    <main className="min-h-[100dvh] bg-[#F4EDE3] text-[#1C1916] paper-bg p-5 md:p-10 font-body">
+      <header className="flex justify-between items-center pb-8 border-b border-[#D8D2C5] mb-12">
+        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#B89A6E]">PHASE 1 // BIZBUILDERS AI</div>
+        <Link href="/bbm" className="engineered-control text-[10px]" aria-label="Back to intake">
+          <span aria-hidden="true">‹</span>
+        </Link>
+      </header>
 
-        {state === 'sent' ? (
-          <div className="surface p-8 text-center">
-            <div className="text-lg mb-2">Request sent.</div>
-            <p className="text-sm text-white/70">Phase 1 is with BizBuilders AI. Payment is unpaid.</p>
+      <div className="max-w-5xl mx-auto grid gap-14 lg:grid-cols-[1.2fr_0.8fr]">
+        <section>
+          <div className="blueprint-label mb-3">COMPILE COMPLETE</div>
+          <h1 className="type-macro text-[clamp(2.6rem,8vw,5.4rem)] leading-[0.84] tracking-[-0.05em]">
+            YOUR PROGRESS ISN'T SLOW
+          </h1>
+          <h2 className="type-macro mt-3 text-[clamp(2rem,6vw,3.8rem)] leading-[0.86] tracking-[-0.05em] text-[#2C5F4A]">
+            YOUR SYSTEM IS UNCLEAR
+          </h2>
+          <p className="mt-6 max-w-[42ch] text-[15px] leading-[1.7]">
+            Your system is mapped. Your bottleneck is identified. Your blueprint is ready.
+          </p>
+
+          <div className="mt-10 border-t border-[#D8D2C5]">
+            <div className="blueprint-label py-4">PHASE 1 · WEEK 1–2 · NOT STARTED</div>
+            {STEPS.map((step) => (
+              <div key={step} className="flex items-center gap-4 border-t border-[#D8D2C5] py-4">
+                <span className="h-4 w-4 shrink-0 border border-[#1C1916]" aria-hidden="true" />
+                <span>{step}</span>
+              </div>
+            ))}
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-400">Archetype</label>
-              <select
-                value={archetype}
-                onChange={(e) => setArchetype(e.target.value as ArchetypeValue)}
-                className="w-full bg-black border border-zinc-700 px-4 py-3 text-sm focus:outline-none focus:border-white mt-1"
-              >
-                {ARCHETYPES.map((item) => (
-                  <option key={item.value} value={item.value}>{item.label}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-400">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="email"
-                className="w-full bg-black border border-zinc-700 px-4 py-3 text-sm focus:outline-none focus:border-white mt-1"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full btn-industrial whitespace-nowrap disabled:opacity-60"
-              disabled={loading}
-            >
-              {loading ? 'SENDING...' : 'BUILD THE SYSTEM'}
-            </button>
-            {state === 'activate' && (
-              <p className="text-sm text-white/70">Open erikhbush@gmail.com and click Activate Form. Then submit once.</p>
-            )}
-            {state === 'wait' && (
-              <p className="text-sm text-white/70">The sender is busy. Wait two minutes and submit once.</p>
-            )}
-            {state === 'failed' && (
-              <p className="text-sm text-white/70">Not sent.</p>
-            )}
-          </form>
-        )}
+        </section>
 
-        <a
-          href={checkoutHref}
-          className="mt-6 block w-full border border-white px-4 py-3 text-center text-sm"
-        >
-          Pay Account Intelligence Report · $143.82 CAD
-        </a>
-        <p className="mt-2 text-center text-xs text-white/50">One time. Stripe. The card statement says TRANSFORMBY10X.AI. This does not mark Phase 1 paid.</p>
+        <section className="border border-[#1C1916] bg-[#F4EDE3] p-5 md:p-6">
+          <div className="blueprint-label mb-4">REQUEST</div>
+          {state === 'sent' ? (
+            <div>
+              <h3 className="type-macro text-3xl leading-[0.9]">Request sent.</h3>
+              <p className="mt-4 text-sm leading-relaxed">Phase 1 is with BizBuilders AI. Payment is unpaid.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <label className="block">
+                <span className="blueprint-label">Archetype</span>
+                <select
+                  value={archetype}
+                  onChange={(e) => setArchetype(e.target.value as ArchetypeValue)}
+                  className="mt-2 w-full border border-[#1C1916] bg-transparent px-3 py-3 text-sm"
+                >
+                  {ARCHETYPES.map((item) => (
+                    <option key={item.value} value={item.value}>{item.label}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="block">
+                <span className="blueprint-label">Email</span>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  required
+                  className="mt-2 w-full border border-[#1C1916] bg-transparent px-3 py-3 text-sm"
+                />
+              </label>
+              <button type="submit" className="engineered-control w-full justify-center" disabled={loading}>
+                {loading ? 'SENDING...' : 'BUILD THE SYSTEM'}
+              </button>
+              {state === 'activate' && (
+                <p className="text-sm">Open erikhbush@gmail.com and click Activate Form. Then submit once.</p>
+              )}
+              {state === 'wait' && (
+                <p className="text-sm">The sender is busy. Wait two minutes and submit once.</p>
+              )}
+              {state === 'failed' && <p className="text-sm">Not sent.</p>}
+            </form>
+          )}
 
-        <div className="mt-8 text-center">
-          <a href={`/diagnostic/blueprint?archetype=${archetype}`} className="text-gray-400 hover:text-white">View Blueprint</a>
-        </div>
+          <div className="mt-8 border-t border-[#D8D2C5] pt-5">
+            <div className="blueprint-label mb-3">PAY · SEPARATE FROM PHASE 1</div>
+            <div className="space-y-3">
+              {offers.map((offer) => (
+                <a key={offer.id} href={email ? `${offer.url}?prefilled_email=${encodeURIComponent(email)}` : offer.url} className="block border border-[#1C1916] p-4">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <strong>{offer.name}</strong>
+                    <span className="font-mono text-xs">{offer.price}</span>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-[#1C1916]/70">{offer.cadence}. Card statement: {offer.statement}. {offer.note}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <Link href={`/diagnostic/blueprint?archetype=${archetype}`} className="text-sm underline">View Blueprint</Link>
+          </div>
+        </section>
       </div>
-    </div>
+
+      <footer className="mt-16 text-[10px] font-mono tracking-[0.1em] text-[#B89A6E]">OWNER: BIZBUILDERS AI. PHASE 1 REMAINS UNPAID UNTIL A PAYMENT IS CONFIRMED.</footer>
+    </main>
   );
 }
 
 export default function PhaseOnePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-black" />}>
+    <Suspense fallback={<div className="h-screen w-full bg-[#F4EDE3]" />}>
       <PhaseOneForm />
     </Suspense>
   );
