@@ -101,7 +101,10 @@ function BlueprintContent() {
         </section>
 
         <div className="tbtx-scan__moves">
-          <Link href="/bbai" className="tbtx-scan__go tbtx-fog-go">
+          <Link href={`/phase-one?archetype=${targetArchetype}`} className="tbtx-scan__go tbtx-fog-go">
+            BUILD THE SYSTEM
+          </Link>
+          <Link href="/bbai" className="tbtx-fog-link">
             Explore BizBuilders AI
           </Link>
           <Link href="/tbtx/map" className="tbtx-fog-link">
