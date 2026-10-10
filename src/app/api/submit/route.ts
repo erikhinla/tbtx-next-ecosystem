@@ -12,10 +12,11 @@ export async function POST(req: NextRequest) {
     payment_status,
     bottleneck,
     _subject: 'Phase 1 request',
+    _replyto: email,
   };
 
   try {
-    const response = await fetch('https://formsubmit.co/ajax/hello@erikhbush.com', {
+    const response = await fetch('https://formsubmit.co/ajax/erik@transformby10x.ai', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
