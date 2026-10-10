@@ -54,7 +54,7 @@ export default function PhaseOnePage() {
         {submitted ? (
           <div className="surface p-8 text-center">
             <div className="text-lg mb-2">Request Sent.</div>
-            <p className="text-sm text-white/70">Your Phase 1 request has been sent to hello@erikhbush.com.</p>
+            <p className="text-sm text-white/70">Your Phase 1 request has been sent to erik@transformby10x.ai.</p>
           </div>
         ) : error ? (
           <div className="surface p-8 text-center">
