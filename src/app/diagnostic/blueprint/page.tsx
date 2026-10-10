@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
-import { ArrowLeft, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import type { Archetype } from "@/config/intakeQuestions";
 
 const archetypeMap: Record<Archetype, { name: string, status: string, fix: string, next: string }> = {
@@ -66,6 +66,7 @@ function BlueprintContent() {
           <h2 className="type-macro text-[clamp(1.7rem,5.5vw,2.65rem)] leading-[0.9] mb-4">{data.next}</h2>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
+            <Link href={`/phase-one?archetype=${targetArchetype}`} className="engineered-control">BUILD THE SYSTEM</Link>
             <button onClick={() => window.print()} className="engineered-control">
               <Download className="w-4 h-4" /> PRINT BLUEPRINT
             </button>
