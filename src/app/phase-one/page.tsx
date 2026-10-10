@@ -10,6 +10,8 @@ const ARCHETYPES = [
   { value: 'executionStall', label: 'Execution Stall' },
 ] as const;
 
+const AIR_CHECKOUT = 'https://buy.stripe.com/aFa28qbIFedc90D5sd08g01';
+
 type ArchetypeValue = (typeof ARCHETYPES)[number]['value'];
 
 function isArchetype(value: string | null): value is ArchetypeValue {
@@ -25,6 +27,10 @@ function PhaseOneForm() {
   );
   const [state, setState] = useState<'form' | 'sent' | 'activate' | 'wait' | 'failed'>('form');
   const [loading, setLoading] = useState(false);
+
+  const checkoutHref = email
+    ? `${AIR_CHECKOUT}?prefilled_email=${encodeURIComponent(email)}`
+    : AIR_CHECKOUT;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,6 +129,14 @@ function PhaseOneForm() {
             )}
           </form>
         )}
+
+        <a
+          href={checkoutHref}
+          className="mt-6 block w-full border border-white px-4 py-3 text-center text-sm"
+        >
+          Pay Account Intelligence Report · $143.82 CAD
+        </a>
+        <p className="mt-2 text-center text-xs text-white/50">One time. Stripe. The card statement says TRANSFORMBY10X.AI. This does not mark Phase 1 paid.</p>
 
         <div className="mt-8 text-center">
           <a href={`/diagnostic/blueprint?archetype=${archetype}`} className="text-gray-400 hover:text-white">View Blueprint</a>
