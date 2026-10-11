@@ -1114,3 +1114,11 @@ body:before{
 }
 
 body:not(.booked) .after-book,body:not(.booked) a.infra-lane[data-lane="life"],body:not(.booked) a.infra-child[data-lane="life"],body:not(.booked) .infra-hang{display:none !important}
+
+@media(min-width:801px){
+  .route-lanes:has(> :only-child){grid-template-columns:1fr;min-height:72vh}
+  .route-lanes:has(> :only-child) .route-lane{min-height:72vh}
+  .route-lanes:has(> :only-child) .route-lane video{object-position:70% center}
+  .route-lanes:has(> :only-child) .route-lane:before{background:linear-gradient(90deg,#101111f6 0%,#101111e0 28%,#10111188 52%,#10111122 100%)}
+  .route-lanes:has(> :only-child) .route-lane strong{font-size:clamp(84px,9vw,140px)}
+}
