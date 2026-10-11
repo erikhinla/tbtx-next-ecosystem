@@ -1112,3 +1112,5 @@ body:before{
 @media(max-width:800px){
   .cinema-intro h2{font-size:clamp(34px,9.4vw,72px)}
 }
+
+body:not(.booked) .after-book,body:not(.booked) a.infra-lane[data-lane="life"],body:not(.booked) a.infra-child[data-lane="life"],body:not(.booked) .infra-hang{display:none !important}
