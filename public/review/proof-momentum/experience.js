@@ -348,7 +348,7 @@ function renderScan(r,qs){
 function renderReadout(r,qs){
  const voice=READOUT[r.band]||READOUT.Stalled;
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
- return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><div class="trace-step"><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="result-ctas"><button class="action lane-biz" id="result-next">Pick a time <span class="arr" aria-hidden="true"></span></button><p class="ev">We turn this pattern into a scope. The price comes from that scope. This does not start the work.</p></div><details><summary>What you said</summary><p class="said">${sayBusiness(qs,state.selections)}</p><p>${voice.repair}</p></details>${math}<button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+ return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><div class="trace-step"><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><details open><summary>What you said</summary><p class="said">${sayBusiness(qs,state.selections)}</p><p>${voice.repair}</p></details>${math}<p class="readout-close">You leave knowing whether it is worth changing.</p><div class="result-ctas"><button class="action lane-biz" id="result-next">Pick a time <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;if(state.lane==='business')state.traceDone=true;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
  if(state.lane==='business'){try{localStorage.setItem('tbtx-trace-v1',JSON.stringify({answers:[...state.selections],band:r.band,result:r.result}));}catch{}}
@@ -379,7 +379,7 @@ function loadWalkSlots(){
  if(!box)return;
  walkStart='';
  if(walkForm)walkForm.hidden=true;
- if(note)note.textContent='We turn this pattern into a scope. The price comes from that scope. This does not start the work.';
+ if(note)note.textContent='You leave knowing whether it is worth changing.';
  box.innerHTML='<p class="walk-note">Checking openings.</p>';
  fetch('/api/proof-time',{cache:'no-store'}).then(r=>r.json()).then(data=>{
   if(!data.ok||!data.slots?.length){box.innerHTML='<p class="walk-note">No opening in the next three weeks. Write erik@transformby10x.ai.</p>';return;}
