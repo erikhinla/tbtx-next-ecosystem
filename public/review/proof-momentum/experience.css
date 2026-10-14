@@ -1122,3 +1122,10 @@ body:not(.booked) .after-book,body:not(.booked) a.infra-lane[data-lane="life"],b
   .route-lanes:has(> :only-child) .route-lane:before{background:linear-gradient(90deg,#101111f6 0%,#101111e0 28%,#10111188 52%,#10111122 100%)}
   .route-lanes:has(> :only-child) .route-lane strong{font-size:clamp(84px,9vw,140px)}
 }
+
+/* Pricing follows the existing booking form treatment. */
+[data-price-panel] label{display:grid;gap:8px;max-width:24rem;margin:1rem 0;color:#f4eee5}
+[data-price-department]{font:inherit;color:#f4eee5;background:#161616;border:1px solid #f4eee555;padding:10px 12px;min-height:44px;width:100%;max-width:100%}
+.trace-step [data-price-output] .price-amount{font-size:clamp(30px,5vw,58px)!important;line-height:1.1;margin:1rem 0}
+[data-price-output] p+p{margin-top:1rem}
+[data-price-output] small{font-size:14px}

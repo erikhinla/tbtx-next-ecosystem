@@ -242,6 +242,7 @@ function bindDialog(d){if(!d||d.dataset.bound)return;d.dataset.bound='1';d.addEv
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){e.preventDefault();open(b.dataset.open,b);}});
 document.addEventListener('click',e=>{const jump=e.target.closest('[data-close-go]');if(!jump)return;e.preventDefault();const target=jump.getAttribute('data-close-go')||jump.getAttribute('href');closeAll();if(target)go(target.startsWith('#')?target:'#'+target);});
 function go(id){const el=$(id);if(!el)return;el.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});}
+let priceModifierOn=false,priceDepartment='',priceQuote=null,priceKey='',priceController=null;
 const state={gate:false,lane:null,step:0,selections:[],personalSelections:null,showingResult:false,traceDone:false};
 try{state.gate=sessionStorage.getItem('tbtx-entry')==='up';const p=JSON.parse(localStorage.getItem('tbtx-scan-v3'));if(p?.version==='site-20260914'&&score('personal',p.answers))state.personalSelections=p.answers;}catch{}
 function beginTrace(){setStood(true);setLane('business');state.lane='business';state.step=0;state.traceDone=false;const qs=window.REVIEW_QUESTIONS?.business;if(!qs){open('map-intro');return;}state.selections=Array(qs.length).fill(null);renderQuestion();open('questionnaire');}
@@ -345,10 +346,42 @@ function renderScan(r,qs){
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Carrying it 0-49 · Clear enough 50-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
  return `<div class="readout scan-handoff"><h2 id="question-title" tabindex="-1">Where it shows up</h2><p class="said">${sayPersonal(qs,state.selections)}</p><p class="ev">Reported. Those are your selections. Nothing was added.</p><div class="trace-step"><b>The pattern</b><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><div class="trace-step"><b>The likely human repair</b><p>${voice.repair}</p></div><p class="readout-close">This is what you reported, not what we measured.</p>${math}<div class="result-ctas"><button class="action lane-life" id="result-next">Start Digital De-Fog Daily <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
+
+const PRICE_DEPARTMENTS=[['ACC','Account'],['FIN','Finance'],['LGL','Legal'],['PRD','Production'],['STR','Strategy'],['CRT','Creative'],['PR','Public Relations'],['MED','Media'],['HR','Human Resources'],['OPS','BizOps']];
+const priceMoney=(value,digits=0)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:digits,maximumFractionDigits:digits}).format(value);
+function pricePanel(name){return `<section class="trace-step" data-price-panel="${name}"><h3>Indicative BizBlueprint price</h3><label>Department <select data-price-department><option value="">Choose the department</option>${PRICE_DEPARTMENTS.map(([id,label])=>`<option value="${id}">${label}</option>`).join('')}</select></label><div data-price-output aria-live="polite"><p>Choose a department to calculate the indicative one-time price.</p></div></section>`;}
+function mountPricePanels(){
+ $$('[data-price-panel]').forEach(panel=>{
+  const select=panel.querySelector('[data-price-department]');if(!select)return;
+  select.value=priceDepartment;
+  select.onchange=()=>{priceDepartment=select.value;priceQuote=null;priceKey='';mountPricePanels();refreshPrice();};
+ });
+}
+function paintPrice(html){$$('[data-price-output]').forEach(el=>{el.innerHTML=html;el.querySelector('[data-price-retry]')?.addEventListener('click',()=>refreshPrice());});}
+function currentPriceKey(){return JSON.stringify({selections:state.selections,departmentId:priceDepartment,modifierOn:priceModifierOn});}
+function refreshPrice(){
+ if(state.lane!=='business'||!score('business',state.selections))return;
+ priceController?.abort();
+ if(!PRICE_DEPARTMENTS.some(([id])=>id===priceDepartment)){priceQuote=null;priceKey='';paintPrice('<p>Choose a department to calculate the indicative one-time price. Booking a call is still free.</p>');return;}
+ const key=currentPriceKey();
+ if(priceQuote&&priceKey===key){paintQuote();return;}
+ priceQuote=null;priceKey='';paintPrice('<p>Calculating the indicative price.</p>');
+ const controller=new AbortController();priceController=controller;
+ fetch('/api/engagement-price',{method:'POST',headers:{'Content-Type':'application/json'},body:key,cache:'no-store',signal:controller.signal}).then(async response=>{
+  const body=await response.json();if(controller.signal.aborted||key!==currentPriceKey())return;
+  if(!response.ok||!body.ok||body.currency!=='USD'||body.departmentId!==priceDepartment||!Number.isFinite(body.finalPrice)||!Number.isFinite(body.score))throw new Error('price');
+  priceQuote=body;priceKey=key;paintQuote();
+ }).catch(()=>{if(!controller.signal.aborted&&key===currentPriceKey())paintPrice('<p>The price is unavailable. <button type="button" data-price-retry>Try again</button>. Booking a call is still free.</p>');});
+}
+function paintQuote(){
+ const q=priceQuote;if(!q||priceKey!==currentPriceKey())return;
+ paintPrice(`<p class="score-number price-amount">${priceMoney(q.finalPrice)} <small>indicative · USD</small></p><p>Context-coordination scenario: ${q.score.toFixed(2)} / 100. Modifier ${q.modifierOn?'on (illustrative aligned scenario)':'off (current scenario)'}.</p><details><summary>How the price is calculated</summary><p>$95,000 × the scenario index ÷ 100 = ${priceMoney(q.annualLoad,2)} modeled annual load. 15% gives ${priceMoney(q.rawEngagementPrice,2)} before the $1,500 minimum.</p><p>I round to the nearest dollar, then apply the minimum.${q.floorApplied?' The minimum applies here.':''} Display figures are rounded; the calculation uses the full scenario index.</p></details><p>Your PROOF score shows the degree of context coordination load. The indicative price is 15% of the annual cost of that load, using a $95,000 basis for one full-time coordinator. This is not a measured business loss or a guaranteed ROI figure. Scope is agreed after we walk through the pattern.</p><p>The index and cost basis are model assumptions. Booking a call doesn’t commit you to paid work.</p>`);
+}
+
 function renderReadout(r,qs){
  const voice=READOUT[r.band]||READOUT.Stalled;
  const math=`<details class="result-math"><summary>The answer arithmetic</summary><div class="score-number">${r.result}<small>/100</small></div><p class="result-formula">round(100 × ${r.raw} ÷ ${r.max}) = ${r.result}</p><p>Fragmented 0-24 · Stalled 25-49 · Scaling 50-74 · Compounding 75-100.</p><p>This reflects the answers given. It isn't measured productivity, hours saved or a diagnosis.</p><details><summary>The answers, one by one</summary>${qs.map((q,i)=>`<div class="answer-record"><strong>${q.id}. ${escape(q.text)}</strong><p>${escape(q.options[state.selections[i]].text)}</p><small>${pointLabel(r.values[i])}</small></div>`).join('')}</details></details>`;
- return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><div class="trace-step"><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><details open><summary>What you said</summary><p class="said">${sayBusiness(qs,state.selections)}</p><p>${voice.repair}</p></details>${math}<p class="readout-close">I’ll walk through the pattern with you. Booking a call doesn’t commit you to paid work.</p><div class="result-ctas"><button class="action lane-biz" id="result-next">Pick a time <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
+ return `<div class="readout"><h2 id="question-title" tabindex="-1">The pattern</h2><div class="trace-step"><p>${voice.pattern}</p></div><div class="trace-step"><b>The pressure</b><p>${voice.pressure}</p></div><details open><summary>What you said</summary><p class="said">${sayBusiness(qs,state.selections)}</p><p>${voice.repair}</p></details>${math}${pricePanel("result")}<p class="readout-close">I’ll walk through the pattern with you. Booking a call doesn’t commit you to paid work.</p><div class="result-ctas"><button class="action lane-biz" id="result-next">Pick a time <span class="arr" aria-hidden="true"></span></button></div><button class="text-action" id="review-answers">Review answers <i class="arr" aria-hidden="true"></i></button></div>`;
 }
 function renderResult(){const r=score(state.lane,state.selections);if(!r)return;if(state.lane==='business')state.traceDone=true;const qs=window.REVIEW_QUESTIONS[state.lane];if(state.lane==='personal'){state.personalSelections=[...state.selections];try{localStorage.setItem('tbtx-scan-v3',JSON.stringify({version:'site-20260914',answers:state.personalSelections}));}catch{}}
  if(state.lane==='business'){try{localStorage.setItem('tbtx-trace-v1',JSON.stringify({answers:[...state.selections],band:r.band,result:r.result}));}catch{}}
@@ -362,6 +395,7 @@ function renderResult(){const r=score(state.lane,state.selections);if(!r)return;
   $('#question-lane').textContent='Digital Fog Scan / Where it shows up';
   $('#question-body').innerHTML=renderScan(r,qs);
  }
+ if(state.lane==='business'){mountPricePanels();refreshPrice();}
  $('#result-next').onclick=()=>{close('questionnaire');if(state.lane==='business')open('trace');else window.DDD.open();};$('#review-answers').onclick=()=>{state.step=0;renderQuestion();focusQuestion();};modalWorld();focusQuestion();}
 function proofAgenda(){
  const r=score('business',state.selections);if(!r)return '';
@@ -374,6 +408,7 @@ function proofAgenda(){
 const walkForm=$('#walk-form');
 let walkStart='';
 function loadWalkSlots(){
+ mountPricePanels();refreshPrice();
  const box=$('#walk-slots');
  const note=$('#walk-note');
  if(!box)return;
@@ -413,7 +448,7 @@ if(walkForm) walkForm.addEventListener('submit',async e=>{
  if(button)button.disabled=true;
  const note=$('#walk-note');
  try{
-  const res=await fetch('/api/proof-time',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({start:walkStart,name,email,company,trace:proofAgenda()})});
+  const res=await fetch('/api/proof-time',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({start:walkStart,name,email,company,trace:proofAgenda(),pricing:priceQuote&&priceKey===currentPriceKey()?{selections:state.selections,departmentId:priceDepartment,modifierOn:priceModifierOn}:undefined})});
   const body=await res.json().catch(()=>({}));
   if(res.status===409){if(note)note.textContent='That time was just taken.';if(button)button.disabled=false;loadWalkSlots();return;}
   if(!res.ok||!body.ok){if(note)note.textContent='The time did not book. Try another opening.';if(button)button.disabled=false;return;}
@@ -517,3 +552,14 @@ $$('.action,.route,.route-lane,.gate-choices button,.method-launch').forEach(b=>
 mountInfra();
 window.TBTX={open,close,closeAll,startDDD,state,escape,media,score,chooseGallery,bindDialog};window.reviewScore=score;window.reviewState=state;
 })();
+
+try{
+ if(new URLSearchParams(location.search).get('book')==='1'){
+  const raw=sessionStorage.getItem('tbtx-proof-handoff');sessionStorage.removeItem('tbtx-proof-handoff');
+  const handoff=raw?JSON.parse(raw):null;
+  if(handoff&&score('business',handoff.selections)&&PRICE_DEPARTMENTS.some(([id])=>id===handoff.departmentId)){
+   setStood(true);setLane('business');state.lane='business';state.selections=handoff.selections;priceDepartment=handoff.departmentId;priceModifierOn=handoff.modifierOn===true;
+   renderResult();open('trace');history.replaceState(null,'','/proof');
+  }
+ }
+}catch{}

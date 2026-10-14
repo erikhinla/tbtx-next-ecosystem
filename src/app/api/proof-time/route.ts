@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
+import { siteQuote } from "../../../lib/proof/site-quote";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -168,6 +169,10 @@ export async function POST(request: Request) {
   const email = cleanLine(input.email, 120).toLowerCase();
   const company = cleanLine(input.company, 80);
   const trace = cleanTrace(input.trace);
+  const pricing = input.pricing && typeof input.pricing === "object"
+    ? input.pricing as Record<string, unknown> : null;
+  const quote = pricing ? siteQuote(pricing.selections, pricing.departmentId, pricing.modifierOn ?? false) : null;
+  if (input.pricing !== undefined && !quote) return NextResponse.json({ ok: false }, { status: 400 });
   const start = typeof input.start === "string" ? input.start : "";
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || trace.length < 20) {
     return NextResponse.json({ ok: false }, { status: 400 });
@@ -189,6 +194,13 @@ export async function POST(request: Request) {
       ``,
       `Forty-five minutes. The place is added on the invite.`,
       ``,
+      ...(quote ? [
+        `Indicative BizBlueprint price (server calculation): USD ${quote.finalPrice}`,
+        `Department: ${quote.departmentId}; manifestation scenario: ${quote.score}; modifier: ${quote.modifierOn ? "on (illustrative)" : "off"}`,
+        `Basis: USD 95000; factor: 15%; rounded to the nearest dollar; USD 1500 minimum.`,
+        `Model assumption, not measured business loss or guaranteed ROI. Scope remains to be agreed.`,
+        `Pricing version: ${quote.version}`,
+      ] : []),
       trace,
     ]
       .filter((line) => line !== "")
