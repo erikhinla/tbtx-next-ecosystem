@@ -1,0 +1,526 @@
+[
+ {
+  "id": "P01",
+  "date": "2026-10-20",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Launch the theme: AI created a job nobody wanted. Context Coordination is that job. Founder voice. Use founder manifesto lines.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P02",
+  "date": "2026-10-20",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Company voice: the tools work; the job they created was never staffed. Introduce PROOF as 15 answers.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P03",
+  "date": "2026-10-20",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Accessible, human: the work after the tool says done.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P04",
+  "date": "2026-10-20",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "One observation: the job nobody staffed. Short.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P05",
+  "date": "2026-10-20",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Company: AI makes more work possible. Your people are absorbing it.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P06",
+  "date": "2026-10-20",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Recognition carried by one visual. Caption short.",
+  "assets": [
+   "01_job-nobody-wanted_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P07",
+  "date": "2026-10-21",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Part air traffic controller. Part librarian. Occasionally, therapist for software. Who is doing this job on your team?",
+  "assets": [
+   "05_air-traffic-librarian_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P08",
+  "date": "2026-10-21",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Same line, X length.",
+  "assets": [
+   "05_air-traffic-librarian_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P09",
+  "date": "2026-10-21",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Nobody scheduled it. Nobody staffed it.",
+  "assets": [
+   "11_nobody-staffed-it_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P10",
+  "date": "2026-10-22",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Audiogram: AI audio overview, illustrative scenario of a project manager rebuilding a decision trail. Make clear it is illustrative and AI audio.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P11",
+  "date": "2026-10-22",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Same audiogram, company voice.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P12",
+  "date": "2026-10-22",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Same audiogram, human framing.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P13",
+  "date": "2026-10-22",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Audiogram, short hook.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P14",
+  "date": "2026-10-22",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Reel version of the audiogram.",
+  "assets": [
+   "C1_sarah_9x16.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P15",
+  "date": "2026-10-22",
+  "time_pt": "16:00",
+  "channel": "youtube",
+  "angle": "YouTube Short of the audiogram. Needs a title under 100 chars.",
+  "assets": [
+   "C1_sarah_9x16.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P16",
+  "date": "2026-10-23",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Story carousel: The process. Someone carried it. Until it can't. Dropped it. Fog becomes friction. PROOF.",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-4_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg",
+   "07_story-6_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P17",
+  "date": "2026-10-23",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Story carousel, human framing.",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-4_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg",
+   "07_story-6_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P18",
+  "date": "2026-10-23",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Story carousel caption.",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-4_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg",
+   "07_story-6_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P19",
+  "date": "2026-10-23",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Four-image story (X max 4).",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P20",
+  "date": "2026-10-26",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Ambiguity doesn't automate. NotebookLM infographic: what people carry vs what systems carry.",
+  "assets": [
+   "13_infra-gap-1_1080x1350.jpg",
+   "13_infra-gap-2_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P21",
+  "date": "2026-10-26",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Company: externalize the context layer. Briefs, decisions, owners and statuses travel with the work.",
+  "assets": [
+   "13_infra-gap-1_1080x1350.jpg",
+   "13_infra-gap-2_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P22",
+  "date": "2026-10-26",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Find a document in 5 seconds line.",
+  "assets": [
+   "15_find-a-document_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P23",
+  "date": "2026-10-26",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Ambiguity doesn't automate, infographic.",
+  "assets": [
+   "13_infra-gap-1_1080x1350.jpg",
+   "13_infra-gap-2_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P24",
+  "date": "2026-10-27",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Audiogram: paying for the work twice because the answer did not travel with the task.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P25",
+  "date": "2026-10-27",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Same audiogram, human framing.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P26",
+  "date": "2026-10-27",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Audiogram, short hook.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P27",
+  "date": "2026-10-27",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Audiogram, company voice.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P28",
+  "date": "2026-10-27",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Reel of the audiogram.",
+  "assets": [
+   "C2_paying-twice_9x16.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P29",
+  "date": "2026-10-28",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Use the exact Instagram carousel copy and caption from TBTX_PROOF_MESSAGING_UX_COPY.md section 11, adapted to point to PROOF.",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg",
+   "17_draft-finished-2_1080x1350.jpg",
+   "17_draft-finished-3_1080x1350.jpg",
+   "17_draft-finished-4_1080x1350.jpg",
+   "17_draft-finished-5_1080x1350.jpg",
+   "17_draft-finished-6_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P30",
+  "date": "2026-10-28",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Use the X starter copy from section 11 (AI draft takes seconds...).",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P31",
+  "date": "2026-10-28",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Carousel: the draft is finished, I'm still finding the context.",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg",
+   "17_draft-finished-2_1080x1350.jpg",
+   "17_draft-finished-3_1080x1350.jpg",
+   "17_draft-finished-4_1080x1350.jpg",
+   "17_draft-finished-5_1080x1350.jpg",
+   "17_draft-finished-6_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P32",
+  "date": "2026-10-28",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Use the Facebook starter copy from section 11 (the work after the tool says it's finished).",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg",
+   "17_draft-finished-2_1080x1350.jpg",
+   "17_draft-finished-3_1080x1350.jpg",
+   "17_draft-finished-4_1080x1350.jpg",
+   "17_draft-finished-5_1080x1350.jpg",
+   "17_draft-finished-6_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P33",
+  "date": "2026-10-29",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Audiogram: context is the new capacity; nobody should have to absorb the unstaffed job of coordinating broken workflows.",
+  "assets": [
+   "C3_context-capacity_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P34",
+  "date": "2026-10-29",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Attention budget infographic: you are crashing the attention budget; handoff compaction.",
+  "assets": [
+   "25_attention-budget-1_1080x1350.jpg",
+   "25_attention-budget-2_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P35",
+  "date": "2026-10-29",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Audiogram: context is the new capacity.",
+  "assets": [
+   "C3_context-capacity_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P36",
+  "date": "2026-10-29",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Context windows are budgets you spend (audiogram C4).",
+  "assets": [
+   "C4_budgets_1x1.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P37",
+  "date": "2026-10-29",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Reel: context is the new capacity.",
+  "assets": [
+   "C3_context-capacity_9x16.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P38",
+  "date": "2026-10-29",
+  "time_pt": "16:00",
+  "channel": "youtube",
+  "angle": "YouTube Short: context is the new capacity.",
+  "assets": [
+   "C3_context-capacity_9x16.mp4"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P39",
+  "date": "2026-10-30",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Show the product: PROOF screen plus the Show the Math sample card. 15 answers, inspectable math, your four numbers replace the sample.",
+  "assets": [
+   "27_proof-app_1200x675.jpg",
+   "28_show-the-math_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P40",
+  "date": "2026-10-30",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Begin with PROOF: the sequence PROOF, agreed engagement, BizBlueprint, implementation, completion review, BizBot Mrktng. TBTX, BBAI, BBM logos.",
+  "assets": [
+   "29_brand-sequence_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P41",
+  "date": "2026-10-30",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "The client asked where the approval stands (PROOF feed ad).",
+  "assets": [
+   "30_feed-approval_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P42",
+  "date": "2026-10-30",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "A digitized landfill is not a database (poster).",
+  "assets": [
+   "31_landfill-poster_1080x1350.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P43",
+  "date": "2026-10-30",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "We do not sell software. The final file. The written decision. The name allowed to approve it. (billboard).",
+  "assets": [
+   "32_billboard_1200x675.jpg"
+  ],
+  "caption": ""
+ },
+ {
+  "id": "P44",
+  "date": "2026-10-30",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Carousel: feed ad + show the math + questions screen.",
+  "assets": [
+   "30_feed-approval_1080x1350.jpg",
+   "28_show-the-math_1080x1350.jpg",
+   "27b_proof-questions_1080x1350.jpg"
+  ],
+  "caption": ""
+ }
+]
