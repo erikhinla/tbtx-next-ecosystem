@@ -2,7 +2,7 @@
 """Load the PROOF wave into Postiz as DRAFTS only (type=draft). Resume-safe. Paced for the 30 req/hour public API limit."""
 import json, os, sys, time, mimetypes, uuid, urllib.request, urllib.error
 from datetime import datetime, timedelta
-BASE='https://postiz.transformby10x.ai/api/public/v1'
+BASE=os.environ.get('POSTIZ_BASE','https://postiz.transformby10x.ai/api/public/v1')
 W='/root/tbtx-next-ecosystem/hermes/proof-wave-2026-10'
 STATE=W+'/output/postiz_state.json'
 KEY=[l.split('=',1)[1].strip().strip('"').strip("'") for l in open('/root/.hermes/.env') if l.startswith('POSTIZ_API_KEY=')][0]
