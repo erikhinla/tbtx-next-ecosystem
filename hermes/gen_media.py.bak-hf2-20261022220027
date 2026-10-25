@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+"""Cinematic plates for Hermes via Vertex AI (gcloud token, project from gcloud config).
+
+  still: python3 gen_media.py still "<prompt>" out.png [--aspect 9:16|1:1|4:5|16:9] [--provider vertex] [--model ID] [--location L]
+  clip:  python3 gen_media.py clip  "<prompt>" out.mp4 [--aspect 9:16|16:9] [--seconds 4|6|8] [--image first_frame.png]
+                                                      [--provider vertex] [--model ID] [--location L]
+Provider and model are parameters so cheaper options can be swapped in. Implemented providers:
+  vertex (default). still models use :generateContent (Gemini image family); clip models use
+  :predictLongRunning + :fetchPredictOperation (Veo family). Add a new provider in PROVIDERS below.
+BUDGET (Erik, 2026-10-22): at most ONE Veo clip per video, reused for every size (1:1 is a crop).
+Prefer a still + slow push-in (the template animates it) unless motion in the plate really matters.
+
+Models (verified on project-4815ed48-b090-4e68-878, 2026-10-22):
+  still -> gemini-2.5-flash-image  (location global, :generateContent)
+  clip  -> veo-3.1-generate-001    (location us-central1, :predictLongRunning, no audio)
+Clip default veo-3.1-lite-generate-001 (720p, about $0.03/s), falls back to veo-3.1-generate-001 if refused.
+Veo only does 16:9 and 9:16; 1:1 is a center crop. Stills: gemini-3.1-flash-image default (won a 2026-10-22 look test vs gemini-2.5-flash-image; imagen-4.0-fast returns 404 on this project).
+Every prompt gets Erik's style suffix appended (cinematic realism, architectural, brushed metal, fog,
+atmospheric light, photoreal, no people's likeness, no text). Writes <out>.json with the prompt + model."""
+import base64, json, os, subprocess, sys, time, urllib.request, urllib.error
+STYLE = (" Cinematic photoreal still, precise architectural composition, brushed metal and concrete surfaces, "
+         "low fog and atmospheric volumetric light, shallow depth, restrained dark neutral palette with a faint "
+         "magenta practical light accent, anamorphic film look, subtle film grain. Large calm negative space for "
+         "headline type. No people, no faces, no hands, no text, no letters, no logos, no signage, no watermark.")
+def sh(c): return subprocess.check_output(c, text=True).strip()
+def token(): return sh(["gcloud", "auth", "print-access-token"])
+def project(): return os.environ.get("GCP_PROJECT") or sh(["gcloud", "config", "get-value", "project"])
+def post(url, body, soft=False):
+    req = urllib.request.Request(url, json.dumps(body).encode(), {"Authorization": "Bearer " + token(),
+                                 "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=600) as r: return json.load(r)
+    except urllib.error.HTTPError as e:
+        msg = f"HTTP {e.code}: {e.read().decode()[:800]}"
+        if soft: raise RuntimeError(msg)
+        sys.exit(msg)
+DEFAULTS = {"still": ("gemini-3.1-flash-image", "global"), "clip": ("veo-3.1-lite-generate-001", "us-central1")}
+CLIP_FALLBACK = "veo-3.1-generate-001"   # used only if the lite model is refused
+def vurl(model, loc):
+    host = "aiplatform.googleapis.com" if loc == "global" else f"{loc}-aiplatform.googleapis.com"
+    return f"https://{host}/v1/projects/{project()}/locations/{loc}/publishers/google/models/{model}"
+def still(prompt, out, aspect, model, loc):
+    if model.startswith("imagen"):   # Imagen family: :predict (no 4:5; use 3:4 and let the template crop)
+        if loc == "global": loc = "us-central1"
+        asp = {"4:5": "3:4"}.get(aspect, aspect)
+        r = post(vurl(model, loc) + ":predict", {"instances": [{"prompt": prompt + STYLE}],
+                 "parameters": {"sampleCount": 1, "aspectRatio": asp, "personGeneration": "dont_allow"}})
+        p = r["predictions"][0]
+        open(out, "wb").write(base64.b64decode(p["bytesBase64Encoded"]))
+        json.dump({"provider": "vertex", "model": model, "prompt": prompt + STYLE, "aspect": asp}, open(out + ".json", "w"), indent=1)
+        print(f"still ok {out} ({model})"); return
+    url = vurl(model, loc) + ":generateContent"
+    body = {"contents": [{"role": "user", "parts": [{"text": prompt + STYLE}]}],
+            "generationConfig": {"responseModalities": ["IMAGE"], "imageConfig": {"aspectRatio": aspect}}}
+    r = post(url, body)
+    for c in r.get("candidates", []):
+        for p in c.get("content", {}).get("parts", []):
+            if "inlineData" in p:
+                open(out, "wb").write(base64.b64decode(p["inlineData"]["data"]))
+                meta = {"provider": "vertex", "model": model, "prompt": prompt + STYLE, "aspect": aspect,
+                        "usage": r.get("usageMetadata")}
+                json.dump(meta, open(out + ".json", "w"), indent=1)
+                print(f"still ok {out}  usage={r.get('usageMetadata')}"); return
+    sys.exit("no image returned: " + json.dumps(r)[:800])
+def clip(prompt, out, aspect, secs, image, model, loc):
+    base = vurl(model, loc)
+    inst = {"prompt": prompt + STYLE + " Very slow, smooth camera push-in; drifting fog; no cuts."}
+    if image:
+        inst["image"] = {"bytesBase64Encoded": base64.b64encode(open(image, "rb").read()).decode(),
+                         "mimeType": "image/png"}
+    body = {"instances": [inst], "parameters": {"aspectRatio": aspect, "durationSeconds": int(secs),
+            "sampleCount": 1, "generateAudio": False, "resolution": "720p" if "lite" in model else "1080p",
+            "personGeneration": "dont_allow"}}
+    try:
+        op = post(base + ":predictLongRunning", body, soft=True)["name"]
+    except RuntimeError as e:
+        if model == CLIP_FALLBACK: sys.exit(str(e))
+        print(f"{model} refused ({str(e)[:160]}); falling back to {CLIP_FALLBACK}", flush=True)
+        model = CLIP_FALLBACK; base = vurl(model, loc); body["parameters"]["resolution"] = "1080p"
+        op = post(base + ":predictLongRunning", body)["name"]
+    print("veo job", model, op, flush=True)
+    for _ in range(90):
+        time.sleep(10)
+        r = post(base + ":fetchPredictOperation", {"operationName": op})
+        if r.get("done"):
+            if "error" in r: sys.exit("veo error: " + json.dumps(r["error"]))
+            v = r["response"]["videos"][0]
+            open(out, "wb").write(base64.b64decode(v["bytesBase64Encoded"]))
+            json.dump({"provider": "vertex", "model": model, "prompt": inst["prompt"], "aspect": aspect, "seconds": secs,
+                       "first_frame": image, "op": op}, open(out + ".json", "w"), indent=1)
+            print(f"clip ok {out}"); return
+    sys.exit("veo timeout " + op)
+PROVIDERS = {"vertex": {"still": still, "clip": clip}}
+if __name__ == "__main__":
+    a = sys.argv[1:]
+    def opt(k, d=None):
+        return a[a.index(k) + 1] if k in a else d
+    if len(a) < 3 or a[0] not in ("still", "clip"): sys.exit(__doc__)
+    prov = opt("--provider", "vertex")
+    if prov not in PROVIDERS: sys.exit(f"provider {prov} not implemented; have {list(PROVIDERS)}")
+    model = opt("--model", DEFAULTS[a[0]][0]); loc = opt("--location", DEFAULTS[a[0]][1])
+    if a[0] == "still": PROVIDERS[prov]["still"](a[1], a[2], opt("--aspect", "9:16"), model, loc)
+    else: PROVIDERS[prov]["clip"](a[1], a[2], opt("--aspect", "9:16"), opt("--seconds", "6"), opt("--image"), model, loc)

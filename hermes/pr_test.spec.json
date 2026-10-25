@@ -1,0 +1,14 @@
+{
+  "name": "pr_test",
+  "duration": 9,
+  "mode": "plate",
+  "plate": {"still": "/root/tbtx-next-ecosystem/public/media/fog-corridor.jpg"},
+  "beats": [
+    {"text": "AI agents report record *gains*.", "fx": "grow"}
+  ],
+  "formats": ["9x16", "16x9"],
+  "stills": [],
+  "approved_copy": [
+    "AI agents report record gains."
+  ]
+}

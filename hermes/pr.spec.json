@@ -1,0 +1,28 @@
+{
+  "name": "press-release",
+  "duration": 30,
+  "mode": "plate",
+  "plate": {"still": "/root/tbtx-next-ecosystem/public/media/bbai-deck-flow.jpg"},
+  "beats": [
+    {"text": "AI Agents Report Record Productivity *Gains*,", "fx": "grow", "hold": [0, 3.0]},
+    {"text": "Mostly From Humans *Re-Explaining* Things to Them.", "fx": "grow", "hold": [3.0, 8.0]},
+    {"text": "Account Director Steps Down as Unofficial Context *Coordinator*,", "fx": "grow", "hold": [8.0, 12.0]},
+    {"text": "Returns to Directing *Accounts*.", "fx": "grow", "hold": [12.0, 15.0]},
+    {"text": "Companies Add More AI to Close the Context *Gap*.", "fx": "grow", "hold": [15.0, 18.0]},
+    {"text": "The Context Gap Grows Another *Foot*.", "fx": "grow", "hold": [18.0, 20.0]},
+    {"text": "Industry's Fastest-Growing Job Title Pays Nothing and Appears in No Org Chart: Context *Coordinator*.", "fx": "grow", "hold": [20.0, 25.0]},
+    {"text": "Take *PROOF*.", "fx": "grow", "hold": [25.0, 30.0]}
+  ],
+  "formats": ["9x16", "16x9"],
+  "stills": [],
+  "approved_copy": [
+    "AI Agents Report Record Productivity Gains,",
+    "Mostly From Humans Re-Explaining Things to Them.",
+    "Account Director Steps Down as Unofficial Context Coordinator,",
+    "Returns to Directing Accounts.",
+    "Companies Add More AI to Close the Context Gap.",
+    "The Context Gap Grows Another Foot.",
+    "Industry's Fastest-Growing Job Title Pays Nothing and Appears in No Org Chart: Context Coordinator.",
+    "Take PROOF."
+  ]
+}

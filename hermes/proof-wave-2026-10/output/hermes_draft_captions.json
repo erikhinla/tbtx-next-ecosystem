@@ -1,0 +1,528 @@
+[
+ {
+  "id": "P01",
+  "date": "2026-10-20",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Launch the theme: AI created a job nobody wanted. Context Coordination is that job. Founder voice. Use founder manifesto lines.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": "AI created a job nobody wanted. The work after the tool says it's done. Moving the context, chasing the answer, checking the output, finding the version, reconnecting the conversation. I'm building PROOF to make that work visible. See for yourself: https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P02",
+  "date": "2026-10-20",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Company voice: the tools work; the job they created was never staffed. Introduce PROOF as 15 answers.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": "The tools work. They created a job nobody staffed, and your team is absorbing it. That unspoken role is 'Context Coordinator', and it's burning out your best people. PROOF gives you 15 answers to see where that work is hiding. Start here: https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P03",
+  "date": "2026-10-20",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Accessible, human: the work after the tool says done.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": "The work doesn't stop when the AI gives you an output. Someone still has to find the right version, check the facts, and get it to the next person. That's the job no one is talking about. We built PROOF to make it visible. See how it works: https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P04",
+  "date": "2026-10-20",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "One observation: the job nobody staffed. Short.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": "AI created a job nobody wanted. The work after the work. Part air traffic controller. Part librarian. All unstaffed. This is the job of Context Coordination. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P05",
+  "date": "2026-10-20",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Company: AI makes more work possible. Your people are absorbing it.",
+  "assets": [
+   "01_job-nobody-wanted_1200x675.jpg"
+  ],
+  "caption": "AI makes more work possible. Your people are quietly absorbing the new job of coordinating it all. This is Digital Fog. It's real, and it has a cost. PROOF makes that cost visible. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P06",
+  "date": "2026-10-20",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Recognition carried by one visual. Caption short.",
+  "assets": [
+   "01_job-nobody-wanted_1080x1350.jpg"
+  ],
+  "caption": "This is the job nobody staffed. The work after the tool says 'done'. Link in bio. https://transformby10x.ai/proof #DigitalFog #PROOF"
+ },
+ {
+  "id": "P07",
+  "date": "2026-10-21",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Part air traffic controller. Part librarian. Occasionally, therapist for software. Who is doing this job on your team?",
+  "assets": [
+   "05_air-traffic-librarian_1200x675.jpg"
+  ],
+  "caption": "I call it Context Coordination. Part air traffic controller. Part librarian. Occasionally, therapist for software. It's the job AI created that nobody scheduled, and it's probably being done by someone good on your team right now. I built PROOF to make this work visible. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P08",
+  "date": "2026-10-21",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Same line, X length.",
+  "assets": [
+   "05_air-traffic-librarian_1200x675.jpg"
+  ],
+  "caption": "Part air traffic controller. Part librarian. Occasionally, therapist for software. This is the unstaffed job AI created on your team. Who is doing it? https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P09",
+  "date": "2026-10-21",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Nobody scheduled it. Nobody staffed it.",
+  "assets": [
+   "11_nobody-staffed-it_1200x675.jpg"
+  ],
+  "caption": "Nobody scheduled it. Nobody staffed it. So somebody good picked it up anyway. That's the story of Context Coordination. See where it shows up in your operation. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P10",
+  "date": "2026-10-22",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Audiogram: AI audio overview, illustrative scenario of a project manager rebuilding a decision trail. Make clear it is illustrative and AI audio.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": "This AI audio overview shares an illustrative scenario: a project manager spending hours rebuilding a decision trail just to verify an AI's output. That's Digital Fog. It's the invisible labor costing your team momentum. I built PROOF to find it. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P11",
+  "date": "2026-10-22",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Same audiogram, company voice.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": "Listen to this AI-generated overview of a common problem: a project manager, Sarah, doing hours of clerical rescue work for an AI. This is Digital Fog, and it consumes operating capacity. PROOF helps you see it before it becomes friction. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P12",
+  "date": "2026-10-22",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Same audiogram, human framing.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": "Here's a familiar story, voiced by an AI. A project manager has to piece together scattered context to make an AI's output usable. That's the work no one is counting. We are. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P13",
+  "date": "2026-10-22",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Audiogram, short hook.",
+  "assets": [
+   "C1_sarah_1x1.mp4"
+  ],
+  "caption": "AI audio overview: Hear an illustrative scenario of 'Sarah' the PM, spending her day on clerical rescue work for an AI. That's the job nobody is tracking. I am. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P14",
+  "date": "2026-10-22",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Reel version of the audiogram.",
+  "assets": [
+   "C1_sarah_9x16.mp4"
+  ],
+  "caption": "This is an AI audio overview, not my voice. It's an illustrative story about the work after the work. The part no one is counting. I'm counting it. Link in bio. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P15",
+  "date": "2026-10-22",
+  "time_pt": "16:00",
+  "channel": "youtube",
+  "angle": "YouTube Short of the audiogram. Needs a title under 100 chars.",
+  "assets": [
+   "C1_sarah_9x16.mp4"
+  ],
+  "caption": "An AI audio overview of an illustrative scenario. A project manager spends hours on clerical rescue work for an AI. That invisible labor is Digital Fog. I built PROOF to find it. https://transformby10x.ai/proof",
+  "title": "The Unstaffed Job AI Created"
+ },
+ {
+  "id": "P16",
+  "date": "2026-10-23",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Story carousel: The process. Someone carried it. Until it can't. Dropped it. Fog becomes friction. PROOF.",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-4_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg",
+   "07_story-6_1080x1350.jpg"
+  ],
+  "caption": "The process is simple. Someone good carries the context. The process breaks. They carry more. Until they can't. Digital Fog becomes Digital Friction. I built PROOF to show you where the gaps are, before they become a crisis. See the pattern: https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P17",
+  "date": "2026-10-23",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Story carousel, human framing.",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-4_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg",
+   "07_story-6_1080x1350.jpg"
+  ],
+  "caption": "It starts with one person holding it all together. Then the work grows. The context gets dropped. The result is rework and delay. This is Digital Fog turning into Friction. We built PROOF to make this pattern visible. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P18",
+  "date": "2026-10-23",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Story carousel caption.",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-4_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg",
+   "07_story-6_1080x1350.jpg"
+  ],
+  "caption": "This is how Digital Fog becomes Digital Friction. It starts with one person carrying the load. It ends with stalled work and burnout. See the pattern. Find the gaps. Link in bio. https://transformby10x.ai/proof #DigitalFog #PROOF"
+ },
+ {
+  "id": "P19",
+  "date": "2026-10-23",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Four-image story (X max 4).",
+  "assets": [
+   "07_story-1_1080x1350.jpg",
+   "07_story-2_1080x1350.jpg",
+   "07_story-3_1080x1350.jpg",
+   "07_story-5_1080x1350.jpg"
+  ],
+  "caption": "The work keeps moving because someone carries it. Until they can't. Then the fog becomes friction. PROOF shows you where. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P20",
+  "date": "2026-10-26",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Ambiguity doesn't automate. NotebookLM infographic: what people carry vs what systems carry.",
+  "assets": [
+   "13_infra-gap-1_1080x1350.jpg",
+   "13_infra-gap-2_1080x1350.jpg"
+  ],
+  "caption": "Ambiguity doesn't automate. If a human can't find a document in 5 seconds, an AI agent will spend thousands of tokens searching for it, or worse, invent an answer. Your infrastructure needs to carry the context, not your people. I can show you how. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P21",
+  "date": "2026-10-26",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Company: externalize the context layer. Briefs, decisions, owners and statuses travel with the work.",
+  "assets": [
+   "13_infra-gap-1_1080x1350.jpg",
+   "13_infra-gap-2_1080x1350.jpg"
+  ],
+  "caption": "You can't fix what you can't see. When context lives in people's heads, your AI tools create more friction, not less. Externalize the context layer. Make briefs, decisions, owners, and statuses travel with the work. PROOF shows you where to start. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P22",
+  "date": "2026-10-26",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Find a document in 5 seconds line.",
+  "assets": [
+   "15_find-a-document_1200x675.jpg"
+  ],
+  "caption": "If a human can't find a document in 5 seconds, an AI agent will spend thousands of tokens trying, or invent fake data. Ambiguity doesn't automate. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P23",
+  "date": "2026-10-26",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Ambiguity doesn't automate, infographic.",
+  "assets": [
+   "13_infra-gap-1_1080x1350.jpg",
+   "13_infra-gap-2_1080x1350.jpg"
+  ],
+  "caption": "Ambiguity doesn't automate. Adding faster AI to broken workflows just creates faster pile-ups. The fix is structural. The context has to travel with the work. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P24",
+  "date": "2026-10-27",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Audiogram: paying for the work twice because the answer did not travel with the task.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": "This AI audio overview explains why you might be paying for work twice. When context gets dropped, a human has to step in and reconstruct the original intent. You pay for the AI, then you pay for the human repair. That's Digital Friction. PROOF makes it visible. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P25",
+  "date": "2026-10-27",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Same audiogram, human framing.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": "Listen to this AI-voiced scenario. A senior partner has to stop their work to fix an AI's output because the context was lost. That's the human tax of Digital Fog. We can show you how to eliminate it. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P26",
+  "date": "2026-10-27",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Audiogram, short hook.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": "AI audio: a short, illustrative take on paying for work twice. When the true answer doesn't travel with the task, a human has to fix it. We're tracking that cost. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P27",
+  "date": "2026-10-27",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Audiogram, company voice.",
+  "assets": [
+   "C2_paying-twice_1x1.mp4"
+  ],
+  "caption": "AI audio overview: When context is dropped, an AI can be confidently wrong. A human has to fix it. You pay for the work twice. That's Digital Friction. See where it happens. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P28",
+  "date": "2026-10-27",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Reel of the audiogram.",
+  "assets": [
+   "C2_paying-twice_9x16.mp4"
+  ],
+  "caption": "AI audio overview of an illustrative scenario. You're paying for work twice because the context didn't travel with the task. It's a hidden tax on your team's attention. Link in bio. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P29",
+  "date": "2026-10-28",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Use the exact Instagram carousel copy and caption from TBTX_PROOF_MESSAGING_UX_COPY.md section 11, adapted to point to PROOF.",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg",
+   "17_draft-finished-2_1080x1350.jpg",
+   "17_draft-finished-3_1080x1350.jpg",
+   "17_draft-finished-4_1080x1350.jpg",
+   "17_draft-finished-5_1080x1350.jpg",
+   "17_draft-finished-6_1080x1350.jpg"
+  ],
+  "caption": "The draft is finished. I'm still finding the context. Checking the version. Working out who needs it next. That work belongs in the picture too. PROOF shows you where people are carrying what the system can't. Link in bio. https://transformby10x.ai/proof #DigitalFog #PROOF"
+ },
+ {
+  "id": "P30",
+  "date": "2026-10-28",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Use the X starter copy from section 11 (AI draft takes seconds...).",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg"
+  ],
+  "caption": "An AI draft takes seconds. Finding the context, checking the version, and chasing the next step can take hours. I want to count that work, too. That's the gap I'm exploring with PROOF. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P31",
+  "date": "2026-10-28",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Carousel: the draft is finished, I'm still finding the context.",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg",
+   "17_draft-finished-2_1080x1350.jpg",
+   "17_draft-finished-3_1080x1350.jpg",
+   "17_draft-finished-4_1080x1350.jpg",
+   "17_draft-finished-5_1080x1350.jpg",
+   "17_draft-finished-6_1080x1350.jpg"
+  ],
+  "caption": "The draft is finished. The context is not. Your team is doing the work to connect the two. That is the work of Context Coordination, and it is consuming your operating capacity. PROOF makes this work visible. See for yourself. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P32",
+  "date": "2026-10-28",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "Use the Facebook starter copy from section 11 (the work after the tool says it's finished).",
+  "assets": [
+   "17_draft-finished-1_1080x1350.jpg",
+   "17_draft-finished-2_1080x1350.jpg",
+   "17_draft-finished-3_1080x1350.jpg",
+   "17_draft-finished-4_1080x1350.jpg",
+   "17_draft-finished-5_1080x1350.jpg",
+   "17_draft-finished-6_1080x1350.jpg"
+  ],
+  "caption": "The work after the tool says it's finished. Finding the file. Checking the version. Remembering who needs it next. PROOF makes this invisible labor visible, so you can build a system that carries it instead of relying on people. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P33",
+  "date": "2026-10-29",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Audiogram: context is the new capacity; nobody should have to absorb the unstaffed job of coordinating broken workflows.",
+  "assets": [
+   "C3_context-capacity_1x1.mp4"
+  ],
+  "caption": "This is an AI audio overview of a core truth: context is the new capacity. You can't just dump infinite tokens into a model and expect it to reason. Your business needs to externalize context so your people and your AIs can operate without friction. PROOF shows you the way. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P34",
+  "date": "2026-10-29",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Attention budget infographic: you are crashing the attention budget; handoff compaction.",
+  "assets": [
+   "25_attention-budget-1_1080x1350.jpg",
+   "25_attention-budget-2_1080x1350.jpg"
+  ],
+  "caption": "You are crashing your team's attention budget. Forcing an AI to read forty pages of redundant logs overloads its context window. The fix is Handoff Compaction. Externalize the context so high-fidelity signals are all that passes to the next action. We can show you where to start. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P35",
+  "date": "2026-10-29",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "Audiogram: context is the new capacity.",
+  "assets": [
+   "C3_context-capacity_1x1.mp4"
+  ],
+  "caption": "AI audio: Context is the new capacity. Stop overloading your models and your people. Build systems that carry the context so work can move without friction. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P36",
+  "date": "2026-10-29",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "Context windows are budgets you spend (audiogram C4).",
+  "assets": [
+   "C4_budgets_1x1.mp4"
+  ],
+  "caption": "AI audio: Context windows are budgets you spend. Every token you feed an AI dilutes its attention. Manage that budget aggressively through better operational design. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P37",
+  "date": "2026-10-29",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Reel: context is the new capacity.",
+  "assets": [
+   "C3_context-capacity_9x16.mp4"
+  ],
+  "caption": "AI audio overview. Context is the new capacity. Free your team from the unstaffed job of coordinating broken workflows. Link in bio. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P38",
+  "date": "2026-10-29",
+  "time_pt": "16:00",
+  "channel": "youtube",
+  "angle": "YouTube Short: context is the new capacity.",
+  "assets": [
+   "C3_context-capacity_9x16.mp4"
+  ],
+  "caption": "An AI audio overview. You cannot simply dump infinite tokens into a model and expect it to reason. By investing in how you structure and hand off context, you eradicate Digital Fog. PROOF can show you where to begin. https://transformby10x.ai/proof",
+  "title": "Context is the New Capacity"
+ },
+ {
+  "id": "P39",
+  "date": "2026-10-30",
+  "time_pt": "08:00",
+  "channel": "linkedin-personal",
+  "angle": "Show the product: PROOF screen plus the Show the Math sample card. 15 answers, inspectable math, your four numbers replace the sample.",
+  "assets": [
+   "27_proof-app_1200x675.jpg",
+   "28_show-the-math_1080x1350.jpg"
+  ],
+  "caption": "PROOF gives you 15 answers about your operation. It shows you the math behind its findings. And it points to the first task worth investigating. Your four numbers replace the sample. This is not a generic score. It's a specific starting point. See for yourself. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P40",
+  "date": "2026-10-30",
+  "time_pt": "08:00",
+  "channel": "linkedin-page",
+  "angle": "Begin with PROOF: the sequence PROOF, agreed engagement, BizBlueprint, implementation, completion review, BizBot Mrktng. TBTX, BBAI, BBM logos.",
+  "assets": [
+   "29_brand-sequence_1200x675.jpg"
+  ],
+  "caption": "Our process begins with PROOF. It provides a clear, evidence-based starting point. From there, we move to an agreed engagement, a BizBlueprint, implementation, and completion review. It's a sequence that respects your time and resources. See the first step. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P41",
+  "date": "2026-10-30",
+  "time_pt": "08:00",
+  "channel": "facebook",
+  "angle": "The client asked where the approval stands (PROOF feed ad).",
+  "assets": [
+   "30_feed-approval_1080x1350.jpg"
+  ],
+  "caption": "A client asks where the approval stands. The answer is buried in a month of emails and meeting notes. Someone has to go find it. That's Digital Fog. PROOF makes that work visible. Get the real picture of your operation. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P42",
+  "date": "2026-10-30",
+  "time_pt": "11:30",
+  "channel": "x-erikhbush",
+  "angle": "A digitized landfill is not a database (poster).",
+  "assets": [
+   "31_landfill-poster_1080x1350.jpg"
+  ],
+  "caption": "A digitized landfill is not a database. If your AI is searching through unstructured, redundant information, it's wasting time and money. And it's probably hallucinating. Fix the foundation first. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P43",
+  "date": "2026-10-30",
+  "time_pt": "11:30",
+  "channel": "x-transformby10x",
+  "angle": "We do not sell software. The final file. The written decision. The name allowed to approve it. (billboard).",
+  "assets": [
+   "32_billboard_1200x675.jpg"
+  ],
+  "caption": "We do not sell software. We sell clarity. The final file. The written decision. The name of the person allowed to approve it. This is the context that makes work move. We build the systems that carry it. https://transformby10x.ai/proof"
+ },
+ {
+  "id": "P44",
+  "date": "2026-10-30",
+  "time_pt": "11:30",
+  "channel": "instagram",
+  "angle": "Carousel: feed ad + show the math + questions screen.",
+  "assets": [
+   "30_feed-approval_1080x1350.jpg",
+   "28_show-the-math_1080x1350.jpg",
+   "27b_proof-questions_1080x1350.jpg"
+  ],
+  "caption": "The client needs to know where the approval is. Your PM needs to know what to check. PROOF gives you a feed of the work, the math behind it, and the questions that need answers. All in one place. Link in bio. https://transformby10x.ai/proof #DigitalFog #PROOF"
+ }
+]

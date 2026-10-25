@@ -1,0 +1,24 @@
+{
+  "name": "proof-walkthrough",
+  "duration": 30,
+  "mode": "plate",
+  "plate": {"still": "/tmp/proof_app.png"},
+  "beats": [
+    {"text": "Where does campaign work lose *momentum*?", "fx": "grow", "hold": [0, 4.5]},
+    {"text": "How clear is *ownership* when a date moves?", "fx": "grow", "hold": [4.5, 9.0]},
+    {"text": "Who remembers to *follow* up?", "fx": "grow", "hold": [9.0, 13.5]},
+    {"text": "Here's where the work *stalls*.", "fx": "grow", "hold": [13.5, 18.0]},
+    {"text": "12 hours a week rebuilding *context*.", "fx": "grow", "hold": [18.0, 22.0]},
+    {"text": "Take *PROOF*.", "fx": "grow", "hold": [22.0, 25.0]}
+  ],
+  "formats": ["9x16", "16x9"],
+  "stills": [],
+  "approved_copy": [
+    "Where does campaign work lose momentum?",
+    "How clear is ownership when a date moves?",
+    "Who remembers to follow up?",
+    "Here's where the work stalls.",
+    "12 hours a week rebuilding context.",
+    "Take PROOF."
+  ]
+}

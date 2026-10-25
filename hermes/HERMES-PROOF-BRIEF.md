@@ -1,0 +1,59 @@
+# HERMES PROOF BRIEF
+
+Always load tbtx-skill-router first on every task.
+
+Status: load all posts into Postiz as DRAFTS (type draft) on the proposed dates and times so Erik can review them in the calendar. Nothing gets scheduled or published until Erik approves.
+Prepared 2026-10-21 for the morning review.
+
+## Goal
+Get agency owners and teams to take PROOF: free, 15 answers, at transformby10x.ai/proof.
+
+## The message
+The problem isn't a shortage of AI tools. The problem is infrastructure misalignment. Context architecture fixes that.
+
+Core line (fixed): "AI tools increase output, but context doesn't keep up, so humans fill the gap."
+
+## Approved lines
+- "AI tools increase output, but context doesn't keep up, so humans fill the gap."
+- "So no one has to spend hours coordinating context."
+- "AI was meant to assist people. But people are assisting AI."
+- "PROOF shows where the work stalls."
+- The term: "The Context Gap"
+
+## Copy preferences
+- Plain, normal speech, the way a person talks. No jargon.
+- No you, your or reader-directed possessive lines. Neutral, system-level statements.
+- Contractions are welcome. No em dashes.
+- "Digital Friction", never "Digital Fog".
+- Never use "hardens into", "load", "leak" or "bleed" (plus the COPY-RULES.md banned list).
+- No vague "It's..." lines. Every line says what it refers to.
+- Hooks blame the system, never the reader.
+- Name no tools or vendors. No unbacked stats. No trademark symbols.
+- Never say AI was hired or that people work for AI. "People are assisting AI" is allowed.
+- "Context Coordinator" is never a job title.
+- No rhetorical-question gimmicks. Never say "desk".
+- Use agency terms: briefs, client approvals, rounds, delivery.
+
+## Channels
+- X: @Transformby10x (short hooks, one idea per post)
+- LinkedIn: main channel for agency owners (longer body, plain line breaks)
+- Facebook: shorter version of the LinkedIn post
+- Instagram: carousel or single card, caption from the post body
+
+## Cadence (proposed)
+- 2 posts a day for the first 5 days, see the schedule in HERMES-PROOF-POSTS-BATCH1.md.
+- All times in Pacific time.
+
+## Workflow
+1. Start a fresh session (/new) for every creative task.
+2. Read COPY-RULES.md and COPY-STYLE-GUIDE.md first.
+3. Run the `humanizer` skill on every draft to strip AI-isms. Approved Copy Bank lines stay word for word; humanizer only touches connecting copy, and must not add em dashes, emojis, or new claims.
+4. Then run `python3 /root/tbtx-next-ecosystem/hermes/copy_check.py <draft.txt>` on the humanized draft. Fix and rerun until PASS.
+5. Read every line twice: once as Erik, once as a stranger agency owner.
+6. Make motion visuals with kinetic.py (short 9:16 and 1:1 videos with kinetic type) wherever possible; stills only where motion does not fit.
+7. Load every post into Postiz as a draft with its visual attached. No scheduling or publishing until Erik approves.
+
+## Visual design
+Every visual must pass the pre-flight checklist in DESIGN-GUIDE.md (hermes/DESIGN-GUIDE.md, v4) before it goes into Postiz as a draft.
+- No URL in any image or video. The link goes in the post caption only (Instagram: "link in bio", since caption links are not clickable there).
+- Brand colors (magenta #d01e98) are accents only, about 10% of a frame. Backgrounds are neutral: #111111 or #fafaf7.

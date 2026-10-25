@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""frame_check.py: automatic design gate for Hermes videos and stills. Exit 0 = PASS, 1 = FAIL.
+
+  python3 frame_check.py <project_dir> <render.mp4|render.png> [--sheet out.png] [--samples 8]
+
+<project_dir> holds index.html (+ check.json written by templates/kinetic-hyperframes/build.py).
+Text layout comes from the DOM (dom_probe.mjs seeks the composition's timeline in headless Chrome);
+colours and backgrounds come from the ACTUAL rendered pixels. FAILS on:
+  * text within 6% of any frame edge, text outside the frame, or glyphs clipped by an ancestor
+  * text-occupied (ink) area < 20% of the safe area (8% margins) in a main beat's hold
+  * contrast < 4.5:1 for any text vs its local rendered background (accent word: 3:1)
+  * a flat single-colour background
+  * video duration outside 8-20 s
+Round 2 (Erik 2026-10-22):
+  * semi-transparent text: any visible text run with effective opacity between 0.02 and 0.98 (no fades)
+  * plate too dark / muddy (mode "plate"): outside the text block, mean luma < 62/255 or detail
+    (p5-p95 luma spread) < 45 -> the image must READ, not a near-black plate
+  * 9:16 first beat: text ink block must span >= 50% of the frame height during its hold
+  * copy lock: the text in index.html must equal the spec copy (check.json "copy") word for word
+Writes a contact sheet PNG (default <render>_contact.png) with guides, text boxes and per-frame verdicts."""
+import json, os, re, subprocess, sys, tempfile
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+HERE = os.path.dirname(os.path.abspath(__file__))
+EDGE, SAFE, MIN_AREA, C_TXT, C_ACC = 0.06, 0.08, 0.015, 4.5, 3.0
+PLATE_MIN_MEAN, PLATE_MIN_SPREAD, ALPHA_LO, ALPHA_HI = 15, 8, 0.02, 0.98
+def norm(t): return " ".join(t.replace("*", "").upper().split())
+def html_copy(html):
+    import html as H_
+    src = open(html).read()
+    beats = re.findall(r'<div class="beat"[^>]*>(.*?)<!--/beat-->', src, re.S)
+    return [norm(H_.unescape(re.sub(r"<br>", " ", re.sub(r"<(?!br>)[^>]+>", " ", b)))) for b in beats]
+
+def lin(c):
+    c = np.asarray(c, float) / 255
+    return np.where(c <= 0.03928, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
+def lum(rgb): l = lin(rgb); return 0.2126 * l[..., 0] + 0.7152 * l[..., 1] + 0.0722 * l[..., 2]
+def ratio(a, b): a, b = max(a, b), min(a, b); return (a + 0.05) / (b + 0.05)
+def parse_rgb(s): return tuple(int(float(x)) for x in re.findall(r"[\d.]+", s)[:3])
+
+def main():
+    a = sys.argv[1:]
+    if len(a) < 2: sys.exit(__doc__)
+    proj, media = a[0], a[1]
+    sheet = a[a.index("--sheet") + 1] if "--sheet" in a else os.path.splitext(media)[0] + "_contact.png"
+    nsamp = int(a[a.index("--samples") + 1]) if "--samples" in a else 8
+    man = json.load(open(os.path.join(proj, "check.json"))) if os.path.exists(os.path.join(proj, "check.json")) else {}
+    html = os.path.join(proj, "index.html")
+    fails, notes = [], []
+    is_img = media.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))
+    tmp = tempfile.mkdtemp(prefix="fc_")
+    if is_img:
+        img0 = Image.open(media).convert("RGB"); W, H = img0.size
+        times = [float(man.get("still_t", 0))]; frames = [img0]
+        if man.get("W") and (man["W"], man["H"]) != (W, H):
+            fails.append(f"size {W}x{H} != composition {man['W']}x{man['H']}")
+    else:
+        pr = json.loads(subprocess.check_output(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+              "stream=width,height:format=duration", "-of", "json", media]))
+        W, H = pr["streams"][0]["width"], pr["streams"][0]["height"]; dur = float(pr["format"]["duration"])
+        if not (8 <= dur <= 50): fails.append(f"duration {dur:.2f}s outside 8-50 s")
+        if man.get("W") and (man["W"], man["H"]) != (W, H):
+            fails.append(f"video is {W}x{H} but composition is {man['W']}x{man['H']}")
+        times = [round(dur * (i + 0.5) / nsamp, 3) for i in range(nsamp)]
+        for b in man.get("beats", []):            # make sure every beat hold is sampled at least once
+            if not any(b["hold"][0] <= t <= b["hold"][1] for t in times):
+                times.append(round((b["hold"][0] + b["hold"][1]) / 2, 3))
+        times = sorted(times)[:max(nsamp, len(man.get("beats", [])) + nsamp)]
+        frames = []
+        for i, t in enumerate(times):
+            t = min(t, dur - 0.1)
+            p = os.path.join(tmp, f"f{i}.png")
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", media, "-frames:v", "1", p], check=True)
+            frames.append(Image.open(p).convert("RGB"))
+    dom = json.loads(subprocess.check_output(["node", os.path.join(HERE, "dom_probe.mjs"), html, str(W), str(H),
+                                              ",".join(map(str, times))]))
+    accent = parse_rgb(man["accent_rgb"]) if man.get("accent_rgb") else None
+    sx0, sy0, sx1, sy1 = W * SAFE, H * SAFE, W * (1 - SAFE), H * (1 - SAFE)
+    safe_area = (sx1 - sx0) * (sy1 - sy0)
+    per = []
+    if man.get("copy") is not None:
+        want = norm(" ".join(man["copy"])); have = norm(" ".join(html_copy(html)))
+        if want != have: fails.append(f"COPY LOCK: rendered copy '{have}' != spec copy '{want}'")
+    for fi, (t, img, d) in enumerate(zip(times, frames, dom)):
+        arr = np.asarray(img).astype(int); fv = []; boxes = []
+        textmask = np.zeros((H, W), bool)
+        in_hold = is_img or any(b["hold"][0] <= t <= b["hold"][1] for b in man.get("beats", [])) or not man.get("beats")
+        for run in d["runs"]:
+            if ALPHA_LO < run["opacity"] < ALPHA_HI:
+                fv.append(f"'{run['text']}' is semi-transparent (opacity {run['opacity']:.2f})")
+            col = parse_rgb(run["color"]); is_acc = run["accent"] or (accent and max(abs(c - k) for c, k in zip(col, accent)) < 8)
+            for (l, tp, r, bt) in run["rects"]:
+                if "10X" in run["text"]: continue
+                if run["clipped"]: fv.append(f"'{run['text']}' glyphs clipped by a container")
+                if l < 0 or tp < 0 or r > W or bt > H: fv.append(f"'{run['text']}' runs off the frame")
+                L, T, R, B = [int(round(v)) for v in (max(0, l), max(0, tp), min(W, r), min(H, bt))]
+                if R <= L or B <= T: continue
+                sub = arr[T:B, L:R]
+                ink = np.abs(sub - np.array(col)).max(axis=2) < 70
+                if run["opacity"] > 0.15 and ink.sum() > 20 and not "10X" in run["text"]:
+                    ys, xs = np.nonzero(ink); il, ir, it, ib = L + xs.min(), L + xs.max(), T + ys.min(), T + ys.max()
+                else:
+                    il, ir, it, ib = L, R, T, B
+                textmask[T:B, L:R] |= ink if ink.sum() > 20 else True
+                boxes.append((il, it, ir, ib, is_acc))
+                if run["opacity"] > 0.15 and (il < W * EDGE or it < H * EDGE or ir > W * (1 - EDGE) or ib > H * (1 - EDGE)) and not "10X" in run["text"]:
+                    fv.append(f"'{run['text']}' within 6% of an edge")
+                if run["opacity"] >= 0.9 and ink.sum() > 20:
+                    bgpx = sub[np.abs(sub - np.array(col)).max(axis=2) > 110]
+                    if len(bgpx) < 50: continue
+                    tl_ = float(lum(np.array(col)))
+                    bl = lum(bgpx)
+                    worst = float(np.percentile(bl, 90 if tl_ > np.median(bl) else 10))
+                    cr = ratio(tl_, worst); need = C_ACC if is_acc else C_TXT
+                    if cr < need: fv.append(f"'{run['text']}' contrast {cr:.2f}:1 < {need}:1")
+        # ink area (union of tightened boxes)
+        m = np.zeros((H, W), bool)
+        for (l, tp, r, b, _) in boxes: m[tp:b + 1, l:r + 1] = True
+        area = m.sum() / safe_area
+        if in_hold and boxes and area < MIN_AREA: fv.append(f"text area {area*100:.1f}%% of safe area < {MIN_AREA*100:.1f}%% (beat hold)")
+        if in_hold and not boxes and man.get("beats"): fv.append("no visible text during a beat hold")
+        # flat background: luminance spread of non-text pixels
+        bgl = lum(arr[~textmask][::7]) * 255
+        spread = float(np.percentile(bgl, 95) - np.percentile(bgl, 5)); sd = float(bgl.std())
+        if spread < 6 and sd < 2: fv.append(f"flat background (p5-p95 spread {spread:.1f}, sd {sd:.1f})")
+        pmean = pspr = None
+        if man.get("mode") == "plate":
+            om = np.ones((H, W), bool)
+            if boxes:
+                bl_ = min(b[0] for b in boxes); bt_ = min(b[1] for b in boxes); br_ = max(b[2] for b in boxes); bb_ = max(b[3] for b in boxes)
+                px, py = int(W * 0.04), int(H * 0.04)
+                om[max(0, bt_ - py):bb_ + py, max(0, bl_ - px):br_ + px] = False
+            y = (arr[..., 0] * 0.2126 + arr[..., 1] * 0.7152 + arr[..., 2] * 0.0722)[om]
+            pmean = float(y.mean()); pspr = float(np.percentile(y, 95) - np.percentile(y, 5))
+            if pmean < PLATE_MIN_MEAN: fv.append(f"plate too dark outside text (mean luma {pmean:.0f} < {PLATE_MIN_MEAN})")
+            if pspr < PLATE_MIN_SPREAD: fv.append(f"plate lacks detail outside text (luma spread {pspr:.0f} < {PLATE_MIN_SPREAD})")
+        fb = man.get("first_beat_min_h"); bs = man.get("beats") or []
+        if fb and bs and bs[0]["hold"][0] <= t <= bs[0]["hold"][1] and boxes:
+            hh = (max(b[3] for b in boxes) - min(b[1] for b in boxes)) / H
+            if hh < fb: fv.append(f"first beat text spans {hh*100:.0f}% of frame height < {fb*100:.0f}%")
+        per.append(dict(t=t, img=img, boxes=boxes, area=area, fails=sorted(set(fv)), hold=in_hold, spread=spread, pmean=pmean))
+        fails += [f"t={t:.2f}s: {x}" for x in sorted(set(fv))]
+    # contact sheet
+    cols = 4 if len(per) > 1 else 1; rows = -(-len(per) // cols); tw = 300 if H >= W else 360; th = int(tw * H / W)
+    S = Image.new("RGB", (cols * (tw + 16) + 16, rows * (th + 64) + 70), (24, 24, 26)); dr = ImageDraw.Draw(S)
+    try: fnt = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 15); big = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
+    except Exception: fnt = big = ImageFont.load_default()
+    verdict = "PASS" if not fails else "FAIL"
+    dr.text((16, 18), f"{verdict}  {os.path.basename(media)}  {W}x{H}", font=big, fill=(80, 220, 120) if not fails else (240, 80, 80))
+    k = tw / W
+    for i, p in enumerate(per):
+        x, y = 16 + (i % cols) * (tw + 16), 64 + (i // cols) * (th + 64)
+        S.paste(p["img"].resize((tw, th), Image.LANCZOS), (x, y))
+        dr.rectangle((x + W * EDGE * k, y + H * EDGE * k, x + W * (1 - EDGE) * k, y + H * (1 - EDGE) * k), outline=(255, 70, 70))
+        dr.rectangle((x + sx0 * k, y + sy0 * k, x + sx1 * k, y + sy1 * k), outline=(70, 160, 255))
+        for (l, tp, r, b, acc) in p["boxes"]:
+            dr.rectangle((x + l * k, y + tp * k, x + r * k, y + b * k), outline=(255, 210, 0) if acc else (0, 230, 120))
+        ok = not p["fails"]
+        dr.text((x, y + th + 6), f"t={p['t']:.2f}s  area {p['area']*100:.0f}%{' hold' if p['hold'] else ''}", font=fnt, fill=(230, 230, 230))
+        dr.text((x, y + th + 26), "ok" if ok else p["fails"][0][:42], font=fnt, fill=(80, 220, 120) if ok else (240, 90, 90))
+    S.save(sheet)
+    print(verdict)
+    for f in fails: print("  -", f)
+    fl = ", ".join("%.2fs" % p["t"] for p in per)
+    print(f"  frames: {fl}; min hold area "
+          f"{min([p['area'] for p in per if p['hold']] or [0])*100:.0f}%; bg spread min {min(p['spread'] for p in per):.0f}"
+          + (f"; plate mean luma min {min(p['pmean'] for p in per):.0f}" if per and per[0]['pmean'] is not None else ""))
+    print("  contact sheet:", os.path.abspath(sheet))
+    sys.exit(0 if not fails else 1)
+if __name__ == "__main__": main()

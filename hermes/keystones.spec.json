@@ -1,0 +1,24 @@
+{
+  "name": "context-keystones",
+  "duration": 25,
+  "mode": "plate",
+  "plate": {"clip": "/root/.hermes/cache/videos/video_9cfc5d63388f.mp4"},
+  "beats": [
+    {"text": "\"Wait, I thought strategy told you the brief *changed*?\"", "fx": "grow", "hold": [0, 5.0]},
+    {"text": "Context *Keystones*", "fx": "grow", "hold": [5.0, 10.0]},
+    {"text": "The folders and scripts the work *runs* on.", "fx": "grow", "hold": [10.0, 15.0]},
+    {"text": "They restore the operating *layer*.", "fx": "grow", "hold": [15.0, 20.0]},
+    {"text": "$49 intro. Then *$349*.", "fx": "grow", "hold": [20.0, 23.0]},
+    {"text": "Take *PROOF*.", "fx": "grow", "hold": [23.0, 25.0]}
+  ],
+  "formats": ["9x16"],
+  "stills": [],
+  "approved_copy": [
+    "\"Wait, I thought strategy told you the brief changed?\"",
+    "Context Keystones",
+    "The folders and scripts the work runs on.",
+    "They restore the operating layer.",
+    "$49 intro. Then $349.",
+    "Take PROOF."
+  ]
+}

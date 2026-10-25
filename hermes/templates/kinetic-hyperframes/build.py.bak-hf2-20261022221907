@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+"""TBTX kinetic-hyperframes template (approved look). One small spec -> hyperframes projects -> renders ->
+frame_check.py gate. Exit code 1 if ANY output fails frame_check. Never hand-build layouts; edit the spec.
+
+  python3 build.py spec.json            # renders every format listed in the spec
+  python3 build.py                      # no spec: PROOF post 1 defaults (approved copy, approved look)
+
+Spec (all optional; defaults = PROOF post 1):
+{
+  "name": "post1",
+  "out": "/root/tbtx-next-ecosystem/hermes/out/post1-hyperframes-v2",
+  "duration": 13.5,                    # 8-20 s (frame_check fails outside)
+  "accent": "#d01e98",                 # brand colour: key-word TEXT colour only (~10% of frame)
+  "mode": "plate",                     # "plate" (cinematic image/clip behind type, preferred) | "type" (designed graphite base)
+  "plate": {"clip": "/abs/veo.mp4", "still": "/abs/still.png"},   # clip wins for video, still for images
+  "beats": [{"text": "AI tools increase *output*,", "fx": "grow"}, ...],   # *stars* = accent words
+  "formats": ["9x16", "1x1"],          # video formats: 9x16=1080x1920, 1x1=1080x1080
+  "stills": [{"format": "4x5", "name": "post1_static", "main": "*The Context Gap*",
+              "sub": "AI tools increase output, but context doesn't keep up, so humans fill the gap."}]
+}
+fx: rise | grow (accent word scales up: increase) | lag (words arrive late: falling behind) |
+    close (words grow out from the centre and fill the row: fill the gap) |
+    split (rows start collapsed and pull apart: a gap opens) | stall (words decelerate, last word hits a hard stop,
+    and the camera push stops with it).
+Round 2 (Erik 2026-10-22): plates must READ (lit, photoreal); scrim is LOCAL behind the text block only;
+text is never semi-transparent (hard cuts + slide/scale moves); 9:16 first beat fills >= 50% of frame height;
+unknown spec keys are rejected; "name" is required in a spec file; out defaults to hermes/out/<name> and a
+folder owned by another job (.job marker) is never overwritten; failing outputs are renamed <file>.FAILED
+(not deliverable); "approved_copy" (optional list of strings) must match the spec copy word for word.
+Rules baked in (DESIGN-GUIDE + Erik): no flat black, near-white type, accent = text colour, never a block,
+big type fitted to an 84% column, 8% safe margins, motion never leaves the safe box, no URL, silent."""
+import hashlib, json, os, shutil, subprocess, sys
+from PIL import ImageFont
+T = os.path.dirname(os.path.abspath(__file__)); HERMES = os.path.abspath(os.path.join(T, "..", ".."))
+FONT = os.path.join(HERMES, "fonts", "ArchivoBlack.ttf")
+GSAP = "/usr/local/lib/hermes-agent/node_modules/gsap/dist/gsap.min.js"
+FMT = {"9x16": (1080, 1920), "1x1": (1080, 1080), "4x5": (1080, 1350), "16x9": (1920, 1080)}
+INK = "#f4f1ea"          # near-white support type (approx 17:1 on the base)
+LS = -0.015              # letter-spacing em
+LH = 0.9                 # row line-height
+COL = 0.84               # type column = 84% of width (8% margins each side)
+POST1 = {
+    "name": "post1", "duration": 13.5, "accent": "#d01e98", "mode": "plate", "plate": {},
+    "plate_prompt": "A vast brushed-steel and glass atrium at dawn, soft overcast daylight pouring through a tall skylight, two monumental brushed-metal walls separated by a bright vertical gap of light, thin morning fog over a pale polished concrete floor, clearly lit and detailed.",
+    "out": os.path.join(HERMES, "out", "post1-hyperframes-v2"),
+    "beats": [{"text": "AI tools increase *output*,", "fx": "grow"},
+              {"text": "but context doesn't keep up,", "fx": "lag"},
+              {"text": "so humans fill the gap.", "fx": "close"},
+              {"text": "*The Context Gap*", "fx": "split"},
+              {"text": "PROOF shows where the work stalls.", "fx": "stall"}],
+    "formats": ["9x16", "1x1"], "stills": []}
+SPEC_KEYS = {"name", "out", "duration", "accent", "mode", "plate", "plate_prompt", "beats", "formats", "stills", "approved_copy"}
+BEAT_KEYS = {"text", "fx", "sub"}; STILL_KEYS = {"format", "name", "main", "sub"}
+PLATE_KEYS = {"still", "clip"} | set(FMT); FXS = {"rise", "grow", "lag", "close", "split", "stall"}
+def norm(t): return " ".join(t.replace("*", "").upper().split())
+def validate(spec):
+    err = []
+    bad = set(spec) - SPEC_KEYS
+    if bad: err.append(f"unknown spec key(s) {sorted(bad)}; allowed: {sorted(SPEC_KEYS)}")
+    for i, b in enumerate(spec.get("beats") or []):
+        if set(b) - BEAT_KEYS: err.append(f"beats[{i}] unknown key(s) {sorted(set(b) - BEAT_KEYS)}; allowed {sorted(BEAT_KEYS)}")
+        if "text" not in b: err.append(f"beats[{i}] needs 'text'")
+        if b.get("fx", "rise") not in FXS: err.append(f"beats[{i}] fx '{b.get('fx')}' not in {sorted(FXS)}")
+    for i, st in enumerate(spec.get("stills") or []):
+        if set(st) - STILL_KEYS: err.append(f"stills[{i}] unknown key(s) {sorted(set(st) - STILL_KEYS)}; allowed {sorted(STILL_KEYS)}")
+        if "main" not in st: err.append(f"stills[{i}] needs 'main'")
+        if st.get("format", "4x5") not in FMT: err.append(f"stills[{i}] format not in {sorted(FMT)}")
+    if set(spec.get("plate") or {}) - PLATE_KEYS: err.append(f"plate unknown key(s); allowed {sorted(PLATE_KEYS)}")
+    for f in spec.get("formats") or []:
+        if f not in FMT: err.append(f"format '{f}' not in {sorted(FMT)}")
+    if spec.get("mode", "plate") not in ("plate", "type"): err.append("mode must be 'plate' or 'type'")
+    if "approved_copy" in spec:
+        have = [b["text"] for b in spec.get("beats") or []] if spec.get("formats") else []
+        for st in spec.get("stills") or []: have += [st["main"]] + ([st["sub"]] if st.get("sub") else [])
+        want = [norm(x) for x in spec["approved_copy"]]
+        if norm(" ".join(have)) != norm(" ".join(spec["approved_copy"])):
+            err.append("COPY LOCK: spec copy does not match approved_copy word for word.\n  approved: "
+                       + " | ".join(want) + "\n  spec:     " + " | ".join(norm(h) for h in have))
+    if err: sys.exit("SPEC ERROR:\n- " + "\n- ".join(err))
+F = {}
+def font(s):
+    if s not in F: F[s] = ImageFont.truetype(FONT, s)
+    return F[s]
+def tok(text):  # -> [(WORD, accent)]
+    out, acc = [], False
+    for w in text.split():
+        a = acc or w.startswith("*"); acc = (a and not w.rstrip(".,;:").endswith("*"))
+        out.append((w.replace("*", "").upper(), a))
+    return out
+def width(words, s):
+    t = " ".join(w for w, _ in words)
+    return font(s).getlength(t) + LS * s * len(t)
+def splits(n, k):
+    if k == 1: yield [n]; return
+    for i in range(1, n - k + 2):
+        for r in splits(n - i, k - 1): yield [i] + r
+def layout(words, W, H, hero=False):
+    """Poster stack: every row fitted to the column; accent row(s) never smaller than support rows.
+    hero=True (9:16 first beat): one word per row allowed bigger, so the block fills >= half the frame."""
+    colw = W * COL * 0.975; safeh = H * (1 - 0.16) * 0.86
+    cap = H * (0.30 if hero else 0.20 if H > W else 0.27)
+    best = None
+    for k in range(1, min(5, len(words)) + 1):
+        for sp in splits(len(words), k):
+            rows, i = [], 0
+            for n in sp: rows.append(words[i:i + n]); i += n
+            sz = [min(cap, colw / (width(r, 100) / 100)) for r in rows]
+            acc = [any(a for _, a in r) for r in rows]
+            if any(acc) and not all(acc):
+                amax = max(s for s, a in zip(sz, acc) if a)
+                sz = [s if a else min(s, amax * 0.92) for s, a in zip(sz, acc)]
+            tot = sum(s * LH for s in sz)
+            mn = min(sz); sz = [min(s, mn * (2.6 if hero else 1.8)) for s in sz]          # no row more than 1.8x another
+            if any(acc) and not all(acc):                                  # accent row stays the largest
+                amax = max(s for s, a in zip(sz, acc) if a); sz = [s if a else min(s, amax * 0.92) for s, a in zip(sz, acc)]
+            tot = sum(s * LH for s in sz)
+            if tot > safeh: sz = [s * safeh / tot for s in sz]
+            area = sum(width(r, 100) / 100 * s * s * 0.72 for r, s in zip(rows, sz))
+            ratio = max(sz) / min(sz)
+            # split accent phrase across rows only if each part is >1 word
+            score = area * (0.8 if ratio > 2.4 and not hero else 1) * (0.9 ** max(0, k - 3)) * ((tot / H) ** 2 if hero else 1)
+            if best is None or score > best[0]: best = (score, rows, [int(s) for s in sz], area / (W * H * 0.84 * 0.84))
+    return best[1], best[2], best[3]
+def wrap_sub(text, W, s, maxw):
+    ws, rows, cur = text.split(), [], ""
+    for w in ws:
+        t = (cur + " " + w).strip()
+        if font(s).getlength(t.upper()) + LS * s * len(t) > maxw and cur: rows.append(cur); cur = w
+        else: cur = t
+    rows.append(cur); return rows
+def esc(s): return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("'", "&#39;")
+def beat_html(i, rows, sizes, sy=1.0, sub=""):
+    h = [f'<div class="beat" id="b{i}"><div class="blk">']
+    for r, s in zip(rows, sizes):
+        ws = " ".join(f'<span class="w{" k" if a else ""}">{esc(w)}</span>' for w, a in r)
+        h.append(f'<div class="row" style="font-size:{s}px' + (f';transform:scaleY({sy:.3f});margin:{(sy-1)*s*LH/2:.1f}px 0' if sy != 1.0 else '') + f'">{ws}</div>')
+    return "\n".join(h + [sub + "</div></div><!--/beat-->"])
+FX_IN = {"rise": 0.8, "grow": 1.5, "lag": 1.6, "close": 1.2, "split": 1.3, "stall": 2.0}
+def timeline_js(beats, D):
+    """GSAP timeline + manifest beat windows. Every motion stays inside the safe box (inward/vertical only)."""
+    wts = [len(b["words"]) + 2.2 for b in beats]; tot = sum(wts); t = 0.25; js = []; man = []
+    for i, b in enumerate(beats):
+        last = i == len(beats) - 1
+        span = (D - 0.25) * wts[i] / tot
+        fin = FX_IN.get(b["fx"], 0.8); out = 0
+        s, e = t, t + span
+        sel = f"#b{i}"
+        js.append(f'tl.set("{sel}",{{opacity:1}},{s:.3f});')
+        fx = b["fx"]
+        if fx == "grow":
+            js.append(f'tl.from("{sel} .w:not(.k)",{{yPercent:60,duration:0.45,stagger:0.08,ease:"power3.out"}},{s:.3f});')
+            js.append(f'tl.from("{sel} .k",{{scale:0.32,transformOrigin:"50% 70%",duration:0.9,ease:"expo.out"}},{s+0.4:.3f});')
+        elif fx == "lag":
+            js.append(f'tl.from("{sel} .w",{{yPercent:-45,duration:(i)=>0.45+i*0.18,stagger:(i)=>i*i*0.05,ease:"power2.out"}},{s:.3f});')
+        elif fx == "close":
+            js.append(f'gsap.utils.toArray("{sel} .row").forEach((r)=>{{const ws=r.querySelectorAll(".w");const c=r.getBoundingClientRect();'
+                      f'ws.forEach((w,j)=>{{const b=w.getBoundingClientRect();const dx=(c.left+c.width/2)-(b.left+b.width/2);'
+                      f'tl.from(w,{{x:dx*0.85,scaleX:0.2,duration:0.9,ease:"power4.out"}},{s:.3f}+j*0.06);}});}});')
+        elif fx == "split":
+            js.append(f'gsap.utils.toArray("{sel} .row").forEach((r,j,a)=>{{const m=(a.length-1)/2;'
+                      f'tl.from(r,{{yPercent:(m-j)*70,scale:0.94,duration:1.0,ease:"expo.out"}},{s:.3f});}});')
+        elif fx == "stall":
+            js.append(f'tl.from("{sel} .w",{{yPercent:40,duration:0.35,stagger:(i,el,a)=>0.12*i+0.03*i*i,ease:"power2.out"}},{s:.3f});')
+            js.append(f'tl.to("{sel} .w:last-child",{{keyframes:[{{y:-10,duration:0.06}},{{y:5,duration:0.06}},{{y:0,duration:0.08}}]}},{s+fin:.3f});')
+        else:
+            js.append(f'tl.from("{sel} .w",{{yPercent:50,duration:0.45,stagger:0.07,ease:"power3.out"}},{s:.3f});')
+        if b.get("sub"):
+            js.append(f'tl.from("{sel} .sub",{{yPercent:30,duration:0.45,ease:"power3.out"}},{s+0.5:.3f});')
+        if not last:
+            js.append(f'tl.set("{sel}",{{opacity:0}},{e:.3f});')   # hard cut out: text is never semi-transparent
+        man.append({"start": round(s, 3), "end": round(e, 3), "hold": [round(s + fin + 0.1, 3), round(e - out - 0.05, 3)]})
+        t = e
+    stall_t = man[-1]["hold"][0] if beats[-1]["fx"] == "stall" else D
+    return "\n".join(js), man, stall_t
+CSS = """
+@font-face{font-family:'TBTX Display';src:url('assets/fonts/ArchivoBlack.ttf');font-weight:400}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:%(W)dpx;height:%(H)dpx;overflow:hidden;background:#0d0e11}
+#root{position:relative;width:%(W)dpx;height:%(H)dpx;overflow:hidden}
+#stage{position:absolute;inset:0;overflow:hidden}
+.layer{position:absolute;inset:0}
+#base{background:radial-gradient(70%% 45%% at 50%% 30%%,rgba(120,128,140,.22),transparent 70%%),radial-gradient(120%% 85%% at 50%% 40%%,#33363d 0%%,#1c1e23 45%%,#0a0b0d 100%%),linear-gradient(180deg,#24272c,#0c0d10)}
+#brush{inset:-2%%;opacity:.55;background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,rgba(0,0,0,.03) 1px 2px,transparent 2px 4px),
+ repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 9px)}
+#platewrap{overflow:hidden}
+#plateimg{position:absolute;inset:0;width:100%%;height:100%%;object-fit:cover}
+#sheen{left:-60%%;width:220%%;background:linear-gradient(104deg,transparent 38%%,rgba(220,226,235,.055) 48%%,rgba(255,255,255,.08) 50%%,rgba(220,226,235,.05) 52%%,transparent 62%%);mix-blend-mode:screen}
+#scrim{background:radial-gradient(%(SW)s%% %(SH)s%% at 50%% %(SY)s%%,rgba(8,9,12,.22) 0%%,rgba(8,9,12,0) 100%%)}
+#vig{background:radial-gradient(140%% 110%% at 50%% 45%%,transparent 62%%,rgba(0,0,0,.38) 100%%)}
+#grain{inset:-6%%;opacity:.11;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%%3E%%3Cfilter id='n'%%3E%%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%%3E%%3C/filter%%3E%%3Crect width='100%%25' height='100%%25' filter='url(%%23n)'/%%3E%%3C/svg%%3E")}
+.beat{position:absolute;left:8%%;right:8%%;top:8%%;bottom:8%%;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0}
+.row{font-family:'TBTX Display',sans-serif;color:%(INK)s;line-height:%(LH)s;letter-spacing:%(LS)sem;text-transform:uppercase;white-space:nowrap;text-align:center;
+ text-shadow:0 0 .35em rgba(0,0,0,.55),0 .04em .12em rgba(0,0,0,.6)}
+.w{display:inline-block}
+.blk{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center}
+.blk::before{content:"";position:absolute;inset:%(BI)s;z-index:-1;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(7,8,11,%(SC1)s) 0%%,rgba(7,8,11,%(SC1)s) 55%%,rgba(7,8,11,%(SC2)s) 78%%,rgba(7,8,11,0) 100%%)}
+.k{color:var(--accent);text-shadow:0 0 .12em rgba(0,0,0,.95),0 0 .35em rgba(0,0,0,.9),0 0 .8em rgba(0,0,0,.75),0 .04em .12em rgba(0,0,0,.6)}
+.sub{font-family:'TBTX Display',sans-serif;color:%(INK)s;text-transform:uppercase;letter-spacing:.01em;line-height:1.12;text-align:center;margin-top:.9em;
+ text-shadow:0 0 .4em rgba(0,0,0,.7)}
+.sub .k{color:var(--accent);text-shadow:0 0 .12em rgba(0,0,0,.95),0 0 .35em rgba(0,0,0,.9),0 0 .8em rgba(0,0,0,.75)}
+"""
+def build_project(spec, fmt, pdir, still=None):
+    W, H = FMT[fmt]; D = float(spec.get("duration", 13.5)); acc = spec.get("accent", "#d01e98")
+    if os.path.exists(pdir): shutil.rmtree(pdir)
+    os.makedirs(os.path.join(pdir, "assets", "fonts"))
+    shutil.copy(FONT, os.path.join(pdir, "assets", "fonts", "ArchivoBlack.ttf")); shutil.copy(GSAP, os.path.join(pdir, "assets", "gsap.min.js"))
+    mode = spec.get("mode", "type"); plate = spec.get("plate", {}) or {}
+    plate_html = ""; vid = ""; is_clip = False
+    if mode == "plate":
+        src = plate.get(fmt) or (plate.get("clip") if (still is None and plate.get("clip")) else plate.get("still")) or plate.get("clip")
+        if not src:   # no plate given: generate a still for this aspect (gemini image), cached per prompt+aspect
+            asp = {"9x16": "9:16", "1x1": "1:1", "4x5": "4:5", "16x9": "16:9"}[fmt]
+            pp = spec.get("plate_prompt") or POST1["plate_prompt"]
+            cache = os.path.join(HERMES, "out", "plates", f"auto_{hashlib.md5(pp.encode()).hexdigest()[:8]}_{fmt}.png")
+            if not os.path.exists(cache):
+                os.makedirs(os.path.dirname(cache), exist_ok=True)
+                subprocess.run([sys.executable, os.path.join(HERMES, "gen_media.py"), "still", pp, cache, "--aspect", asp], check=True)
+            src = cache
+        if not os.path.exists(src): sys.exit(f"plate file not found: {src}")
+        grade = "eq=brightness=0.01:contrast=1.05:saturation=0.92"
+        if src.lower().endswith((".mp4", ".mov", ".webm")) and still is None:
+            is_clip = True
+            cd = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", src]))
+            f = max(1.0, (D + 0.3) / cd)
+            vf = (f"setpts={f:.4f}*PTS,minterpolate=fps=30:mi_mode=blend,scale={W}:{H}:force_original_aspect_ratio=increase,"
+                  f"crop={W}:{H},{grade},format=yuv420p")
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-vf", vf, "-t", f"{D+0.2:.2f}", "-an", "-c:v", "libx264",
+                            "-crf", "14", os.path.join(pdir, "assets", "plate.mp4")], check=True)
+            vid = (f'<video id="plate" class="clip" src="assets/plate.mp4" data-start="0" data-duration="{D}" data-track-index="0" '
+                   f'muted playsinline style="position:absolute;left:0;top:0;width:{W}px;height:{H}px;object-fit:cover;z-index:0"></video>')
+        else:
+            if src.lower().endswith((".mp4", ".mov", ".webm")):
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "2", "-i", src, "-frames:v", "1", os.path.join(pdir, "assets", "_src.png")], check=True)
+                src = os.path.join(pdir, "assets", "_src.png")
+            vf = f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},{grade}"
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-vf", vf, os.path.join(pdir, "assets", "plate.png")], check=True)
+            plate_html = '<div class="layer" id="platewrap"><img id="plateimg" src="assets/plate.png" alt=""></div>'
+    beats = spec["beats"] if still is None else [{"text": still["main"], "fx": "rise", "sub": still.get("sub")}]
+    htmlb = []
+    for i, b in enumerate(beats):
+        b["words"] = tok(b["text"])
+        hh = H * (0.70 if b.get("sub") else 1.0)
+        hero = still is None and i == 0 and H > W
+        rows, sizes, est = layout(b["words"], W, hh, hero=hero)
+        b["est_area"] = est; sy = 1.0
+        if hero:   # ink height ~ sum(row pitch) - last row leading; stretch vertically to reach 54% if needed
+            ink = sum(s * LH for s in sizes) - sizes[-1] * (LH - 0.72)
+            sy = max(1.0, min(1.6, 0.60 * H / ink))
+        subh = ""
+        if b.get("sub"):
+            ss = int(max(46, min(78, min(sizes) * 0.36)))
+            sr = wrap_sub(b["sub"], W, ss, W * COL * 0.95)
+            sub = "<br>".join(" ".join(f'<span class="k">{esc(w.replace("*",""))}</span>' if w.startswith("*") else esc(w) for w in r.split()) for r in sr)
+            subh = f'<div class="sub" style="font-size:{ss}px">{sub}</div>'
+        bh = beat_html(i, rows, sizes, sy, subh)
+        htmlb.append(bh)
+    js, man, stall_t = timeline_js(beats, D)
+    sc1, sc2 = (".90", ".60") if mode == "plate" else (".0", ".0")
+    css = CSS % {"W": W, "H": H, "INK": INK, "LH": LH, "LS": LS, "SC1": sc1, "SC2": sc2, "SW": 62 if H > W else 70,
+                 "SH": 40 if H > W else 56, "SY": 50, "BI": "-22% -16%"}
+    layers = ('<div class="layer" id="base"></div>' + ('<div class="layer" id="brush"></div>' if mode != "plate" else "")
+              + plate_html + '<div class="layer" id="sheen"></div><div class="layer" id="scrim"></div><div class="layer" id="vig"></div>'
+              + '<div class="layer" id="grain"></div>')
+    if is_clip: layers = layers.replace('<div class="layer" id="base"></div>', "")
+    push = "" if is_clip else (f'tl.fromTo("#plateimg",{{scale:1.0}},{{scale:1.09,duration:{stall_t:.3f},ease:"power1.out"}},0);' if plate_html else
+                                f'tl.fromTo("#base",{{scale:1.0}},{{scale:1.06,duration:{stall_t:.3f},ease:"power1.out"}},0);')
+    html = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width={W}, height={H}">
+<title>{esc(spec.get('name','tbtx'))} {fmt}</title>
+<script src="assets/gsap.min.js"></script>
+<style>{css}</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="{D}" data-width="{W}" data-height="{H}" data-fps="30" style="--accent:{acc}">
+{vid}
+<div id="stage" class="clip" data-start="0" data-duration="{D}" data-track-index="1" style="z-index:1">
+{layers}
+{chr(10).join(htmlb)}
+</div>
+</div>
+<script>
+window.__timelines = window.__timelines || {{}};
+const tl = gsap.timeline({{ paused: true }});
+{push}
+tl.fromTo("#sheen",{{xPercent:-18}},{{xPercent:14,duration:{D},ease:"none"}},0);
+tl.fromTo("#grain",{{x:0,y:0}},{{x:-40,y:-28,duration:{D},ease:"steps({int(D*12)})"}},0);
+{js}
+tl.set({{}},{{}},{D});
+window.__timelines["main"] = tl;
+</script>
+</body></html>"""
+    open(os.path.join(pdir, "index.html"), "w").write(html)
+    json.dump({"W": W, "H": H, "duration": D, "accent": acc, "accent_rgb": "rgb(%d,%d,%d)" % tuple(int(acc[i:i + 2], 16) for i in (1, 3, 5)),
+               "beats": [] if still is not None else man, "still_t": round(man[0]["hold"][0] + 0.3, 3) if still is not None else None,
+               "est_area": [round(b["est_area"], 3) for b in beats], "mode": mode,
+               "first_beat_min_h": 0.5 if (still is None and H > W) else None,
+               "copy": [b["text"] for b in beats] + ([b["sub"] for b in beats if b.get("sub")])},
+              open(os.path.join(pdir, "check.json"), "w"), indent=1)
+    json.dump({"id": os.path.basename(pdir), "name": os.path.basename(pdir)}, open(os.path.join(pdir, "meta.json"), "w"))
+    return man
+def run(spec):
+    name = spec["name"]
+    out = spec.get("out") or os.path.join(HERMES, "out", name)
+    mk = os.path.join(out, ".job")
+    if os.path.exists(mk) and open(mk).read().strip() != name:
+        sys.exit(f"REFUSED: {out} belongs to job '{open(mk).read().strip()}'. Use a new name/out; never overwrite another job.")
+    if os.path.isdir(out) and not os.path.exists(mk) and any(f.endswith((".mp4", ".png")) for f in os.listdir(out)):
+        sys.exit(f"REFUSED: {out} already holds outputs from an unknown job. Use a new name/out.")
+    os.makedirs(out, exist_ok=True); open(mk, "w").write(name); results = []
+    D = float(spec.get("duration", 13.5))
+    if spec.get("beats") and not (8 <= D <= 20): sys.exit(f"duration {D} outside 8-20 s")
+    for fmt in spec.get("formats", []):
+        pdir = os.path.join(out, f"project_{fmt}"); build_project(json.loads(json.dumps(spec)), fmt, pdir)
+        mp4 = os.path.join(out, f"{name}_{fmt}.mp4")
+        r = subprocess.run(["hyperframes", "render", pdir, "-o", mp4, "--quality", "delivery", "--fps", "30"], capture_output=True, text=True, stdin=subprocess.DEVNULL)
+        if r.returncode or not os.path.exists(mp4):
+            print(r.stdout[-2000:], r.stderr[-2000:]); sys.exit(f"render failed for {fmt}")
+        results.append((pdir, mp4))
+    for st in spec.get("stills", []):
+        fmt = st.get("format", "4x5"); pdir = os.path.join(out, f"project_{st.get('name','still')}")
+        build_project(json.loads(json.dumps(spec)), fmt, pdir, still=st)
+        man = json.load(open(os.path.join(pdir, "check.json")))
+        png = os.path.join(out, f"{st.get('name','still')}_{fmt}.png")
+        W, H = FMT[fmt]
+        subprocess.run(["node", os.path.join(HERMES, "dom_probe.mjs"), os.path.join(pdir, "index.html"), str(W), str(H), "",
+                        "--shot", str(man["still_t"]), png], check=True, capture_output=True)
+        results.append((pdir, png))
+    bad = 0
+    for pdir, media in results:
+        print(f"== frame_check {media}")
+        r = subprocess.run([sys.executable, os.path.join(HERMES, "frame_check.py"), pdir, media], capture_output=True, text=True)
+        print(r.stdout.strip() or r.stderr.strip())
+        if r.returncode != 0:
+            bad += 1; dst = media + ".FAILED"; os.replace(media, dst)
+            print(f"  -> FAILED output moved to {dst} (not deliverable; no MEDIA line)")
+        else:
+            json.dump({"media": media, "frame_check": "PASS"}, open(media + ".pass.json", "w"))
+    if bad: print(f"BUILD FAILED: {bad} output(s) failed frame_check. Do not deliver them. Send no MEDIA line."); sys.exit(1)
+    print("BUILD PASS: every output passed frame_check.")
+if __name__ == "__main__":
+    spec = dict(POST1); spec["out"] = os.path.join(HERMES, "out", "post1-hyperframes-v2")
+    if len(sys.argv) > 1:
+        user = json.load(open(sys.argv[1])); validate(user)
+        if not user.get("name"): sys.exit("SPEC ERROR: 'name' is required (it sets the output folder hermes/out/<name>).")
+        if "stills" in user and "formats" not in user: user["formats"] = []
+        if "formats" in user and "stills" not in user: user["stills"] = []
+        spec = dict(POST1); spec.pop("out", None); spec.update(user)
+    else: validate(spec)
+    run(spec)

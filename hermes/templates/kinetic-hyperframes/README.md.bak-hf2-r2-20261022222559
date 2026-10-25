@@ -1,0 +1,19 @@
+# kinetic-hyperframes (TBTX approved video template)
+
+One spec -> hyperframes projects (1080x1920, 1080x1080, optional 1080x1350 stills) -> renders -> `frame_check.py`.
+`build.py` exits 1 if any output fails frame_check. Never hand-build layouts or edit generated `index.html`.
+
+    python3 build.py                 # PROOF post 1 defaults (cinematic plate, approved copy)
+    python3 build.py spec.json       # see spec.example.json
+
+Modes: `plate` (default, preferred): a cinematic plate behind the type. Use a still from
+`hermes/gen_media.py still` (the template pushes in slowly) or ONE Veo clip from `gen_media.py clip`
+(reused for every size; 1:1 is a centre crop). No plate given -> build.py generates a still from `plate_prompt`.
+`type`: designed graphite base (gradient, brushed-metal grain, light sweep, vignette), no imagery.
+
+Why 1:1 failed before: hyperframes takes the canvas size ONLY from `data-width` / `data-height` on the root
+`[data-composition-id]` element (fallback 1920x1080). Hermes' hand-built files put the size in a `<body style>`
+and had no root `data-width/height`, so the size was never declared. build.py always writes both attributes.
+
+Output: `<out>/<name>_9x16.mp4`, `<out>/<name>_1x1.mp4`, stills `<out>/<still>_4x5.png`, plus
+`*_contact.png` contact sheets from frame_check. Deliver only after `BUILD PASS`.

@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+"""Cinematic plates for Hermes via Vertex AI (gcloud token, project from gcloud config).
+
+  still: python3 gen_media.py still "<prompt>" out.png [--aspect 9:16|1:1|4:5|16:9]
+  clip:  python3 gen_media.py clip  "<prompt>" out.mp4 [--aspect 9:16|16:9] [--seconds 4|6|8] [--image first_frame.png]
+
+Models (verified on project-4815ed48-b090-4e68-878, 2026-10-22):
+  still -> gemini-2.5-flash-image  (location global, :generateContent)
+  clip  -> veo-3.1-generate-001    (location us-central1, :predictLongRunning, no audio)
+Veo costs credits: keep clips few and short (4-6 s). Veo only does 16:9 and 9:16; 1:1 is a center crop.
+Every prompt gets Erik's style suffix appended (cinematic realism, architectural, brushed metal, fog,
+atmospheric light, photoreal, no people's likeness, no text). Writes <out>.json with the prompt + model."""
+import base64, json, os, subprocess, sys, time, urllib.request, urllib.error
+STYLE = (" Cinematic photoreal still, precise architectural composition, brushed metal and concrete surfaces, "
+         "low fog and atmospheric volumetric light, shallow depth, restrained dark neutral palette with a faint "
+         "magenta practical light accent, anamorphic film look, subtle film grain. Large calm negative space for "
+         "headline type. No people, no faces, no hands, no text, no letters, no logos, no signage, no watermark.")
+def sh(c): return subprocess.check_output(c, text=True).strip()
+def token(): return sh(["gcloud", "auth", "print-access-token"])
+def project(): return os.environ.get("GCP_PROJECT") or sh(["gcloud", "config", "get-value", "project"])
+def post(url, body):
+    req = urllib.request.Request(url, json.dumps(body).encode(), {"Authorization": "Bearer " + token(),
+                                 "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=600) as r: return json.load(r)
+    except urllib.error.HTTPError as e:
+        sys.exit(f"HTTP {e.code}: {e.read().decode()[:800]}")
+def still(prompt, out, aspect):
+    url = (f"https://aiplatform.googleapis.com/v1/projects/{project()}/locations/global/publishers/google/"
+           "models/gemini-2.5-flash-image:generateContent")
+    body = {"contents": [{"role": "user", "parts": [{"text": prompt + STYLE}]}],
+            "generationConfig": {"responseModalities": ["IMAGE"], "imageConfig": {"aspectRatio": aspect}}}
+    r = post(url, body)
+    for c in r.get("candidates", []):
+        for p in c.get("content", {}).get("parts", []):
+            if "inlineData" in p:
+                open(out, "wb").write(base64.b64decode(p["inlineData"]["data"]))
+                meta = {"model": "gemini-2.5-flash-image", "prompt": prompt + STYLE, "aspect": aspect,
+                        "usage": r.get("usageMetadata")}
+                json.dump(meta, open(out + ".json", "w"), indent=1)
+                print(f"still ok {out}  usage={r.get('usageMetadata')}"); return
+    sys.exit("no image returned: " + json.dumps(r)[:800])
+def clip(prompt, out, aspect, secs, image=None):
+    base = (f"https://us-central1-aiplatform.googleapis.com/v1/projects/{project()}/locations/us-central1/"
+            "publishers/google/models/veo-3.1-generate-001")
+    inst = {"prompt": prompt + STYLE + " Very slow, smooth camera push-in; drifting fog; no cuts."}
+    if image:
+        inst["image"] = {"bytesBase64Encoded": base64.b64encode(open(image, "rb").read()).decode(),
+                         "mimeType": "image/png"}
+    body = {"instances": [inst], "parameters": {"aspectRatio": aspect, "durationSeconds": int(secs),
+            "sampleCount": 1, "generateAudio": False, "resolution": "1080p", "personGeneration": "dont_allow"}}
+    op = post(base + ":predictLongRunning", body)["name"]; print("veo job", op, flush=True)
+    for _ in range(90):
+        time.sleep(10)
+        r = post(base + ":fetchPredictOperation", {"operationName": op})
+        if r.get("done"):
+            if "error" in r: sys.exit("veo error: " + json.dumps(r["error"]))
+            v = r["response"]["videos"][0]
+            open(out, "wb").write(base64.b64decode(v["bytesBase64Encoded"]))
+            json.dump({"model": "veo-3.1-generate-001", "prompt": inst["prompt"], "aspect": aspect, "seconds": secs,
+                       "first_frame": image, "op": op}, open(out + ".json", "w"), indent=1)
+            print(f"clip ok {out}"); return
+    sys.exit("veo timeout " + op)
+if __name__ == "__main__":
+    a = sys.argv[1:]
+    def opt(k, d=None):
+        return a[a.index(k) + 1] if k in a else d
+    if len(a) < 3 or a[0] not in ("still", "clip"): sys.exit(__doc__)
+    if a[0] == "still": still(a[1], a[2], opt("--aspect", "9:16"))
+    else: clip(a[1], a[2], opt("--aspect", "9:16"), opt("--seconds", "6"), opt("--image"))

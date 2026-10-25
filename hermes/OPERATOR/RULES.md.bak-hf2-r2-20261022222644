@@ -1,0 +1,71 @@
+# RULES (copy, brand, design, video, channels, ops)
+Sources: Grok Bot memory (2026-10-22), hermes/COPY-RULES.md, COPY-STYLE-GUIDE.md, DESIGN-GUIDE.md v4, HERMES-PROOF-BRIEF.md. Erik treats most copy guidance as evolving preferences until launch; the items here are the current standing rules. If two sources conflict, newer Erik instruction wins; log it in DECISIONS-LOG.md.
+
+## Copy
+- Plain speech that explains what the app or screen shows. Write the straight description, just shorter.
+- No reader-directed or possessive you/your/you're/yourself. Neutral, system-level lines.
+- Contractions welcome. No em dashes. No emojis unless asked. No trademark symbols.
+- The term is Digital Friction. Never "Fog" or "Digital Fog". Never "hardens into".
+- Never "desk", "approval package", "held". No vague nouns: "one place", "needs", "the fix", "see the job". No "It's..." lines that do not say what "it" is.
+- Banned: TRACE/tracing (renamed PROOF), leak, bleed, breaks down, completion review, walk with me, readout, load (as metaphor).
+- No rhetorical questions. No unbacked stats. No tool or vendor names in public copy.
+- Agency terms: client approvals, projects, rounds, briefs, delivery. "Follow-up" means the project moving through the process, never sales follow-up.
+- Hooks blame the system, never the reader. Never say AI was hired or people work for AI ("people are assisting AI" is allowed). "Context Coordinator" is never a job title.
+- Spelling: BizBot Mrktng (not Marketing).
+- Approved lines (word for word): "AI tools increase output, but context doesn't keep up, so humans fill the gap." / "So no one has to spend hours coordinating context." / "AI was meant to assist people. But people are assisting AI." / "PROOF shows where the work stalls." / term "The Context Gap".
+- Process: humanizer skill, then `python3 /root/tbtx-next-ecosystem/hermes/copy_check.py FILE` until PASS. copy_check does not catch every rule above; read manually too.
+
+## Brand
+- Wordmarks lowercase in MuseoModerno: ehb, tbtx, bbai, bbm.
+- Colors: ErikHBush #383838, TBTX #d01e98, BBAI #b37157, BBM #69f2c4.
+- Brand colors are accents only (60-30-10; about 10% of a frame). Color the key word as text, never a highlight block behind it. Magenta text on black is fine.
+- No grey low-contrast text. No default plain black background as the whole look; use a designed neutral or cinematic base.
+
+## Brand chain and strip words
+- tbtx = DIAGNOSE (PROOF, Friction Audit). bbai = BUILD (BizBlueprint, Context Keystones). bbm = GROW, in mint #69f2c4, tagline "grow with the flow".
+- Never name FLOW Agent AS (or any internal agent) on client pages.
+- BBM copy pays off the chain: BBAI builds structure that keeps context with the work; BBM runs on that structure.
+- Keep "from first brief to final delivery" in agency-facing copy.
+
+## Visual references (Erik's taste)
+- Cinematic realism, precise architectural art, brushed metal, photorealistic art.
+- Reference 1: the video of an Asian couple walking down a street among fog monsters (mood reference only; the copy term is still Digital Friction).
+- Reference 2: "AI Created a Job Nobody Wanted" task-logos.jpg image.
+- Built on real design principles: grid, type scale, clear hierarchy, strong contrast. Nothing "thrown on a page".
+
+## Visuals and video
+- No URL, domain or "visit" line in any image or video. The link goes in the caption ("link in bio" on Instagram).
+- Not the thin accent line plus small caption style.
+- Bold cinematic kinetic type; the motion acts out the idea.
+- AI imagery and video via Vertex are allowed and preferred for cinematic work (Erik, 2026-10-22): hermes/gen_media.py, stills with gemini-3.1-flash-image, at most one Veo clip per video (veo-3.1-lite). No people's likeness. Real audio only (no synthetic voice or generated music unless Erik supplies it).
+- Video and static designs are made ONLY with templates/kinetic-hyperframes (build.py / kinetic.py) and must print frame_check PASS. Never claim checks passed without that output.
+- Every visual passes the DESIGN-GUIDE.md pre-flight checklist.
+- kinetic.py (fixed 2026-10-22) always sets the key word as magenta text, never a block; refuses only under 3:1. DESIGN-GUIDE.md updated to match.
+- kinetic.py v5 (2026-10-22) delegates to templates/kinetic-hyperframes: cinematic plate or graphite base, near-white type, big centred type with 8% margins, frame_check mandatory (non-zero exit on FAIL).
+
+## Channels
+- Personal accounts (Erik H Bush Instagram, personal LinkedIn, ErikHBush X) may carry PROOF posts. CTA is always transformby10x.ai/proof, never erikhbush.com. (Supersedes the 2026-10-19 Brain note that personal channels link to erikhbush.com.)
+- erikhbush.com content is its own concepts (circumstances, industry commentary); never adapted TBTX copy, never mentions PROOF.
+- X company handle @Transformby10x. Never @Trnsfrmby10x.
+- Postiz: drafts only. Never schedule or publish without Erik.
+- Never send email or messages unasked. xurl and himalaya are never used to send.
+
+## Ops
+- Sites are hosted on the Netcup VPS. Vercel is for previews only. Budget is zero.
+- Deliverables go to the work Drive (erik@transformby10x.ai, shared drive TBTX-BBAI-BBM). Never trash anything on Drive; archive instead. Back up before deleting or editing.
+- Erik reviews quality himself; do not self-approve.
+- Never write secrets into docs, the Brain, or chat.
+
+## Funnel
+- PROOF app (free, 15 answers) > the result > Friction Audit booking (main goal). Any revenue counts.
+
+## Content Foundation (PROOF and transformby10x.ai)
+- Goal: people take PROOF, get the result, book a Friction Audit. Any revenue-generating action counts.
+- Audience: small to mid-size agencies (big agencies stall on internal politics). Sharpest pain: entrepreneur owners, and producers and account managers, who today act as the human routing hub for context.
+- Whether AI is used for admin or for creative/production changes how the gap shows up.
+- The three moments that resonate (build content around these):
+  1. AI meeting notes and email updates moving through routing; someone still has to carry them to the right person.
+  2. Versions and rights tracking on the creative server or DAM.
+  3. Templates and repeatable skills for briefs, folder structure and workflow, so the process is predictable.
+- Core message: the problem is not a shortage of AI tools; it is infrastructure misalignment. Context architecture closes it. Clients keep their existing tools ("We do not sell software. We align existing tools.").
+- Plan in progress: goal, ranked skills, content pillars, resources, prompts and a weekly routine with Hermes, adapted from a friend's YouTube/AI-learning framework.

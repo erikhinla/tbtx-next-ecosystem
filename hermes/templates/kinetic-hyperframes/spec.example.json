@@ -1,0 +1,21 @@
+{
+  "name": "post1",
+  "out": "/root/tbtx-next-ecosystem/hermes/out/post1-example",
+  "duration": 13.5,
+  "accent": "#d01e98",
+  "mode": "plate",
+  "plate": {"still": "/root/tbtx-next-ecosystem/hermes/out/plates/gap_9x16.png"},
+  "plate_prompt": "A vast brushed-steel atrium seen from a low angle: two monumental metal walls separated by a narrow vertical gap of cold light, fog pooling on a polished concrete floor.",
+  "beats": [
+    {"text": "AI tools increase *output*,", "fx": "grow"},
+    {"text": "but context doesn't keep up,", "fx": "lag"},
+    {"text": "so humans fill the gap.", "fx": "close"},
+    {"text": "*The Context Gap*", "fx": "split"},
+    {"text": "PROOF shows where the work stalls.", "fx": "stall"}
+  ],
+  "formats": ["9x16", "1x1"],
+  "stills": [
+    {"format": "4x5", "name": "post1_static", "main": "*The Context Gap*",
+     "sub": "AI tools increase *output*, but context doesn't keep up, so humans fill the gap."}
+  ]
+}

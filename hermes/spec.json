@@ -1,0 +1,20 @@
+{
+  "name": "hermes-test1-typeonly",
+  "mode": "plate",
+  "plate_prompt": "A stark white architectural wall bathed in harsh minimalist light.",
+  "formats": ["9x16"],
+  "beats": [
+    {"text": "AI tools increase *output*.", "fx": "grow"},
+    {"text": "But context doesn't keep up.", "fx": "lag"},
+    {"text": "So humans fill the *gap*.", "fx": "close"},
+    {"text": "The context gap.", "fx": "split"},
+    {"text": "tbtx closes it.", "fx": "stall"}
+  ],
+  "approved_copy": [
+    "AI tools increase *output*.",
+    "But context doesn't keep up.",
+    "So humans fill the *gap*.",
+    "The context gap.",
+    "tbtx closes it."
+  ]
+}

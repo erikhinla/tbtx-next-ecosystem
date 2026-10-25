@@ -2,7 +2,7 @@
   "version": 1,
   "site": "https://www.transformby10x.ai",
   "fonts": {
-    "googleCss": "https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;500;700&display=swap"
+    "googleCss": "https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=MuseoModerno:wght@700&family=Outfit:wght@400;500;700&display=swap"
   },
   "brands": {
     "tbtx": {
@@ -16,11 +16,11 @@
         "bgDeep": "#070B10",
         "text": "#F2F1EA",
         "muted": "#A7ADA6",
-        "accent": "#D6B46E",
+        "accent": "#d01e98",
         "line": "rgba(242,241,234,0.16)"
       },
       "fonts": {
-        "display": "'Outfit', 'Archivo Black', Arial, sans-serif",
+        "display": "'MuseoModerno', 'Outfit', 'Archivo Black', Arial, sans-serif",
         "macro": "'Archivo Black', 'Outfit', Arial, sans-serif",
         "body": "'DM Sans', 'Outfit', Arial, sans-serif",
         "mono": "'JetBrains Mono', ui-monospace, Menlo, monospace"
@@ -73,64 +73,177 @@
     }
   },
   "platforms": {
-    "instagram-square": { "label": "Instagram feed", "width": 1080, "height": 1080 },
-    "instagram-story": { "label": "Instagram story", "width": 1080, "height": 1920 },
-    "tiktok": { "label": "TikTok cover", "width": 1080, "height": 1920 },
-    "linkedin": { "label": "LinkedIn post", "width": 1200, "height": 627 },
-    "x": { "label": "X post", "width": 1600, "height": 900 },
-    "facebook": { "label": "Facebook post", "width": 1200, "height": 630 }
+    "instagram-square": {
+      "label": "Instagram feed",
+      "width": 1080,
+      "height": 1080
+    },
+    "instagram-story": {
+      "label": "Instagram story",
+      "width": 1080,
+      "height": 1920
+    },
+    "tiktok": {
+      "label": "TikTok cover",
+      "width": 1080,
+      "height": 1920
+    },
+    "linkedin": {
+      "label": "LinkedIn post",
+      "width": 1200,
+      "height": 627
+    },
+    "x": {
+      "label": "X post",
+      "width": 1600,
+      "height": 900
+    },
+    "facebook": {
+      "label": "Facebook post",
+      "width": 1200,
+      "height": 630
+    }
   },
   "templates": {
     "quote": {
       "label": "Quote",
       "fields": {
-        "quote": { "required": true, "maxChars": 160 },
-        "author": { "required": false, "maxChars": 60 },
-        "role": { "required": false, "maxChars": 60 }
+        "quote": {
+          "required": true,
+          "maxChars": 160
+        },
+        "author": {
+          "required": false,
+          "maxChars": 60
+        },
+        "role": {
+          "required": false,
+          "maxChars": 60
+        }
       },
-      "defaults": { "quote": "You don't need more AI. Clear the fog.", "author": "Erik H. Bush", "role": "Founder, TransformBy10X" }
+      "defaults": {
+        "quote": "You don't need more AI. Clear the fog.",
+        "author": "Erik H. Bush",
+        "role": "Founder, TransformBy10X"
+      }
     },
     "stat": {
       "label": "Stat",
       "fields": {
-        "kicker": { "required": false, "maxChars": 40 },
-        "stat": { "required": true, "maxChars": 8 },
-        "label": { "required": true, "maxChars": 90 },
-        "source": { "required": false, "maxChars": 80 }
+        "kicker": {
+          "required": false,
+          "maxChars": 40
+        },
+        "stat": {
+          "required": true,
+          "maxChars": 8
+        },
+        "label": {
+          "required": true,
+          "maxChars": 90
+        },
+        "source": {
+          "required": false,
+          "maxChars": 80
+        }
       },
-      "defaults": { "kicker": "Operating reality", "stat": "10X", "label": "More leverage when the system is built before the tools.", "source": "" }
+      "defaults": {
+        "kicker": "Operating reality",
+        "stat": "10X",
+        "label": "More leverage when the system is built before the tools.",
+        "source": ""
+      }
     },
     "tip": {
       "label": "Tip / carousel slide",
       "fields": {
-        "series": { "required": false, "maxChars": 40 },
-        "index": { "required": false, "maxChars": 3 },
-        "total": { "required": false, "maxChars": 3 },
-        "title": { "required": true, "maxChars": 70 },
-        "body": { "required": true, "maxChars": 220 }
+        "series": {
+          "required": false,
+          "maxChars": 40
+        },
+        "index": {
+          "required": false,
+          "maxChars": 3
+        },
+        "total": {
+          "required": false,
+          "maxChars": 3
+        },
+        "title": {
+          "required": true,
+          "maxChars": 70
+        },
+        "body": {
+          "required": true,
+          "maxChars": 220
+        }
       },
-      "defaults": { "series": "Clear the fog", "index": "1", "total": "5", "title": "Map the work before you automate it.", "body": "List every handoff in one process. The gaps you find are where AI quietly adds work instead of removing it." }
+      "defaults": {
+        "series": "Clear the fog",
+        "index": "1",
+        "total": "5",
+        "title": "Map the work before you automate it.",
+        "body": "List every handoff in one process. The gaps you find are where AI quietly adds work instead of removing it."
+      }
     },
     "offer": {
       "label": "Offer / CTA",
       "fields": {
-        "kicker": { "required": false, "maxChars": 40 },
-        "headline": { "required": true, "maxChars": 80 },
-        "body": { "required": false, "maxChars": 180 },
-        "cta": { "required": true, "maxChars": 32 },
-        "url": { "required": false, "maxChars": 60 }
+        "kicker": {
+          "required": false,
+          "maxChars": 40
+        },
+        "headline": {
+          "required": true,
+          "maxChars": 80
+        },
+        "body": {
+          "required": false,
+          "maxChars": 180
+        },
+        "cta": {
+          "required": true,
+          "maxChars": 32
+        },
+        "url": {
+          "required": false,
+          "maxChars": 60
+        }
       },
-      "defaults": { "kicker": "Free diagnostic", "headline": "Find the fog in your operation.", "body": "A short scan that shows where AI is creating work instead of removing it.", "cta": "Take the scan", "url": "transformby10x.ai/scan" }
+      "defaults": {
+        "kicker": "Free diagnostic",
+        "headline": "Find the fog in your operation.",
+        "body": "A short scan that shows where AI is creating work instead of removing it.",
+        "cta": "Take the scan",
+        "url": "transformby10x.ai/scan"
+      }
     },
     "announcement": {
       "label": "Announcement",
       "fields": {
-        "kicker": { "required": false, "maxChars": 40 },
-        "headline": { "required": true, "maxChars": 90 },
-        "body": { "required": false, "maxChars": 200 },
-        "date": { "required": false, "maxChars": 40 }
+        "kicker": {
+          "required": false,
+          "maxChars": 40
+        },
+        "headline": {
+          "required": true,
+          "maxChars": 90
+        },
+        "body": {
+          "required": false,
+          "maxChars": 200
+        },
+        "date": {
+          "required": false,
+          "maxChars": 40
+        }
       },
-      "defaults": { "kicker": "Now live", "headline": "The TransformBy10X ecosystem is open.", "body": "Diagnosis, architecture and governed execution for teams that want results from AI, not more noise.", "date": "" }
+      "defaults": {
+        "kicker": "Now live",
+        "headline": "The TransformBy10X ecosystem is open.",
+        "body": "Diagnosis, architecture and governed execution for teams that want results from AI, not more noise.",
+        "date": ""
+      }
     }
   }
 }

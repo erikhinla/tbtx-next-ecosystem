@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+"""Kinetic-type MP4 renderer v4 (no browser, no AI). PIL frames -> ffmpeg.
+Follows hermes/DESIGN-GUIDE.md:
+  * neutral background (60%), neutral type (30%), brand magenta as a ~10% ACCENT only
+  * one LEFT alignment axis on a 12-col grid, platform safe zones (organic 9:16 box by default)
+  * modular type scale (1.333), one dominant line per frame, balanced wraps with no orphan word
+  * WCAG contrast enforced for every color, accent coverage measured per frame (warn > 15%)
+  * one move at a time, ease-out, holds sized to reading time
+  * end card = headline + lowercase tbtx wordmark. NO URL ON SCREEN (links go in the caption).
+
+Usage: python3 kinetic.py spec.json out_basename            -> out_1x1.mp4, out_9x16.mp4 (30fps)
+       python3 kinetic.py spec.json out_basename --check    (contrast report only, no render)
+spec (all keys optional except lines):
+ {"bg":"#111111","fg":"#f5f5f2","muted":"#8c8c8c","accent":"#d01e98","seconds":9,
+  "lines":[{"text":"*OUTPUT*","fx":"climb"},
+           {"text":"CONTEXT","fx":"stay","tone":"muted"},
+           {"text":"The Context Gap","fx":"rise"}],
+  "end":"The Context Gap",       # end-card headline (default: last line)
+  "action":"",                   # optional short NON-URL line on the end card (default none)
+  "ads":false}                   # true = Meta paid-Reels safe zone (bottom 35%)
+Lines: plain string = {"fx":"rise"}. *stars* mark accent words. "tone":"muted" sets a line in the
+muted neutral (a de-emphasized, left-behind line). "hero":true forces the dominant line.
+Hero: the climb line if any, else the first line with an *accent*, else line 1. Hero and end
+headline are display sizes fitted to the column; all other text snaps to the type scale.
+fx: rise (slides up 30px-ish), slam (lands from 1.15x), pop (small overshoot), stay (lands, holds),
+    split (word gaps open slightly), climb (enters at support size beside the line below it, then,
+    once the next line has landed, grows to hero size and lifts away, opening a gap: the idea of
+    one thing growing while the other is left behind).
+Colors: fg/muted below 4.5:1 on bg are auto-corrected (refuse if impossible). Accent words are always
+set as accent-colored TEXT, never a block (Erik rule 2026-10-22; magenta text on black is fine).
+Refused only if accent is under 3:1 on bg. A "cta" key from older specs is ignored."""
+import json, sys, subprocess, os
+from PIL import Image, ImageDraw, ImageFont
+D=os.path.dirname(os.path.abspath(__file__))
+BOLD=os.path.join(D,"fonts","ArchivoBlack.ttf"); MARK=os.path.join(D,"fonts","MuseoModerno.ttf")
+INK=(17,17,17); WHITE=(255,255,255)
+SCALE=[24,32,43,57,76,101,135,180,240,320]   # 1.333 modular scale at 1080 wide
+# safe area fractions (left, top, right, bottom)
+SAFE={"1x1":(0.0833,0.0833,0.0833,0.0833),
+      "9x16":(0.06,0.12,0.15,0.25),          # organic Reels/TikTok/Shorts box
+      "9x16ads":(0.06,0.14,0.15,0.35)}       # Meta paid Reels
+FC={}
+def font(s):
+    s=max(8,int(round(s)))
+    if s not in FC: FC[s]=ImageFont.truetype(BOLD,s)
+    return FC[s]
+def hexc(h): h=h.lstrip("#"); return tuple(int(h[i:i+2],16) for i in (0,2,4))
+def lum(c):
+    f=lambda v:(v/255)/12.92 if v/255<=0.03928 else ((v/255+0.055)/1.055)**2.4
+    r,g,b=map(f,c); return 0.2126*r+0.7152*g+0.0722*b
+def ratio(a,b):
+    la,lb=sorted((lum(a),lum(b)),reverse=True); return (la+0.05)/(lb+0.05)
+def cl(t): return max(0.0,min(1.0,t))
+def out3(t): return 1-(1-cl(t))**3
+def inout(t): t=cl(t); return 4*t*t*t if t<0.5 else 1-(-2*t+2)**3/2
+def back(t): t=cl(t); c=1.2; return 1+(c+1)*(t-1)**3+c*(t-1)**2
+def mix(a,b,k): return tuple(int(round(a[j]+(b[j]-a[j])*k)) for j in range(3))
+def norm(l): return {"text":l,"fx":"rise"} if isinstance(l,str) else dict(l)
+def plain(t): return t.replace("*","")
+def colors(spec,log=True):
+    bg=hexc(spec.get("bg","#111111"))
+    dflt_fg="#f5f5f2" if lum(bg)<0.18 else "#111111"
+    dflt_mu="#8c8c8c" if lum(bg)<0.18 else "#5c5c5c"
+    fg=hexc(spec.get("fg",dflt_fg)); mu=hexc(spec.get("muted",dflt_mu)); ac=hexc(spec.get("accent","#d01e98"))
+    notes=[]
+    def fix(c,name):
+        if ratio(c,bg)>=4.5: return c
+        best=max((WHITE,INK),key=lambda x:ratio(x,bg))
+        if ratio(best,bg)<4.5: sys.exit(f"REFUSED: nothing reaches 4.5:1 on bg {spec.get('bg')}")
+        notes.append(f"{name} {ratio(c,bg):.2f}:1 -> auto-corrected to {ratio(best,bg):.2f}:1"); return best
+    fg=fix(fg,"fg"); mu=fix(mu,"muted")
+    # Erik rule 2026-10-22: the key word is always accent-colored TEXT, never a block.
+    amode=("text",ac)
+    if ratio(ac,bg)<3.0: sys.exit(f"REFUSED: accent {spec.get('accent')} is under 3:1 on bg; pick a darker or lighter bg")
+    if ratio(ac,bg)<4.5: notes.append(f"accent text {ratio(ac,bg):.2f}:1 on bg (display size, passes WCAG large-text 3:1)")
+    if log:
+        print(f"contrast fg {ratio(fg,bg):.2f}:1, muted {ratio(mu,bg):.2f}:1, accent-on-bg {ratio(ac,bg):.2f}:1")
+        for n in notes: print("  ",n)
+        if lum(bg)>0.05 and lum(bg)<0.6 and min(abs(a-b) for a,b in zip(bg,ac))<40:
+            print("  WARN: background looks like a brand color; brand colors are accents only")
+    return bg,fg,mu,amode
+def wrapb(txt,sz,colw,maxrows=3):
+    """Best wrap at size sz: rows<=maxrows, all fit, no single-word last row when avoidable."""
+    ws=txt.split(); f=font(sz); W_=lambda r:f.getlength(plain(r))
+    best=None
+    def splits(i,k):
+        if k==1: yield [ws[i:]]; return
+        for j in range(i+1,len(ws)):
+            for rest in splits(j,k-1): yield [ws[i:j]]+rest
+    for k in range(1,min(maxrows,len(ws))+1):
+        for sp in splits(0,k):
+            rows=[" ".join(r) for r in sp]
+            if max(W_(r) for r in rows)>colw: continue
+            orphan=1 if (k>1 and len(sp[-1])==1 and len(ws)>=3) else 0
+            cost=(k,orphan,max(W_(r) for r in rows)-min(W_(r) for r in rows))
+            cost=(orphan,k,cost[2])
+            if best is None or cost<best[0]: best=(cost,rows)
+    return best[1] if best else None
+def fit_step(txt,colw,top,maxrows=1,need_no_orphan=False):
+    for i in range(top,-1,-1):
+        r=wrapb(txt,SCALE[i],colw,maxrows)
+        if r and (not need_no_orphan or not (len(r)>1 and len(r[-1].split())==1 and len(txt.split())>=3)): return i,r
+    return 0,[txt]
+def render(spec,W,H,fmt,out):
+    fps=30; n=int(float(spec.get("seconds",9))*fps)
+    bg,fg,mu,amode=colors(spec,log=False)
+    lines=[norm(l) for l in spec["lines"]]
+    l_,t_,r_,b_=SAFE[fmt]; x0=W*l_; colw=W*(1-l_-r_); top=H*t_; bot=H*(1-b_)
+    hero=next((i for i,x in enumerate(lines) if x.get("hero")),None)
+    if hero is None: hero=next((i for i,x in enumerate(lines) if x.get("fx")=="climb"),None)
+    if hero is None: hero=next((i for i,x in enumerate(lines) if "*" in x["text"]),0)
+    padf=0.16   # accent block side padding (x size)
+    def tw(txt,s): return font(s).getlength(plain(txt))+(2*padf*s if amode[0]=="block" and "*" in txt else 0)
+    # hero: display size FITTED to 95% of the column (cap 320); everything else snaps to SCALE
+    HS=320
+    while HS>60 and tw(lines[hero]["text"],HS)>colw*0.95: HS-=2
+    si=max(i for i in range(len(SCALE)) if SCALE[i]<=HS/1.7)
+    sizes=[];rows=[]
+    for j,x in enumerate(lines):
+        if j==hero: sizes.append(HS); rows.append([x["text"]]); continue
+        i,rw=fit_step(x["text"],colw,si,2,True); sizes.append(SCALE[i]); rows.append(rw)
+    climb=[x.get("fx")=="climb" for x in lines]
+    # final-state vertical layout (baselines); group gap = SCALE[2], hero gap = SCALE[3]
+    gapH=SCALE[3]; gapS=SCALE[1]
+    base=[];y=0
+    for j,s in enumerate(sizes):
+        if j: y+=(HS*1.0 if climb[j-1] else gapH) if (j==hero or j-1==hero) else gapS   # climb opens a visible gap
+        y+=s*0.74                     # cap height approx -> baseline of first row
+        base.append(y); y+=s*1.02*(len(rows[j])-1)+s*0.06
+    blockh=y; y0=top+(bot-top)*0.5-blockh/2
+    base=[y0+v for v in base]
+    # timeline: one move at a time
+    st,per,dur,grow=0.3,0.85,0.5,1.4
+    start=[0]*len(lines); gstart={}; cur=st
+    for j in range(len(lines)):
+        start[j]=cur; cur+=per
+        if j>0 and climb[j-1]:
+            gstart[j-1]=start[j]+dur+0.35; cur=gstart[j-1]+grow+0.35
+    statement_end=cur-per+dur
+    secs=n/fps; endT=max(statement_end+1.8,secs-2.6); fade=0.4
+    # end card
+    endtxt=spec.get("end") or plain(lines[-1]["text"]); action=spec.get("action") or ""
+    # end headline: fitted display size, <=3 rows, no orphan word, cap 240
+    es=240
+    while es>60:
+        erows=wrapb(endtxt,es,colw*0.95,3)
+        if erows and not (len(erows)>1 and len(erows[-1].split())==1 and len(endtxt.split())>=3): break
+        es-=2
+    ms=SCALE[5]; asz=SCALE[3]
+    mark=ImageFont.truetype(MARK,ms)
+    try: mark.set_variation_by_axes([700])
+    except Exception: pass
+    eh=es*0.74+es*1.02*(len(erows)-1)
+    ey=top+(bot-top)*0.45-eh/2+es*0.74
+    my=bot
+    acpix=[]
+    p=subprocess.Popen(["ffmpeg","-y","-loglevel","error","-f","rawvideo","-pix_fmt","rgb24","-s",f"{W}x{H}","-r",str(fps),"-i","-",
+        "-c:v","libx264","-pix_fmt","yuv420p","-crf","18","-movflags","+faststart",out],stdin=subprocess.PIPE)
+    def draw_row(d,txt,x,y,s,col,k,spread=0.0):
+        f=font(s); gap=f.getlength(" ")+spread
+        for w in txt.split():
+            a=w.startswith("*"); w=w.strip("*"); wl=f.getlength(w)
+            if a and amode[0]=="block":
+                px=padf*s
+                d.rectangle((x,y-s*0.86,x+wl+2*px,y+s*0.17),fill=mix(bg,amode[1],k))
+                d.text((x+px,y),w,font=f,fill=mix(amode[1],amode[2],k) if k<1 else amode[2],anchor="ls"); x+=wl+2*px+gap
+            else:
+                d.text((x,y),w,font=f,fill=mix(bg,amode[1] if a else col,k),anchor="ls"); x+=wl+gap
+    for i in range(n):
+        t=i/fps; im=Image.new("RGB",(W,H),bg); d=ImageDraw.Draw(im)
+        ok_=1-out3((t-endT)/fade); ik=out3((t-endT-fade*0.6)/0.5)
+        if ok_>0:
+            for j,l in enumerate(lines):
+                lt=t-start[j]
+                if lt<=0: continue
+                fx=l.get("fx","rise"); k=out3(lt/dur); s=sizes[j]; sc=1.0; dy=0.0; sp=0.0; al=k; by=base[j]
+                col=mu if l.get("tone")=="muted" else fg
+                if fx=="climb":
+                    S0=sizes[j+1] if j+1<len(lines) else SCALE[si]; nb=base[j+1]-sizes[j+1]*0.74 if j+1<len(lines) else base[j]+gapH
+                    b0=nb-gapS*0.6                       # starts tight against the next line
+                    g=inout((t-gstart.get(j,1e9))/grow)
+                    s=S0+(HS-S0)*g; by=b0+(base[j]-b0)*g; dy=(1-k)*S0*0.3
+                elif fx=="rise": dy=(1-k)*s*0.3
+                elif fx=="slam": sc=1+0.15*(1-out3(lt/0.3)); al=cl(lt/0.12)
+                elif fx=="pop": sc=max(0.6,back(lt/0.45)); al=cl(lt/0.12)
+                elif fx=="stay": dy=(1-k)*s*0.3
+                elif fx=="split": dy=(1-k)*s*0.2; sp=out3((lt-0.2)/0.6)*s*0.10
+                for ri,row in enumerate(rows[j]):
+                    draw_row(d,row,x0,by+ri*s*1.02+dy,s*sc,col,al*ok_,sp)
+        if ik>0:
+            c=mix(bg,fg,ik)
+            for ri,row in enumerate(erows): draw_row(d,row,x0,ey+ri*es*1.02,es,fg,ik)
+            if action: d.text((x0,ey+es*1.02*(len(erows)-1)+es*0.3+asz*1.4),action,font=font(asz),fill=mix(bg,mu,ik),anchor="ls")
+            d.text((x0,my),"tbtx",font=mark,fill=c,anchor="ls")
+        if i%10==0:
+            px_=im.resize((W//8,H//8)).getdata(); a=amode[1]
+            acpix.append(sum(1 for q in px_ if abs(q[0]-a[0])+abs(q[1]-a[1])+abs(q[2]-a[2])<60)/len(px_))
+        p.stdin.write(im.tobytes())
+    p.stdin.close(); p.wait()
+    if p.returncode: sys.exit("ffmpeg failed")
+    mx=max(acpix) if acpix else 0
+    print(f"ok {out}  accent coverage max {mx*100:.1f}% of frame"+("  WARN: accent over 15%, brand color must stay an accent" if mx>0.15 else ""))
+if __name__=="__main__":
+    spec=json.load(open(sys.argv[1])); b=sys.argv[2]
+    if "cta" in spec: print("  note: 'cta' ignored, URLs go in the caption, never on screen")
+    colors(spec)
+    if "--check" in sys.argv: sys.exit(0)
+    render(spec,1080,1080,"1x1",b+"_1x1.mp4")
+    render(spec,1080,1920,"9x16ads" if spec.get("ads") else "9x16",b+"_9x16.mp4")

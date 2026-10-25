@@ -1,0 +1,35 @@
+{
+  "name": "hermes-test1-9x16-build",
+  "mode": "plate",
+  "plate": {
+    "clip": "/root/tbtx-next-ecosystem/hermes/out/hermes-test1-9x16/plate.mp4"
+  },
+  "formats": [
+    "9x16"
+  ],
+  "duration": 15,
+  "approved_copy": [
+    "AI tools increase output.",
+    "But context doesn't keep up.",
+    "So humans fill the gap.",
+    "The context gap.",
+    "tbtx closes it."
+  ],
+  "beats": [
+    {
+      "text": "AI tools increase *output*."
+    },
+    {
+      "text": "But context doesn't keep up."
+    },
+    {
+      "text": "So humans fill the *gap*."
+    },
+    {
+      "text": "The context gap."
+    },
+    {
+      "text": "tbtx closes it."
+    }
+  ]
+}
