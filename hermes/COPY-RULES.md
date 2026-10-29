@@ -13,6 +13,9 @@ Read before any copy task. On every draft, first run the `humanizer` skill (stri
 ## Banned words and phrases
 TRACE, tracing, leak, bleed, breaks down, completion review, walk with me, readout.
 
+## Retired language (with replacement)
+- "Context Rot" is retired. Say "Context Erosion" ("context rot" becomes "context erosion").
+
 ## Claims and naming
 - Name no tools or vendors.
 - No unbacked stats.
